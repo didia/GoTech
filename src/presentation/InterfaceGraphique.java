@@ -5,7 +5,14 @@ import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import presentation.IconicButton.*;
+
 public class InterfaceGraphique extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public InterfaceGraphique() {
 		super("Intervensim");
 		
@@ -17,7 +24,7 @@ public class InterfaceGraphique extends JFrame {
 		panel.setMinimumSize(new Dimension(50, 50));
 		panel_1.add(panel);
 		
-		JButton btnAjouterNoeud = new JButton("Ajouter Noeud");
+		IconicButton btnAjouterNoeud = new IconicButton("Ajouter Noeud", "/images/NoeudBleu.ico");
 		panel.add(btnAjouterNoeud);
 		btnAjouterNoeud.setPreferredSize(new Dimension(103, 32));
 		btnAjouterNoeud.setBackground(UIManager.getColor("Button.darkShadow"));
