@@ -1,33 +1,38 @@
 package domainePartie1;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Queue;
+import java.util.LinkedList;
 
 public class StrategieGestion {
 
-	private Queue<Urgence> m_listeUrgence ;
+	private ArrayList<Urgence> m_listeUrgence;
 	private Urgence m_urgenceActuelle;
-	private List<Urgence> m_listeUrgenceTraitee = new ArrayList<Urgence>();
+	private ArrayList<Urgence> m_listeUrgenceTraitee;
 
-	//constructeur par defaut 
-	public StrategieGestion()
-	{
-		//TODO
+	// constructeur sans paramettre
+	public StrategieGestion() {
+		this.m_listeUrgence = new ArrayList<Urgence>();
+		this.m_urgenceActuelle = new Urgence();
+		this.m_listeUrgenceTraitee = new ArrayList<Urgence>();
 	}
 
-	public StrategieGestion(Queue<Urgence> p_listDesUrgence,
-			Urgence p_urgenceActuelle, List<Urgence> p_listeUrgenceTraitee) {
-		this.m_listeUrgence = p_listDesUrgence;
-		this.m_urgenceActuelle = p_urgenceActuelle;
-		this.m_listeUrgenceTraitee = p_listeUrgenceTraitee;
-	}
-	
-	//retourne l'urgenc actuelle
+	// retourne l'urgenc actuelle
 	public Urgence reqUrgencActuelle() {
 		return this.m_urgenceActuelle;
 	}
-	//determine si toute les urgence on été dejas traitées  ou pas 
+
+	// renvoyer sous forme de liste les urgence les urgence non traitées
+	public ArrayList<Urgence> reqListeUrgence() {
+		return this.m_listeUrgence;
+	}
+
+	public ArrayList<Urgence> reqListerUrgencetraitee() {
+		return this.m_listeUrgenceTraitee;
+	}
+
+	// determine si toute les urgence on été dejas traitées ou pas
 	public boolean existeUrgenceNonTraitee() {
 
 		if (this.m_listeUrgence.size() == this.m_listeUrgenceTraitee.size())
@@ -35,14 +40,16 @@ public class StrategieGestion {
 		else
 			return true;
 	}
-	
-	//effectue les operation attendu sur une urgence
-	public void traiterUrgencAtuelle()
-	{
-		
+
+	// effectue les operation attendu sur une urgence
+	public void traiterUrgencAtuelle() {
+		for (int i = 0; i < this.m_listeUrgence.size(); ++i) {
+			if (this.m_listeUrgence.get(i) == this.m_urgenceActuelle) {
+				this.m_listeUrgenceTraitee.add(m_listeUrgence.get(i));
+				this.m_listeUrgence.remove(i);
+			}
+
+		}
 	}
-	public Queue<Urgence> reqUrgenceNonTraitee()
-	{
-		return this.m_listeUrgence;
-	}
-}
+
+} //les fonction ajouter sont dans les classe enfants
