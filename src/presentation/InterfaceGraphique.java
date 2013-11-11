@@ -7,65 +7,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import presentation.IconicButton.*;
 
+import presentation.CarteGraphique;
 public class InterfaceGraphique extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private CarteGraphique m_carteGraphique;
 
 	public InterfaceGraphique() {
 		super("Intervensim");
 		
-		JPanel panel_1 = new JPanel();
-		getContentPane().add(panel_1, BorderLayout.SOUTH);
+		m_carteGraphique = new CarteGraphique();
+		getContentPane().add(m_carteGraphique, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
-		panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panel.setMinimumSize(new Dimension(50, 50));
-		panel_1.add(panel);
-		
-		IconicButton btnAjouterNoeud = new IconicButton("Ajouter Noeud", "/images/NoeudBleu.ico");
-		panel.add(btnAjouterNoeud);
-		btnAjouterNoeud.setPreferredSize(new Dimension(103, 32));
-		btnAjouterNoeud.setBackground(UIManager.getColor("Button.darkShadow"));
-		
-		JButton btnAjouterArc = new JButton("Ajouter Arc");
-		panel.add(btnAjouterArc);
-		
-		JButton btnVehicule = new JButton("Vehicule");
-		panel.add(btnVehicule);
-		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2);
-		
-		JButton btnUrgence = new JButton("Urgence");
-		panel_2.add(btnUrgence);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu mnFichier = new JMenu("Fichier");
-		menuBar.add(mnFichier);
-		
-		JMenuItem mntmNouveau = new JMenuItem("Nouveau");
-		mnFichier.add(mntmNouveau);
-	}
 
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
 	}
 }
