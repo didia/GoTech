@@ -1,9 +1,11 @@
 package presentation;
 
-public class VehiculeGraphique {
+import javax.swing.*;
+
+public class VehiculeGraphique extends JComponent {
 
 	public VehiculeGraphique() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 }

@@ -1,9 +1,11 @@
 package presentation;
 
-public class ArcGraphique {
+import javax.swing.*;
+
+public class ArcGraphique extends JComponent {
 
 	public ArcGraphique() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 }
