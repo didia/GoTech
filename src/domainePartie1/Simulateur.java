@@ -22,8 +22,9 @@ public class Simulateur {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-				int positionX = e.getX();
-				int positionY = e.getY();
+				float positionX = (float) e.getX();
+				float positionY = (float) e.getY();
+			
 				carte.ajouterNoeud(new Position(positionX, positionY));
 				interfaceGraphique.rafraichirCarte();
 				

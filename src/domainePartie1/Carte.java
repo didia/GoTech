@@ -1,4 +1,7 @@
+package domainePartie1;
 import java.util.ArrayList;
+import domainePartie1.Position;
+import domainePartie1.Noeud;
 
 
 public class Carte {
@@ -7,51 +10,7 @@ public class Carte {
 	private ArrayList<Noeud> listeDeNoeuds;
 	private ArrayList<Arc> listeArcs;
 	
-	class Noeud
-	//début classe noeud
-	{
-		
-		private Position m_position;
-		private ArrayList<Arc> m_listeArcsAdjacents;
-		private float m_cout; // pour Dijkstra 
-		private Arc m_predecesseur;
-		
-		Noeud()
-		{
-			this.m_cout = 0;
-			this.m_listeArcsAdjacents = new ArrayList<Arc>();
-			this.m_position = new Position(0,0);
-		}
-		
-		Noeud(Position pos, ArrayList<Arc> listeArc,float cout, Arc pred)
-		{
-			
-		}
-		public Position reqPosition()
-		{
-			return this.m_position;
-		}
-		
-		public void setPosition(Position nouvellePos)
-		{
-			m_position = nouvellePos;
-		}
-		
-		class Position 
-		//Début classe position
-		{
-			private float positionX;
-			private float positionY;
-			Position(float x, float y)
-			{
-				this.positionX = x;
-				this.positionY = y;
-			}
-			
-			
-		}//fin de la classe position
-		
-	}// fin classe noeud
+	
 	class Arc
 	//début de l'arc
 	{
@@ -88,9 +47,9 @@ public class Carte {
 		
 		private float calculerLongueur()
 		{
-			float distX = (this.m_source.m_position.positionX - this.m_destination.m_position.positionX);
+			float distX = (this.m_source.reqPosition().reqPositionX() - this.m_destination.reqPosition().reqPositionX());
 			float distX1 = distX * distX;
-			float distY = (this.m_source.m_position.positionY - this.m_destination.m_position.positionY);
+			float distY = (this.m_source.reqPosition().reqPositionY() - this.m_destination.reqPosition().reqPositionY());
 			float distY1 = distY*distY;
 			double somme = (double)(distY1 + distX1);
 			return (float)(Math.sqrt(somme));
@@ -100,9 +59,16 @@ public class Carte {
 		
 		
 	}//fin classe arc
-	public void ajouterNoeud(Noeud noeud)
+	
+	public ArrayList<Noeud> reqListeNoeuds() {
+		
+		return this.listeDeNoeuds;
+		
+	}
+	
+	public void ajouterNoeud(Position position)
 	{
-		this.listeDeNoeuds.add(noeud);
+		this.listeDeNoeuds.add(new Noeud(position));
 	}
 	
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest)
