@@ -18,6 +18,7 @@ public class InterfaceGraphique extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private CarteGraphique m_carteGraphique;
     private AfficheurGraphique m_afficheurGraphique;
 
@@ -28,6 +29,12 @@ public class InterfaceGraphique extends JFrame {
 		m_carteGraphique = new CarteGraphique(m_afficheurGraphique, carte);
 		
 		getContentPane().add(m_carteGraphique, BorderLayout.CENTER);
+		setPreferredSize(new Dimension(800, 400));
+		setLocation(300, 200);
+
+		pack();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 		
 
 	}

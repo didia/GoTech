@@ -22,12 +22,12 @@ public class AfficheurGraphique {
     
 	public AfficheurGraphique() {
 		
-		try {
+		/*try {
 			m_imageDeNoeud = ImageIO.read(new File(NOEUD_IMAGE_PATH));
 			m_ImageDeVehicule = ImageIO.read(new File(VEHICULE_IMAGE_PATH));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} */
 	}
 	
 	public void afficherCarte(Graphics g, Carte carte){
@@ -38,7 +38,7 @@ public class AfficheurGraphique {
 	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds){
 		for(int i=0; i<listeDeNoeuds.size(); i++){
 			Position position = listeDeNoeuds.get(i).reqPosition();
-			g.fillOval(position.reqX(), position.reqY(),WIDTH_NOEUD,HEIGHT_NOEUD);
+			g.fillOval((int)position.reqPositionX(), (int)position.reqPositionY(),WIDTH_NOEUD,HEIGHT_NOEUD);
 
 		}
 	}
