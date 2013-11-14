@@ -42,7 +42,7 @@ public class CarteGraphique extends JPanel implements MouseListener{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//m_afficheur.afficherCarte(g, this.m_simulateur.reqCarte());
+		m_afficheur.afficherCarte(g, this.m_simulateur.reqCarte());
 	
 	}
 

@@ -1,7 +1,9 @@
 package presentation;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Ellipse2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -17,8 +19,8 @@ public class AfficheurGraphique {
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
     private Image m_ImageDeVehicule;
-    private static final int WIDTH_NOEUD = 10;
-    private static final int HEIGHT_NOEUD = 10;
+    private static final int WIDTH_NOEUD = 20;
+    private static final int HEIGHT_NOEUD = 20;
     
 	public AfficheurGraphique() {
 		
@@ -36,11 +38,14 @@ public class AfficheurGraphique {
 	}
 	
 	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds){
-		System.out.println(listeDeNoeuds.size());
+		Graphics2D g2d = (Graphics2D)g;
 		for(int i=0; i<listeDeNoeuds.size(); i++){
 			Position position = listeDeNoeuds.get(i).reqPosition();
-			g.drawOval((int)position.reqPositionX(), (int)position.reqPositionY(),WIDTH_NOEUD,HEIGHT_NOEUD);
-			g.fillOval((int)position.reqPositionX(), (int)position.reqPositionY(),WIDTH_NOEUD,HEIGHT_NOEUD);
+			double a = position.reqPositionX() - WIDTH_NOEUD/2;
+			double b = position.reqPositionY() - HEIGHT_NOEUD/2;
+			Ellipse2D.Double circle = new Ellipse2D.Double(a, b, WIDTH_NOEUD, HEIGHT_NOEUD);
+			g2d.fill(circle);
+			
 
 		}
 	}
