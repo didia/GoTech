@@ -3,20 +3,10 @@ package domainePartie1;
 import java.util.ArrayList;
 import domainePartie1.Position;
 import domainePartie1.Noeud;
-<<<<<<< HEAD
-=======
 
 
 import java.util.ArrayList;
 import java.util.Timer;
-
-
->>>>>>> 57c1e4a9f9169d0dc6e1e50cc39ff111819f5cfa
-
-
-import java.util.ArrayList;
-import java.util.Timer;
-
 
 public class Carte {
 
@@ -25,24 +15,9 @@ public class Carte {
 	private ArrayList<Arc> m_listeArcs;
 	
 
-<<<<<<< HEAD
 	
 
 	public class Arc
-=======
-
-	
-	//constructeur de la class Carte
-	public Carte()
-	{
-		
-	}
-
-	
-
-
-	class Arc
->>>>>>> 57c1e4a9f9169d0dc6e1e50cc39ff111819f5cfa
 	// début de l'arc
 	{
 		private float m_longueur;
@@ -77,17 +52,11 @@ public class Carte {
 
 
 		private float calculerLongueur() {
-<<<<<<< HEAD
 
 			float distX = (this.m_source.reqPosition().reqPositionX() - this.m_destination.reqPosition().reqPositionX());
 			float distX1 = distX * distX;
 			float distY = (this.m_source.reqPosition().reqPositionY() - this.m_destination.reqPosition().reqPositionY());
 
-=======
-			float distX = (this.m_source.reqPosition().reqPositionX() - this.m_destination.reqPosition().reqPositionX());
-			float distX1 = distX * distX;
-			float distY = (this.m_source.reqPosition().reqPositionY() - this.m_destination.reqPosition().reqPositionY());
->>>>>>> 57c1e4a9f9169d0dc6e1e50cc39ff111819f5cfa
 			float distY1 = distY * distY;
 			double somme = (double) (distY1 + distX1);
 			return (float) (Math.sqrt(somme));
@@ -95,11 +64,6 @@ public class Carte {
 
 	}// fin classe arc
 
-<<<<<<< HEAD
-=======
-	
-	
->>>>>>> 57c1e4a9f9169d0dc6e1e50cc39ff111819f5cfa
 
 
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
@@ -118,12 +82,6 @@ public class Carte {
 
 	}
 
-<<<<<<< HEAD
-=======
-
-	
-
->>>>>>> 57c1e4a9f9169d0dc6e1e50cc39ff111819f5cfa
 	public void ajouterNoeud(Position position)
 	{
 		this.m_listeDeNoeuds.add(new Noeud(position));
