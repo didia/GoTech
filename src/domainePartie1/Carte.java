@@ -1,31 +1,36 @@
 import java.util.ArrayList;
 
 
+
+
 public class Carte {
 	
 	
-	private ArrayList<Noeud> listeDeNoeuds;
-	private ArrayList<Arc> listeArcs;
+	private ArrayList<Noeud> m_listeDeNoeuds;
+	private ArrayList<Arc> m_listeArcs;
+	
 	
 	class Noeud
 	//début classe noeud
 	{
 		
 		private Position m_position;
-		private ArrayList<Arc> m_listeArcsAdjacents;
+		private ArrayList<Arc> m_m_listeArcsAdjacents;
 		private float m_cout; // pour Dijkstra 
 		private Arc m_predecesseur;
 		
 		Noeud()
 		{
 			this.m_cout = 0;
-			this.m_listeArcsAdjacents = new ArrayList<Arc>();
+			this.m_m_listeArcsAdjacents = new ArrayList<Arc>();
 			this.m_position = new Position(0,0);
 		}
 		
-		Noeud(Position pos, ArrayList<Arc> listeArc,float cout, Arc pred)
+		Noeud(Position pos)
 		{
-			
+			this.m_position = pos;
+			this.m_cout = 0;
+			this.m_m_listeArcsAdjacents = new ArrayList<Arc>();
 		}
 		public Position reqPosition()
 		{
@@ -40,12 +45,20 @@ public class Carte {
 		class Position 
 		//Début classe position
 		{
-			private float positionX;
-			private float positionY;
+			private float m_positionX;
+			private float m_positionY;
 			Position(float x, float y)
 			{
-				this.positionX = x;
-				this.positionY = y;
+				this.m_positionX = x;
+				this.m_positionY = y;
+			}
+			public float reqPositionX()
+			{
+				return this.m_positionX;
+			}
+			public float reqPositionY()
+			{
+				return this.m_positionY;
 			}
 			
 			
@@ -88,9 +101,9 @@ public class Carte {
 		
 		private float calculerLongueur()
 		{
-			float distX = (this.m_source.m_position.positionX - this.m_destination.m_position.positionX);
+			float distX = (this.m_source.m_position.reqPositionX() - this.m_destination.m_position.reqPositionX());
 			float distX1 = distX * distX;
-			float distY = (this.m_source.m_position.positionY - this.m_destination.m_position.positionY);
+			float distY = (this.m_source.m_position.reqPositionY() - this.m_destination.m_position.reqPositionY());
 			float distY1 = distY*distY;
 			double somme = (double)(distY1 + distX1);
 			return (float)(Math.sqrt(somme));
@@ -100,33 +113,46 @@ public class Carte {
 		
 		
 	}//fin classe arc
-	public void ajouterNoeud(Noeud noeud)
+	
+	public ArrayList<Noeud> reqListeNoeuds()
 	{
-		this.listeDeNoeuds.add(noeud);
+		return this.m_listeDeNoeuds;
+	}
+	
+	public ArrayList<Arc> reqm_listeArcs()
+	{
+		return this.m_listeArcs;
+	}
+	
+	
+	public void ajouterNoeud(Noeud.Position pos)
+	{
+		Noeud noeud = new Noeud(pos);
+		this.m_listeDeNoeuds.add(noeud);
 	}
 	
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest)
 	{
-		if(this.listeDeNoeuds.contains(noeudSource) && this.listeDeNoeuds.contains(noeudDest))
+		if(this.m_listeDeNoeuds.contains(noeudSource) && this.m_listeDeNoeuds.contains(noeudDest))
 		{
 			Arc nouvelArc = new Arc(noeudSource, noeudDest, 0);
 			float dist = nouvelArc.calculerLongueur();
 			nouvelArc.asgLongueur(dist);
-			this.listeArcs.add(nouvelArc);
-			
+			this.m_listeArcs.add(nouvelArc);
+			int index = this.m_listeDeNoeuds.indexOf(noeudSource);
+			this.m_listeDeNoeuds.get(index).m_m_listeArcsAdjacents.add(nouvelArc);
 		}
 		
-		/*else
-		{
-			throw
-		}*/
-		
-		
+
+	
 	}
 	
 	public void enleverNoeud(Noeud noeud)
 	{
-		
+		if(this.m_listeDeNoeuds.contains(noeud))
+		{
+			
+		}
 	}
 	 
 	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds)
@@ -136,7 +162,7 @@ public class Carte {
 	
 	public ArrayList<Arc> trouverItineraire(Noeud noeud1, Noeud noeud2)
 	{
-		return listeArcs;
+		return m_listeArcs;
 	}
 
 }
