@@ -5,12 +5,22 @@ import java.util.Timer;
 
 
 
+
+
 public class Carte {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	private ArrayList<Noeud> listeDeNoeuds;
 	private ArrayList<Arc> listeArcs;
 =======
+=======
+	
+	
+	private ArrayList<Noeud> m_listeDeNoeuds;
+	private ArrayList<Arc> m_listeArcs;
+	
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 	
 	
 	private ArrayList<Noeud> m_listeDeNoeuds;
@@ -30,9 +40,12 @@ public class Carte {
 
 		private Position m_position;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		private ArrayList<Arc> m_listeArcsAdjacents;
 		private float m_cout; // pour Dijkstra
 =======
+=======
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 		private ArrayList<Arc> m_m_listeArcsAdjacents;
 		private float m_cout; // pour Dijkstra 
 >>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
@@ -41,6 +54,7 @@ public class Carte {
 		public Noeud() {
 			this.m_cout = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			this.m_listeArcsAdjacents = new ArrayList<Arc>();
 			this.m_position = new Position(0, 0);
 		}
@@ -48,6 +62,8 @@ public class Carte {
 		public Noeud(Position pos, ArrayList<Arc> listeArc, float cout, Arc pred) {
 
 =======
+=======
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 			this.m_m_listeArcsAdjacents = new ArrayList<Arc>();
 			this.m_position = new Position(0,0);
 		}
@@ -57,6 +73,9 @@ public class Carte {
 			this.m_position = pos;
 			this.m_cout = 0;
 			this.m_m_listeArcsAdjacents = new ArrayList<Arc>();
+<<<<<<< HEAD
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
+=======
 >>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 		}
 
@@ -72,6 +91,7 @@ public class Carte {
 		// Début classe position
 		{
 <<<<<<< HEAD
+<<<<<<< HEAD
 			private float positionX;
 			private float positionY;
 
@@ -79,12 +99,25 @@ public class Carte {
 				this.positionX = x;
 				this.positionY = y;
 =======
+=======
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 			private float m_positionX;
 			private float m_positionY;
 			Position(float x, float y)
 			{
 				this.m_positionX = x;
 				this.m_positionY = y;
+<<<<<<< HEAD
+=======
+			}
+			public float reqPositionX()
+			{
+				return this.m_positionX;
+			}
+			public float reqPositionY()
+			{
+				return this.m_positionY;
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 			}
 			public float reqPositionX()
 			{
@@ -231,6 +264,9 @@ public class Carte {
 		{
 			
 		}
+<<<<<<< HEAD
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
+=======
 >>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 	}
 
@@ -246,6 +282,9 @@ public class Carte {
 	public ArrayList<Arc> trouverItineraire(Noeud noeud1, Noeud noeud2)
 	{
 		return m_listeArcs;
+<<<<<<< HEAD
+>>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
+=======
 >>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
 	}
 
