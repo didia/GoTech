@@ -1,23 +1,38 @@
 package domainePartie1;
-import java.util.List;
+import java.util.ArrayList;
 public class Itineraire {
 
-	private List<Arc> listeArcs;
-	private float longueur;
+	private ArrayList<Carte.Arc> m_listeArcs;
+	private float m_longueur;
 	
-	//constructeur 
-	public Itineraire(List<Arc> p_listeArcs)
+	// constructeur sans parametre
+	public Itineraire ()
 	{
-		this.longueur = 0;
-		this.listeArcs = p_listeArcs;
+		this.m_longueur = 0;
+		this.m_listeArcs = new ArrayList<Carte.Arc>();
+	}
+	//constructeur avec parametre
+	public Itineraire(ArrayList<Carte.Arc> p_listeArcs)
+	{
+		this.m_longueur = 0;
+		this.m_listeArcs = p_listeArcs;
 	}
 	
 	public float calculerLongueur()
 	{
-		return this.longueur;
+		return this.m_longueur;
 	}
-	public List<Arc> reqListeArcs(){
-		return this.listeArcs;
+	public ArrayList<Carte.Arc> reqListeArcs(){
+		return this.m_listeArcs;
 	}
+	
+	public float calculerLongueur(ArrayList<Carte.Arc> listeArcs) {
+		float longueur = 0;
+		for (int i = 0; i <listeArcs.size(); ++i) {
+			longueur += listeArcs.get(i).reqLongueur();
+		}
+		return longueur;
+	}
+
 }
 

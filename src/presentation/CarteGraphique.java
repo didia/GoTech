@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
+
 import domainePartie1.Carte;
 import presentation.AfficheurGraphique;
 
@@ -36,9 +37,11 @@ public class CarteGraphique extends JPanel {
 		afficheurGraphique.afficherCarte(g, carte);
 	
 	}
+
 	
 }
     		
+
 		
 		
 	

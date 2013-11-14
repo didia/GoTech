@@ -51,5 +51,14 @@ public class StrategieGestion {
 
 		}
 	}
+	
+	public void asgListUrgence(ArrayList<Urgence> uneUrgence) {
+		this.m_listeUrgence = uneUrgence;
+	}
+
+	public void asgUrgenceAtuelle(Urgence uneUrgence) {
+		this.m_urgenceActuelle = uneUrgence;
+	}
+
 
 } //les fonction ajouter sont dans les classe enfants

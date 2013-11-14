@@ -1,19 +1,38 @@
 package domainePartie1;
 import java.util.Timer;
-import java.util.List;
 public class Urgence {
-	private  Timer heuredebut; 
-	private Timer duree;
-	private Noeud noeudCible;
-	private List<Integer> priorite;
+	private  Timer m_heuredebut; 
+	private Timer m_duree;
+	private Carte.Noeud m_noeudCible;
+	private int m_priorite; // de 0 a 5
 	
-	public Timer geqDuree()
+	public Urgence()
 	{
-		return this.duree;
+	
+	}
+	public Urgence(Carte.Noeud p_NoeudCible, int p_priorité)
+	{
+		this.m_noeudCible = p_NoeudCible;
+		this.m_priorite = p_priorité;
+		
+	}
+	public Timer reqDuree()
+	{
+		return this.m_duree;
 	}
 	
-	public Timer geqHeureDebut()
+	public Timer reqHeureDebut()
 	{
-		return this.heuredebut;
+		return this.m_heuredebut;
+	}
+	
+	public int reqPriorite()
+	{
+		return this.m_priorite;
+	}
+	
+	public Carte.Noeud reqNoeudCible()
+	{
+		return this.m_noeudCible;
 	}
 }
