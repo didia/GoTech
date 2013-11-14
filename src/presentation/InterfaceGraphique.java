@@ -10,6 +10,7 @@ import presentation.IconicButton.*;
 import java.awt.event.MouseListener;
 
 import domainePartie1.Carte;
+import domainePartie1.Simulateur;
 
 import presentation.CarteGraphique;
 import presentation.AfficheurGraphique;
@@ -20,13 +21,13 @@ public class InterfaceGraphique extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private CarteGraphique m_carteGraphique;
-    private AfficheurGraphique m_afficheurGraphique;
+   
 
-	public InterfaceGraphique(Carte carte) {
+	public InterfaceGraphique(Simulateur p_simulateur, AfficheurGraphique p_afficheurGraphique ) {
 		
 		super("Intervensim");
-		m_afficheurGraphique = new AfficheurGraphique();
-		m_carteGraphique = new CarteGraphique(m_afficheurGraphique, carte);
+		
+		m_carteGraphique = new CarteGraphique(p_afficheurGraphique, carte);
 		
 		getContentPane().add(m_carteGraphique, BorderLayout.CENTER);
 		setPreferredSize(new Dimension(800, 400));

@@ -1,6 +1,9 @@
 package domainePartie1;
 
 import domainePartie1.Simulateur;
+import presentation.InterfaceGraphique;
+import presentation.AfficheurGraphique;
+
 public class Main {
 
 	/**
@@ -8,7 +11,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		new Simulateur();
+		new InterfaceGraphique(new Simulateur(), new AfficheurGraphique());
 
 	}
 
