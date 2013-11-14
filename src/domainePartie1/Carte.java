@@ -1,78 +1,23 @@
 package domainePartie1;
 
 import java.util.ArrayList;
+import domainePartie1.Position;
+import domainePartie1.Noeud;
+
+
+import java.util.ArrayList;
 import java.util.Timer;
 
-
-
-
-
 public class Carte {
+
 
 	private ArrayList<Noeud> m_listeDeNoeuds;
 	private ArrayList<Arc> m_listeArcs;
 	
-	//constructeur de la class Carte
-	public Carte()
-	{
-		
-	}
 
-	class Noeud
-	// début classe noeud
-	{
+	
 
-		private Position m_position;
-		private ArrayList<Arc> m_listeArcsAdjacents;
-		private float m_cout; // pour Dijkstra
-		private Arc m_predecesseur;
-
-		public Noeud() {
-			this.m_cout = 0;
-			this.m_listeArcsAdjacents = new ArrayList<Arc>();
-			this.m_position = new Position(0, 0);
-		}
-
-		public Noeud(Position pos, ArrayList<Arc> listeArc, float cout, Arc pred) {
-			this.m_listeArcsAdjacents = new ArrayList<Arc>();
-			this.m_position = new Position(0,0);
-		}
-		
-		Noeud(Position pos)
-		{
-			this.m_position = pos;
-			this.m_cout = 0;
-		}
-
-		public Position reqPosition() {
-			return this.m_position;
-		}
-
-		public void setPosition(Position nouvellePos) {
-			m_position = nouvellePos;
-		}
-
-		class Position
-		// Début classe position
-		{
-			private float m_positionX;
-			private float m_positionY;
-			Position(float x, float y)
-			{
-				this.m_positionX = x;
-				this.m_positionY = y;
-	}
-			public float reqPositionX()
-			{
-				return this.m_positionX;
-			}
-
-
-		}// fin de la classe position
-
-	}// fin classe noeud
-
-	class Arc
+	public class Arc
 	// début de l'arc
 	{
 		private float m_longueur;
@@ -107,9 +52,11 @@ public class Carte {
 
 
 		private float calculerLongueur() {
-			float distX = (this.m_source.m_position.m_positionX);
+
+			float distX = (this.m_source.reqPosition().reqPositionX() - this.m_destination.reqPosition().reqPositionX());
 			float distX1 = distX * distX;
-			float distY = (this.m_source.m_position.m_positionY );
+			float distY = (this.m_source.reqPosition().reqPositionY() - this.m_destination.reqPosition().reqPositionY());
+
 			float distY1 = distY * distY;
 			double somme = (double) (distY1 + distX1);
 			return (float) (Math.sqrt(somme));
@@ -117,86 +64,57 @@ public class Carte {
 
 	}// fin classe arc
 
-	public void ajouterNoeud(Noeud noeud) {
-		this.m_listeDeNoeuds.add(noeud);
-	}
-		
-		private float calculerLongueur()
-		{
-			float distX = (this.m_source.m_position.reqPositionX() - this.m_destination.m_position.reqPositionX());
-			float distX1 = distX * distX;
-			float distY = (this.m_source.m_position.reqPositionY() - this.m_destination.m_position.reqPositionY());
-			float distY1 = distY*distY;
-			double somme = (double)(distY1 + distX1);
-			return (float)(Math.sqrt(somme));
+
+
+	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		if (this.m_listeDeNoeuds.contains(noeudSource)
+				&& this.m_listeDeNoeuds.contains(noeudDest)) {
+			Arc nouvelArc = new Arc(noeudSource, noeudDest, 0);
+			float dist = nouvelArc.calculerLongueur();
+			nouvelArc.asgLongueur(dist);
+			this.m_listeArcs.add(nouvelArc);
+
 		}
-		
-		
-		
-		
-	}//fin classe arc
-	
+
+		/*
+		 * else { throw }
+		 */
+
+	}
+
+	public void ajouterNoeud(Position position)
+	{
+		this.m_listeDeNoeuds.add(new Noeud(position));
+	}
 	public ArrayList<Noeud> reqListeNoeuds()
 	{
 		return this.m_listeDeNoeuds;
 	}
 	
-	public ArrayList<Arc> reqm_listeArcs()
-	{
-		return this.m_listeArcs;
-	}
-	
-	
-	public void ajouterNoeud(Noeud.Position pos)
-	{
-		Noeud noeud = new Noeud(pos);
-		this.m_listeDeNoeuds.add(noeud);
-	}
-	
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest)
-	{
-		if(this.m_listeDeNoeuds.contains(noeudSource) && this.m_listeDeNoeuds.contains(noeudDest))
-		{
-			Arc nouvelArc = new Arc(noeudSource, noeudDest, 0);
-			float dist = nouvelArc.calculerLongueur();
-			nouvelArc.asgLongueur(dist);
-			this.m_listeArcs.add(nouvelArc);
-			int index = this.m_listeDeNoeuds.indexOf(noeudSource);
-			this.m_listeDeNoeuds.get(index).m_m_listeArcsAdjacents.add(nouvelArc);
-		}
-		
 
 	
-	}
-	
+
 	public void enleverNoeud(Noeud noeud)
 	{
 		if(this.m_listeDeNoeuds.contains(noeud))
 		{
 			
 		}
-<<<<<<< HEAD
->>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
-=======
->>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
+
 	}
 
 	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds) {
 		return noeudSrc;
 	}
-<<<<<<< HEAD
 
-	public ArrayList<Arc> trouverItineraire(Noeud noeud1, Noeud noeud2) {
-		return listeArcs;
-=======
+
+
+
 	
 	public ArrayList<Arc> trouverItineraire(Noeud noeud1, Noeud noeud2)
 	{
 		return m_listeArcs;
-<<<<<<< HEAD
->>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
-=======
->>>>>>> 3838174672bd51d94d4a86ca9b16a7dd0119d91e
+
 	}
 
 }

@@ -1,19 +1,19 @@
 package domainePartie1;
 
 public class Vehicule {
-	private Carte.Noeud m_portAttache ;
+	private Noeud m_portAttache ;
 	private float m_Vistesse;
-	private Carte.Noeud m_noeud_actuel;
+	private Noeud m_noeud_actuel;
 	
 	
 	//constructeur de la classe Vehicule
-	public Vehicule(Carte.Noeud p_porAttache, Carte.Noeud p_noeudActuel, float p_vitesse)
+	public Vehicule(Noeud p_porAttache, Noeud p_noeudActuel, float p_vitesse)
 	{
 		this.m_noeud_actuel = p_noeudActuel;
 		this.m_portAttache = p_porAttache;
 		this.m_Vistesse = p_vitesse;
 	}
-	public void AllerVers(Carte.Noeud p_noeudDestination)
+	public void AllerVers(Noeud p_noeudDestination)
 	{
 		//TODO
 	}
@@ -23,12 +23,12 @@ public class Vehicule {
 		//TODO
 	}
 	
-	public Carte.Noeud	getNoeudActuel()
+	public Noeud	getNoeudActuel()
 	{
 		return this.m_noeud_actuel;
 	}
 	
-	public Carte.Noeud getPortAttache()
+	public Noeud getPortAttache()
 	{
 		return this.m_portAttache;
 	}
