@@ -15,25 +15,32 @@ public class Vehicule {
 	}
 	public void AllerVers(Noeud p_noeudDestination)
 	{
-		//TODO
+		//le Noeud actuel devien le noeud de destination 
+		this.asgNoeudActuel(p_noeudDestination);
 	}
 	
 	public void AllerPointAttache()
 	{
-		//TODO
+		//le Noeud actuel devien le noeudAttache
+		this.asgNoeudActuel(this.m_portAttache);
 	}
 	
-	public Noeud	getNoeudActuel()
+	public Noeud reqNoeudActuel()
 	{
 		return this.m_noeud_actuel;
 	}
 	
-	public Noeud getPortAttache()
+	public Noeud reqPortAttache()
 	{
 		return this.m_portAttache;
 	}
 
-	public  void reqVistess()
+	public  float reqVistess()
+	{
+		return this.m_Vistesse;
+	}
+	
+	public void asgNoeudActuel(Noeud noeud)
 	{
 		
 	}
