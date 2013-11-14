@@ -11,11 +11,9 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
-import domainePartie1.Noeud;
-import domainePartie1.Arc;
-import presentation.NoeudGraphique;
-import presentation.ArcGraphique;
+
 import presentation.VehiculeGraphique;
+import domainePartie1.Carte.*;
 
 
 public class CarteGraphique extends JPanel {
@@ -43,7 +41,7 @@ public class CarteGraphique extends JPanel {
 	
 	}
     
-	public void ajouterNoeud(Noeud noeud){
+	public void ajouterNoeud( noeud){
 		m_listeNoeuds.add(new NoeudGraphique(noeud, m_imageDeNoeud));
 		
 		
