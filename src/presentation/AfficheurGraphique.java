@@ -17,8 +17,8 @@ public class AfficheurGraphique {
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
     private Image m_ImageDeVehicule;
-    private static final int WIDTH_NOEUD = 2;
-    private static final int HEIGHT_NOEUD = 2;
+    private static final int WIDTH_NOEUD = 10;
+    private static final int HEIGHT_NOEUD = 10;
     
 	public AfficheurGraphique() {
 		
@@ -36,8 +36,10 @@ public class AfficheurGraphique {
 	}
 	
 	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds){
+		System.out.println(listeDeNoeuds.size());
 		for(int i=0; i<listeDeNoeuds.size(); i++){
 			Position position = listeDeNoeuds.get(i).reqPosition();
+			g.drawOval((int)position.reqPositionX(), (int)position.reqPositionY(),WIDTH_NOEUD,HEIGHT_NOEUD);
 			g.fillOval((int)position.reqPositionX(), (int)position.reqPositionY(),WIDTH_NOEUD,HEIGHT_NOEUD);
 
 		}

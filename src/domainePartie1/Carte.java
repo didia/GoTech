@@ -81,6 +81,11 @@ public class Carte {
 		 */
 
 	}
+	
+    public Carte(){
+    	m_listeDeNoeuds = new ArrayList<Noeud>();
+    	m_listeArcs = new ArrayList<Arc>();
+    }
 
 	public void ajouterNoeud(Position position)
 	{
