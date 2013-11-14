@@ -1,8 +1,9 @@
 package Testes;
 import domainePartie1.Carte;
 import domainePartie1.Itineraire;
-import domainePartie1.Carte.Arc;
-import domainePartie1.Carte.Noeud;
+import domainePartie1.Noeud;
+import domainePartie1.Carte;.
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ public class ItineraireTest {
 	public void testItineraire() {
 	
 	Carte uneCarte = new Carte();
-	Noeud noeud =  uneCarte.new Noeud();
-	Arc arc1 = uneCarte.new Arc();
+	Noeud noeud =  new Noeud();
+	Carte.Arc arc1 = uneCarte.new Arc();
 		Arc arc2 = new Arc(5);
 		Arc arc3 = new Arc(123);
 		Arc arc5 = new Arc(8);

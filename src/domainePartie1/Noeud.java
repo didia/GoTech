@@ -11,7 +11,7 @@ public class Noeud {
 	private float m_cout; // pour Dijkstra 
 	private Arc m_predecesseur;
 	
-	Noeud()
+	public void Noeud()
 	{
 		this.m_cout = 0;
 		this.m_listeArcsAdjacents = new ArrayList<Arc>();
@@ -23,10 +23,6 @@ public class Noeud {
 		
 	}
 	
-	Noeud(Position pos, ArrayList<Arc> listeArc,float cout, Arc pred)
-	{
-		
-	}
 	public Position reqPosition()
 	{
 		return this.m_position;

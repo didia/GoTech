@@ -3,14 +3,14 @@ import java.util.Timer;
 public class Urgence {
 	private  Timer m_heuredebut; 
 	private Timer m_duree;
-	private Carte.Noeud m_noeudCible;
+	private Noeud m_noeudCible;
 	private int m_priorite; // de 0 a 5
 	
 	public Urgence()
 	{
 	
 	}
-	public Urgence(Carte.Noeud p_NoeudCible, int p_priorité)
+	public Urgence(Noeud p_NoeudCible, int p_priorité)
 	{
 		this.m_noeudCible = p_NoeudCible;
 		this.m_priorite = p_priorité;
@@ -31,7 +31,7 @@ public class Urgence {
 		return this.m_priorite;
 	}
 	
-	public Carte.Noeud reqNoeudCible()
+	public Noeud reqNoeudCible()
 	{
 		return this.m_noeudCible;
 	}

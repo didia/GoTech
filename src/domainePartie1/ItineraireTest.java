@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 
-import domainePartie1.Carte.Noeud;
 
 public class ItineraireTest {
 

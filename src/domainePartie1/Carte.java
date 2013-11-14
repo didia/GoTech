@@ -8,11 +8,6 @@ import domainePartie1.Noeud;
 import java.util.ArrayList;
 import java.util.Timer;
 
-
-
-
-
-
 public class Carte {
 
 
@@ -20,18 +15,9 @@ public class Carte {
 	private ArrayList<Arc> m_listeArcs;
 	
 
-
-	
-	//constructeur de la class Carte
-	public Carte()
-	{
-		
-	}
-
 	
 
-
-	class Arc
+	public class Arc
 	// début de l'arc
 	{
 		private float m_longueur;
@@ -66,9 +52,11 @@ public class Carte {
 
 
 		private float calculerLongueur() {
+
 			float distX = (this.m_source.reqPosition().reqPositionX() - this.m_destination.reqPosition().reqPositionX());
 			float distX1 = distX * distX;
 			float distY = (this.m_source.reqPosition().reqPositionY() - this.m_destination.reqPosition().reqPositionY());
+
 			float distY1 = distY * distY;
 			double somme = (double) (distY1 + distX1);
 			return (float) (Math.sqrt(somme));
@@ -76,8 +64,6 @@ public class Carte {
 
 	}// fin classe arc
 
-	
-	
 
 
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
@@ -95,9 +81,6 @@ public class Carte {
 		 */
 
 	}
-
-
-	
 
 	public void ajouterNoeud(Position position)
 	{
