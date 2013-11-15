@@ -36,6 +36,7 @@ public class EtatAjouterArc implements EtatDEdition{
 	
 		}
 		else {
+			noeud_selectione = null;
 			
 		}
 	}
