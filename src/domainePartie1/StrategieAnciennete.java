@@ -8,6 +8,17 @@ public class StrategieAnciennete extends StrategieGestion {
 		super();
 	}
 
+//TODO a revoir pour ANciennete seulement
+	public void traiterUrgenceActuelle() {
+		if (this.reqListerUrgencetraitee().size() != 0) {
+			Urgence urgence = this.reqUrgencActuelle();
+			this.asgUrgenceAtuelle(urgence);
+			this.traiterUrgencAtuelle();
+		} else
+			System.out.println("il ya plus d'ergence a Traiter");
+	}
+
+	
 	public Urgence reqUrgenceAcctuelle() // urgence actuelle est le premier sur
 											// la liste
 	{
