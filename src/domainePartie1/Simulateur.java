@@ -1,60 +1,53 @@
 package domainePartie1;
 
-import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
+
 import domainePartie1.Carte;
-import presentation.InterfaceGraphique;
+import domainePartie1.EtatDEdition;
+import domainePartie1.EtatAjouterNoeud;
+import domainePartie1.EtatAjouterArc;
 import domainePartie1.Position;
+
 
 public class Simulateur {
 	
 	private static Carte carte = new Carte();
-	private static InterfaceGraphique interfaceGraphique = new InterfaceGraphique(carte);
+	private EtatDEdition m_etat = null;
+	
 	public Simulateur() {
-		
-		interfaceGraphique.ajouterCarteListener(new AjouterNoeudListener());
-		
-		
+
 	}
 	
-	public class AjouterNoeudListener implements MouseListener {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-				float positionX = (float) e.getX();
-				float positionY = (float) e.getY();
+	public Carte reqCarte() {
+		return carte;
+	}
+	
+	public void ajouterNoeud(int positionX, int positionY){
+		carte.ajouterNoeud(new Position((float)positionX, (float)positionY));
+	}
+	public void ajouterArc(Noeud noeudSource, Noeud noeudDest){
+		carte.ajouterArc(noeudSource, noeudDest);
+	}
+	public Noeud reqNoeud(int positionX, int positionY){
+		return carte.reqNoeud(new Position((float)positionX, (float)positionY));
+	}
+	public void setEtatAjouterNoeud(){
+		m_etat = new EtatAjouterNoeud(this);
+	}
+	public void setEtatAjouterArc(){
+		m_etat = new EtatAjouterArc(this);
+	}
+	
+	public void doEdition(MouseEvent e){
+		
+		if(m_etat != null)
+		{
 			
-				carte.ajouterNoeud(new Position(positionX, positionY));
-				interfaceGraphique.rafraichirCarte();
-				
+			m_etat.doAction(e);
 		}
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+	}
+	
 		
 	}
 
-}

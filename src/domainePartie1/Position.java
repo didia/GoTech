@@ -3,10 +3,7 @@ package domainePartie1;
 public class Position {
 	private float positionX;
 	private float positionY;
-	public Position()
-	{
-	
-	}
+
 	public Position(float x, float y)
 	{
 		this.positionX = x;
