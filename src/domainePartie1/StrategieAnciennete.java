@@ -10,7 +10,7 @@ public class StrategieAnciennete extends StrategieGestion {
 
 //TODO a revoir pour ANciennete seulement
 	public void traiterUrgenceActuelle() {
-		if (this.reqListerUrgencetraitee().size() != 0) {
+		if (this.reqListeUrgence().size() != 0) {
 			Urgence urgence = this.reqUrgencActuelle();
 			this.asgUrgenceAtuelle(urgence);
 			this.traiterUrgencAtuelle();

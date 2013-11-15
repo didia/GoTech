@@ -27,7 +27,7 @@ public class StrategieGestion {
 	public ArrayList<Urgence> reqListeUrgence() {
 		return this.m_listeUrgence;
 	}
-
+	//retourne sous forme de liste toutes les uregence deja traitées 
 	public ArrayList<Urgence> reqListerUrgencetraitee() {
 		return this.m_listeUrgenceTraitee;
 	}

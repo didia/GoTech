@@ -11,7 +11,7 @@ public class Main {
 		 StrategieAnciennete uneStrategieAnciennete = new StrategieAnciennete();
 		 
 		 uneStrategieAnciennete.ajouterUrgence(new Urgence(new Noeud(new Position(2,4)),2));
-		 uneStrategieAnciennete.ajouterUrgence(new Urgence(new Noeud(new Position(4,8)),0));
+		 uneStrategieAnciennete.ajouterUrgence(new Urgence(new Noeud(new Position(4,8)),9));
 		 uneStrategieAnciennete.ajouterUrgence(new Urgence(new Noeud(new Position(6,23)),1));
 		 uneStrategieAnciennete.ajouterUrgence(new Urgence(new Noeud(new Position(3,1)),5));
 		 uneStrategieAnciennete.ajouterUrgence(new Urgence(new Noeud(new Position(2,4)),3));
@@ -19,7 +19,7 @@ public class Main {
 		 
 		 uneStrategiePriorite.ajouterUrgence(new Urgence(new Noeud(new Position(2,4)),2));
 		 uneStrategiePriorite.ajouterUrgence(new Urgence(new Noeud(new Position(2,4)),2));
-		 uneStrategiePriorite.ajouterUrgence(new Urgence(new Noeud(new Position(4,8)),0));
+		 uneStrategiePriorite.ajouterUrgence(new Urgence(new Noeud(new Position(4,8)),8));
 		 uneStrategiePriorite.ajouterUrgence(new Urgence(new Noeud(new Position(6,23)),1));
 		 uneStrategiePriorite.ajouterUrgence(new Urgence(new Noeud(new Position(3,1)),5));
 		 uneStrategiePriorite.ajouterUrgence(new Urgence(new Noeud(new Position(2,4)),3));
