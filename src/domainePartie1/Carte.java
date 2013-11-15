@@ -65,6 +65,11 @@ public class Carte {
 	}// fin classe arc
 
 
+	 public Carte(){
+	    	m_listeDeNoeuds = new ArrayList<Noeud>();
+	    	m_listeArcs = new ArrayList<Arc>();
+	    }
+
 
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
 		if (this.m_listeDeNoeuds.contains(noeudSource)
@@ -75,6 +80,9 @@ public class Carte {
 			this.m_listeArcs.add(nouvelArc);
 
 		}
+		else{
+			System.out.println("Pas dans la liste de Noeuds");
+		}
 
 		/*
 		 * else { throw }
@@ -82,11 +90,7 @@ public class Carte {
 
 	}
 	
-    public Carte(){
-    	m_listeDeNoeuds = new ArrayList<Noeud>();
-    	m_listeArcs = new ArrayList<Arc>();
-    }
-
+   
 	public void ajouterNoeud(Position position)
 	{
 		this.m_listeDeNoeuds.add(new Noeud(position));
@@ -94,6 +98,28 @@ public class Carte {
 	public ArrayList<Noeud> reqListeNoeuds()
 	{
 		return this.m_listeDeNoeuds;
+	}
+	public ArrayList<Arc> reqListeArcs()
+	{
+		return this.m_listeArcs;
+	}
+	
+	public Noeud reqNoeud(Position position){
+		
+		for (int i= 0; i<m_listeDeNoeuds.size(); i++){
+			Position noeud_position = m_listeDeNoeuds.get(i).reqPosition();
+			float x = position.reqPositionX();
+			float y = position.reqPositionY();
+			float c1 = noeud_position.reqPositionX();
+			float c2 = noeud_position.reqPositionY();
+			float circle = (x-c1)*(x-c1) + (y-c2)*(y-c2);
+			
+			if(circle <= 10*10){
+				return m_listeDeNoeuds.get(i);
+			}
+		}
+		
+		return null;
 	}
 	
 

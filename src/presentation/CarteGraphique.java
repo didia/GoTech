@@ -17,18 +17,18 @@ import java.awt.event.MouseEvent;
 
 import domainePartie1.Position;
 import domainePartie1.Simulateur;
-import presentation.AfficheurGraphique;
+import presentation.Afficheur;
 
 
 public class CarteGraphique extends JPanel implements MouseListener{
 	
 	
-	private final AfficheurGraphique m_afficheur;
+	private final Afficheur m_afficheur;
 	private final Simulateur m_simulateur;
 	
 	
 	
-	public CarteGraphique(AfficheurGraphique afficheurGraphique, Simulateur p_simulateur) {
+	public CarteGraphique(Afficheur afficheurGraphique, Simulateur p_simulateur) {
 		
 		this.m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
@@ -50,7 +50,8 @@ public class CarteGraphique extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Mouse Clicked");
-		m_simulateur.ajouterNoeud(e.getX(), e.getY());
+		m_simulateur.doEdition(e);
+		
 		this.repaint();
 		
 		

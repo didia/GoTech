@@ -14,7 +14,7 @@ import domainePartie1.Simulateur;
 
 
 import presentation.CarteGraphique;
-import presentation.AfficheurGraphique;
+import presentation.Afficheur;
 import presentation.Menu;
 import presentation.BarBoutons;
 import presentation.EditPanel;
@@ -29,14 +29,14 @@ public class InterfaceGraphique extends JFrame {
 	private EditPanel m_panneauEdition;
 	
     private static Simulateur m_simulateur;
-    private AfficheurGraphique m_afficheurGraphique;
+    private Afficheur m_afficheur;
 
-	public InterfaceGraphique(Simulateur p_simulateur, AfficheurGraphique p_afficheurGraphique) {
+	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) {
 		
 		super("Intervensim");
 		setPreferredSize(new Dimension(920, 600));
 		
-		m_afficheurGraphique = p_afficheurGraphique;
+		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
 		
 		
@@ -44,11 +44,11 @@ public class InterfaceGraphique extends JFrame {
 		
 		
 		// Ajout de la carte graphique au centre
-		m_carteGraphique = new CarteGraphique(m_afficheurGraphique, m_simulateur);
+		m_carteGraphique = new CarteGraphique(m_afficheur, m_simulateur);
 		getContentPane().add(m_carteGraphique, BorderLayout.CENTER);
 		
 		// Ajout Panneau Edition
-		m_panneauEdition = new EditPanel();
+		m_panneauEdition = new EditPanel(m_simulateur);
 		getContentPane().add(m_panneauEdition, BorderLayout.WEST);
 		
 		// Ajout du menu et de la barre des buttons
