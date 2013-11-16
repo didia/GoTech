@@ -27,7 +27,7 @@ public class StrategieGestion {
 	public ArrayList<Urgence> reqListeUrgence() {
 		return this.m_listeUrgence;
 	}
-
+	//retourne sous forme de liste toutes les uregence deja traitées 
 	public ArrayList<Urgence> reqListerUrgencetraitee() {
 		return this.m_listeUrgenceTraitee;
 	}
@@ -43,10 +43,13 @@ public class StrategieGestion {
 
 	// effectue les operation attendu sur une urgence
 	public void traiterUrgencAtuelle() {
-		for (int i = 0; i < this.m_listeUrgence.size(); ++i) {
-			if (this.m_listeUrgence.get(i) == this.m_urgenceActuelle) {
-				this.m_listeUrgenceTraitee.add(m_listeUrgence.get(i));
-				this.m_listeUrgence.remove(i);
+			
+		for (int j = 0; j < this.m_listeUrgence.size(); ++j) {
+			if (this.m_listeUrgence.get(j) == this.m_urgenceActuelle) {
+				this.m_listeUrgenceTraitee.add(m_listeUrgence.get(j));
+				int i[] = {j};	//TODO a revoir
+				this.m_listeUrgence.remove(i[j]);
+				
 			}
 
 		}

@@ -2,7 +2,7 @@ package Testes;
 import domainePartie1.Carte;
 import domainePartie1.Itineraire;
 import domainePartie1.Noeud;
-import domainePartie1.Carte;.
+
 
 import static org.junit.Assert.*;
 
@@ -21,20 +21,19 @@ public class ItineraireTest {
 	public void testItineraire() {
 	
 	Carte uneCarte = new Carte();
-	Noeud noeud =  new Noeud();
-	Carte.Arc arc1 = uneCarte.new Arc();
-		Arc arc2 = new Arc(5);
-		Arc arc3 = new Arc(123);
-		Arc arc5 = new Arc(8);
-		ArrayList<Arc>listeArc = new ArrayList<Arc>();
+		Carte.Arc arc1 = uneCarte.new Arc();
+		Carte.Arc arc2 = uneCarte.new Arc();
+		Carte.Arc arc3 = uneCarte.new Arc();
+		Carte.Arc arc5 = uneCarte.new Arc();
+		ArrayList<Carte.Arc>listeArc = new ArrayList<Carte.Arc>();
 		listeArc.add(arc1);
 		listeArc.add(arc2);
 		listeArc.add(arc3);
 		listeArc.add(arc5);
 		Itineraire uneItineraire = new Itineraire();
 		float longueur = uneItineraire.calculerLongueur(listeArc);
-//		uneItineraire.asgLongueur(longueur);
-		fail("test");
+		uneItineraire.asgLongueur(longueur);
+		assertEquals(longueur, uneItineraire.reqLongueur(),0);
 		
 //		//assertTrue(longueur == uneItineraire.reqLongueur());
 		System.out.println(listeArc.size());

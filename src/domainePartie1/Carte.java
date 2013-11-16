@@ -123,11 +123,6 @@ public class Carte {
 		return null;
 	}
 	
-
-
-	
-	
-	
 	public void enleverNoeud(Noeud noeud)
 	{
 		if(this.m_listeDeNoeuds.contains(noeud))

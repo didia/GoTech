@@ -18,9 +18,14 @@ public class Itineraire {
 		this.m_listeArcs = p_listeArcs;
 	}
 	
-	public float calculerLongueur()
+	public float reqLongueur()
 	{
 		return this.m_longueur;
+	}
+	
+	public void asgLongueur( float longueur)
+	{
+		this.m_longueur = longueur;
 	}
 	public ArrayList<Carte.Arc> reqListeArcs(){
 		return this.m_listeArcs;
