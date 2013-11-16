@@ -19,12 +19,18 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import domainePartie1.Simulateur;
+import javax.swing.ImageIcon;
+
+import java.awt.Image;
 
 public class EditPanel extends JPanel implements ActionListener{
 
 	public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule d'urgence";
+	public static String SELECTEUR_SOURIS = "Selectionner/DŽplacer";
+	public static int WIDTH_ICON = 20;
+	public static int HEIGHT_ICON = 20;
 	
 	private  JButton ajouterNoeudButton;
 	private  JButton ajouterArcButton;
@@ -36,7 +42,7 @@ public class EditPanel extends JPanel implements ActionListener{
 		
 		m_simulateur = simulateur;
 		
-		setBorder(new EmptyBorder(150, 10, 10, 10) );
+		setBorder(new EmptyBorder(100, 10, 10, 10) );
 		
 		JButton ajouterNoeudButton = new JButton(ADD_NOEUD_STRING);
 		ajouterNoeudButton.setPreferredSize(new Dimension(200, 50));
@@ -49,15 +55,27 @@ public class EditPanel extends JPanel implements ActionListener{
 		ajouterArcButton.setActionCommand(ADD_ARC_STRING);
 		ajouterArcButton.addActionListener(this);
 		
+		JButton selectionerButton = new JButton(SELECTEUR_SOURIS );
+		ImageIcon icon = new ImageIcon(EditPanel.class.getResource("/images/souris.png"));
+		 Image img = icon.getImage() ;  
+		 Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ;  
+		 icon = new ImageIcon( newimg );
+		selectionerButton.setIcon(icon);
+		
+		selectionerButton.setPreferredSize(new Dimension(200 ,50));
+		selectionerButton.setActionCommand(SELECTEUR_SOURIS );
+		selectionerButton.addActionListener(this);
+		
 		JButton placerVehiculeButton = new JButton(PUT_VEHICULE);
 		placerVehiculeButton.setPreferredSize(new Dimension(200,50));
 		placerVehiculeButton.setActionCommand(PUT_VEHICULE);
 		placerVehiculeButton.addActionListener(this);
 		
-		JPanel editButtons= new JPanel(new GridLayout(3,1,0,5)); 
+		JPanel editButtons= new JPanel(new GridLayout(4,1,0,5)); 
 		editButtons.add(ajouterNoeudButton);
 		editButtons.add(ajouterArcButton);
 		editButtons.add(placerVehiculeButton);
+		editButtons.add(selectionerButton);
 		add(editButtons, BorderLayout.CENTER);
 		
 		setVisible(true);
@@ -72,6 +90,9 @@ public class EditPanel extends JPanel implements ActionListener{
 		else if(command.equals(ADD_ARC_STRING)){
 			m_simulateur.setEtatAjouterArc();
 			
+		}
+		else if(command.equals(SELECTEUR_SOURIS)){
+			m_simulateur.setEtatModifierComponent();
 		}
 		else if(command.equals(PUT_VEHICULE)){
 			
