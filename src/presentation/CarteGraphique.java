@@ -58,7 +58,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 		menuItem.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e){
 				 
-						m_simulateur.supprimer_noeud_selectionne();
+						m_simulateur.supprimer_component();
 						mycarte.repaint();
 					
 				  
@@ -154,7 +154,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 			}
 			private void showMenu(MouseEvent e) {
 			
-					if(m_simulateur.existeNoeud(e.getX(), e.getY()) == true){
+					if(m_simulateur.existeComponent(e.getX(), e.getY()) == true){
 						popup.show(e.getComponent(), e.getX(), e.getY());;
 					}
 				

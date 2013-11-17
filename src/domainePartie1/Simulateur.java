@@ -13,7 +13,7 @@ public class Simulateur implements MouseInputListener {
 	
 	private static Carte carte = new Carte();
     private static Vehicule m_vehicule = Vehicule.getInstance();
-	private EtatDEdition m_etat = new EtatDEdition();
+	private EtatDEdition m_etat = new EtatDEdition(this);
     
 	
 	public Simulateur() {
@@ -51,29 +51,45 @@ public class Simulateur implements MouseInputListener {
 	public Noeud reqNoeud(int positionX, int positionY){
 		return carte.reqNoeud(new Position((float)positionX, (float)positionY));
 	}
-	public boolean existeNoeud(int positionX, int positionY){
-		if(this.reqNoeud(positionX, positionY) != null){
+	
+	public void deplacerNoeud(Noeud noeud, int positionX, int positionY){
+		carte.deplacerNoeud(noeud, new Position((float)positionX, (float)positionY));
+		
+	}
+	
+	
+	
+	
+	
+	public Carte.Arc reqArc(int positionX, int positionY){
+		return carte.reqArc(new Position((float)positionX, (float)positionY));
+	}
+	
+
+	public boolean existeComponent(int positionX, int positionY){
+		if(this.reqNoeud(positionX, positionY) != null || this.reqArc(positionX, positionY) != null){
 			return true;
 		}
 		else{
 			return false;
 		}
 	}
-	public void deplacerNoeud(Noeud noeud, int positionX, int positionY){
-		carte.deplacerNoeud(noeud, new Position((float)positionX, (float)positionY));
-		
-	}
 	
-	public void supprimer_noeud_selectionne(){
+	public void supprimer_component(){
 		
 		Noeud noeud = m_etat.reqNoeudSelectione();
 		if(noeud != null){
 			System.out.println("Entrain de supprimer un noeud");
 			carte.enleverNoeud(noeud);
 		}
+		else{
+			Carte.Arc arc = m_etat.reqArcSelectione();
+			if(arc != null){
+				System.out.println("Entrain de supprimer un arc");
+				carte.enleverArc(arc);
+			}
+		}
 	}
-	
-
 	
 	
 	public void setEtatAjouterNoeud(){

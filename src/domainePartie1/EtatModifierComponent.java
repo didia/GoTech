@@ -9,11 +9,12 @@ import javax.swing.event.MouseInputListener;
 
 public class EtatModifierComponent extends EtatDEdition {
 
-	private static Simulateur m_simulateur;
+
 	private static Noeud noeud_selectione = null;
+	private static Carte.Arc arc_selectione = null;
 	
 	public EtatModifierComponent(Simulateur simulateur){
-		m_simulateur = simulateur;
+		super(simulateur);
 	}
 	
 	
@@ -22,10 +23,12 @@ public class EtatModifierComponent extends EtatDEdition {
 	public Noeud reqNoeudSelectione(){
 		return noeud_selectione;
 	}
-
+	public Carte.Arc reqArcSelectione(){
+		return arc_selectione;
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
+		super.mouseClicked(e);
 		
 	}
 
@@ -45,6 +48,7 @@ public class EtatModifierComponent extends EtatDEdition {
 	public void mousePressed(MouseEvent e) {
 		
 		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
+		
 	
 		
 		

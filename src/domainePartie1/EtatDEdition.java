@@ -6,10 +6,20 @@ import javax.swing.event.MouseInputListener;
 
 
 class EtatDEdition implements MouseInputListener {
-
+	
+	protected static Noeud noeud_selectione = null;
+	protected static Carte.Arc arc_selectione = null;
+	protected static Simulateur m_simulateur;
+	public EtatDEdition(Simulateur simulateur){
+		m_simulateur = simulateur;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
+		if (noeud_selectione == null){
+			arc_selectione = m_simulateur.reqArc(e.getX(), e.getY());
+		}
 		
 	}
 
@@ -50,9 +60,11 @@ class EtatDEdition implements MouseInputListener {
 	}
 	
 	public Noeud reqNoeudSelectione(){
-		return null;
+		return noeud_selectione;
 	}
-	
+	public Carte.Arc reqArcSelectione(){
+		return arc_selectione;
+	}
 	
 
 

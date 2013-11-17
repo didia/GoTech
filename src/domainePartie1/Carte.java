@@ -17,7 +17,8 @@ public class Carte {
 		private float m_longueur;
 		private Noeud m_source;
 		private Noeud m_destination;
-
+		private float a; // given the equation of the arc is y = ax+b
+        private float b;
 	
 		public Arc(Noeud src, Noeud dest)
 		{
@@ -25,6 +26,8 @@ public class Carte {
 			this.m_source = src;
 			this.m_destination = dest;
 			this.m_longueur = this.calculerLongueur();
+			this.initAetB();
+			
 		}
 
 		public float reqLongueur() {
@@ -42,6 +45,21 @@ public class Carte {
 		public void asgLongueur(float dist) {
 			this.m_longueur = this.calculerLongueur();
 		}
+		
+		public boolean isPositionIn(Position position){
+			
+			float c2 = this.a * position.reqPositionX() + this.b;
+			
+			float x = position.reqPositionX();
+			float y = position.reqPositionY();
+			float c1 = x;
+			
+			float circle = (x - c1) * (x - c1) + (y - c2) * (y - c2);
+			if (circle <= 3 * 3){
+				return true;
+			}
+			return false;
+		}
 
 		private float calculerLongueur() {
 			float distX = (this.reqNoeudSource().reqPosition().reqPositionX() - this
@@ -52,6 +70,15 @@ public class Carte {
 			float distY1 = distY * distY;
 			double somme = (double) (distY1 + distX1);
 			return (float) (Math.sqrt(somme));
+		}
+		private void initAetB(){
+			float x1 = m_source.reqPosition().reqPositionX();
+			float x2 = m_destination.reqPosition().reqPositionX();
+			float y1 = m_source.reqPosition().reqPositionY();
+			float y2 = m_destination.reqPosition().reqPositionY();
+			
+			this.a = (y2-y1)/(x2-x1);
+			this.b = y1-(x1*this.a);
 		}
 
 	}// fin classe arc
@@ -112,6 +139,15 @@ public class Carte {
 			}
 		}
 
+		return null;
+	}
+	
+	public Arc reqArc(Position position){
+		for (Arc arc:m_listeArcs){
+			if(arc.isPositionIn(position)){
+				return arc;
+			}
+		}
 		return null;
 	}
 

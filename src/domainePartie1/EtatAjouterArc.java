@@ -10,10 +10,10 @@ import javax.swing.SwingUtilities;
 
 public class EtatAjouterArc extends EtatDEdition{
 	
-	private static Simulateur m_simulateur;
+	
 	private static Noeud noeud_selectione = null;
 	public EtatAjouterArc(Simulateur simulateur){
-		m_simulateur = simulateur;
+		super(simulateur);
 		
 	}
 	
@@ -21,6 +21,7 @@ public class EtatAjouterArc extends EtatDEdition{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		super.mouseClicked(e);
 		if(SwingUtilities.isLeftMouseButton(e)){
 		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
 		

@@ -7,9 +7,10 @@ import javax.swing.SwingUtilities;
 
 
 public class EtatPlacerVehicule extends EtatDEdition {
-	private static Simulateur m_simulateur;
+	
+	
 	public EtatPlacerVehicule(Simulateur simulateur){
-		m_simulateur = simulateur;
+		super(simulateur);
 		
 	}
 	
@@ -17,6 +18,7 @@ public class EtatPlacerVehicule extends EtatDEdition {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		super.mouseClicked(e);
 		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
 		if(noeud != null){
 			m_simulateur.asgVehiculeUrgence(noeud);
@@ -58,5 +60,6 @@ public class EtatPlacerVehicule extends EtatDEdition {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

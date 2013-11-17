@@ -10,9 +10,9 @@ import javax.swing.SwingUtilities;
 
 public class EtatAjouterNoeud extends EtatDEdition {
 	
-	private static Simulateur m_simulateur;
+	
 	public EtatAjouterNoeud(Simulateur simulateur){
-		m_simulateur = simulateur;
+		super(simulateur);
 		
 	}
 	
@@ -20,6 +20,7 @@ public class EtatAjouterNoeud extends EtatDEdition {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		super.mouseClicked(e);
 		if(SwingUtilities.isLeftMouseButton(e)){
 			m_simulateur.ajouterNoeud(e.getX(), e.getY());
 		}
