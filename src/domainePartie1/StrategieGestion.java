@@ -27,7 +27,7 @@ public class StrategieGestion {
 	public ArrayList<Urgence> reqListeUrgence() {
 		return this.m_listeUrgence;
 	}
-	//retourne sous forme de liste toutes les uregence deja traitées 
+	//retourne sous forme de liste toutes les uregence deja traitï¿½es 
 	public ArrayList<Urgence> reqListerUrgencetraitee() {
 		return this.m_listeUrgenceTraitee;
 	}
@@ -47,16 +47,14 @@ public class StrategieGestion {
 		for (int j = 0; j < this.m_listeUrgence.size(); ++j) {
 			if (this.m_listeUrgence.get(j) == this.m_urgenceActuelle) {
 				this.m_listeUrgenceTraitee.add(m_listeUrgence.get(j));
-				int i[] = {j};	//TODO a revoir
-				this.m_listeUrgence.remove(i[j]);
-				
+				this.m_listeUrgence.remove(m_listeUrgence.get(j));
 			}
-
 		}
+		this.m_urgenceActuelle =null;
 	}
 	
-	public void asgListUrgence(ArrayList<Urgence> uneUrgence) {
-		this.m_listeUrgence = uneUrgence;
+	public void asgListUrgence(ArrayList<Urgence> listeUrgences) {
+		this.m_listeUrgence = listeUrgences;
 	}
 
 	public void asgUrgenceAtuelle(Urgence uneUrgence) {
@@ -64,4 +62,4 @@ public class StrategieGestion {
 	}
 
 
-} //les fonction ajouter sont dans les classe enfants
+}

@@ -1,6 +1,7 @@
 package domainePartie1;
 
 import java.awt.event.MouseEvent;
+import java.util.Timer;
 
 import javax.swing.event.MouseInputListener;
 
@@ -16,7 +17,9 @@ import domainePartie1.EtatModifierComponent;
 public class Simulateur implements MouseInputListener {
 	
 	private static Carte carte = new Carte();
+
 	private EtatDEdition m_etat = new EtatDEdition();
+
 	
 	public Simulateur() {
 		
@@ -114,7 +117,6 @@ public class Simulateur implements MouseInputListener {
 		m_etat.mouseMoved(e);
 		
 	}
-	
 		
 	}
 
