@@ -26,11 +26,11 @@ public class Carte {
 		{
 			
 		}
-		public Arc(Noeud src, Noeud dest, float dist)
+		public Arc(Noeud src, Noeud dest)
 		{
 			this.m_source = src;
 			this.m_destination = dest;
-			this.m_longueur = dist;
+			this.m_longueur = this.calculerLongueur();
 		}
 		public float reqLongueur()
 		{
@@ -76,12 +76,11 @@ public class Carte {
 		{
 			if(this.m_listeDeNoeuds.contains(noeudSource) && this.m_listeDeNoeuds.contains(noeudDest))
 			{
-				Arc nouvelArc = new Arc(noeudSource, noeudDest, 0);
-				float dist = nouvelArc.calculerLongueur();
-				nouvelArc.asgLongueur(dist);
+				Arc nouvelArc = new Arc(noeudSource, noeudDest);
+				
 				this.m_listeArcs.add(nouvelArc);
-				int index = this.m_listeDeNoeuds.indexOf(noeudSource);
-				this.m_listeDeNoeuds.get(index).reqListeArcsAdjacents().add(nouvelArc);
+				noeudSource.reqListeArcsAdjacents().add(nouvelArc);
+				noeudDest.reqListeArcsAdjacents().add(nouvelArc);
 			}
 			
 
@@ -94,7 +93,11 @@ public class Carte {
 		this.m_listeDeNoeuds.add(new Noeud(position));
 	}
 
-
+    public void deplacerNoeud(Noeud noeud, Position position){
+    	if(m_listeDeNoeuds.contains(noeud)){
+    		noeud.setPosition(position);
+    	}
+    }
 
 	public ArrayList<Noeud> reqListeNoeuds()
 	{
@@ -127,11 +130,25 @@ public class Carte {
 	{
 		if(this.m_listeDeNoeuds.contains(noeud))
 		{
-			this.m_listeDeNoeuds.get(this.m_listeDeNoeuds.indexOf(noeud)).reqListeArcsAdjacents().clear();//enlever la liste des noeuds adjacents
+			ArrayList<Arc> liste_arcs_adjacents = noeud.reqListeArcsAdjacents();
+			for(Arc arc:liste_arcs_adjacents){
+				
+				m_listeArcs.remove(arc);
+			}
+			
 			this.m_listeDeNoeuds.remove(noeud);//enlever le noeud
 		}
 	}
-	 
+	
+	public void enleverArc(Arc arc){
+		if (m_listeArcs.contains(arc)){
+			arc.reqNoeudSource().reqListeArcsAdjacents().remove(arc);
+			arc.reqNoeudDest().reqListeArcsAdjacents().remove(arc);
+			m_listeArcs.remove(arc);
+		}
+		
+	}
+	
 	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds)
 	{
 		float res = 999999999;

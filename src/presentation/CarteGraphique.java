@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.imageio.ImageIO;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
 
 import java.util.List;
@@ -13,12 +15,18 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 
 import domainePartie1.Position;
 import domainePartie1.Simulateur;
 import presentation.Afficheur;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.Dimension;
 
 
 public class CarteGraphique extends JPanel implements MouseInputListener{
@@ -26,6 +34,8 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 	
 	private final Afficheur m_afficheur;
 	private final Simulateur m_simulateur;
+	private JPopupMenu noeudPopup;
+	private static final String SUPPRIMER_NOEUD= "Supprimer";
 	
 	
 	
@@ -34,9 +44,28 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 		this.m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
 		
+		final CarteGraphique mycarte = this;
+		
 		setBackground(Color.WHITE);
 		setVisible(true);
 		addMouseListener(this);
+		addMouseMotionListener(this);
+		
+		
+		noeudPopup = new JPopupMenu();
+		JMenuItem menuItem = new JMenuItem("Supprimer");
+		menuItem.setActionCommand(SUPPRIMER_NOEUD);
+		menuItem.addActionListener(new ActionListener(){
+			  public void actionPerformed(ActionEvent e){
+				 
+						m_simulateur.supprimer_noeud_selectionne();
+						mycarte.repaint();
+					
+				  
+			  }
+			  });
+		noeudPopup.add(menuItem);
+		addPopup(this, noeudPopup);
 		}
 		
 	
@@ -50,10 +79,19 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		m_simulateur.mouseClicked(e);
 		
-		m_simulateur.doEdition(e);
+		if(SwingUtilities.isRightMouseButton(e)){
+			if(m_simulateur.existeNoeud(e.getX(), e.getY())){
+				this.noeudPopup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		}
+		else {
+			
+			this.repaint();
 		
-		this.repaint();
+		
+		}
 		
 		
 	}
@@ -62,47 +100,76 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("Mouse Dragged");
-		m_simulateur.doEdition(e);
+	
+		m_simulateur.mouseEntered(e);
+		this.repaint();
 		
 	}
 
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		m_simulateur.mouseExited(e);
+		this.repaint();
 		
 	}
 
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+		m_simulateur.mousePressed(e);
+		this.repaint();
 		
 	}
 
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		m_simulateur.mouseReleased(e);
+		this.repaint();
 		
 	}
 
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseDragged(MouseEvent e) {
+		
+		m_simulateur.mouseDragged(e);
+		this.repaint();
 		
 	}
 
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseMoved(MouseEvent e) {
+		
+		m_simulateur.mouseMoved(e);
+		this.repaint();
 		
 	}
 
 	
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
+
+
+
 }
     		
 

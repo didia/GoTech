@@ -1,13 +1,16 @@
 package domainePartie1;
 
 import java.awt.event.MouseEvent;
-import domainePartie1.Simulateur;
+
+import javax.swing.SwingUtilities;
+
 import domainePartie1.EtatDEdition;
+import domainePartie1.Simulateur;
 import domainePartie1.Noeud;
 
 
 
-public class EtatAjouterArc implements EtatDEdition{
+public class EtatAjouterArc extends EtatDEdition{
 	
 	private static Simulateur m_simulateur;
 	private static Noeud noeud_selectione = null;
@@ -16,8 +19,11 @@ public class EtatAjouterArc implements EtatDEdition{
 		
 	}
 	
-	public void doAction(MouseEvent e){
-		System.out.println(e.getX());
+	
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(SwingUtilities.isLeftMouseButton(e)){
 		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
 		
 		
@@ -39,6 +45,44 @@ public class EtatAjouterArc implements EtatDEdition{
 			noeud_selectione = null;
 			
 		}
+		}
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

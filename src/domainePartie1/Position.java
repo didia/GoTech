@@ -1,6 +1,6 @@
 package domainePartie1;
 
-public class Position {
+public class Position implements Comparable<Position>{
 	private float positionX;
 	private float positionY;
 
@@ -16,6 +16,20 @@ public class Position {
 	
 	public float reqPositionY(){
 		return this.positionY;
+	}
+	public double reqDistanceOrigine(){
+		return Math.sqrt(positionX*positionX + positionY*positionY);
+	}
+
+	@Override
+	public int compareTo(Position o) {
+		// TODO Auto-generated method stub
+		if (positionX == o.reqPositionX() && positionY == o.reqPositionY()){
+			return 0;
+		}
+		else{
+			return (int)(this.reqDistanceOrigine() - o.reqDistanceOrigine());
+		}
 	}
 	
 

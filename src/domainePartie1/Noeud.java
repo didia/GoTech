@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 
 
-public class Noeud 
+public class Noeud implements Comparable<Noeud>
 	//début classe noeud
 	{
 
@@ -66,6 +66,13 @@ public class Noeud
 			m_position = nouvellePos;
 		}
 		//fin getters and setters noeuds
+
+
+
+		@Override
+		public int compareTo(Noeud n) {
+			return m_position.compareTo(n.reqPosition());
+		}
 		
 	
 	

@@ -22,14 +22,15 @@ import domainePartie1.Simulateur;
 import javax.swing.ImageIcon;
 
 import java.awt.Image;
+import javax.swing.SwingConstants;
 
 public class EditPanel extends JPanel implements ActionListener{
 
 	public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
-	public static  String PUT_VEHICULE = "Placer Vehicule d'urgence";
+	public static  String PUT_VEHICULE = "Placer Vehicule";
 	public static String SELECTEUR_SOURIS = "Selectionner/DŽplacer";
-	public static int WIDTH_ICON = 20;
+	public static int WIDTH_ICON = 15;
 	public static int HEIGHT_ICON = 20;
 	
 	private  JButton ajouterNoeudButton;
@@ -56,6 +57,7 @@ public class EditPanel extends JPanel implements ActionListener{
 		ajouterArcButton.addActionListener(this);
 		
 		JButton selectionerButton = new JButton(SELECTEUR_SOURIS );
+		selectionerButton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		ImageIcon icon = new ImageIcon(EditPanel.class.getResource("/images/souris.png"));
 		 Image img = icon.getImage() ;  
 		 Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ;  
@@ -67,6 +69,13 @@ public class EditPanel extends JPanel implements ActionListener{
 		selectionerButton.addActionListener(this);
 		
 		JButton placerVehiculeButton = new JButton(PUT_VEHICULE);
+		placerVehiculeButton.setHorizontalAlignment(SwingConstants.LEFT);
+		icon = new ImageIcon(EditPanel.class.getResource("/images/VehiculeUrgence.png"));
+		img = icon.getImage() ; 
+		newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ; 
+		icon = new ImageIcon( newimg );
+		placerVehiculeButton.setIcon(icon);
+		
 		placerVehiculeButton.setPreferredSize(new Dimension(200,50));
 		placerVehiculeButton.setActionCommand(PUT_VEHICULE);
 		placerVehiculeButton.addActionListener(this);
@@ -92,7 +101,7 @@ public class EditPanel extends JPanel implements ActionListener{
 			
 		}
 		else if(command.equals(SELECTEUR_SOURIS)){
-			m_simulateur.setEtatModifierComponent();
+			m_simulateur.setEtatSelectioneur();
 		}
 		else if(command.equals(PUT_VEHICULE)){
 			
