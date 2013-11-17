@@ -1,6 +1,6 @@
 package domainePartie1;
 
-import domainePartie1.Carte;
+
 import java.util.ArrayList;
 
 

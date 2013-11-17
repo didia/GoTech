@@ -1,11 +1,11 @@
 package domainePartie1;
 
-import domainePartie1.Simulateur;
+
 import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
-import domainePartie1.EtatDEdition;
+
 
 
 public class EtatAjouterNoeud extends EtatDEdition {
@@ -16,10 +16,7 @@ public class EtatAjouterNoeud extends EtatDEdition {
 		
 	}
 	
-	public void doAction(MouseEvent e){
-		
-		
-	}
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

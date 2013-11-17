@@ -30,8 +30,8 @@ public class EditPanel extends JPanel implements ActionListener{
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule";
 	public static String SELECTEUR_SOURIS = "Selectionner/DŽplacer";
-	public static int WIDTH_ICON = 15;
-	public static int HEIGHT_ICON = 20;
+	public static int WIDTH_ICON = 40;
+	public static int HEIGHT_ICON = 40;
 	
 	private  JButton ajouterNoeudButton;
 	private  JButton ajouterArcButton;
@@ -57,6 +57,7 @@ public class EditPanel extends JPanel implements ActionListener{
 		ajouterArcButton.addActionListener(this);
 		
 		JButton selectionerButton = new JButton(SELECTEUR_SOURIS );
+		selectionerButton.setHorizontalAlignment(SwingConstants.LEFT);
 		selectionerButton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		ImageIcon icon = new ImageIcon(EditPanel.class.getResource("/images/souris.png"));
 		 Image img = icon.getImage() ;  
@@ -69,22 +70,26 @@ public class EditPanel extends JPanel implements ActionListener{
 		selectionerButton.addActionListener(this);
 		
 		JButton placerVehiculeButton = new JButton(PUT_VEHICULE);
+		placerVehiculeButton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		placerVehiculeButton.setHorizontalAlignment(SwingConstants.LEFT);
 		icon = new ImageIcon(EditPanel.class.getResource("/images/VehiculeUrgence.png"));
 		img = icon.getImage() ; 
 		newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ; 
 		icon = new ImageIcon( newimg );
 		placerVehiculeButton.setIcon(icon);
+		placerVehiculeButton.setIconTextGap(10);
+	
 		
 		placerVehiculeButton.setPreferredSize(new Dimension(200,50));
 		placerVehiculeButton.setActionCommand(PUT_VEHICULE);
 		placerVehiculeButton.addActionListener(this);
 		
 		JPanel editButtons= new JPanel(new GridLayout(4,1,0,5)); 
+		editButtons.add(selectionerButton);
 		editButtons.add(ajouterNoeudButton);
 		editButtons.add(ajouterArcButton);
 		editButtons.add(placerVehiculeButton);
-		editButtons.add(selectionerButton);
+		
 		add(editButtons, BorderLayout.CENTER);
 		
 		setVisible(true);
@@ -104,7 +109,7 @@ public class EditPanel extends JPanel implements ActionListener{
 			m_simulateur.setEtatSelectioneur();
 		}
 		else if(command.equals(PUT_VEHICULE)){
-			
+			m_simulateur.setEtatPlacerVehicule();
 		}
 	}
 		

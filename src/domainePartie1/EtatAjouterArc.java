@@ -4,9 +4,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
-import domainePartie1.EtatDEdition;
-import domainePartie1.Simulateur;
-import domainePartie1.Noeud;
+
 
 
 

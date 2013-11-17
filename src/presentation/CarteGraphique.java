@@ -32,8 +32,8 @@ import java.awt.Dimension;
 public class CarteGraphique extends JPanel implements MouseInputListener{
 	
 	
-	private final Afficheur m_afficheur;
-	private final Simulateur m_simulateur;
+	private static Afficheur m_afficheur;
+	private static  Simulateur m_simulateur;
 	private JPopupMenu noeudPopup;
 	private static final String SUPPRIMER_NOEUD= "Supprimer";
 	
@@ -72,7 +72,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		m_afficheur.afficherCarte(g, this.m_simulateur.reqCarte());
+		m_afficheur.afficherReseau(g, this.m_simulateur);
 	
 	}
 
@@ -80,18 +80,8 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		m_simulateur.mouseClicked(e);
-		
-		if(SwingUtilities.isRightMouseButton(e)){
-			if(m_simulateur.existeNoeud(e.getX(), e.getY())){
-				this.noeudPopup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		}
-		else {
-			
+	
 			this.repaint();
-		
-		
-		}
 		
 		
 	}
@@ -163,7 +153,12 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 				}
 			}
 			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
+			
+					if(m_simulateur.existeNoeud(e.getX(), e.getY()) == true){
+						popup.show(e.getComponent(), e.getX(), e.getY());;
+					}
+				
+				
 			}
 		});
 	}

@@ -16,10 +16,11 @@ import domainePartie1.Carte;
 import domainePartie1.Noeud;
 import domainePartie1.Position;
 import domainePartie1.Carte.Arc;
+import domainePartie1.Simulateur;
 
 public class Afficheur {
 	private static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.ico";
-	private static final String VEHICULE_IMAGE_PATH = "/images/VehiculeUrgence.ico";
+	private static final String VEHICULE_IMAGE_PATH = "src/images/VehiculeUrgence.png";
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
     private Image m_ImageDeVehicule;
@@ -30,19 +31,25 @@ public class Afficheur {
     
 	public Afficheur() {
 		
-		/*try {
-			m_imageDeNoeud = ImageIO.read(new File(NOEUD_IMAGE_PATH));
+		try {
+			//m_imageDeNoeud = ImageIO.read(new File(NOEUD_IMAGE_PATH));
 			m_ImageDeVehicule = ImageIO.read(new File(VEHICULE_IMAGE_PATH));
+			
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
-		} */
+		} 
 	}
 	
-	public void afficherCarte(Graphics g, Carte carte){
+	public void afficherReseau(Graphics g, Simulateur simulateur){
+		Carte carte = simulateur.reqCarte();
 		ArrayList<Noeud> listeDeNoeuds = carte.reqListeNoeuds();
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
 		this.afficherNoeuds(g, listeDeNoeuds);
 		this.afficherArcs(g, listeDeArcs);
+		this.afficherVehicule(g, simulateur.reqPositionVehicule());
+		
 		
 	}
 	
@@ -76,6 +83,18 @@ public class Afficheur {
 
 		}
 	
+	}
+	
+	public void afficherVehicule(Graphics g, Position position){
+		if(position != null){
+			Graphics2D g2d = (Graphics2D)g;
+			Image img = m_ImageDeVehicule.getScaledInstance( 40, 40,  Image.SCALE_SMOOTH) ; 
+			double a = position.reqPositionX() - WIDTH_NOEUD/2;
+			double b = position.reqPositionY() - HEIGHT_NOEUD - 40;
+			g2d.drawImage(img, (int)a, (int)b, 50, 50, null);
+		}
+		
+		
 	}
 	
 }

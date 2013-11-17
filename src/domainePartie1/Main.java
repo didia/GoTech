@@ -1,6 +1,6 @@
 package domainePartie1;
 
-import domainePartie1.Simulateur;
+
 import presentation.InterfaceGraphique;
 import presentation.Afficheur;
 

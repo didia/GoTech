@@ -6,29 +6,36 @@ import java.util.Timer;
 import javax.swing.event.MouseInputListener;
 
 
-import domainePartie1.Carte;
-import domainePartie1.EtatDEdition;
-import domainePartie1.EtatAjouterNoeud;
-import domainePartie1.EtatAjouterArc;
-import domainePartie1.Position;
-import domainePartie1.EtatModifierComponent;
+
 
 
 public class Simulateur implements MouseInputListener {
 	
 	private static Carte carte = new Carte();
-
+    private static Vehicule m_vehicule = Vehicule.getInstance();
 	private EtatDEdition m_etat = new EtatDEdition();
-
+    
 	
 	public Simulateur() {
 		
 
 	}
 	
+	
 	public Carte reqCarte() {
 		return carte;
 	}
+	
+	
+	
+	public void asgVehiculeUrgence(Noeud noeud){
+		this.m_vehicule.asgPointAttache(noeud);
+	}
+	
+	public Position reqPositionVehicule(){
+		return this.m_vehicule.reqPosition();
+	}
+	
 	
 	public void ajouterNoeud(int positionX, int positionY){
 		Position position = new Position((float)positionX, (float)positionY);
@@ -56,6 +63,7 @@ public class Simulateur implements MouseInputListener {
 		carte.deplacerNoeud(noeud, new Position((float)positionX, (float)positionY));
 		
 	}
+	
 	public void supprimer_noeud_selectionne(){
 		
 		Noeud noeud = m_etat.reqNoeudSelectione();
@@ -64,6 +72,10 @@ public class Simulateur implements MouseInputListener {
 			carte.enleverNoeud(noeud);
 		}
 	}
+	
+
+	
+	
 	public void setEtatAjouterNoeud(){
 		m_etat = new EtatAjouterNoeud(this);
 	}
@@ -73,8 +85,13 @@ public class Simulateur implements MouseInputListener {
 	public void setEtatSelectioneur(){
 		m_etat = new EtatModifierComponent(this);
 	}
+	public void setEtatPlacerVehicule(){
+		m_etat = new EtatPlacerVehicule(this);
+	}
 	
 
+	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

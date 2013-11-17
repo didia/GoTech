@@ -1,16 +1,26 @@
 package domainePartie1;
+
 import java.awt.event.MouseEvent;
 
-import javax.swing.event.MouseInputListener;
+import javax.swing.SwingUtilities;
 
 
 
-class EtatDEdition implements MouseInputListener {
+public class EtatPlacerVehicule extends EtatDEdition {
+	private static Simulateur m_simulateur;
+	public EtatPlacerVehicule(Simulateur simulateur){
+		m_simulateur = simulateur;
+		
+	}
+	
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
+		if(noeud != null){
+			m_simulateur.asgVehiculeUrgence(noeud);
+		}
 	}
 
 	@Override
@@ -48,12 +58,5 @@ class EtatDEdition implements MouseInputListener {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public Noeud reqNoeudSelectione(){
-		return null;
-	}
-	
-	
-
 
 }

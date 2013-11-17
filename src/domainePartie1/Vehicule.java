@@ -1,17 +1,28 @@
 package domainePartie1;
 
 public class Vehicule {
-	private Noeud m_portAttache ;
-	private float m_Vistesse;
-	private Noeud m_noeud_actuel;
+	
+	private static Vehicule m_vehicule = new Vehicule();
+	private Noeud m_portAttache = null;
+	private float m_Vistesse = 0;
+	private Position m_position = null;
 	
 	
-	//constructeur de la classe Vehicule
-	public Vehicule(Noeud p_porAttache, Noeud p_noeudActuel, float p_vitesse)
+	//constructeur privée vehicule
+	
+	private Vehicule(){
+		
+	}
+	
+	//Obtenir le véhicule
+	public static Vehicule getInstance()
 	{
-		this.m_noeud_actuel = p_noeudActuel;
-		this.m_portAttache = p_porAttache;
-		this.m_Vistesse = p_vitesse;
+		return m_vehicule;
+	}
+	
+	public void asgPointAttache(Noeud noeud){
+		m_portAttache = noeud;
+		m_position = m_portAttache.reqPosition();
 	}
 	public void AllerVers(Noeud p_noeudDestination)
 	{
@@ -25,9 +36,9 @@ public class Vehicule {
 		this.asgNoeudActuel(this.m_portAttache);
 	}
 	
-	public Noeud reqNoeudActuel()
+	public Position reqPosition()
 	{
-		return this.m_noeud_actuel;
+		return this.m_position;
 	}
 	
 	public Noeud reqPortAttache()
@@ -42,6 +53,6 @@ public class Vehicule {
 	
 	public void asgNoeudActuel(Noeud noeud)
 	{
-		
+		this.m_portAttache = noeud;
 	}
 }

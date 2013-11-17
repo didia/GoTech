@@ -6,18 +6,13 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import presentation.IconicButton.*;
+
 import java.awt.event.MouseListener;
 
-import domainePartie1.Carte;
 import domainePartie1.Simulateur;
 
 
-import presentation.CarteGraphique;
-import presentation.Afficheur;
-import presentation.Menu;
-import presentation.BarBoutons;
-import presentation.EditPanel;
+
 public class InterfaceGraphique extends JFrame {
 	/**
 	 * 
