@@ -1,6 +1,7 @@
 package domainePartie1;
 
 import java.awt.event.MouseEvent;
+import java.util.Timer;
 
 
 import domainePartie1.Carte;
@@ -14,6 +15,7 @@ public class Simulateur {
 	
 	private static Carte carte = new Carte();
 	private EtatDEdition m_etat = null;
+	public static Timer tempsAtenteMoyen;
 	
 	public Simulateur() {
 
@@ -47,7 +49,6 @@ public class Simulateur {
 			m_etat.doAction(e);
 		}
 	}
-	
 		
 	}
 

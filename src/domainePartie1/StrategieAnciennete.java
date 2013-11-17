@@ -8,9 +8,34 @@ public class StrategieAnciennete extends StrategieGestion {
 		super();
 	}
 
-//TODO a revoir pour ANciennete seulement
+
+	
+	public Urgence urgenceActuelle()
+	{
+
+		 try {
+			    
+			 
+		Urgence	 uneUrgence = this.reqListeUrgence().get(0);
+		this.asgUrgenceAtuelle(uneUrgence);
+		 }
+		 catch(NullPointerException e) 
+			{
+				System.out.println("Plus d'urgence en attente");
+				
+			}
+		catch (IndexOutOfBoundsException e) {
+		    System.out.println("il Y a plus d'urgence a traiter  :(");
+		}
+		 
+		
+		
+		return this.reqUrgencActuelle();
+	}
+
+
 	public void traiterUrgenceActuelle() {
-		if (this.reqListeUrgence().size() != 0) {
+		if (this.existeUrgenceNonTraitee()) {
 			Urgence urgence = this.reqUrgencActuelle();
 			this.asgUrgenceAtuelle(urgence);
 			this.traiterUrgencAtuelle();
@@ -18,17 +43,8 @@ public class StrategieAnciennete extends StrategieGestion {
 			System.out.println("il ya plus d'ergence a Traiter");
 	}
 
-	
-	public Urgence reqUrgenceAcctuelle() // urgence actuelle est le premier sur
-											// la liste
-	{
-		Urgence urgenceActuelle = this.reqListeUrgence().get(0);
-		this.asgUrgenceAtuelle(urgenceActuelle);
-		return urgenceActuelle;
-	}
-
-	public void ajouterUrgence(Urgence uneUrgence) {
-		ArrayList<Urgence> listTempTriee = this.reqListeUrgence();
+	public void ajouterUrgence(Urgence uneUrgence) { 
+		ce();
 
 		listTempTriee.add(uneUrgence);
 

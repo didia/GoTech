@@ -5,13 +5,14 @@ import java.awt.Graphics;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.MouseListener;
+
 import java.awt.event.MouseEvent;
 
 
@@ -20,7 +21,7 @@ import domainePartie1.Simulateur;
 import presentation.Afficheur;
 
 
-public class CarteGraphique extends JPanel implements MouseListener{
+public class CarteGraphique extends JPanel implements MouseInputListener{
 	
 	
 	private final Afficheur m_afficheur;
@@ -49,18 +50,20 @@ public class CarteGraphique extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Mouse Clicked");
+		
 		m_simulateur.doEdition(e);
 		
 		this.repaint();
 		
 		
 	}
+	
 
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("Mouse Dragged");
+		m_simulateur.doEdition(e);
 		
 	}
 
@@ -81,6 +84,20 @@ public class CarteGraphique extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
