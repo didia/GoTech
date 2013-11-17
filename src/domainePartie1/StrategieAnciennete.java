@@ -44,7 +44,8 @@ public class StrategieAnciennete extends StrategieGestion {
 	}
 
 	public void ajouterUrgence(Urgence uneUrgence) { 
-		ce();
+
+		ArrayList<Urgence> listTempTriee = new ArrayList<Urgence>();
 
 		listTempTriee.add(uneUrgence);
 
