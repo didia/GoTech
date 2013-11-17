@@ -2,23 +2,33 @@ package domainePartie1;
 
 import java.util.ArrayList;
 
+import javax.xml.ws.LogicalMessage;
+
 public class StrategiePriorite extends StrategieGestion {
 
 	public StrategiePriorite() {
 		super();
 	}
 
-	// l'urgence actuelle est la premiere de la liste desja triée
-	public Urgence reqUrgencActuelle() {
-		Urgence uneUrgence = this.reqListeUrgence().get(0);
-
+	// l'urgence actuelle est la premiere de la liste desja triï¿½e
+	public Urgence urgenceActuelle() {
+		
+		 try {
+			    
+			 
+		Urgence	 uneUrgence = this.reqListeUrgence().get(0);
 		this.asgUrgenceAtuelle(uneUrgence);
-		return uneUrgence;
+		 }
+		catch (IndexOutOfBoundsException e) {
+		    System.out.println("il Y a plus d'urgence a traiter  :(");
+		  }
+		return this.reqUrgencActuelle();
+		
 	}
 
-	//TODO revoir TraiterIrgence Actuelle 
+	 
 	public void traiterUrgenceActuelle() {
-		if (this.reqListeUrgence().size() != 0) {
+		if (this.reqListeUrgence().contains(this.reqUrgencActuelle())) {
 			Urgence urgence = this.reqUrgencActuelle();
 			this.asgUrgenceAtuelle(urgence);
 			this.traiterUrgencAtuelle();
@@ -26,11 +36,11 @@ public class StrategiePriorite extends StrategieGestion {
 			System.out.println("il ya plus d'ergence a Traiter");
 	}
 
-	// une fonction qui trie la liste des urgences passée en parametre
+	// une fonction qui trie la liste des urgences passï¿½e en parametre
 	public void trierListUrgence(ArrayList<Urgence> listUrgence) {
 		for (int i = 0; i < listUrgence.size(); ++i) {
 			for (int j = i + 1; j < listUrgence.size(); ++j) {
-				if (listUrgence.get(i).reqPriorite() > listUrgence.get(j)
+				if (listUrgence.get(i).reqPriorite() < listUrgence.get(j)
 						.reqPriorite()) {
 					Urgence urgenceTemp = listUrgence.get(i);
 					listUrgence.set(i, listUrgence.get(j));
@@ -41,7 +51,7 @@ public class StrategiePriorite extends StrategieGestion {
 		}
 	}
 
-	// en ajoutant, on ordonne la liste selon la strategie priorité
+	// en ajoutant, on ordonne la liste selon la strategie prioritï¿½
 	public void ajouterUrgence(Urgence urgenceAajouter) {
 		ArrayList<Urgence> listTemp = this.reqListeUrgence();
 

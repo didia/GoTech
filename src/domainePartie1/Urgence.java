@@ -5,15 +5,17 @@ public class Urgence {
 	private Timer m_duree;
 	private Noeud m_noeudCible;
 	private int m_priorite; // de 0 a 5
+	public static Timer dureeUrgence;
 	
 	public Urgence()
 	{
-	
+		this.m_noeudCible = new Noeud();
+		this.m_priorite = 5;
 	}
-	public Urgence(Noeud p_NoeudCible, int p_priorité)
+	public Urgence(Noeud p_NoeudCible, int p_priorite)
 	{
 		this.m_noeudCible = p_NoeudCible;
-		this.m_priorite = p_priorité;
+		this.m_priorite = p_priorite;
 		
 	}
 	public Timer reqDuree()
@@ -34,5 +36,10 @@ public class Urgence {
 	public Noeud reqNoeudCible()
 	{
 		return this.m_noeudCible;
+	}
+	
+	public void declencherUrgence()
+	{
+		
 	}
 }
