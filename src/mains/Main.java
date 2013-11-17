@@ -53,6 +53,8 @@ public class Main {
 		 uneStrategieAnciennete.traiterUrgencAtuelle();
 		 uneStrategieAnciennete.traiterUrgencAtuelle();
 		 uneStrategieAnciennete.traiterUrgencAtuelle();
+		 
+		 
 		 System.out.println("la liste des priorité  des urgences dejas traité  selon la stregie Ancienneté est");
 		 for(int i =0; i <uneStrategieAnciennete.reqListerUrgencetraitee().size(); ++i)
 			 System.out.println(uneStrategieAnciennete.reqListerUrgencetraitee().get(i).reqPriorite());
