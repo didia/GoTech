@@ -139,32 +139,7 @@ public class Main {
 		 System.out.println("-------------------------------------------------------------");
 		
 		 uneStrategiePriorite.traiterUrgencAtuelle();
-<<<<<<< HEAD
-		 
-		 
-		 System.out.println("Strategie Ancienneté");
-		 System.out.println("la liste des priorité  des urgences selon la stregie Ancienneté est");
-		 for(int i =0; i <uneStrategieAnciennete.reqListeUrgence().size(); ++i)
-			 System.out.println(uneStrategieAnciennete.reqListeUrgence().get(i).reqPriorite());
-		 System.out.println("L'urgence actuelle est celle dont la priorité est :"+uneStrategieAnciennete.reqUrgencActuelle().reqPriorite());
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-		 
-		 
-		 System.out.println("la liste des priorité  des urgences dejas traité  selon la stregie Ancienneté est");
-		 for(int i =0; i <uneStrategieAnciennete.reqListerUrgencetraitee().size(); ++i)
-			 System.out.println(uneStrategieAnciennete.reqListerUrgencetraitee().get(i).reqPriorite());
 
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-		 uneStrategieAnciennete.traiterUrgencAtuelle();
-=======
-		 System.out.println("la liste des Priorite  des urgences dejas Priorite  selon la strategie PrioritÃ© est");
->>>>>>> 5caaa27ef93d235c7ed066b5abb1c3b0a445dc95
-			
 		 for(int i =0; i <uneStrategiePriorite.reqListerUrgencetraitee().size(); ++i)
 			 System.out.println(uneStrategiePriorite.reqListerUrgencetraitee().get(i).reqPriorite());
 		 System.out.println("-------------------------------------------------------------");
