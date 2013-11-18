@@ -64,6 +64,7 @@ public class EditPanel extends JPanel implements ActionListener{
 		 Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ;  
 		 icon = new ImageIcon( newimg );
 		selectionerButton.setIcon(icon);
+		selectionerButton.setIconTextGap(10);
 		
 		selectionerButton.setPreferredSize(new Dimension(200 ,50));
 		selectionerButton.setActionCommand(SELECTEUR_SOURIS );

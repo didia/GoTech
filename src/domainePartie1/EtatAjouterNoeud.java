@@ -40,7 +40,7 @@ public class EtatAjouterNoeud extends EtatDEdition {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		mouseClicked(e);
 		
 	}
 

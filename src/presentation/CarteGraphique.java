@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.imageio.ImageIO;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
 
@@ -34,12 +35,15 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 	
 	private static Afficheur m_afficheur;
 	private static  Simulateur m_simulateur;
+	private JViewport viewport;
 	private JPopupMenu noeudPopup;
 	private static final String SUPPRIMER_NOEUD= "Supprimer";
 	
 	
 	
 	public CarteGraphique(Afficheur afficheurGraphique, Simulateur p_simulateur) {
+		
+		
 		
 		this.m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
@@ -51,7 +55,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
-		
+		this.viewport = (JViewport)getParent();
 		noeudPopup = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("Supprimer");
 		menuItem.setActionCommand(SUPPRIMER_NOEUD);
@@ -144,18 +148,23 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (e.isPopupTrigger()) {
+					
 					showMenu(e);
+					
 				}
 			}
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
+					
 					showMenu(e);
+					
 				}
 			}
 			private void showMenu(MouseEvent e) {
 			
 					if(m_simulateur.existeComponent(e.getX(), e.getY()) == true){
-						popup.show(e.getComponent(), e.getX(), e.getY());;
+						popup.show(e.getComponent(), e.getX(), e.getY());
+						
 					}
 				
 				

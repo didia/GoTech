@@ -21,30 +21,8 @@ public class EtatAjouterArc extends EtatDEdition{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		super.mouseClicked(e);
-		if(SwingUtilities.isLeftMouseButton(e)){
-		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
 		
-		
-		if (noeud != null){
-			if(noeud_selectione == null){
-				noeud_selectione = noeud;
-				
-			}
-			else{
-				
-				
-				
-				m_simulateur.ajouterArc(noeud_selectione, noeud);
-				noeud_selectione = null;
-			}
-	
-		}
-		else {
-			noeud_selectione = null;
-			
-		}
-		}
+		mousePressed(e);
 		
 	}
 
@@ -62,13 +40,35 @@ public class EtatAjouterArc extends EtatDEdition{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(SwingUtilities.isLeftMouseButton(e)){
+			Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
+			
+			
+			if (noeud != null){
+				if(noeud_selectione == null){
+					noeud_selectione = noeud;
+					
+				}
+				else{
+					
+					
+					
+					m_simulateur.ajouterArc(noeud_selectione, noeud);
+					noeud_selectione = null;
+				}
+		
+			}
+			else {
+				noeud_selectione = null;
+				
+			}
+			}
 		
 	}
 

@@ -17,15 +17,16 @@ import domainePartie1.Noeud;
 import domainePartie1.Position;
 import domainePartie1.Carte.Arc;
 import domainePartie1.Simulateur;
+import domainePartie1.Default;
 
 public class Afficheur {
-	private static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.ico";
-	private static final String VEHICULE_IMAGE_PATH = "src/images/VehiculeUrgence.png";
+	private static final String NOEUD_IMAGE_PATH = Default.NOEUD_IMAGE_PATH;
+	private static final String VEHICULE_IMAGE_PATH = Default.VEHICULE_IMAGE_PATH;
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
     private Image m_ImageDeVehicule;
-    private static final int WIDTH_NOEUD = 20;
-    private static final int HEIGHT_NOEUD = 20;
+    private static final int WIDTH_NOEUD = Default.WIDTH_NOEUD;
+    private static final int HEIGHT_NOEUD = Default.HEIGHT_NOEUD;
     
   
     
@@ -88,9 +89,9 @@ public class Afficheur {
 	public void afficherVehicule(Graphics g, Position position){
 		if(position != null){
 			Graphics2D g2d = (Graphics2D)g;
-			Image img = m_ImageDeVehicule.getScaledInstance( 40, 40,  Image.SCALE_SMOOTH) ; 
+			Image img = m_ImageDeVehicule.getScaledInstance( 20, 20,  Image.SCALE_SMOOTH) ; 
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
-			double b = position.reqPositionY() - HEIGHT_NOEUD - 40;
+			double b = position.reqPositionY() - 2*HEIGHT_NOEUD;
 			g2d.drawImage(img, (int)a, (int)b, 50, 50, null);
 		}
 		

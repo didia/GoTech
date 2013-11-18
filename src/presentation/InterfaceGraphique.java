@@ -40,7 +40,7 @@ public class InterfaceGraphique extends JFrame {
 		
 		// Ajout de la carte graphique au centre
 		m_carteGraphique = new CarteGraphique(m_afficheur, m_simulateur);
-		getContentPane().add(m_carteGraphique, BorderLayout.CENTER);
+		getContentPane().add(new JScrollPane(m_carteGraphique));
 		
 		// Ajout Panneau Edition
 		m_panneauEdition = new EditPanel(m_simulateur);
