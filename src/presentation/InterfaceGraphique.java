@@ -1,4 +1,5 @@
 package presentation;
+
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,9 +12,8 @@ import java.awt.event.MouseListener;
 
 import domainePartie1.Simulateur;
 
-
-
-public class InterfaceGraphique extends JFrame {
+public class InterfaceGraphique extends JFrame 
+{
 	/**
 	 * 
 	 */
@@ -26,16 +26,13 @@ public class InterfaceGraphique extends JFrame {
     private static Simulateur m_simulateur;
     private Afficheur m_afficheur;
 
-	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) {
-		
+	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) 
+	{
 		super("Intervensim");
 		setPreferredSize(new Dimension(920, 600));
 		
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
-		
-		
-		
 		
 		
 		// Ajout de la carte graphique au centre
@@ -52,21 +49,20 @@ public class InterfaceGraphique extends JFrame {
 		
 		//getContentPane().add(bar, BorderLayout.WEST);
 		this.setJMenuBar(menu);
-		
-		
+	
 		
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		
-
 	}
 	
-	public void ajouterCarteListener(MouseListener listener){
+	public void ajouterCarteListener(MouseListener listener)
+	{
 		m_carteGraphique.addMouseListener(listener);
 	}
 	
-	public void rafraichirCarte() {
+	public void rafraichirCarte() 
+	{
 		m_carteGraphique.repaint();
 	}
 }

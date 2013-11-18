@@ -19,7 +19,8 @@ import domainePartie1.Carte.Arc;
 import domainePartie1.Simulateur;
 import domainePartie1.Default;
 
-public class Afficheur {
+public class Afficheur 
+{
 	private static final String NOEUD_IMAGE_PATH = Default.NOEUD_IMAGE_PATH;
 	private static final String VEHICULE_IMAGE_PATH = Default.VEHICULE_IMAGE_PATH;
 	private Image m_imageDeFond = null;
@@ -30,72 +31,68 @@ public class Afficheur {
     
   
     
-	public Afficheur() {
-		
-		try {
+	public Afficheur() 
+	{
+		try 
+		{
 			//m_imageDeNoeud = ImageIO.read(new File(NOEUD_IMAGE_PATH));
 			m_ImageDeVehicule = ImageIO.read(new File(VEHICULE_IMAGE_PATH));
-			
-			
-			
-		} catch (IOException e) {
+		} 
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		} 
 	}
 	
-	public void afficherReseau(Graphics g, Simulateur simulateur){
+	public void afficherReseau(Graphics g, Simulateur simulateur)
+	{
 		Carte carte = simulateur.reqCarte();
 		ArrayList<Noeud> listeDeNoeuds = carte.reqListeNoeuds();
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
+		
 		this.afficherNoeuds(g, listeDeNoeuds);
 		this.afficherArcs(g, listeDeArcs);
-		this.afficherVehicule(g, simulateur.reqPositionVehicule());
-		
-		
+		this.afficherVehicule(g, simulateur.reqPositionVehicule());	
 	}
 	
-	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds){
+	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds)
+	{
 		Graphics2D g2d = (Graphics2D)g;
-		for(int i=0; i<listeDeNoeuds.size(); i++){
+		
+		for (int i=0; i<listeDeNoeuds.size(); i++)
+		{
 			Position position = listeDeNoeuds.get(i).reqPosition();
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
 			double b = position.reqPositionY() - HEIGHT_NOEUD/2;
 			
 			Ellipse2D.Double circle = new Ellipse2D.Double(a, b, WIDTH_NOEUD, HEIGHT_NOEUD);
 			g2d.fill(circle);
-			
-
-		}
-		
+		}	
 	}
 	
-	public void afficherArcs(Graphics g, ArrayList<Arc> listeArcs){
+	public void afficherArcs(Graphics g, ArrayList<Arc> listeArcs)
+	{
 		Graphics2D g2d = (Graphics2D)g;
-		for(int i=0; i<listeArcs.size(); i++){
-			Position position1 = listeArcs.get(i).reqNoeudSource().reqPosition();
-			Position position2 = listeArcs.get(i).reqNoeudDest().reqPosition();
-			
+		
+		for (int i=0; i<listeArcs.size(); i++)
+		{
+			Position source = listeArcs.get(i).reqNoeudSource().reqPosition();
+			Position destination = listeArcs.get(i).reqNoeudDest().reqPosition();
 			
 			g2d.setStroke(new BasicStroke(3));
-			g2d.draw(new Line2D.Double(position1.reqPositionX(), position1.reqPositionY(), 
-					position2.reqPositionX(), position2.reqPositionY()));
-
-			
-
+			g2d.draw(new Line2D.Double(source.reqPositionX(), source.reqPositionY(), destination.reqPositionX(), destination.reqPositionY()));
 		}
-	
 	}
 	
-	public void afficherVehicule(Graphics g, Position position){
-		if(position != null){
+	public void afficherVehicule(Graphics g, Position position)
+	{
+		if (position != null)
+		{
 			Graphics2D g2d = (Graphics2D)g;
 			Image img = m_ImageDeVehicule.getScaledInstance( 20, 20,  Image.SCALE_SMOOTH) ; 
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
 			double b = position.reqPositionY() - 2*HEIGHT_NOEUD;
 			g2d.drawImage(img, (int)a, (int)b, 50, 50, null);
-		}
-		
-		
+		}	
 	}
-	
 }

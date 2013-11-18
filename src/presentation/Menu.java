@@ -6,7 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 
-public class Menu extends JMenuBar {
+public class Menu extends JMenuBar 
+{
 	
 	/**
 	 * 
@@ -25,10 +26,11 @@ public class Menu extends JMenuBar {
 	private JMenuItem itemNouveauProjet = new JMenuItem("Nouveau Projet");
 	private JMenuItem itemOuvrirProjet = new JMenuItem("Ouvrir Projet");
 	private JMenuItem itemGlossaire = new JMenuItem("Glossaire");
+	
+
 	//Constructeur
-	public Menu() {
-		
-		
+	public Menu() 
+	{
 		//Set Accelerators
 		itemEnregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		itemAnnuler.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
@@ -39,7 +41,6 @@ public class Menu extends JMenuBar {
 		//Set Mnemonics
 		menuFichier.setMnemonic('F');
 		menuEdition.setMnemonic('E');
-		
 		
 		//Menu Fichier
 		this.menuFichier.add(itemNouveauProjet);
@@ -55,6 +56,8 @@ public class Menu extends JMenuBar {
 		//Menu Aide
 		this.menuAide.add(itemGlossaire);
 		
+		
+		//Ajout au menu
 		this.add(menuFichier);
 		this.add(menuEdition);
 		this.add(menuAide);
