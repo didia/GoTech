@@ -8,5 +8,6 @@ public class Default {
     public static final int HEIGHT_NOEUD = 20;
 	public static final int WIDTH_ICON = 40;
 	public static final int HEIGHT_ICON = 40;
+	public static final int BORDER_SIZE = 20;
 	
 }

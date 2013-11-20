@@ -7,13 +7,13 @@ public class Echelle {
 	private int pixel_par_metre;
 	
 	public Echelle(){
-		pixel_par_metre = Math.round(Default.WIDTH_NOEUD*2*m_zoom);
+		pixel_par_metre = Math.round(Default.WIDTH_NOEUD*2*m_zoom)/precision;
 	}
 	
 	public void setZoom(float zoom){
 		if(zoom <= 1 && zoom >= 0.1){
 			m_zoom = zoom;
-			pixel_par_metre = Math.round(Default.WIDTH_NOEUD*2*m_zoom);
+			pixel_par_metre = Math.round(Default.WIDTH_NOEUD*2*m_zoom)/precision;
 		}
 	}
 	

@@ -20,9 +20,12 @@ public class EtatAjouterNoeud extends EtatDEdition {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		super.mouseClicked(e);
+		
 		if(SwingUtilities.isLeftMouseButton(e)){
 			m_simulateur.ajouterNoeud(e.getX(), e.getY());
+		}
+		else{
+			super.mouseClicked(e);
 		}
 	}
 

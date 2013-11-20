@@ -17,16 +17,15 @@ import domainePartie1.Noeud;
 import domainePartie1.Position;
 import domainePartie1.Carte.Arc;
 import domainePartie1.Simulateur;
-import domainePartie1.Default;
 
 public class Afficheur {
-	private static final String NOEUD_IMAGE_PATH = Default.NOEUD_IMAGE_PATH;
-	private static final String VEHICULE_IMAGE_PATH = Default.VEHICULE_IMAGE_PATH;
+	private static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.ico";
+	private static final String VEHICULE_IMAGE_PATH = "src/images/VehiculeUrgence.png";
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
     private Image m_ImageDeVehicule;
-    private static final int WIDTH_NOEUD = Default.WIDTH_NOEUD;
-    private static final int HEIGHT_NOEUD = Default.HEIGHT_NOEUD;
+    private static final int WIDTH_NOEUD = 20;
+    private static final int HEIGHT_NOEUD = 20;
     
   
     
@@ -56,8 +55,8 @@ public class Afficheur {
 	
 	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds){
 		Graphics2D g2d = (Graphics2D)g;
-		for(int i=0; i<listeDeNoeuds.size(); i++){
-			Position position = listeDeNoeuds.get(i).reqPosition();
+		for(Noeud noeud: listeDeNoeuds){
+			Position position = noeud.reqPosition();
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
 			double b = position.reqPositionY() - HEIGHT_NOEUD/2;
 			
@@ -71,9 +70,9 @@ public class Afficheur {
 	
 	public void afficherArcs(Graphics g, ArrayList<Arc> listeArcs){
 		Graphics2D g2d = (Graphics2D)g;
-		for(int i=0; i<listeArcs.size(); i++){
-			Position position1 = listeArcs.get(i).reqNoeudSource().reqPosition();
-			Position position2 = listeArcs.get(i).reqNoeudDest().reqPosition();
+		for(Carte.Arc arc:listeArcs){
+			Position position1 = arc.reqNoeudSource().reqPosition();
+			Position position2 = arc.reqNoeudDest().reqPosition();
 			
 			
 			g2d.setStroke(new BasicStroke(3));
@@ -89,9 +88,9 @@ public class Afficheur {
 	public void afficherVehicule(Graphics g, Position position){
 		if(position != null){
 			Graphics2D g2d = (Graphics2D)g;
-			Image img = m_ImageDeVehicule.getScaledInstance( 20, 20,  Image.SCALE_SMOOTH) ; 
+			Image img = m_ImageDeVehicule.getScaledInstance( 40, 40,  Image.SCALE_SMOOTH) ; 
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
-			double b = position.reqPositionY() - 2*HEIGHT_NOEUD;
+			double b = position.reqPositionY() - HEIGHT_NOEUD - 40;
 			g2d.drawImage(img, (int)a, (int)b, 50, 50, null);
 		}
 		

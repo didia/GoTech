@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputListener;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 
+import domainePartie1.Default;
 import domainePartie1.Position;
 import domainePartie1.Simulateur;
 import presentation.Afficheur;
@@ -50,6 +52,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 		
 		final CarteGraphique mycarte = this;
 		
+		setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
 		setBackground(Color.WHITE);
 		setVisible(true);
 		addMouseListener(this);
@@ -83,6 +86,9 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		System.out.print(e.getX());
+		System.out.print(" ");
+		System.out.println(e.getY());
 		m_simulateur.mouseClicked(e);
 	
 			this.repaint();
@@ -94,7 +100,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-	
+		
 		m_simulateur.mouseEntered(e);
 		this.repaint();
 		
