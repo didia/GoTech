@@ -48,9 +48,10 @@ public class EtatAjouterArc extends EtatDEdition{
 	public void mouseReleased(MouseEvent e) {
 		if(SwingUtilities.isLeftMouseButton(e)){
 			Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
-			
+
 			
 			if (noeud != null){
+				System.out.println("Noeud trouvé");
 				if(noeud_selectione == null){
 					noeud_selectione = noeud;
 					
@@ -64,7 +65,7 @@ public class EtatAjouterArc extends EtatDEdition{
 				}
 		
 			}
-			else {
+			else{
 				noeud_selectione = null;
 				
 			}

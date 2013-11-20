@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import domainePartie1.Carte;
+import domainePartie1.Grille;
 import domainePartie1.Noeud;
 import domainePartie1.Position;
 import domainePartie1.Carte.Arc;
@@ -27,9 +28,9 @@ public class Afficheur
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
     private Image m_ImageDeVehicule;
-    private static final int WIDTH_NOEUD = 20;
-    private static final int HEIGHT_NOEUD = 20;
-    
+    private static final int WIDTH_NOEUD = Default.WIDTH_NOEUD;
+    private static final int HEIGHT_NOEUD = Default.HEIGHT_NOEUD;
+    private static Grille m_grille;
   
     
 	public Afficheur() 
@@ -45,23 +46,40 @@ public class Afficheur
 		} 
 	}
 	
-	public void afficherReseau(Graphics g, Simulateur simulateur)
+	
+	public void afficherReseau(Graphics g, Simulateur simulateur, CarteGraphique carteGraphique)
 	{
 		Carte carte = simulateur.reqCarte();
+		m_grille = simulateur.reqGrille();
 		ArrayList<Noeud> listeDeNoeuds = carte.reqListeNoeuds();
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
 		
 		this.afficherNoeuds(g, listeDeNoeuds);
 		this.afficherArcs(g, listeDeArcs);
-		this.afficherVehicule(g, simulateur.reqPositionVehicule());	
+		if(simulateur.reqPositionVehicule() != null)
+			this.afficherVehicule(g, m_grille.reqPositionEnPixel(simulateur.reqPositionVehicule()));	
+		this.afficherGrille(g, carteGraphique);
 	}
 	
+	public void afficherGrille(Graphics g, CarteGraphique carteGraphique){
+		Graphics2D g2d = (Graphics2D)g;
+		int width = carteGraphique.getWidth();
+		int height = carteGraphique.getHeight();
+		
+		for(int i = 0; i<width; i+=m_grille.reqPixelParStep()){
+			for (int j =0; j<height; j+= m_grille.reqPixelParStep()){
+				
+				g2d.setStroke(new BasicStroke(1));
+				g2d.draw(new Line2D.Double(i, j, i, j));
+			}
+		}
+	}
 	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds)
 	{
 		Graphics2D g2d = (Graphics2D)g;
 
 		for(Noeud noeud: listeDeNoeuds){
-			Position position = noeud.reqPosition();
+			Position position = m_grille.reqPositionEnPixel(noeud.reqPosition());
 
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
 			double b = position.reqPositionY() - HEIGHT_NOEUD/2;
@@ -76,8 +94,8 @@ public class Afficheur
 		Graphics2D g2d = (Graphics2D)g;
 
 		for(Carte.Arc arc:listeArcs){
-			Position source = arc.reqNoeudSource().reqPosition();
-			Position destination = arc.reqNoeudDest().reqPosition();
+			Position source = m_grille.reqPositionEnPixel(arc.reqNoeudSource().reqPosition());
+			Position destination = m_grille.reqPositionEnPixel(arc.reqNoeudDest().reqPosition());
 			
 
 			g2d.setStroke(new BasicStroke(3));

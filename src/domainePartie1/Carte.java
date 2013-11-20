@@ -104,6 +104,7 @@ public class Carte {
 
 
 	public void ajouterNoeud(Position position) {
+		
 		this.m_listeDeNoeuds.add(new Noeud(position));
 	}
 
@@ -128,6 +129,7 @@ public class Carte {
 
 		for (Noeud noeud: m_listeDeNoeuds) {
 			Position noeud_position = noeud.reqPosition();
+			/*
 			float x = position.reqPositionX();
 			float y = position.reqPositionY();
 			float c1 = noeud_position.reqPositionX();
@@ -135,6 +137,12 @@ public class Carte {
 			float circle = (x - c1) * (x - c1) + (y - c2) * (y - c2);
 
 			if (circle <= 10 * 10) {
+				return noeud;
+			}
+			*/
+			
+			if (noeud_position.reqPositionX() == position.reqPositionX() && 
+					noeud_position.reqPositionY() == position.reqPositionY()){
 				return noeud;
 			}
 		}

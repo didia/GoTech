@@ -2,51 +2,48 @@ package presentation;
 import java.awt.*;
 import javax.swing.*;
 
+import domainePartie1.Default;
+import domainePartie1.Simulateur;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class BarBoutons extends JToolBar {
-	private JButton boutonNoeud;
-	private JButton boutonArc;
-	private JButton boutonVehicule;
-	private JButton bouton4;
-	private JButton boutonArreter;
-	private JButton boutonLancer;
-	private JButton boutonPlus;
-	private JButton boutonMoins;
 	
-	public BarBoutons() {
+	private JTextField textZoom;
+	private static final String ZOOMMOINS = Default.ZOOMMOINS;
+	private static final String ZOOMPLUS = Default.ZOOMPLUS;;
+	private static CarteGraphique m_carte ;
+	
+	public BarBoutons(CarteGraphique carte) {
+		setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		//Initialisation Bar Boutons
 		this.setRollover(true);
 		this.setFloatable(false);
+		m_carte = carte;
+		JButton btnZoomMoins = new JButton(ZOOMMOINS);
+		btnZoomMoins.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		btnZoomMoins.setActionCommand(ZOOMMOINS);
+		
+		
+		add(btnZoomMoins);
+		
+		textZoom = new JTextField();
+		textZoom.setText("100%");
+		textZoom.setEditable(false);
+		
+		add(textZoom);
+		textZoom.setColumns(5);
+		
+		JButton btnZoomPlus = new JButton(ZOOMPLUS);
+		btnZoomPlus.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		btnZoomPlus.setActionCommand(ZOOMPLUS);
+	
+		add(btnZoomPlus);
 		
 		//Initialisation Boutons
-		boutonNoeud = new JButton("Noeud");
-		boutonNoeud.setFont(new Font("sans serif", Font.PLAIN, 22));
-		boutonArc = new JButton("Arc");
-		boutonArc.setFont(new Font("sans serif", Font.PLAIN, 22));
-		boutonVehicule = new JButton("Vehicule");
-		boutonVehicule.setFont(new Font("sans serif", Font.PLAIN, 22));
-		bouton4 = new JButton("Noeud");	
-		boutonArreter = new JButton("Arreter");
-		boutonArreter.setFont(new Font("sans serif", Font.PLAIN, 22));
-		boutonLancer = new JButton("Lancer");
-		boutonLancer.setFont(new Font("sans serif", Font.PLAIN, 22));
-		boutonPlus = new JButton("Plus");
-		boutonPlus.setFont(new Font("sans serif", Font.PLAIN, 22));
-		boutonMoins = new JButton("Moins");
-		boutonMoins.setFont(new Font("sans serif", Font.PLAIN, 22));
-	
-	
 		
-		//Ajout boutons
-		this.add(boutonNoeud);
-		this.add(boutonArc);
-		this.add(boutonVehicule);
-		this.addSeparator();
-		this.add(new JLabel("Zoom"));
-		this.add(boutonPlus);
-		this.add(boutonMoins);
-		this.addSeparator();
-		this.add(boutonLancer);
-		this.add(boutonArreter);
 	
 	}
 }
+

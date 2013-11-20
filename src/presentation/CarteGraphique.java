@@ -32,7 +32,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
 
 
-public class CarteGraphique extends JPanel implements MouseInputListener
+public class CarteGraphique extends JPanel implements MouseInputListener,ActionListener
 {
 	private static Afficheur m_afficheur;
 	private static  Simulateur m_simulateur;
@@ -77,7 +77,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
-		m_afficheur.afficherReseau(g, this.m_simulateur);
+		m_afficheur.afficherReseau(g, m_simulateur, this);
 	}
 
 	@Override
@@ -162,7 +162,29 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		});
 	}
 
-}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String command = e.getActionCommand();
+		if (command.equals(Default.ZOOMPLUS)) 
+		{
+			m_simulateur.augmenteZoom();
+			this.repaint();
+			
+		}
+		else if (command.equals(Default.ZOOMMOINS))
+		{
+			m_simulateur.diminueZoom();
+			
+			this.repaint();
+			
+		}
+	}
+		
+	}
+
+
     		
 
 		

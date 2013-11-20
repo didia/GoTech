@@ -45,9 +45,10 @@ public class InterfaceGraphique extends JFrame
 		
 		// Ajout du menu et de la barre des buttons
 		menu = new Menu();
-		//bar = new BarBoutons();
+		bar = new BarBoutons(m_carteGraphique);
+
 		
-		//getContentPane().add(bar, BorderLayout.WEST);
+		getContentPane().add(bar, BorderLayout.NORTH);
 		this.setJMenuBar(menu);
 	
 		

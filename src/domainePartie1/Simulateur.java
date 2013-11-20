@@ -12,6 +12,9 @@ public class Simulateur implements MouseInputListener {
 	private static Carte carte = new Carte();
     private static Vehicule m_vehicule = Vehicule.getInstance();
 	private EtatDEdition m_etat = new EtatDEdition(this);
+	private static Zoom m_zoom = new Zoom();
+	private static Echelle m_echelle = new Echelle();
+	private static Grille m_grille = new Grille(m_echelle, m_zoom);
     
 	
 	public Simulateur() 
@@ -25,25 +28,33 @@ public class Simulateur implements MouseInputListener {
 		return carte;
 	}
 	
+	public Grille reqGrille(){
+		return m_grille;
+	}
+	
 	
 	public void asgVehiculeUrgence(Noeud noeud)
 	{
-		this.m_vehicule.asgPointAttache(noeud);
+		m_vehicule.asgPointAttache(noeud);
 	}
 	
 	
 	public Position reqPositionVehicule(){
-		return this.m_vehicule.reqPosition();
+		return m_vehicule.reqPosition();
 	}
 	
 	
 	public void ajouterNoeud(int positionX, int positionY)
 	{
 		Position position = new Position((float)positionX, (float)positionY);
+		position = m_grille.reqPositionEnMetre(position);
 		if (carte.reqNoeud(position) == null)
 		{
 			carte.ajouterNoeud(position);
 		}	
+		else{
+			System.out.println("Il existe un noeud ˆ cette position");
+		}
 	}
 	
 	
@@ -54,13 +65,14 @@ public class Simulateur implements MouseInputListener {
 
 	
 	public Noeud reqNoeud(int positionX, int positionY){
-		return carte.reqNoeud(new Position((float)positionX, (float)positionY));
+		return carte.reqNoeud(m_grille.reqPositionEnMetre(new Position((float)positionX, (float)positionY)));
 	}
 	
 	
 	public void deplacerNoeud(Noeud noeud, int positionX, int positionY)
 	{
 		Position nouvellePosition = new Position((float)positionX, (float)positionY);
+		nouvellePosition = m_grille.reqPositionEnMetre(nouvellePosition);
 		
 		carte.deplacerNoeud(noeud, nouvellePosition);
 	}
@@ -68,7 +80,8 @@ public class Simulateur implements MouseInputListener {
 	
 	public Carte.Arc reqArc(int positionX, int positionY)
 	{
-		return carte.reqArc(new Position((float)positionX, (float)positionY));
+		
+		return carte.reqArc(m_grille.reqPositionEnMetre(new Position((float)positionX, (float)positionY)));
 	}
 	
 
@@ -128,8 +141,12 @@ public class Simulateur implements MouseInputListener {
 	}
 	
 
-	
-	
+	public float augmenteZoom(){
+		return m_zoom.augmenteZoom();
+	}
+	public float diminueZoom(){
+		return m_zoom.diminueZoom();
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) 
