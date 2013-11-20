@@ -32,9 +32,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
 
 
-public class CarteGraphique extends JPanel implements MouseInputListener{
-	
-	
+public class CarteGraphique extends JPanel implements MouseInputListener
+{
 	private static Afficheur m_afficheur;
 	private static  Simulateur m_simulateur;
 	private JViewport viewport;
@@ -42,14 +41,11 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 	private static final String SUPPRIMER_NOEUD= "Supprimer";
 	
 	
-	
-	public CarteGraphique(Afficheur afficheurGraphique, Simulateur p_simulateur) {
-		
-		
-		
+	//Constructeur
+	public CarteGraphique(Afficheur afficheurGraphique, Simulateur p_simulateur) 
+	{
 		this.m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
-		
 		final CarteGraphique mycarte = this;
 		
 		setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
@@ -62,123 +58,109 @@ public class CarteGraphique extends JPanel implements MouseInputListener{
 		noeudPopup = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("Supprimer");
 		menuItem.setActionCommand(SUPPRIMER_NOEUD);
-		menuItem.addActionListener(new ActionListener(){
-			  public void actionPerformed(ActionEvent e){
-				 
+		menuItem.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
 						m_simulateur.supprimer_component();
 						mycarte.repaint();
-					
-				  
-			  }
-			  });
+			  }  
+		});
+		
 		noeudPopup.add(menuItem);
 		addPopup(this, noeudPopup);
-		}
+	}
 		
 	
+	
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics g) 
+	{
 		super.paintComponent(g);
 		m_afficheur.afficherReseau(g, this.m_simulateur);
-	
 	}
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.print(e.getX());
-		System.out.print(" ");
-		System.out.println(e.getY());
 		m_simulateur.mouseClicked(e);
-	
-			this.repaint();
-		
-		
+		this.repaint();
 	}
 	
-
-
 	@Override
+
 	public void mouseEntered(MouseEvent e) {
-		
 		m_simulateur.mouseEntered(e);
 		this.repaint();
-		
 	}
 
 
 	@Override
-	public void mouseExited(MouseEvent e) {
+	public void mouseExited(MouseEvent e) 
+	{
 		m_simulateur.mouseExited(e);
 		this.repaint();
-		
 	}
 
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		
+	public void mousePressed(MouseEvent e) 
+	{	
 		m_simulateur.mousePressed(e);
-		this.repaint();
-		
+		this.repaint();	
 	}
 
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) 
+	{
 		m_simulateur.mouseReleased(e);
 		this.repaint();
-		
 	}
 
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		
+	public void mouseDragged(MouseEvent e) 
+	{
 		m_simulateur.mouseDragged(e);
 		this.repaint();
-		
 	}
 
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		
+	public void mouseMoved(MouseEvent e) 
+	{
 		m_simulateur.mouseMoved(e);
-		this.repaint();
-		
+		this.repaint();	
 	}
 
 	
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					
-					showMenu(e);
-					
+	private static void addPopup(Component component, final JPopupMenu popup) 
+	{
+		component.addMouseListener(new MouseAdapter() 
+		{
+			public void mousePressed(MouseEvent e) 
+			{
+				if (e.isPopupTrigger()) 
+				{
+					showMenu(e);	
 				}
 			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					
-					showMenu(e);
-					
+			public void mouseReleased(MouseEvent e) 
+			{
+				if (e.isPopupTrigger()) 
+				{
+					showMenu(e);	
 				}
 			}
-			private void showMenu(MouseEvent e) {
-			
-					if(m_simulateur.existeComponent(e.getX(), e.getY()) == true){
+			private void showMenu(MouseEvent e) 
+			{
+					if (m_simulateur.existeComponent(e.getX(), e.getY()) == true)
+					{
 						popup.show(e.getComponent(), e.getX(), e.getY());
-						
 					}
-				
-				
 			}
 		});
 	}
-
-
 
 }
     		

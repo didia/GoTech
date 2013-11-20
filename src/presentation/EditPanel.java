@@ -29,67 +29,72 @@ public class EditPanel extends JPanel implements ActionListener{
 	public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule";
-	public static String SELECTEUR_SOURIS = "Selectionner/DŽplacer";
+	public static String SELECTEUR_SOURIS = "Selectionner/Dï¿½placer";
 	public static int WIDTH_ICON = 40;
 	public static int HEIGHT_ICON = 40;
 	
-	private  JButton ajouterNoeudButton;
-	private  JButton ajouterArcButton;
-	private  JButton placerVehiculeButton;
+	private JButton ajouterNoeudBouton;
+	private JButton ajouterArcBouton;
+	private JButton placerVehiculeBouton;
+	private	JButton selectionnerBouton;
 	
 	private static Simulateur m_simulateur;
 	
-	public EditPanel(Simulateur simulateur){
-		
+	public EditPanel(Simulateur simulateur)
+	{
 		m_simulateur = simulateur;
 		
 		setBorder(new EmptyBorder(100, 10, 10, 10) );
 		
-		JButton ajouterNoeudButton = new JButton(ADD_NOEUD_STRING);
-		ajouterNoeudButton.setPreferredSize(new Dimension(200, 50));
+		//Bouton ajouter noeud
+		ajouterNoeudBouton = new JButton(ADD_NOEUD_STRING);
+		ajouterNoeudBouton.setPreferredSize(new Dimension(200, 50));
+		ajouterNoeudBouton.setActionCommand(ADD_NOEUD_STRING);
+		ajouterNoeudBouton.addActionListener(this);
 		
-		ajouterNoeudButton.setActionCommand(ADD_NOEUD_STRING);
-		ajouterNoeudButton.addActionListener(this);
+		//Bouton ajouter arc
+		ajouterArcBouton = new JButton(ADD_ARC_STRING);
+		ajouterArcBouton.setPreferredSize(new Dimension(200 ,50));
+		ajouterArcBouton.setActionCommand(ADD_ARC_STRING);
+		ajouterArcBouton.addActionListener(this);
 		
-		JButton ajouterArcButton = new JButton(ADD_ARC_STRING);
-		ajouterArcButton.setPreferredSize(new Dimension(200 ,50));
-		ajouterArcButton.setActionCommand(ADD_ARC_STRING);
-		ajouterArcButton.addActionListener(this);
-		
-		JButton selectionerButton = new JButton(SELECTEUR_SOURIS );
-		selectionerButton.setHorizontalAlignment(SwingConstants.LEFT);
-		selectionerButton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		//Bouton selectionner/deplacer
+		selectionnerBouton = new JButton(SELECTEUR_SOURIS );
+		selectionnerBouton.setHorizontalAlignment(SwingConstants.LEFT);
+		selectionnerBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		ImageIcon icon = new ImageIcon(EditPanel.class.getResource("/images/souris.png"));
-		 Image img = icon.getImage() ;  
-		 Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ;  
-		 icon = new ImageIcon( newimg );
-		selectionerButton.setIcon(icon);
-		selectionerButton.setIconTextGap(10);
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ;  
+		icon = new ImageIcon( newimg );
+		selectionnerBouton.setIcon(icon);
+		selectionnerBouton.setIconTextGap(10);
 		
-		selectionerButton.setPreferredSize(new Dimension(200 ,50));
-		selectionerButton.setActionCommand(SELECTEUR_SOURIS );
-		selectionerButton.addActionListener(this);
+		selectionnerBouton.setPreferredSize(new Dimension(200 ,50));
+		selectionnerBouton.setActionCommand(SELECTEUR_SOURIS );
+		selectionnerBouton.addActionListener(this);
 		
-		JButton placerVehiculeButton = new JButton(PUT_VEHICULE);
-		placerVehiculeButton.setHorizontalTextPosition(SwingConstants.RIGHT);
-		placerVehiculeButton.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		//Placer vehicule bouton
+		placerVehiculeBouton = new JButton(PUT_VEHICULE);
+		placerVehiculeBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		placerVehiculeBouton.setHorizontalAlignment(SwingConstants.LEFT);
 		icon = new ImageIcon(EditPanel.class.getResource("/images/VehiculeUrgence.png"));
 		img = icon.getImage() ; 
 		newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ; 
 		icon = new ImageIcon( newimg );
-		placerVehiculeButton.setIcon(icon);
-		placerVehiculeButton.setIconTextGap(10);
-	
+		placerVehiculeBouton.setIcon(icon);
+		placerVehiculeBouton.setIconTextGap(10);
+		placerVehiculeBouton.setPreferredSize(new Dimension(200,50));
+		placerVehiculeBouton.setActionCommand(PUT_VEHICULE);
+		placerVehiculeBouton.addActionListener(this);
 		
-		placerVehiculeButton.setPreferredSize(new Dimension(200,50));
-		placerVehiculeButton.setActionCommand(PUT_VEHICULE);
-		placerVehiculeButton.addActionListener(this);
 		
+		//Panneau d'editions
 		JPanel editButtons= new JPanel(new GridLayout(4,1,0,5)); 
-		editButtons.add(selectionerButton);
-		editButtons.add(ajouterNoeudButton);
-		editButtons.add(ajouterArcButton);
-		editButtons.add(placerVehiculeButton);
+		editButtons.add(selectionnerBouton);
+		editButtons.add(ajouterNoeudBouton);
+		editButtons.add(ajouterArcBouton);
+		editButtons.add(placerVehiculeBouton);
 		
 		add(editButtons, BorderLayout.CENTER);
 		
@@ -97,22 +102,25 @@ public class EditPanel extends JPanel implements ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		String command = e.getActionCommand();
-		if (command.equals(ADD_NOEUD_STRING)) {
+		if (command.equals(ADD_NOEUD_STRING)) 
+		{
 			m_simulateur.setEtatAjouterNoeud();
 		}
-		else if(command.equals(ADD_ARC_STRING)){
+		else if (command.equals(ADD_ARC_STRING))
+		{
 			m_simulateur.setEtatAjouterArc();
 			
 		}
-		else if(command.equals(SELECTEUR_SOURIS)){
+		else if (command.equals(SELECTEUR_SOURIS))
+		{
 			m_simulateur.setEtatSelectioneur();
 		}
-		else if(command.equals(PUT_VEHICULE)){
+		else if(command.equals(PUT_VEHICULE))
+		{
 			m_simulateur.setEtatPlacerVehicule();
 		}
 	}
-		
-
 }
