@@ -9,19 +9,21 @@ import domainePartie1.Simulateur;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
+
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
 
 public class ParametrePanel extends JPanel {
 	private static Simulateur m_simulateur;
 	public ParametrePanel(Simulateur simulateur) {
+
 		setMinimumSize(new Dimension(400, 400));
 		setPreferredSize(new Dimension(500, 400));
 		m_simulateur = simulateur;
 		setLayout(null);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Ancienneté");
-		rdbtnNewRadioButton.setToolTipText("Les urgences sont traités par ordre d'anciennet\u00E9");
+		rdbtnNewRadioButton.setToolTipText("Les urgences sont traités par ordre d'ancienneté");
 		rdbtnNewRadioButton.setBounds(26, 72, 166, 23);
 		add(rdbtnNewRadioButton);
 		
@@ -30,7 +32,7 @@ public class ParametrePanel extends JPanel {
 		add(lblStratgieDeSimulation);
 		
 		JRadioButton rdbtnParProximit = new JRadioButton("Proximité");
-		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximité");
+		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximit≈Ω");
 		rdbtnParProximit.setBounds(26, 96, 177, 23);
 		add(rdbtnParProximit);
 		
@@ -43,11 +45,10 @@ public class ParametrePanel extends JPanel {
 		lblVehiculeDurgence.setBounds(16, 159, 135, 16);
 		add(lblVehiculeDurgence);
 		
-		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du v\u00E9hicule (Km/h) : ");
+		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du véhicule (Km/h) : ");
 		lblVitesseDuVhicule.setBounds(26, 187, 185, 23);
 		add(lblVitesseDuVhicule);
-		
-	
+
 		
 		JFormattedTextField formattedTextField = new JFormattedTextField();
 		formattedTextField.setBounds(210, 188, 93, 19);

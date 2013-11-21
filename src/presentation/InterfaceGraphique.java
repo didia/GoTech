@@ -31,14 +31,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private JPanel m_panneauEdition;
     private static Simulateur m_simulateur;
     private Afficheur m_afficheur;
+
     private ParametrePanel m_parametrePanel;
     private JOptionPane m_parametrePane;
   
-    public static String ADD_PARAMETRES = "Paramètres de Simulation";
+    public static String ADD_PARAMETRES = "ParamÔøΩtres de Simulation";
     public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule";
-	public static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
+	public static String SELECTEUR_SOURIS = "Selectionner/DÔøΩplacer";
 	public static int WIDTH_ICON = 40;
 	public static int HEIGHT_ICON = 40;
 
@@ -53,13 +54,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		westPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
 		getContentPane().add(westPanel, BorderLayout.WEST);
 		m_panneauEdition = new JPanel(new GridLayout(5,1,0,5));
-		
-		  // buttons d'édition
+		  // buttons d'ÔøΩdition
 		JButton ajouterNoeudBouton = new JButton(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.setPreferredSize(new Dimension(200, 50));
 		ajouterNoeudBouton.setActionCommand(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.addActionListener(this);
-		
+
 		//Bouton ajouter arc
 		JButton ajouterArcBouton = new JButton(ADD_ARC_STRING);
 		ajouterArcBouton.setPreferredSize(new Dimension(200 ,50));
@@ -118,19 +118,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		JScrollPane scroller = new JScrollPane(m_carteGraphique);
 		scroller.setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
 		getContentPane().add(scroller);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		
 		
 		// Ajout du menu et de la barre des buttons
@@ -143,13 +131,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_parametrePanel = new ParametrePanel(m_simulateur);
 		
 		
-		// Ajout du Tabbed Pane des paramètres de simulation
+		// Ajout du Tabbed Pane des paramÔøΩtres de simulation
 		
 		//JTabbedPane tabbedPane = new JTabbedPane();
 		//JPanel parametrePanel = new ParametrePanel(m_simulateur);
-        //tabbedPane.addTab("Paramètres de simulation", null,
+        //tabbedPane.addTab("ParamÔøΩtres de simulation", null,
                           //parametrePanel,
-                         // "Paramètres de simulation"); //tooltip text
+                         // "ParamÔøΩtres de simulation"); //tooltip text
        
  
         //getContentPane().add(tabbedPane, BorderLayout.CENTER);
@@ -186,6 +174,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		{
 			m_simulateur.setEtatPlacerVehicule();
 		}
+
 		else if(command.equals(ADD_PARAMETRES)){
 			JOptionPane.showOptionDialog(this, m_parametrePanel, ADD_PARAMETRES,
 					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
