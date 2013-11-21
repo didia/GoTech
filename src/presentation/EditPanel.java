@@ -33,16 +33,20 @@ public class EditPanel extends JPanel implements ActionListener{
 	public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule";
-	public static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
+
+	public static String SELECTEUR_SOURIS = "Selectionner/DÃ©placer";
+
+	public static String ADD_PARAMETRES = "ParamÃ©tres de Simulation";
+	
 	public static int WIDTH_ICON = 40;
 	public static int HEIGHT_ICON = 40;
-	public static String DEFINIR_PARAMETRE_SIMU = "Definir les Paramétres";
-	
+		
 	private JButton ajouterNoeudBouton;
 	private JButton ajouterArcBouton;
 	private JButton placerVehiculeBouton;
 	private	JButton selectionnerBouton;
-	private JButton definirParametresSimulation;
+	private JButton setParametreBouton;
+
 	
 	private static Simulateur m_simulateur;
 	
@@ -63,13 +67,7 @@ public class EditPanel extends JPanel implements ActionListener{
 		ajouterArcBouton.setPreferredSize(new Dimension(200 ,50));
 		ajouterArcBouton.setActionCommand(ADD_ARC_STRING);
 		ajouterArcBouton.addActionListener(this);
-		
-		//definition des parametres de la simulation 
-		definirParametresSimulation = new JButton(DEFINIR_PARAMETRE_SIMU);
-		definirParametresSimulation.setPreferredSize(new Dimension(200,50));
-		definirParametresSimulation.setActionCommand(DEFINIR_PARAMETRE_SIMU);
-		definirParametresSimulation.addActionListener(this);
-		
+	
 		//Bouton selectionner/deplacer
 		selectionnerBouton = new JButton(SELECTEUR_SOURIS );
 		selectionnerBouton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -85,6 +83,11 @@ public class EditPanel extends JPanel implements ActionListener{
 		selectionnerBouton.setActionCommand(SELECTEUR_SOURIS );
 		selectionnerBouton.addActionListener(this);
 		
+		// Bouton selectionner paramï¿½tres
+		setParametreBouton = new JButton(ADD_PARAMETRES);
+		setParametreBouton.setPreferredSize(new Dimension(200, 50));
+		setParametreBouton.setActionCommand(ADD_PARAMETRES);
+		setParametreBouton.addActionListener(this);
 		
 		//Placer vehicule bouton
 		placerVehiculeBouton = new JButton(PUT_VEHICULE);
@@ -105,7 +108,7 @@ public class EditPanel extends JPanel implements ActionListener{
 		
 		//Panneau d'editions
 		JPanel editButtons= new JPanel(new GridLayout(4,1,0,5)); 
-		editButtons.add(definirParametresSimulation);
+		//editButtons.add(definirParametresSimulation);
 		editButtons.add(selectionnerBouton);
 		editButtons.add(ajouterNoeudBouton);
 		editButtons.add(ajouterArcBouton);
@@ -141,7 +144,7 @@ public class EditPanel extends JPanel implements ActionListener{
 		{
 			m_simulateur.setEtatPlacerVehicule();
 		}
-		else if(command.equals(DEFINIR_PARAMETRE_SIMU))
+		else if(command.equals(ADD_PARAMETRES))
 		{
 			//Create the menu bar.
 			JMenuBar menuBar = new JMenuBar();

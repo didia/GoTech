@@ -31,6 +31,8 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
+import javax.swing.JDialog;
 
 
 public class CarteGraphique extends JPanel implements MouseInputListener
@@ -70,6 +72,8 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		
 		noeudPopup.add(menuItem);
 		addPopup(this, noeudPopup);
+		
+		
 	}
 		
 	
@@ -78,7 +82,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
-		m_afficheur.afficherReseau(g, m_simulateur, this);
+		//m_afficheur.afficherReseau(g, m_simulateur, this);
 	}
 
 	@Override
