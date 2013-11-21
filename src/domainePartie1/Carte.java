@@ -8,6 +8,7 @@ import java.util.Timer;
 
 public class Carte {
 
+	final private int INF = 999999999;
 	private ArrayList<Noeud> m_listeDeNoeuds;
 	private ArrayList<Arc> m_listeArcs;
 
@@ -185,7 +186,7 @@ public class Carte {
 
 	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds) {
 
-		float res = 999999999;
+		float res = INF;
 		Noeud noeudDest = new Noeud();
 		if (this.m_listeDeNoeuds.contains(noeudSrc)) {
 			for (int i = 0; i < listNoeuds.size(); i++) {
@@ -227,10 +228,12 @@ public class Carte {
 													// carte
 	{
 		for (int i = 0; i < this.m_listeDeNoeuds.size(); i++) {
-			if (this.m_listeDeNoeuds.get(i) == a) {
+			if (this.m_listeDeNoeuds.get(i) == a) 
+			{
 				this.m_listeDeNoeuds.get(i).setCout(0);
-			} else {
-				this.m_listeDeNoeuds.get(i).setCout(999999999);
+			} 
+			else {
+				this.m_listeDeNoeuds.get(i).setCout(INF);
 			}
 		}
 
@@ -238,22 +241,35 @@ public class Carte {
 	
 	
 
-	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2) {
+	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2) 
+	{// gestion d'erreur
+		
 		this._initialisationDijkstra(noeud1);
+		int a = this.m_listeDeNoeuds.indexOf(noeud1);
+		ArrayList<Noeud> tabPrets = new ArrayList<Noeud>();
+		this.m_listeDeNoeuds.get(a).setEtat(true);
+		tabPrets.add(this.m_listeDeNoeuds.get(a));
+		
+			for (int i = 0; i < this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).size(); i++)
 
-		for (int i = 0; i < this.trouverArcsAdjacents(noeud1).size(); i++)
+			{
+				float dist = this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqLongueur();
+				
+				if (dist < this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest()
+						.reqCout())
+				{
+					this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest().setCout(dist);
+					
+					this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest()
+							.setPredecesseur(this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i));
+				}
+				
+				this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest().setEtat(true);
+				tabPrets.add(this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest());
 
-		{
-			float dist = this.trouverArcsAdjacents(noeud1).get(i).reqLongueur();
-			if (dist < this.trouverArcsAdjacents(noeud1).get(i).reqNoeudDest()
-					.reqCout()) {
-				this.trouverArcsAdjacents(noeud1).get(i).reqNoeudDest()
-						.setCout(dist);
-				this.trouverArcsAdjacents(noeud1).get(i).reqNoeudDest()
-						.setPredecesseur(this.trouverArcsAdjacents(noeud1).get(i));
 			}
-
-		}
+			noeud1 = tabPrets.get(a+1);
+		
 
 		return m_listeDeNoeuds;
 	}
