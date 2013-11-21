@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.imageio.ImageIO;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
@@ -32,11 +33,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
 
 
-public class CarteGraphique extends JPanel implements MouseInputListener,ActionListener
+public class CarteGraphique extends JPanel implements MouseInputListener
 {
 	private static Afficheur m_afficheur;
 	private static  Simulateur m_simulateur;
-	private JViewport viewport;
+	private JScrollPane viewport;
 	private JPopupMenu noeudPopup;
 	private static final String SUPPRIMER_NOEUD= "Supprimer";
 	
@@ -47,14 +48,14 @@ public class CarteGraphique extends JPanel implements MouseInputListener,ActionL
 		this.m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
 		final CarteGraphique mycarte = this;
-		
-		setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
+		//setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
+		//setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
 		setBackground(Color.WHITE);
 		setVisible(true);
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
-		this.viewport = (JViewport)getParent();
+		this.viewport = (JScrollPane)getParent();
 		noeudPopup = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("Supprimer");
 		menuItem.setActionCommand(SUPPRIMER_NOEUD);
@@ -164,23 +165,14 @@ public class CarteGraphique extends JPanel implements MouseInputListener,ActionL
 
 
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
-		if (command.equals(Default.ZOOMPLUS)) 
-		{
-			m_simulateur.augmenteZoom();
-			this.repaint();
-			
-		}
-		else if (command.equals(Default.ZOOMMOINS))
-		{
-			m_simulateur.diminueZoom();
-			
-			this.repaint();
-			
-		}
+	public JScrollPane getViewport() {
+		// TODO Auto-generated method stub
+		return this.viewport;
 	}
+
+
+
+	
 		
 	}
 

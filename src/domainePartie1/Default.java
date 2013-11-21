@@ -14,4 +14,6 @@ public class Default {
 	public static final float ZOOM = 1f;
 	public static final int METRE_PAR_STEP = 10;
 	
+	public static final int CARTE_WIDTH = 920;
+	public static final int CARTE_HEIGHT =600;
 }

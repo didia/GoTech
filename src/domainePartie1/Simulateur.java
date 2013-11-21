@@ -13,14 +13,19 @@ public class Simulateur implements MouseInputListener {
 	private static Carte carte = new Carte();
 	private static Vehicule m_vehicule = Vehicule.getInstance();
 	private EtatDEdition m_etat = new EtatDEdition(this);
-	private static Zoom m_zoom = new Zoom();
+	private static ZoomModel m_zoom = new ZoomModel();
 	private static Echelle m_echelle = new Echelle();
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
 	private static Resultats m_resultat = new Resultats();
 	private static Urgence m_urgence;
 	private static StrategieGestion m_strategie = new StrategieGestion();
+<<<<<<< HEAD
 	private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
+=======
+	//private EtatSimulateur m_etatsimu = new EtatSimulateur();
+	
+>>>>>>> 498d86fb8f321e1786f3f53bbd660636fb45c6d0
 	public Simulateur() {
 
 	}
@@ -46,10 +51,11 @@ public class Simulateur implements MouseInputListener {
 		position = m_grille.reqPositionEnMetre(position);
 		if (carte.reqNoeud(position) == null) {
 			carte.ajouterNoeud(position);
-		} else {
-			System.out.println("Il existe un noeud � cette position");
-		}
-	}
+
+		}	
+		
+
+		} 
 
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
 		carte.ajouterArc(noeudSource, noeudDest);
@@ -64,8 +70,11 @@ public class Simulateur implements MouseInputListener {
 		Position nouvellePosition = new Position((float) positionX,
 				(float) positionY);
 		nouvellePosition = m_grille.reqPositionEnMetre(nouvellePosition);
-
+		
+		if(nouvellePosition.reqPositionX() >= 0 && nouvellePosition.reqPositionY() >= 0)
+		{
 		carte.deplacerNoeud(noeud, nouvellePosition);
+		}
 	}
 
 	public Arc reqArc(int positionX, int positionY) {
@@ -119,13 +128,19 @@ public class Simulateur implements MouseInputListener {
 		m_etat = new EtatPlacerVehicule(this);
 	}
 
-	public float augmenteZoom() {
-		return m_zoom.augmenteZoom();
+	
+	public float reqZoom(){
+		return m_zoom.reqZoom();
+	}
+	
+	public String augmenteZoom(){
+		return (int)(m_zoom.augmenteZoom()*100) + "%";
+	}
+	public String diminueZoom(){
+		return (int)(m_zoom.diminueZoom()*100)+ "%";
 	}
 
-	public float diminueZoom() {
-		return m_zoom.diminueZoom();
-	}
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -192,6 +207,12 @@ public class Simulateur implements MouseInputListener {
 				+ noeudcible.reqPosition().reqPositionY());
 	}
 
+<<<<<<< HEAD
+=======
+
+	/*
+
+>>>>>>> 498d86fb8f321e1786f3f53bbd660636fb45c6d0
 	public void SauvegarderEtatActuel() {
 		if (m_etatsimu.reqListeEtatSimu().contains(this))
 			System.out.println("cette simulation a eté dejas enregistré");
@@ -219,5 +240,6 @@ public class Simulateur implements MouseInputListener {
 			m_etatsimu.reqListeEtatsuivantSimu().poll();
 		}
 	}
+	*/
 
 }
