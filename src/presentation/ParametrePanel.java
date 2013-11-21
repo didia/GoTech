@@ -3,7 +3,7 @@ package presentation;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 
 import domainePartie1.Simulateur;
 
@@ -47,11 +47,7 @@ public class ParametrePanel extends JPanel {
 		lblVitesseDuVhicule.setBounds(26, 187, 185, 23);
 		add(lblVitesseDuVhicule);
 		
-		JLabel lblParamtresDeSimulation = DefaultComponentFactory.getInstance().createTitle("Paramètres de simulation");
-		lblParamtresDeSimulation.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblParamtresDeSimulation.setHorizontalAlignment(SwingConstants.CENTER);
-		lblParamtresDeSimulation.setBounds(6, 6, 174, 16);
-		add(lblParamtresDeSimulation);
+	
 		
 		JFormattedTextField formattedTextField = new JFormattedTextField();
 		formattedTextField.setBounds(210, 188, 93, 19);
