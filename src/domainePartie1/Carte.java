@@ -4,7 +4,7 @@ import domainePartie1.Noeud;
 import domainePartie1.Position;
 import java.util.ArrayList;
 
-import java.util.Timer;
+
 
 public class Carte {
 

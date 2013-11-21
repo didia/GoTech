@@ -82,7 +82,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
-		//m_afficheur.afficherReseau(g, m_simulateur, this);
+		m_afficheur.afficherReseau(g, m_simulateur, this);
 	}
 
 	@Override
