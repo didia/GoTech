@@ -34,9 +34,10 @@ public class EditPanel extends JPanel implements ActionListener{
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule";
 
+
 	public static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
 
-	public static String ADD_PARAMETRES = "Paramétres de Simulation";
+	public static String ADD_PARAMETRES = "Parametres de Simulation";
 	
 	public static int WIDTH_ICON = 40;
 	public static int HEIGHT_ICON = 40;
@@ -46,7 +47,6 @@ public class EditPanel extends JPanel implements ActionListener{
 	private JButton placerVehiculeBouton;
 	private	JButton selectionnerBouton;
 	private JButton setParametreBouton;
-
 	
 	private static Simulateur m_simulateur;
 	
@@ -83,7 +83,8 @@ public class EditPanel extends JPanel implements ActionListener{
 		selectionnerBouton.setActionCommand(SELECTEUR_SOURIS );
 		selectionnerBouton.addActionListener(this);
 		
-		// Bouton selectionner param�tres
+		// Bouton selectionner paramétres
+
 		setParametreBouton = new JButton(ADD_PARAMETRES);
 		setParametreBouton.setPreferredSize(new Dimension(200, 50));
 		setParametreBouton.setActionCommand(ADD_PARAMETRES);
