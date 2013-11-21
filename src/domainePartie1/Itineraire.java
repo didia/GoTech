@@ -38,6 +38,8 @@ public class Itineraire {
 		}
 		return longueur;
 	}
+	
+	
 
 }
 
