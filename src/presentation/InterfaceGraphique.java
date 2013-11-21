@@ -53,7 +53,7 @@ public class InterfaceGraphique extends JFrame
 		
 		dialog = new JDialog(this);
 		dialog.setPreferredSize(new Dimension(30, 30));
-		m_panneauEdition.add(dialog);
+		//m_panneauEdition.add(dialog);
 		
 		// Ajout du menu et de la barre des buttons
 		menu = new Menu();

@@ -13,15 +13,6 @@ public class Main {
 		
 		new InterfaceGraphique(new Simulateur(), new Afficheur());
 
-		Noeud noeudactuVehicule = new Noeud( new Position(0,0));
-		Noeud noeuddeUrgence = new Noeud(new Position(1, 2));
-		Vehicule v = new Vehicule(noeudactuVehicule, 5 );
-		
-		Simulateur simu = new Simulateur();
-		
-		simu.declencherUrgence(noeuddeUrgence,1);
-		
-		
 	}
 	
 
