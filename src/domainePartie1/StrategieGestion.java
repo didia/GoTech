@@ -14,7 +14,7 @@ public class StrategieGestion {
 	// constructeur sans paramettre
 	public StrategieGestion() {
 		this.m_listeUrgence = new ArrayList<Urgence>();
-		this.m_urgenceActuelle = new Urgence();
+		this.m_urgenceActuelle =null;
 		this.m_listeUrgenceTraitee = new ArrayList<Urgence>();
 	}
 
@@ -44,13 +44,9 @@ public class StrategieGestion {
 	// effectue les operation attendu sur une urgence
 	public void traiterUrgencAtuelle() {
 			
-		for (int j = 0; j < this.m_listeUrgence.size(); ++j) {
-			if (this.m_listeUrgence.get(j) == this.m_urgenceActuelle) {
-				this.m_listeUrgenceTraitee.add(m_listeUrgence.get(j));
-				this.m_listeUrgence.remove(m_listeUrgence.get(j));
-			}
-		}
-		this.m_urgenceActuelle =null;
+				this.m_listeUrgenceTraitee.add(m_urgenceActuelle);
+				this.m_listeUrgence.remove(m_urgenceActuelle);
+				
 	}
 	
 	public void asgListUrgence(ArrayList<Urgence> listeUrgences) {
