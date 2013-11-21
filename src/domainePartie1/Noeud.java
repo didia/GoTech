@@ -14,15 +14,16 @@ public class Noeud implements Comparable<Noeud>
 
 		
 		private Position m_position;
-		private ArrayList<Carte.Arc> m_listeArcsAdjacents;
 		private float m_cout; // pour Dijkstra 
-		private Carte.Arc m_predecesseur;
+		private Arc m_predecesseur;
+		private boolean m_etat;
+		
 		
 		public Noeud()
 		{
 			this.m_cout = 0;
-			this.m_listeArcsAdjacents = new ArrayList<Carte.Arc>();
 			this.m_position = new Position(0,0);
+			this.m_etat = false;
 			
 		}
 		
@@ -30,22 +31,27 @@ public class Noeud implements Comparable<Noeud>
 		{
 			this.m_position = pos;
 			this.m_cout = 0;
-			this.m_listeArcsAdjacents = new ArrayList<Carte.Arc>();
+			this.m_etat = false;
 		}
 		//Getters and setters noeuds
-		public Carte.Arc reqPredecesseur()
+		public boolean reqEtat()
+		{
+			return this.m_etat;
+		}
+		public void setEtat(boolean a)
+		{
+			this.m_etat = a;
+		}
+		public Arc reqPredecesseur()
 		{
 			return this.m_predecesseur;
 		}
-		public void setPredecesseur(Carte.Arc arc)
+		public void setPredecesseur(Arc arc)
 		{
 			this.m_predecesseur = arc;
 		}
 		
-		public ArrayList<Carte.Arc> reqListeArcsAdjacents()
-		{
-			return this.m_listeArcsAdjacents;
-		}
+
 		public float reqCout()
 		{
 			return this.m_cout;
