@@ -1,7 +1,7 @@
 package domainePartie1;
 import java.awt.event.MouseEvent;
 
-import javax.swing.event.MouseInputListener;
+
 
 
 
