@@ -26,6 +26,7 @@ public class InterfaceGraphique extends JFrame
 	
     private static Simulateur m_simulateur;
     private Afficheur m_afficheur;
+    private JDialog dialog;
 
 	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) 
 	{
@@ -49,6 +50,10 @@ public class InterfaceGraphique extends JFrame
 		// Ajout Panneau Edition
 		m_panneauEdition = new EditPanel(m_simulateur);
 		getContentPane().add(m_panneauEdition, BorderLayout.WEST);
+		
+		dialog = new JDialog(this);
+		dialog.setPreferredSize(new Dimension(30, 30));
+		m_panneauEdition.add(dialog);
 		
 		// Ajout du menu et de la barre des buttons
 		menu = new Menu();
