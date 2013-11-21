@@ -9,10 +9,14 @@ import domainePartie1.Simulateur;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
+import java.awt.Dimension;
+import javax.swing.SwingConstants;
 
 public class ParametrePanel extends JPanel {
 	private static Simulateur m_simulateur;
 	public ParametrePanel(Simulateur simulateur) {
+		setMinimumSize(new Dimension(400, 400));
+		setPreferredSize(new Dimension(500, 400));
 		m_simulateur = simulateur;
 		setLayout(null);
 		
@@ -44,6 +48,8 @@ public class ParametrePanel extends JPanel {
 		add(lblVitesseDuVhicule);
 		
 		JLabel lblParamtresDeSimulation = DefaultComponentFactory.getInstance().createTitle("Param\u00E8tres de simulation");
+		lblParamtresDeSimulation.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblParamtresDeSimulation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblParamtresDeSimulation.setBounds(6, 6, 174, 16);
 		add(lblParamtresDeSimulation);
 		
@@ -66,5 +72,7 @@ public class ParametrePanel extends JPanel {
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
 		formattedTextField_1.setBounds(305, 289, 93, 16);
 		add(formattedTextField_1);
+		
+		setVisible(true);
 	}
 }

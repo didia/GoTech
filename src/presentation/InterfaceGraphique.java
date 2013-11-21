@@ -31,6 +31,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private JPanel m_panneauEdition;
     private static Simulateur m_simulateur;
     private Afficheur m_afficheur;
+    private ParametrePanel m_parametrePanel;
+    private JOptionPane m_parametrePane;
   
     public static String ADD_PARAMETRES = "Paramètres de Simulation";
     public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
@@ -122,10 +124,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		
 		
 		
-		//getContentPane().add(, BorderLayout.WEST);
-		
-		
-		
 		
 		
 		
@@ -141,6 +139,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		
 		bar = new BarBoutons(m_carteGraphique, m_simulateur);
 		getContentPane().add(bar, BorderLayout.NORTH);
+		
+		m_parametrePanel = new ParametrePanel(m_simulateur);
+		
 		
 		// Ajout du Tabbed Pane des paramètres de simulation
 		
@@ -184,6 +185,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		else if(command.equals(PUT_VEHICULE))
 		{
 			m_simulateur.setEtatPlacerVehicule();
+		}
+		else if(command.equals(ADD_PARAMETRES)){
+			JOptionPane.showOptionDialog(this, m_parametrePanel, ADD_PARAMETRES,
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 		}
 	}
 		
