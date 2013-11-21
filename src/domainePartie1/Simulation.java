@@ -8,9 +8,8 @@ public class Simulation  implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		
-		
+		simulateur.lancerSimulation();
 		
 	}
 	
-
 }
