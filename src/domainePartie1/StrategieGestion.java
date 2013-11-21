@@ -10,6 +10,7 @@ public class StrategieGestion {
 	private ArrayList<Urgence> m_listeUrgence;
 	private Urgence m_urgenceActuelle;
 	private ArrayList<Urgence> m_listeUrgenceTraitee;
+	private Itineraire m_itineraire;
 
 	// constructeur sans paramettre
 	public StrategieGestion() {
@@ -32,6 +33,10 @@ public class StrategieGestion {
 		return this.m_listeUrgenceTraitee;
 	}
 
+	public Itineraire reqItineraire()
+	{
+		return m_itineraire;
+	}
 	// determine si toute les urgence on été dejas traitées ou pas
 	public boolean existeUrgenceNonTraitee() {
 
@@ -56,6 +61,5 @@ public class StrategieGestion {
 	public void asgUrgenceAtuelle(Urgence uneUrgence) {
 		this.m_urgenceActuelle = uneUrgence;
 	}
-
 
 }

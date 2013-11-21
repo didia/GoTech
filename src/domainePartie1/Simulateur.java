@@ -1,6 +1,7 @@
 package domainePartie1;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
 import javax.swing.event.MouseInputListener;
@@ -18,8 +19,11 @@ public class Simulateur implements MouseInputListener {
 	private static Resultats m_resultat = new Resultats();
 	private static Urgence m_urgence;
 	private static StrategieGestion m_strategie = new StrategieGestion();
-	//private EtatSimulateur m_etatsimu = new EtatSimulateur();
-	
+
+	private EtatSimulateur m_etatsimu = new EtatSimulateur();
+
+
+
 	public Simulateur() {
 
 	}
@@ -171,24 +175,25 @@ public class Simulateur implements MouseInputListener {
 		m_etat.mouseMoved(e);
 	}
 
-	private void supprimerUrgence(Urgence uneUrgence) {
-	
+	public void supprimerUrgence(Urgence uneUrgence) {
+
 		m_strategie.reqListeUrgence().remove(uneUrgence);
 	}
 
 	public void lancerSimulation() {
-		
-	if(m_strategie.reqListeUrgence().isEmpty())
-			{
-			m_vehicule.AllerVers(m_strategie.reqUrgencActuelle().reqNoeudCible());
+
+		if (!m_strategie.reqListeUrgence().isEmpty()) {
+			
+			m_vehicule.AllerVers(m_strategie.reqUrgencActuelle()
+					.reqNoeudCible());
 			m_strategie.traiterUrgencAtuelle();
-			}
-		
+		}
+
 	}
 
 	public void terminerSimulation() {
 		m_vehicule.AllerPointAttache();
-		
+
 	}
 
 	public void declencherUrgence(Noeud noeudcible, int p_priorite) {
@@ -201,8 +206,6 @@ public class Simulateur implements MouseInputListener {
 	}
 
 
-	/*
-
 	public void SauvegarderEtatActuel() {
 		if (m_etatsimu.reqListeEtatSimu().contains(this))
 			System.out.println("cette simulation a eté dejas enregistré");
@@ -213,22 +216,23 @@ public class Simulateur implements MouseInputListener {
 
 	public void annuler() {
 		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu().peek());
-			//TODO this = m_etatsimu.reqListeEtatSimu().peek();
+			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu()
+					.peek());
+			// TODO this = m_etatsimu.reqListeEtatSimu().peek();
 			m_etatsimu.reqListeEtatSimu().poll();
 		}
 
 	}
 
 	public void retablir() {
-		
-		if(!m_etatsimu.reqListeEtatsuivantSimu().isEmpty())
-		{
-			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu().peek());
-			//TODO this = m_etatsimu.reqListeEtatsuivantSimu().peek();
+
+		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) {
+			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu()
+					.peek());
+			// TODO this = m_etatsimu.reqListeEtatsuivantSimu().peek();
 			m_etatsimu.reqListeEtatsuivantSimu().poll();
 		}
 	}
-	*/
+	
 
 }
