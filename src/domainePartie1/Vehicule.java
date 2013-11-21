@@ -6,15 +6,25 @@ public class Vehicule {
 	private static Noeud m_portAttache = null;
 	private float m_Vistesse = 0;
 	private Position m_position = null;
+	private static Noeud m_noeudAtuel = null;
 	
 	
-	//constructeur privŽe vehicule
+	//constructeur privï¿½e vehicule
 	
-	private Vehicule(){
+	public Vehicule(){
+		this.m_portAttache = new Noeud();
+		this.m_Vistesse = 0;
+		this.m_noeudAtuel = new Noeud();	
+	}
+	
+	public Vehicule(Noeud p_noeudActuel, float p_vitesse){
+		
+		this.m_noeudAtuel = p_noeudActuel;
+		this.m_Vistesse = p_vitesse;
 		
 	}
 	
-	//Obtenir le vŽhicule
+	//Obtenir le vï¿½hicule
 	public static Vehicule getInstance()
 	{
 		return m_vehicule;
@@ -49,6 +59,10 @@ public class Vehicule {
 	public  float reqVistess()
 	{
 		return this.m_Vistesse;
+	}
+	public Noeud reqnoeudActuel()
+	{
+		return m_noeudAtuel;
 	}
 	
 	public void asgNoeudActuel(Noeud noeud)

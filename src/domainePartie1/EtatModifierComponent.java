@@ -11,7 +11,7 @@ public class EtatModifierComponent extends EtatDEdition {
 
 
 	private static Noeud noeud_selectione = null;
-	private static Carte.Arc arc_selectione = null;
+	private static Arc arc_selectione = null;
 	
 	public EtatModifierComponent(Simulateur simulateur){
 		super(simulateur);
@@ -23,7 +23,7 @@ public class EtatModifierComponent extends EtatDEdition {
 	public Noeud reqNoeudSelectione(){
 		return noeud_selectione;
 	}
-	public Carte.Arc reqArcSelectione(){
+	public Arc reqArcSelectione(){
 		return arc_selectione;
 	}
 	@Override

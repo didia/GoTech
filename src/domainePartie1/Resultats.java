@@ -10,6 +10,11 @@ this.tempsTotal = p_tempstotale;
 this.nombreUrgence = p_nbUrgences;
 this.distanceParcourue = p_distanceParcourue;
 }
+public void Resultat (){
+this.tempsTotal = 0;
+this.nombreUrgence = 0;
+this.distanceParcourue = 0;
+}
 
 public int getTempsTotal()
 {

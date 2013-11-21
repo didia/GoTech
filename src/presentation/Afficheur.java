@@ -19,7 +19,7 @@ import domainePartie1.Carte;
 import domainePartie1.Grille;
 import domainePartie1.Noeud;
 import domainePartie1.Position;
-import domainePartie1.Carte.Arc;
+import domainePartie1.Arc;
 import domainePartie1.Simulateur;
 import domainePartie1.Default;
 
@@ -136,7 +136,7 @@ public class Afficheur
 	{
 		Graphics2D g2d = (Graphics2D)g;
 
-		for(Carte.Arc arc:listeArcs){
+		for(Arc arc:listeArcs){
 			Position source = m_grille.reqPositionEnPixel(arc.reqNoeudSource().reqPosition());
 			Position destination = m_grille.reqPositionEnPixel(arc.reqNoeudDest().reqPosition());
 			
