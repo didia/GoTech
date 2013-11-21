@@ -20,22 +20,22 @@ public class ParametrePanel extends JPanel {
 		m_simulateur = simulateur;
 		setLayout(null);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Anciennet\u00E9\n");
-		rdbtnNewRadioButton.setToolTipText("Les urgences sont trait\u00E9es par ordre d'anciennet\u00E9");
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Ancienneté");
+		rdbtnNewRadioButton.setToolTipText("Les urgences sont traités par ordre d'anciennet\u00E9");
 		rdbtnNewRadioButton.setBounds(26, 72, 166, 23);
 		add(rdbtnNewRadioButton);
 		
-		JLabel lblStratgieDeSimulation = new JLabel("Strat\u00E9gie de simulation");
+		JLabel lblStratgieDeSimulation = new JLabel("Stratégie de simulation");
 		lblStratgieDeSimulation.setBounds(16, 44, 145, 16);
 		add(lblStratgieDeSimulation);
 		
-		JRadioButton rdbtnParProximit = new JRadioButton("Proximit\u00E9");
-		rdbtnParProximit.setToolTipText("Les urgences sont trait\u00E9es par ordre de proximit\u00E9");
+		JRadioButton rdbtnParProximit = new JRadioButton("Proximité");
+		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximité");
 		rdbtnParProximit.setBounds(26, 96, 177, 23);
 		add(rdbtnParProximit);
 		
 		JRadioButton rdbtnCheminMinimum = new JRadioButton("Chemin Minimum");
-		rdbtnCheminMinimum.setToolTipText("Les urgences sont trait\u00E9es de sorte \u00E0 reduire le chemin parcouru");
+		rdbtnCheminMinimum.setToolTipText("Les urgences sont traitées de sorte à reduire le chemin parcouru");
 		rdbtnCheminMinimum.setBounds(26, 118, 166, 23);
 		add(rdbtnCheminMinimum);
 		
@@ -47,7 +47,7 @@ public class ParametrePanel extends JPanel {
 		lblVitesseDuVhicule.setBounds(26, 187, 185, 23);
 		add(lblVitesseDuVhicule);
 		
-		JLabel lblParamtresDeSimulation = DefaultComponentFactory.getInstance().createTitle("Param\u00E8tres de simulation");
+		JLabel lblParamtresDeSimulation = DefaultComponentFactory.getInstance().createTitle("Paramètres de simulation");
 		lblParamtresDeSimulation.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblParamtresDeSimulation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblParamtresDeSimulation.setBounds(6, 6, 174, 16);
@@ -57,7 +57,7 @@ public class ParametrePanel extends JPanel {
 		formattedTextField.setBounds(210, 188, 93, 19);
 		add(formattedTextField);
 		
-		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache apr\u00E8s traitement des urgences");
+		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache après traitement des urgences");
 		chckbxVhiculeRetourneAu.setBounds(16, 217, 405, 23);
 		add(chckbxVhiculeRetourneAu);
 		
