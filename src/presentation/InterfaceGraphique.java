@@ -68,7 +68,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		JButton selectionnerBouton = new JButton(SELECTEUR_SOURIS );
 		selectionnerBouton.setHorizontalAlignment(SwingConstants.LEFT);
 		selectionnerBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
-		ImageIcon icon = new ImageIcon(EditPanel.class.getResource("/images/souris.png"));
+		ImageIcon icon = new ImageIcon(InterfaceGraphique.class.getResource("/images/souris.png"));
 		Image img = icon.getImage() ;  
 		Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ;  
 		icon = new ImageIcon( newimg );
@@ -85,7 +85,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		JButton placerVehiculeBouton = new JButton(PUT_VEHICULE);
 		placerVehiculeBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		placerVehiculeBouton.setHorizontalAlignment(SwingConstants.LEFT);
-		icon = new ImageIcon(EditPanel.class.getResource("/images/VehiculeUrgence.png"));
+		icon = new ImageIcon(InterfaceGraphique.class.getResource("/images/VehiculeUrgence.png"));
 		img = icon.getImage() ; 
 		newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ; 
 		icon = new ImageIcon( newimg );
