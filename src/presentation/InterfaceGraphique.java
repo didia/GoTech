@@ -31,12 +31,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private JPanel m_panneauEdition;
     private static Simulateur m_simulateur;
     private Afficheur m_afficheur;
+
+    private ParametrePanel m_parametrePanel;
+    private JOptionPane m_parametrePane;
   
     public static String ADD_PARAMETRES = "Param�tres de Simulation";
     public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule";
-	public static String SELECTEUR_SOURIS = "Selectionner/DŽplacer";
+	public static String SELECTEUR_SOURIS = "Selectionner/D�placer";
 	public static int WIDTH_ICON = 40;
 	public static int HEIGHT_ICON = 40;
 
@@ -51,13 +54,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		westPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
 		getContentPane().add(westPanel, BorderLayout.WEST);
 		m_panneauEdition = new JPanel(new GridLayout(5,1,0,5));
-		
-		  // buttons d'Ždition
+		  // buttons d'�dition
 		JButton ajouterNoeudBouton = new JButton(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.setPreferredSize(new Dimension(200, 50));
 		ajouterNoeudBouton.setActionCommand(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.addActionListener(this);
-		
+
 		//Bouton ajouter arc
 		JButton ajouterArcBouton = new JButton(ADD_ARC_STRING);
 		ajouterArcBouton.setPreferredSize(new Dimension(200 ,50));
@@ -118,8 +120,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		getContentPane().add(scroller);
 	
 		
-		//getContentPane().add(, BorderLayout.WEST);
-	
 		
 		// Ajout du menu et de la barre des buttons
 		menu = new Menu();
@@ -127,6 +127,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		
 		bar = new BarBoutons(m_carteGraphique, m_simulateur);
 		getContentPane().add(bar, BorderLayout.NORTH);
+		
+		m_parametrePanel = new ParametrePanel(m_simulateur);
+		
 		
 		// Ajout du Tabbed Pane des param�tres de simulation
 		
@@ -170,6 +173,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		else if(command.equals(PUT_VEHICULE))
 		{
 			m_simulateur.setEtatPlacerVehicule();
+		}
+
+		else if(command.equals(ADD_PARAMETRES)){
+			JOptionPane.showOptionDialog(this, m_parametrePanel, ADD_PARAMETRES,
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 		}
 	}
 		
