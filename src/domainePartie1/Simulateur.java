@@ -19,13 +19,11 @@ public class Simulateur implements MouseInputListener {
 	private static Resultats m_resultat = new Resultats();
 	private static Urgence m_urgence;
 	private static StrategieGestion m_strategie = new StrategieGestion();
-<<<<<<< HEAD
+
 	private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
-=======
-	//private EtatSimulateur m_etatsimu = new EtatSimulateur();
-	
->>>>>>> 498d86fb8f321e1786f3f53bbd660636fb45c6d0
+
+
 	public Simulateur() {
 
 	}
@@ -207,12 +205,7 @@ public class Simulateur implements MouseInputListener {
 				+ noeudcible.reqPosition().reqPositionY());
 	}
 
-<<<<<<< HEAD
-=======
 
-	/*
-
->>>>>>> 498d86fb8f321e1786f3f53bbd660636fb45c6d0
 	public void SauvegarderEtatActuel() {
 		if (m_etatsimu.reqListeEtatSimu().contains(this))
 			System.out.println("cette simulation a eté dejas enregistré");
@@ -240,6 +233,6 @@ public class Simulateur implements MouseInputListener {
 			m_etatsimu.reqListeEtatsuivantSimu().poll();
 		}
 	}
-	*/
+	
 
 }

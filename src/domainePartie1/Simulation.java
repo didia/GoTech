@@ -8,7 +8,7 @@ public class Simulation  implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		
-		while()
+		
 		
 	}
 	
