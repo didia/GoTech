@@ -2,9 +2,10 @@ package domainePartie1;
 
 public class Grille {
 	
-	public static Zoom m_zoom;
+	public static ZoomModel m_zoom;
 	public static Echelle m_echelle;
-	public Grille(Echelle echelle, Zoom zoom){
+	
+	public Grille(Echelle echelle, ZoomModel zoom){
 		m_echelle = echelle;
 		m_zoom = zoom;
 	}

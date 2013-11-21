@@ -12,7 +12,7 @@ public class Simulateur implements MouseInputListener {
 	private static Carte carte = new Carte();
     private static Vehicule m_vehicule = Vehicule.getInstance();
 	private EtatDEdition m_etat = new EtatDEdition(this);
-	private static Zoom m_zoom = new Zoom();
+	private static ZoomModel m_zoom = new ZoomModel();
 	private static Echelle m_echelle = new Echelle();
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
     
@@ -52,9 +52,7 @@ public class Simulateur implements MouseInputListener {
 		{
 			carte.ajouterNoeud(position);
 		}	
-		else{
-			System.out.println("Il existe un noeud ˆ cette position");
-		}
+		
 	}
 	
 	
@@ -74,7 +72,10 @@ public class Simulateur implements MouseInputListener {
 		Position nouvellePosition = new Position((float)positionX, (float)positionY);
 		nouvellePosition = m_grille.reqPositionEnMetre(nouvellePosition);
 		
+		if(nouvellePosition.reqPositionX() >= 0 && nouvellePosition.reqPositionY() >= 0)
+		{
 		carte.deplacerNoeud(noeud, nouvellePosition);
+		}
 	}
 	
 	
@@ -140,12 +141,15 @@ public class Simulateur implements MouseInputListener {
 		m_etat = new EtatPlacerVehicule(this);
 	}
 	
-
-	public float augmenteZoom(){
-		return m_zoom.augmenteZoom();
+	public float reqZoom(){
+		return m_zoom.reqZoom();
 	}
-	public float diminueZoom(){
-		return m_zoom.diminueZoom();
+	
+	public String augmenteZoom(){
+		return (int)(m_zoom.augmenteZoom()*100) + "%";
+	}
+	public String diminueZoom(){
+		return (int)(m_zoom.diminueZoom()*100)+ "%";
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package domainePartie1;
 public class Vehicule {
 	
 	private static Vehicule m_vehicule = new Vehicule();
-	private Noeud m_portAttache = null;
+	private static Noeud m_portAttache = null;
 	private float m_Vistesse = 0;
 	private Position m_position = null;
 	

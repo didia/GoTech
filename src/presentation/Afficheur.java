@@ -1,9 +1,11 @@
 package presentation;
 
 import java.awt.BasicStroke;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.io.File;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JViewport;
 
 import domainePartie1.Carte;
 import domainePartie1.Grille;
@@ -28,11 +31,12 @@ public class Afficheur
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
     private Image m_ImageDeVehicule;
-    private static final int WIDTH_NOEUD = Default.WIDTH_NOEUD;
-    private static final int HEIGHT_NOEUD = Default.HEIGHT_NOEUD;
+    private int WIDTH_NOEUD = Default.WIDTH_NOEUD;
+   
     private static Grille m_grille;
-  
-    
+    private static float m_zoom;
+    private int maxWidth = 0;
+    private int maxHeight = 0;
 	public Afficheur() 
 	{
 		try 
@@ -53,43 +57,82 @@ public class Afficheur
 		m_grille = simulateur.reqGrille();
 		ArrayList<Noeud> listeDeNoeuds = carte.reqListeNoeuds();
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
-		
+		m_zoom = simulateur.reqZoom();
+		WIDTH_NOEUD = Math.round(Default.WIDTH_NOEUD * m_zoom);
 		this.afficherNoeuds(g, listeDeNoeuds);
 		this.afficherArcs(g, listeDeArcs);
 		if(simulateur.reqPositionVehicule() != null)
-			this.afficherVehicule(g, m_grille.reqPositionEnPixel(simulateur.reqPositionVehicule()));	
+		this.afficherVehicule(g, m_grille.reqPositionEnPixel(simulateur.reqPositionVehicule()));	
+		this.afficherCarte(g, carteGraphique);
 		this.afficherGrille(g, carteGraphique);
+		
 	}
 	
-	public void afficherGrille(Graphics g, CarteGraphique carteGraphique){
+	private void afficherCarte(Graphics g, CarteGraphique carteGraphique){
+		int newWidth;
+		int newHeight;
+		System.out.println("1 ->" +maxWidth + " " + maxHeight);
+		if(maxWidth > Default.CARTE_WIDTH){
+			newWidth = maxWidth;
+		}
+		else{
+			newWidth = Default.CARTE_WIDTH;
+		}
+		if(maxHeight > Default.CARTE_HEIGHT){
+			System.out.println("MaxHeight plus grand");
+			newHeight = maxHeight;
+		}
+		else{
+			newHeight = Default.CARTE_HEIGHT;
+			
+		}
+		maxWidth = Default.CARTE_WIDTH;
+		maxHeight = Default.CARTE_HEIGHT;
+		System.out.println(newWidth + " " + newHeight);
+		
+		carteGraphique.setPreferredSize(new Dimension(newWidth,newHeight));
+		carteGraphique.revalidate();
+	}
+	private void afficherGrille(Graphics g, CarteGraphique carteGraphique){
 		Graphics2D g2d = (Graphics2D)g;
 		int width = carteGraphique.getWidth();
 		int height = carteGraphique.getHeight();
 		
+		//carteGraphique.setPreferredSize(new Dimension(Math.round(Default.CARTE_WIDTH*m_zoom),Math.round(Default.CARTE_HEIGHT*m_zoom)));
+		//carteGraphique.revalidate();
+			
 		for(int i = 0; i<width; i+=m_grille.reqPixelParStep()){
 			for (int j =0; j<height; j+= m_grille.reqPixelParStep()){
 				
-				g2d.setStroke(new BasicStroke(1));
+				g2d.setStroke(new BasicStroke(m_zoom));
 				g2d.draw(new Line2D.Double(i, j, i, j));
 			}
 		}
 	}
-	public void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds)
+	private void afficherNoeuds(Graphics g, ArrayList<Noeud> listeDeNoeuds)
 	{
 		Graphics2D g2d = (Graphics2D)g;
+		
 
 		for(Noeud noeud: listeDeNoeuds){
 			Position position = m_grille.reqPositionEnPixel(noeud.reqPosition());
-
+			//System.out.println("Noeud " + position.reqPositionX() + " " + position.reqPositionY());
+            if(position.reqPositionX() > maxWidth){
+            	maxWidth = (int)position.reqPositionX();
+            }
+            if(position.reqPositionY() > maxHeight){
+            	
+            	maxHeight = (int)position.reqPositionY();
+            }
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
-			double b = position.reqPositionY() - HEIGHT_NOEUD/2;
+			double b = position.reqPositionY() - WIDTH_NOEUD/2;
 			
-			Ellipse2D.Double circle = new Ellipse2D.Double(a, b, WIDTH_NOEUD, HEIGHT_NOEUD);
+			Ellipse2D.Double circle = new Ellipse2D.Double(a, b, WIDTH_NOEUD, WIDTH_NOEUD);
 			g2d.fill(circle);
 		}	
 	}
 	
-	public void afficherArcs(Graphics g, ArrayList<Arc> listeArcs)
+	private void afficherArcs(Graphics g, ArrayList<Arc> listeArcs)
 	{
 		Graphics2D g2d = (Graphics2D)g;
 
@@ -98,19 +141,19 @@ public class Afficheur
 			Position destination = m_grille.reqPositionEnPixel(arc.reqNoeudDest().reqPosition());
 			
 
-			g2d.setStroke(new BasicStroke(3));
+			g2d.setStroke(new BasicStroke(2*m_zoom));
 			g2d.draw(new Line2D.Double(source.reqPositionX(), source.reqPositionY(), destination.reqPositionX(), destination.reqPositionY()));
 		}
 	}
 	
-	public void afficherVehicule(Graphics g, Position position)
+	private void afficherVehicule(Graphics g, Position position)
 	{
 		if (position != null)
 		{
 			Graphics2D g2d = (Graphics2D)g;
 			Image img = m_ImageDeVehicule.getScaledInstance( 40, 40,  Image.SCALE_SMOOTH) ; 
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
-			double b = position.reqPositionY() - HEIGHT_NOEUD - 40;
+			double b = position.reqPositionY() - WIDTH_NOEUD - 40;
 			g2d.drawImage(img, (int)a, (int)b, 50, 50, null);
 		}	
 	}

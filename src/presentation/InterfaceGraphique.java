@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 
 import java.awt.event.MouseListener;
 
+import domainePartie1.Default;
 import domainePartie1.Simulateur;
 
 public class InterfaceGraphique extends JFrame 
@@ -29,7 +30,8 @@ public class InterfaceGraphique extends JFrame
 	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) 
 	{
 		super("Intervensim");
-		setPreferredSize(new Dimension(920, 600));
+		
+		
 		
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
@@ -37,7 +39,12 @@ public class InterfaceGraphique extends JFrame
 		
 		// Ajout de la carte graphique au centre
 		m_carteGraphique = new CarteGraphique(m_afficheur, m_simulateur);
-		getContentPane().add(new JScrollPane(m_carteGraphique));
+		
+		JScrollPane scroller = new JScrollPane(m_carteGraphique);
+		scroller.setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
+		getContentPane().add(scroller);
+		
+		
 		
 		// Ajout Panneau Edition
 		m_panneauEdition = new EditPanel(m_simulateur);
@@ -45,7 +52,7 @@ public class InterfaceGraphique extends JFrame
 		
 		// Ajout du menu et de la barre des buttons
 		menu = new Menu();
-		bar = new BarBoutons(m_carteGraphique);
+		bar = new BarBoutons(m_carteGraphique, m_simulateur);
 
 		
 		getContentPane().add(bar, BorderLayout.NORTH);
