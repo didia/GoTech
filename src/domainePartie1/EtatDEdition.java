@@ -8,7 +8,7 @@ import javax.swing.event.MouseInputListener;
 class EtatDEdition implements MouseInputListener {
 	
 	protected static Noeud noeud_selectione = null;
-	protected static Carte.Arc arc_selectione = null;
+	protected static Arc arc_selectione = null;
 	protected static Simulateur m_simulateur;
 	public EtatDEdition(Simulateur simulateur){
 		m_simulateur = simulateur;
@@ -62,7 +62,7 @@ class EtatDEdition implements MouseInputListener {
 	public Noeud reqNoeudSelectione(){
 		return noeud_selectione;
 	}
-	public Carte.Arc reqArcSelectione(){
+	public Arc reqArcSelectione(){
 		return arc_selectione;
 	}
 	

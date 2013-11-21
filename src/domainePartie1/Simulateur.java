@@ -67,7 +67,7 @@ public class Simulateur implements MouseInputListener {
 		carte.deplacerNoeud(noeud, nouvellePosition);
 	}
 
-	public Carte.Arc reqArc(int positionX, int positionY) {
+	public Arc reqArc(int positionX, int positionY) {
 
 		return carte.reqArc(m_grille.reqPositionEnMetre(new Position(
 				(float) positionX, (float) positionY)));
@@ -94,7 +94,7 @@ public class Simulateur implements MouseInputListener {
 		}
 
 		else {
-			Carte.Arc arc = m_etat.reqArcSelectione();
+			Arc arc = m_etat.reqArcSelectione();
 			if (arc != null) {
 				System.out.println("Entrain de supprimer un arc");
 				carte.enleverArc(arc);
