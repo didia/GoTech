@@ -9,57 +9,35 @@ import domainePartie1.Simulateur;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
-<<<<<<< HEAD
-=======
+
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
->>>>>>> d580d277cff93c52756b822ad22419114f189075
 
 public class ParametrePanel extends JPanel {
 	private static Simulateur m_simulateur;
 	public ParametrePanel(Simulateur simulateur) {
-<<<<<<< HEAD
-		m_simulateur = simulateur;
-		setLayout(null);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Anciennet\u00E9\n");
-		rdbtnNewRadioButton.setToolTipText("Les urgences sont trait\u00E9es par ordre d'anciennet\u00E9");
-		rdbtnNewRadioButton.setBounds(26, 72, 166, 23);
-		add(rdbtnNewRadioButton);
-		
-		JLabel lblStratgieDeSimulation = new JLabel("Strat\u00E9gie de simulation");
-		lblStratgieDeSimulation.setBounds(16, 44, 145, 16);
-		add(lblStratgieDeSimulation);
-		
-		JRadioButton rdbtnParProximit = new JRadioButton("Proximit\u00E9");
-		rdbtnParProximit.setToolTipText("Les urgences sont trait\u00E9es par ordre de proximit\u00E9");
-=======
+
 		setMinimumSize(new Dimension(400, 400));
 		setPreferredSize(new Dimension(500, 400));
 		m_simulateur = simulateur;
 		setLayout(null);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Ancienneté");
-		rdbtnNewRadioButton.setToolTipText("Les urgences sont traités par ordre d'anciennet\u00E9");
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Anciennet≈Ω");
+		rdbtnNewRadioButton.setToolTipText("Les urgences sont trait≈Ωs par ordre d'anciennet\u00E9");
 		rdbtnNewRadioButton.setBounds(26, 72, 166, 23);
 		add(rdbtnNewRadioButton);
 		
-		JLabel lblStratgieDeSimulation = new JLabel("Stratégie de simulation");
+		JLabel lblStratgieDeSimulation = new JLabel("Strat≈Ωgie de simulation");
 		lblStratgieDeSimulation.setBounds(16, 44, 145, 16);
 		add(lblStratgieDeSimulation);
 		
-		JRadioButton rdbtnParProximit = new JRadioButton("Proximité");
-		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximité");
->>>>>>> d580d277cff93c52756b822ad22419114f189075
+		JRadioButton rdbtnParProximit = new JRadioButton("Proximit≈Ω");
+		rdbtnParProximit.setToolTipText("Les urgences sont trait≈Ωes par ordre de proximit≈Ω");
 		rdbtnParProximit.setBounds(26, 96, 177, 23);
 		add(rdbtnParProximit);
 		
 		JRadioButton rdbtnCheminMinimum = new JRadioButton("Chemin Minimum");
-<<<<<<< HEAD
-		rdbtnCheminMinimum.setToolTipText("Les urgences sont trait\u00E9es de sorte \u00E0 reduire le chemin parcouru");
-=======
-		rdbtnCheminMinimum.setToolTipText("Les urgences sont traitées de sorte à reduire le chemin parcouru");
->>>>>>> d580d277cff93c52756b822ad22419114f189075
+		rdbtnCheminMinimum.setToolTipText("Les urgences sont trait≈Ωes de sorte ÀÜ reduire le chemin parcouru");
 		rdbtnCheminMinimum.setBounds(26, 118, 166, 23);
 		add(rdbtnCheminMinimum);
 		
@@ -70,14 +48,10 @@ public class ParametrePanel extends JPanel {
 		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du v\u00E9hicule (Km/h) : ");
 		lblVitesseDuVhicule.setBounds(26, 187, 185, 23);
 		add(lblVitesseDuVhicule);
-		
-<<<<<<< HEAD
-		JLabel lblParamtresDeSimulation = DefaultComponentFactory.getInstance().createTitle("Param\u00E8tres de simulation");
-=======
-		JLabel lblParamtresDeSimulation = DefaultComponentFactory.getInstance().createTitle("Paramètres de simulation");
+
+		JLabel lblParamtresDeSimulation = DefaultComponentFactory.getInstance().createTitle("ParamÔøΩtres de simulation");
 		lblParamtresDeSimulation.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblParamtresDeSimulation.setHorizontalAlignment(SwingConstants.CENTER);
->>>>>>> d580d277cff93c52756b822ad22419114f189075
 		lblParamtresDeSimulation.setBounds(6, 6, 174, 16);
 		add(lblParamtresDeSimulation);
 		
@@ -85,11 +59,7 @@ public class ParametrePanel extends JPanel {
 		formattedTextField.setBounds(210, 188, 93, 19);
 		add(formattedTextField);
 		
-<<<<<<< HEAD
-		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache apr\u00E8s traitement des urgences");
-=======
-		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache après traitement des urgences");
->>>>>>> d580d277cff93c52756b822ad22419114f189075
+		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache aprÔøΩs traitement des urgences");
 		chckbxVhiculeRetourneAu.setBounds(16, 217, 405, 23);
 		add(chckbxVhiculeRetourneAu);
 		
@@ -104,10 +74,7 @@ public class ParametrePanel extends JPanel {
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
 		formattedTextField_1.setBounds(305, 289, 93, 16);
 		add(formattedTextField_1);
-<<<<<<< HEAD
-=======
 		
 		setVisible(true);
->>>>>>> d580d277cff93c52756b822ad22419114f189075
 	}
 }
