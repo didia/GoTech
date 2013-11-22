@@ -50,6 +50,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private ImageIcon iconVehicule;
 	private ImageIcon iconSouris;
 	private ImageIcon iconSettings;
+	private ImageIcon iconArc;
 	
 
 	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) 
@@ -58,7 +59,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
 		
-	
+		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
+		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
 		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
 		iconSouris = reqIcon(Default.SOURIS_ICON_PATH);
 		iconSettings = reqIcon(Default.SETTINGS_ICON_PATH);
@@ -72,12 +74,20 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_panneauEdition = new JPanel(new GridLayout(5,1,0,5));
 		  // buttons d'�dition
 		JButton ajouterNoeudBouton = new JButton(ADD_NOEUD_STRING);
+		ajouterNoeudBouton.setHorizontalAlignment(SwingConstants.LEFT);
+		ajouterNoeudBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		ajouterNoeudBouton.setIcon(iconNoeud);
+		ajouterNoeudBouton.setIconTextGap(10);
 		ajouterNoeudBouton.setPreferredSize(new Dimension(200, 50));
 		ajouterNoeudBouton.setActionCommand(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.addActionListener(this);
 
 		//Bouton ajouter arc
 		JButton ajouterArcBouton = new JButton(ADD_ARC_STRING);
+		ajouterArcBouton.setHorizontalAlignment(SwingConstants.LEFT);
+		ajouterArcBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		ajouterArcBouton.setIcon(iconArc);
+		ajouterArcBouton.setIconTextGap(10);
 		ajouterArcBouton.setPreferredSize(new Dimension(200 ,50));
 		ajouterArcBouton.setActionCommand(ADD_ARC_STRING);
 		ajouterArcBouton.addActionListener(this);
@@ -147,16 +157,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_parametrePanel = new ParametrePanel(m_simulateur);
 		
 		
-		// Ajout du Tabbed Pane des param�tres de simulation
-		
-		//JTabbedPane tabbedPane = new JTabbedPane();
-		//JPanel parametrePanel = new ParametrePanel(m_simulateur);
-        //tabbedPane.addTab("Param�tres de simulation", null,
-                          //parametrePanel,
-                         // "Param�tres de simulation"); //tooltip text
-       
- 
-        //getContentPane().add(tabbedPane, BorderLayout.CENTER);
+
         
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -203,7 +204,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			int option = JOptionPane.showOptionDialog(this, m_parametrePanel, ADD_PARAMETRES,
 					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, iconSettings, null, null);
 			if(option == JOptionPane.OK_OPTION){
-				
+				m_simulateur.asgStrategie(m_parametrePanel.reqStrategie());
+				m_simulateur.asgRetourPointAttache(m_parametrePanel.isRetourPointAttache());
+				m_simulateur.asgMetreParStep(m_parametrePanel.reqMetreParStep());
+				m_simulateur.asgVitesseVehicule(m_parametrePanel.reqVitesseVehicule());
 			}
 			
 		}

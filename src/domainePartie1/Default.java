@@ -2,7 +2,8 @@ package domainePartie1;
 
 public class Default {
 	
-	public static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.ico";
+	public static final String NOEUD_IMAGE_PATH = "/images/noeud.png";
+	public static final String ARC_IMAGE_PATH = "/images/arc.png";
 	public static final String VEHICULE_IMAGE_PATH = "/images/VehiculeUrgence.png";
 	public static final String SETTINGS_ICON_PATH = "/images/settings.png";
 	public static final String SOURIS_ICON_PATH = "/images/souris.png";

@@ -61,7 +61,9 @@ public class Simulateur implements MouseInputListener {
 		return m_parametres.reqVitesseVehicule();
 	}
 	public void asgVitesseVehicule(float vitesse){
-		m_parametres.asgVitesseVehicule(vitesse);
+		if(vitesse > 0){
+			m_parametres.asgVitesseVehicule(vitesse);
+		}
 	}
 	public boolean isretourPointAttache(){
 		return m_parametres.reqRetourPointAttache();
@@ -73,7 +75,9 @@ public class Simulateur implements MouseInputListener {
 		return m_echelle.reqMetreParStep();
 	}
 	public void asgMetreParStep(int value){
+		if(value  > 0){
 		m_echelle.setMetreParStep(value);
+		}
 	}
 	
 	public Carte reqCarte() {

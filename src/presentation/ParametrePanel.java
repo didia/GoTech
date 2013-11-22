@@ -8,6 +8,7 @@ import javax.swing.JRadioButton;
 
 import domainePartie1.Default;
 import domainePartie1.Simulateur;
+import domainePartie1.Parametres;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
@@ -18,7 +19,15 @@ import java.awt.Font;
 import java.text.NumberFormat;
 
 public class ParametrePanel extends JPanel {
+	
 	private static Simulateur m_simulateur;
+	private JRadioButton rdbtnAncien;
+	private JRadioButton rdbtnParProximit;
+	private JRadioButton rdbtnCheminMinimum;
+	private JFormattedTextField vitesseVehicule;
+	private JFormattedTextField echelle;
+	private JCheckBox chckbxRetourne;
+	
 	public ParametrePanel(Simulateur simulateur) {
 
 		setMinimumSize(new Dimension(400, 400));
@@ -32,19 +41,19 @@ public class ParametrePanel extends JPanel {
 		lblStratgieDeSimulation.setBounds(16, 26, 229, 34);
 		add(lblStratgieDeSimulation);
 		
-		JRadioButton rdbtnAncien = new JRadioButton("Ancienneté");
+		rdbtnAncien = new JRadioButton("Ancienneté");
 		rdbtnAncien.setToolTipText("Les urgences sont traités par ordre d'ancienneté");
 		rdbtnAncien.setBounds(37, 72, 166, 23);
 		rdbtnAncien.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_ANC));
 		add(rdbtnAncien);
 		
-		JRadioButton rdbtnParProximit = new JRadioButton("Proximité");
+		rdbtnParProximit = new JRadioButton("Proximité");
 		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximit≈Ω");
 		rdbtnParProximit.setBounds(37, 96, 177, 23);
 		rdbtnParProximit.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_PROX));
 		add(rdbtnParProximit);
 		
-		JRadioButton rdbtnCheminMinimum = new JRadioButton("Chemin Minimum");
+		rdbtnCheminMinimum = new JRadioButton("Chemin Minimum");
 		rdbtnCheminMinimum.setToolTipText("Les urgences sont traitées de sorte à reduire le chemin parcouru");
 		rdbtnCheminMinimum.setBounds(37, 117, 166, 23);
 		rdbtnCheminMinimum.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_MIN));
@@ -67,17 +76,17 @@ public class ParametrePanel extends JPanel {
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		numberFormat.setMaximumFractionDigits(3);
 		
-		JFormattedTextField vitesseVehicule = new JFormattedTextField(numberFormat);
+		vitesseVehicule = new JFormattedTextField(numberFormat);
 		vitesseVehicule.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVitesseDuVhicule.setLabelFor(vitesseVehicule);
 		vitesseVehicule.setText(Float.toString(m_simulateur.reqVitesseVehicule()));
 		vitesseVehicule.setBounds(234, 208, 56, 23);
 		add(vitesseVehicule);
 		
-		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache après traitement des urgences");
-		chckbxVhiculeRetourneAu.setBounds(29, 243, 405, 23);
-		chckbxVhiculeRetourneAu.setSelected(m_simulateur.isretourPointAttache());
-		add(chckbxVhiculeRetourneAu);
+		chckbxRetourne = new JCheckBox("Retour au point d'attache après traitement des urgences");
+		chckbxRetourne.setBounds(29, 243, 405, 23);
+		chckbxRetourne.setSelected(m_simulateur.isretourPointAttache());
+		add(chckbxRetourne);
 		
 		JLabel lblEchelle = new JLabel("Echelle de la carte");
 		lblEchelle.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
@@ -97,5 +106,27 @@ public class ParametrePanel extends JPanel {
 		add(echelle);
 		
 		setVisible(true);
+	}
+	
+	public String reqStrategie(){
+		if(rdbtnParProximit.isSelected()){
+			return Default.STRATEGIE_PROX;
+		}
+		else if (rdbtnCheminMinimum.isSelected()){
+			return Default.STRATEGIE_MIN;
+		}
+		else{
+			return Default.STRATEGIE_ANC;
+		}
+	}
+	
+	public boolean isRetourPointAttache(){
+		return chckbxRetourne.isSelected();
+	}
+	public float reqVitesseVehicule(){
+		return Float.parseFloat(vitesseVehicule.getText());
+	}
+	public int reqMetreParStep(){
+		return Integer.parseInt(echelle.getText());
 	}
 }

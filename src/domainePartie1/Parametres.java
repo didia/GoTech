@@ -16,6 +16,8 @@ public class Parametres {
 		
 	}
 	
+
+	
 	public float reqVitesseVehicule()
 	{
 		return this.m_vitesseVehicule;
