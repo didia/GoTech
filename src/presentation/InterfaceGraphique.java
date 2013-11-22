@@ -141,6 +141,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		// Ajout de la carte graphique au centre
 		m_carteGraphique = new CarteGraphique(m_afficheur, m_simulateur);
 		
+		
 		JScrollPane scroller = new JScrollPane(m_carteGraphique);
 		scroller.setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
 		getContentPane().add(scroller);

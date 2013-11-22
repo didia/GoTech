@@ -71,7 +71,7 @@ public class Afficheur
 	private void afficherCarte(Graphics g, CarteGraphique carteGraphique){
 		int newWidth;
 		int newHeight;
-		System.out.println("1 ->" +maxWidth + " " + maxHeight);
+		
 		if(maxWidth > Default.CARTE_WIDTH){
 			newWidth = maxWidth;
 		}
@@ -88,7 +88,7 @@ public class Afficheur
 		}
 		maxWidth = Default.CARTE_WIDTH;
 		maxHeight = Default.CARTE_HEIGHT;
-		System.out.println(newWidth + " " + newHeight);
+	
 		
 		carteGraphique.setPreferredSize(new Dimension(newWidth,newHeight));
 		carteGraphique.revalidate();

@@ -97,7 +97,7 @@ public class ParametrePanel extends JPanel {
 		add(lblDistanceEntreDeux);
 		
 		numberFormat.setMaximumFractionDigits(0);
-		JFormattedTextField echelle = new JFormattedTextField(numberFormat);
+		echelle = new JFormattedTextField(numberFormat);
 		echelle.setHorizontalAlignment(SwingConstants.CENTER);
 		echelle.setText(Integer.toString(m_simulateur.reqMetreParStep()));
 		lblDistanceEntreDeux.setLabelFor(echelle);
@@ -125,7 +125,9 @@ public class ParametrePanel extends JPanel {
 	public float reqVitesseVehicule(){
 		return Float.parseFloat(vitesseVehicule.getText());
 	}
+	
 	public int reqMetreParStep(){
+		System.out.println(echelle.getText());
 		return Integer.parseInt(echelle.getText());
 	}
 }

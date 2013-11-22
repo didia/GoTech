@@ -77,6 +77,7 @@ public class Simulateur implements MouseInputListener {
 	public void asgMetreParStep(int value){
 		if(value  > 0){
 		m_echelle.setMetreParStep(value);
+	    updaterCarte();
 		}
 	}
 	
@@ -111,6 +112,12 @@ public class Simulateur implements MouseInputListener {
 		if(nouvellePosition.reqPositionX() >= 0 && nouvellePosition.reqPositionY() >= 0)
 		{
 		carte.deplacerNoeud(noeud, nouvellePosition);
+		}
+	}
+	
+	public void updaterCarte(){
+		for(Noeud noeud : carte.reqListeNoeuds()){
+			carte.deplacerNoeud(noeud, m_grille.reqUpdatedPosition(noeud.reqPosition()));
 		}
 	}
 
@@ -149,6 +156,16 @@ public class Simulateur implements MouseInputListener {
 		}
 	}
 	
+	public String reqPositionDescription(int posX, int posY){
+		Position position = m_grille.reqPositionEnMetre(new Position(posX, posY));
+		int positionX = Math.round(position.reqPositionX());
+		int positionY = Math.round(position.reqPositionY());
+		
+		if(positionX/1000 > 1 || positionY/1000 > 1){
+			return "<html>Abscisse : "+ positionX/1000 + "Km<br/> Ordonnée : " + positionY/1000 +"Km</html>";
+		}
+		return "<html>Abscisse : " + positionX + "m<br/> Ordonnée : " + positionY + "m</html>";
+	}
 	
 	public Grille reqGrille() {
 		return m_grille;
