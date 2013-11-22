@@ -35,26 +35,27 @@ public class ParametrePanel extends JPanel {
 		m_simulateur = simulateur;
 		setLayout(null);
 		
-		JLabel lblStratgieDeSimulation = new JLabel("Stratégie de simulation");
+
+		JLabel lblStratgieDeSimulation = new JLabel("StratÔøΩgie de simulation");
 		lblStratgieDeSimulation.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
 		lblStratgieDeSimulation.setToolTipText("Choisissez une strat\u00E9gie de simulation");
 		lblStratgieDeSimulation.setBounds(16, 26, 229, 34);
 		add(lblStratgieDeSimulation);
 		
-		rdbtnAncien = new JRadioButton("Ancienneté");
-		rdbtnAncien.setToolTipText("Les urgences sont traités par ordre d'ancienneté");
+		rdbtnAncien = new JRadioButton("AnciennetÔøΩ");
+		rdbtnAncien.setToolTipText("Les urgences sont traitÔøΩs par ordre d'anciennetÔøΩ");
 		rdbtnAncien.setBounds(37, 72, 166, 23);
 		rdbtnAncien.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_ANC));
 		add(rdbtnAncien);
 		
-		rdbtnParProximit = new JRadioButton("Proximité");
-		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximit≈Ω");
+		rdbtnParProximit = new JRadioButton("ProximitÔøΩ");
+		rdbtnParProximit.setToolTipText("Les urgences sont traitÔøΩes par ordre de proximit≈Ω");
 		rdbtnParProximit.setBounds(37, 96, 177, 23);
 		rdbtnParProximit.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_PROX));
 		add(rdbtnParProximit);
 		
 		rdbtnCheminMinimum = new JRadioButton("Chemin Minimum");
-		rdbtnCheminMinimum.setToolTipText("Les urgences sont traitées de sorte à reduire le chemin parcouru");
+		rdbtnCheminMinimum.setToolTipText("Les urgences sont traitÔøΩes de sorte ÔøΩ reduire le chemin parcouru");
 		rdbtnCheminMinimum.setBounds(37, 117, 166, 23);
 		rdbtnCheminMinimum.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_MIN));
 		add(rdbtnCheminMinimum);
@@ -68,8 +69,7 @@ public class ParametrePanel extends JPanel {
 		lblVehiculeDurgence.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
 		lblVehiculeDurgence.setBounds(16, 159, 205, 28);
 		add(lblVehiculeDurgence);
-		
-		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du véhicule (Km/h) : ");
+		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du vÔøΩhicule (Km/h) : ");
 		lblVitesseDuVhicule.setBounds(37, 208, 185, 23);
 		add(lblVitesseDuVhicule);
 		
@@ -83,11 +83,10 @@ public class ParametrePanel extends JPanel {
 		vitesseVehicule.setBounds(234, 208, 56, 23);
 		add(vitesseVehicule);
 		
-		chckbxRetourne = new JCheckBox("Retour au point d'attache après traitement des urgences");
+		chckbxRetourne = new JCheckBox("Retour au point d'attache aprÔøΩs traitement des urgences");
 		chckbxRetourne.setBounds(29, 243, 405, 23);
 		chckbxRetourne.setSelected(m_simulateur.isretourPointAttache());
 		add(chckbxRetourne);
-		
 		JLabel lblEchelle = new JLabel("Echelle de la carte");
 		lblEchelle.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
 		lblEchelle.setBounds(16, 286, 195, 27);
