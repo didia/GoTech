@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputListener;
 
@@ -72,17 +73,23 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		
 		noeudPopup.add(menuItem);
 		addPopup(this, noeudPopup);
-		
+		ToolTipManager.sharedInstance().registerComponent(this);
 		
 	}
 		
 	
+	@Override
+	public String getToolTipText(MouseEvent event) {
+		System.out.println("Method called");
+		return m_simulateur.reqPositionDescription(event.getX(), event.getY());
+	}
 	
 	@Override
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
 		m_afficheur.afficherReseau(g, m_simulateur, this);
+		
 	}
 
 	@Override

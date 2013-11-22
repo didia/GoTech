@@ -1,7 +1,7 @@
 package domainePartie1;
 
 public class Echelle {
-	
+	private int prevMetreParStep;
 	private int m_metreParStep = Default.METRE_PAR_STEP;
 	
 	public Echelle(){
@@ -12,11 +12,12 @@ public class Echelle {
 		return m_metreParStep;
 	}
 	public void setMetreParStep(int metreParStep){
+		prevMetreParStep = m_metreParStep;
 		m_metreParStep = metreParStep;
 	}
 	
 	public Position reqPositionEnMetre(Position positionEnStep){
-		
+		System.out.println(m_metreParStep);
 		float posX = positionEnStep.reqPositionX() *m_metreParStep;
 		float posY = positionEnStep.reqPositionY()* m_metreParStep;
 		
@@ -29,6 +30,16 @@ public class Echelle {
 		float posY = positionEnMetre.reqPositionY()/m_metreParStep;
 		
 		return new Position(posX, posY);
+	}
+	private Position reqPositionEnOldStep(Position positionEnMetre){
+		float posX = positionEnMetre.reqPositionX()/prevMetreParStep;
+		float posY = positionEnMetre.reqPositionY()/prevMetreParStep;
+		
+		return new Position(posX, posY);
+	}
+	
+	public Position reqUpdatedPosition(Position position){
+		return reqPositionEnMetre(reqPositionEnOldStep(position));
 	}
 	
 }
