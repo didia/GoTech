@@ -1,10 +1,12 @@
 package presentation;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 
 
+import domainePartie1.Default;
 import domainePartie1.Simulateur;
 
 import javax.swing.JFormattedTextField;
@@ -12,6 +14,8 @@ import javax.swing.JCheckBox;
 
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.text.NumberFormat;
 
 public class ParametrePanel extends JPanel {
 	private static Simulateur m_simulateur;
@@ -22,53 +26,75 @@ public class ParametrePanel extends JPanel {
 		m_simulateur = simulateur;
 		setLayout(null);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Ancienneté");
-		rdbtnNewRadioButton.setToolTipText("Les urgences sont traités par ordre d'ancienneté");
-		rdbtnNewRadioButton.setBounds(26, 72, 166, 23);
-		add(rdbtnNewRadioButton);
-		
 		JLabel lblStratgieDeSimulation = new JLabel("Stratégie de simulation");
-		lblStratgieDeSimulation.setBounds(16, 44, 145, 16);
+		lblStratgieDeSimulation.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
+		lblStratgieDeSimulation.setToolTipText("Choisissez une strat\u00E9gie de simulation");
+		lblStratgieDeSimulation.setBounds(16, 26, 229, 34);
 		add(lblStratgieDeSimulation);
+		
+		JRadioButton rdbtnAncien = new JRadioButton("Ancienneté");
+		rdbtnAncien.setToolTipText("Les urgences sont traités par ordre d'ancienneté");
+		rdbtnAncien.setBounds(37, 72, 166, 23);
+		rdbtnAncien.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_ANC));
+		add(rdbtnAncien);
 		
 		JRadioButton rdbtnParProximit = new JRadioButton("Proximité");
 		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximit≈Ω");
-		rdbtnParProximit.setBounds(26, 96, 177, 23);
+		rdbtnParProximit.setBounds(37, 96, 177, 23);
+		rdbtnParProximit.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_PROX));
 		add(rdbtnParProximit);
 		
 		JRadioButton rdbtnCheminMinimum = new JRadioButton("Chemin Minimum");
 		rdbtnCheminMinimum.setToolTipText("Les urgences sont traitées de sorte à reduire le chemin parcouru");
-		rdbtnCheminMinimum.setBounds(26, 118, 166, 23);
+		rdbtnCheminMinimum.setBounds(37, 117, 166, 23);
+		rdbtnCheminMinimum.setSelected(m_simulateur.isStrategieCourante(Default.STRATEGIE_MIN));
 		add(rdbtnCheminMinimum);
 		
+		final ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnAncien);
+		group.add(rdbtnParProximit);
+		group.add(rdbtnCheminMinimum);
+		
 		JLabel lblVehiculeDurgence = new JLabel("Vehicule D'urgence");
-		lblVehiculeDurgence.setBounds(16, 159, 135, 16);
+		lblVehiculeDurgence.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
+		lblVehiculeDurgence.setBounds(16, 159, 205, 28);
 		add(lblVehiculeDurgence);
 		
 		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du véhicule (Km/h) : ");
-		lblVitesseDuVhicule.setBounds(26, 187, 185, 23);
+		lblVitesseDuVhicule.setBounds(37, 208, 185, 23);
 		add(lblVitesseDuVhicule);
-
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(210, 188, 93, 19);
-		add(formattedTextField);
+		NumberFormat numberFormat = NumberFormat.getInstance();
+		numberFormat.setMaximumFractionDigits(3);
+		
+		JFormattedTextField vitesseVehicule = new JFormattedTextField(numberFormat);
+		vitesseVehicule.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVitesseDuVhicule.setLabelFor(vitesseVehicule);
+		vitesseVehicule.setText(Float.toString(m_simulateur.reqVitesseVehicule()));
+		vitesseVehicule.setBounds(234, 208, 56, 23);
+		add(vitesseVehicule);
 		
 		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache après traitement des urgences");
-		chckbxVhiculeRetourneAu.setBounds(16, 217, 405, 23);
+		chckbxVhiculeRetourneAu.setBounds(29, 243, 405, 23);
+		chckbxVhiculeRetourneAu.setSelected(m_simulateur.isretourPointAttache());
 		add(chckbxVhiculeRetourneAu);
 		
 		JLabel lblEchelle = new JLabel("Echelle de la carte");
-		lblEchelle.setBounds(16, 261, 118, 16);
+		lblEchelle.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
+		lblEchelle.setBounds(16, 286, 195, 27);
 		add(lblEchelle);
 		
 		JLabel lblDistanceEntreDeux = new JLabel("Distance entre deux points de la grille (m) :");
-		lblDistanceEntreDeux.setBounds(26, 289, 277, 16);
+		lblDistanceEntreDeux.setBounds(32, 338, 277, 16);
 		add(lblDistanceEntreDeux);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setBounds(305, 289, 93, 16);
-		add(formattedTextField_1);
+		numberFormat.setMaximumFractionDigits(0);
+		JFormattedTextField echelle = new JFormattedTextField(numberFormat);
+		echelle.setHorizontalAlignment(SwingConstants.CENTER);
+		echelle.setText(Integer.toString(m_simulateur.reqMetreParStep()));
+		lblDistanceEntreDeux.setLabelFor(echelle);
+		echelle.setBounds(321, 336, 47, 19);
+		add(echelle);
 		
 		setVisible(true);
 	}
