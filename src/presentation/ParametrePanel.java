@@ -22,22 +22,22 @@ public class ParametrePanel extends JPanel {
 		m_simulateur = simulateur;
 		setLayout(null);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Ancienneté");
-		rdbtnNewRadioButton.setToolTipText("Les urgences sont traités par ordre d'ancienneté");
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Anciennet√©");
+		rdbtnNewRadioButton.setToolTipText("Les urgences sont trait√©s par ordre d'anciennet√©");
 		rdbtnNewRadioButton.setBounds(26, 72, 166, 23);
 		add(rdbtnNewRadioButton);
 		
-		JLabel lblStratgieDeSimulation = new JLabel("Stratégie de simulation");
+		JLabel lblStratgieDeSimulation = new JLabel("Strat√©gie de simulation");
 		lblStratgieDeSimulation.setBounds(16, 44, 145, 16);
 		add(lblStratgieDeSimulation);
 		
-		JRadioButton rdbtnParProximit = new JRadioButton("Proximité");
-		rdbtnParProximit.setToolTipText("Les urgences sont traitées par ordre de proximit≈Ω");
+		JRadioButton rdbtnParProximit = new JRadioButton("Proximit√©");
+		rdbtnParProximit.setToolTipText("Les urgences sont trait√©es par ordre de proximit≈Ω");
 		rdbtnParProximit.setBounds(26, 96, 177, 23);
 		add(rdbtnParProximit);
 		
 		JRadioButton rdbtnCheminMinimum = new JRadioButton("Chemin Minimum");
-		rdbtnCheminMinimum.setToolTipText("Les urgences sont traitées de sorte à reduire le chemin parcouru");
+		rdbtnCheminMinimum.setToolTipText("Les urgences sont trait√©es de sorte √† reduire le chemin parcouru");
 		rdbtnCheminMinimum.setBounds(26, 118, 166, 23);
 		add(rdbtnCheminMinimum);
 		
@@ -45,7 +45,7 @@ public class ParametrePanel extends JPanel {
 		lblVehiculeDurgence.setBounds(16, 159, 135, 16);
 		add(lblVehiculeDurgence);
 		
-		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du véhicule (Km/h) : ");
+		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du v√©hicule (Km/h) : ");
 		lblVitesseDuVhicule.setBounds(26, 187, 185, 23);
 		add(lblVitesseDuVhicule);
 
@@ -54,7 +54,7 @@ public class ParametrePanel extends JPanel {
 		formattedTextField.setBounds(210, 188, 93, 19);
 		add(formattedTextField);
 		
-		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache après traitement des urgences");
+		JCheckBox chckbxVhiculeRetourneAu = new JCheckBox("Retour au point d'attache apr√©s traitement des urgences");
 		chckbxVhiculeRetourneAu.setBounds(16, 217, 405, 23);
 		add(chckbxVhiculeRetourneAu);
 		
