@@ -38,11 +38,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener
     private ParametrePanel m_parametrePanel;
     private JOptionPane m_parametrePane;
   
-    private static String ADD_PARAMETRES = "Paramètres de Simulation";
+    private static String ADD_PARAMETRES = "ParamÔøΩtres de Simulation";
     private static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	private static  String ADD_ARC_STRING = "Ajouter Arc";
 	private static  String PUT_VEHICULE = "Placer Vehicule";
-	private static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
+	private static String SELECTEUR_SOURIS = "Selectionner/DÔøΩplacer";
 	private static int WIDTH_ICON = 40;
 	private static int HEIGHT_ICON = 40;
 	
@@ -117,7 +117,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		placerVehiculeBouton.setActionCommand(PUT_VEHICULE);
 		placerVehiculeBouton.addActionListener(this);
 		
-		// Set Paramètres button
+		// Set ParamÔøΩtres button
 		JButton setParametreBouton = new JButton(ADD_PARAMETRES);
 		setParametreBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		setParametreBouton.setHorizontalAlignment(SwingConstants.LEFT);
