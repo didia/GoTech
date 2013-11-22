@@ -10,7 +10,7 @@ import javax.swing.event.MouseInputListener;
 
 public class Simulateur implements MouseInputListener {
 
-	private static Carte carte = new Carte();
+	private static Carte m_carte = new Carte();
 	private static Vehicule m_vehicule = Vehicule.getInstance();
 	private EtatDEdition m_etat = new EtatDEdition(this);
 	private static ZoomModel m_zoom = new ZoomModel();
@@ -51,147 +51,176 @@ public class Simulateur implements MouseInputListener {
 	{
 		return m_parametres.reqStrategie().equals(strategie);	
 	}
-	public String reqStrategieCourante(){
+	public String reqStrategieCourante()
+	{
 		return m_parametres.reqStrategie();
 	}
-	public void asgStrategie(String strategie){
+	public void asgStrategie(String strategie)
+	{
 		m_parametres.asgStrategie(strategie);
 	}
-	public float reqVitesseVehicule(){
+	public float reqVitesseVehicule()
+	{
 		return m_parametres.reqVitesseVehicule();
 	}
-	public void asgVitesseVehicule(float vitesse){
-		if(vitesse > 0){
+	public void asgVitesseVehicule(float vitesse)
+	{
+		if (vitesse > 0)
+		{
 			m_parametres.asgVitesseVehicule(vitesse);
 		}
 	}
-	public boolean isretourPointAttache(){
+	public boolean isretourPointAttache()
+	{
 		return m_parametres.reqRetourPointAttache();
 	}
-	public void asgRetourPointAttache(boolean flag){
+	public void asgRetourPointAttache(boolean flag)
+	{
 		m_parametres.asgRetourPointAttache(flag);
 	}
-	public int reqMetreParStep(){
+	public int reqMetreParStep()
+	{
 		return m_echelle.reqMetreParStep();
 	}
-	public void asgMetreParStep(int value){
-		if(value  > 0){
-		m_echelle.setMetreParStep(value);
-	    updaterCarte();
+	public void asgMetreParStep(int value)
+	{
+		if (value  > 0)
+		{
+			m_echelle.setMetreParStep(value);
+		    updaterCarte();
 		}
 	}
 	
-	public Carte reqCarte() {
-		return carte;
+	public Carte reqCarte() 
+	{
+		return m_carte;
 	}
-	public void ajouterNoeud(int positionX, int positionY) {
+	
+	public void ajouterNoeud(int positionX, int positionY) 
+	{
 		Position position = new Position((float) positionX, (float) positionY);
 		position = m_grille.reqPositionEnMetre(position);
-		if (carte.reqNoeud(position) == null) {
-			carte.ajouterNoeud(position);
-
+		if (m_carte.reqNoeud(position) == null) 
+		{
+			m_carte.ajouterNoeud(position);
 		}	
 		
 
 		} 
 
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		carte.ajouterArc(noeudSource, noeudDest);
+	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) 
+	{
+		m_carte.ajouterArc(noeudSource, noeudDest);
 	}
 
-	public Noeud reqNoeud(int positionX, int positionY) {
-		return carte.reqNoeud(m_grille.reqPositionEnMetre(new Position(
-				(float) positionX, (float) positionY)));
+	public Noeud reqNoeud(int positionX, int positionY) 
+	{
+		return m_carte.reqNoeud(m_grille.reqPositionEnMetre(new Position((float) positionX, (float) positionY)));
 	}
 
-	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) {
-		Position nouvellePosition = new Position((float) positionX,
-				(float) positionY);
+	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) 
+	{
+		Position nouvellePosition = new Position((float) positionX, (float) positionY);
 		nouvellePosition = m_grille.reqPositionEnMetre(nouvellePosition);
 		
-		if(nouvellePosition.reqPositionX() >= 0 && nouvellePosition.reqPositionY() >= 0)
+		if (nouvellePosition.reqPositionX() >= 0 && nouvellePosition.reqPositionY() >= 0)
 		{
-		carte.deplacerNoeud(noeud, nouvellePosition);
+			m_carte.deplacerNoeud(noeud, nouvellePosition);
 		}
 	}
 	
-	public void updaterCarte(){
-		for(Noeud noeud : carte.reqListeNoeuds()){
-			carte.deplacerNoeud(noeud, m_grille.reqUpdatedPosition(noeud.reqPosition()));
+	public void updaterCarte()
+	{
+		for(Noeud noeud : m_carte.reqListeNoeuds())
+		{
+			m_carte.deplacerNoeud(noeud, m_grille.reqUpdatedPosition(noeud.reqPosition()));
 		}
 	}
 
-	public Arc reqArc(int positionX, int positionY) {
-
-		return carte.reqArc(m_grille.reqPositionEnMetre(new Position(
-				(float) positionX, (float) positionY)));
+	public Arc reqArc(int positionX, int positionY) 
+	{
+		return m_carte.reqArc(m_grille.reqPositionEnMetre(new Position((float) positionX, (float) positionY)));
 	}
 
-	public boolean existeComponent(int positionX, int positionY) {
-
-		if (this.reqNoeud(positionX, positionY) != null
-				|| this.reqArc(positionX, positionY) != null) {
+	public boolean existeComponent(int positionX, int positionY) 
+	{
+		if (this.reqNoeud(positionX, positionY) != null || this.reqArc(positionX, positionY) != null) 
+		{
 			return true;
 		}
 
-		else {
+		else 
+		{
 			return false;
 		}
 	}
 
-	public void supprimer_component() {
+	public void supprimer_component() 
+	{
 		Noeud noeud = m_etat.reqNoeudSelectione();
 
-		if (noeud != null) {
+		if (noeud != null) 
+		{
 			System.out.println("Entrain de supprimer un noeud");
-			carte.enleverNoeud(noeud);
+			m_carte.enleverNoeud(noeud);
 		}
 
-		else {
+		else 
+		{
 			Arc arc = m_etat.reqArcSelectione();
-			if (arc != null) {
+			if (arc != null) 
+			{
 				System.out.println("Entrain de supprimer un arc");
-				carte.enleverArc(arc);
+				m_carte.enleverArc(arc);
 			}
 		}
 	}
 	
-	public String reqPositionDescription(int posX, int posY){
+	public String reqPositionDescription(int posX, int posY)
+	{
 		Position position = m_grille.reqPositionEnMetre(new Position(posX, posY));
 		int positionX = Math.round(position.reqPositionX());
 		int positionY = Math.round(position.reqPositionY());
 		
-		if(positionX/1000 > 1 || positionY/1000 > 1){
-			return "<html>Abscisse : "+ positionX/1000 + "Km<br/> Ordonn�e : " + positionY/1000 +"Km</html>";
+		if (positionX/1000 > 1 || positionY/1000 > 1)
+		{
+			return "<html>Abscisse : "+ positionX/1000 + "Km<br/> Ordonn�e : " + positionY/1000 +"Km</html>";
 		}
-		return "<html>Abscisse : " + positionX + "m<br/> Ordonn�e : " + positionY + "m</html>";
+		return "<html>Abscisse : " + positionX + "m<br/> Ordonn�e : " + positionY + "m</html>";
 	}
 	
-	public Grille reqGrille() {
+	public Grille reqGrille() 
+	{
 		return m_grille;
 	}
 	
-	public void asgVehiculeUrgence(Noeud noeud) {
+	public void asgVehiculeUrgence(Noeud noeud) 
+	{
 		m_vehicule.asgPointAttache(noeud);
 	}
 
-	public Position reqPositionVehicule() {
+	public Position reqPositionVehicule() 
+	{
 		return m_vehicule.reqPosition();
 	}
 
 	
-	public float reqZoom(){
+	public float reqZoom()
+	{
 		return m_zoom.reqZoom();
 	}
 	
-	public String augmenteZoom(){
+	public String augmenteZoom()
+	{
 		return (int)(m_zoom.augmenteZoom()*100) + "%";
 	}
-	public String diminueZoom(){
+	public String diminueZoom()
+	{
 		return (int)(m_zoom.diminueZoom()*100)+ "%";
 	}
 
-	public void supprimerUrgence(Urgence uneUrgence) {
+	public void supprimerUrgence(Urgence uneUrgence) 
+	{
 
 		m_strategie.reqListeUrgence().remove(uneUrgence);
 	}
@@ -207,13 +236,13 @@ public class Simulateur implements MouseInputListener {
 
 	}
 
-	public void terminerSimulation() {
-		m_vehicule.AllerPointAttache();
-
+	public void terminerSimulation() 
+	{
+		m_vehicule.allerPortAttache();
 	}
 
-	public void declencherUrgence(Noeud noeudcible, int p_priorite) {
-
+	public void declencherUrgence(Noeud noeudcible, int p_priorite) 
+	{
 		m_urgence = new Urgence(noeudcible, p_priorite);
 		m_strategie.reqListeUrgence().add(m_urgence);
 		System.out.println("une urgence a eté declenché Position "
@@ -222,18 +251,19 @@ public class Simulateur implements MouseInputListener {
 	}
 
 
-	public void SauvegarderEtatActuel() {
+	public void SauvegarderEtatActuel() 
+	{
 		if (m_etatsimu.reqListeEtatSimu().contains(this))
 			System.out.println("cette simulation a eté dejas enregistré");
 		else
 			m_etatsimu.ajouterEtatSimu(this);
-
 	}
 
-	public void annuler() {
-		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu()
-					.peek());
+	public void annuler() 
+	{
+		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) 
+		{
+			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu().peek());
 			// TODO this = m_etatsimu.reqListeEtatSimu().peek();
 			m_etatsimu.reqListeEtatSimu().poll();
 		}
@@ -242,9 +272,9 @@ public class Simulateur implements MouseInputListener {
 
 	public void retablir() {
 
-		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu()
-					.peek());
+		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) 
+		{
+			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu().peek());
 			// TODO this = m_etatsimu.reqListeEtatsuivantSimu().peek();
 			m_etatsimu.reqListeEtatsuivantSimu().poll();
 		}
