@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Timer;
 import javax.swing.event.MouseInputListener;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.DayDV;
+
 
 public class Simulateur implements MouseInputListener {
 
@@ -16,6 +16,8 @@ public class Simulateur implements MouseInputListener {
 	private static ZoomModel m_zoom = new ZoomModel();
 	private static Echelle m_echelle = new Echelle();
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
+	private Parametres m_parametres = new Parametres();
+	
 	private static Resultats m_resultat = new Resultats();
 	private static Urgence m_urgence;
 	private static StrategieGestion m_strategie = new StrategieGestion();
@@ -25,25 +27,62 @@ public class Simulateur implements MouseInputListener {
 
 
 	public Simulateur() {
+		
 
 	}
 
+	public void setEtatAjouterNoeud() {
+		m_etat = new EtatAjouterNoeud(this);
+	}
+
+	public void setEtatAjouterArc() {
+		m_etat = new EtatAjouterArc(this);
+	}
+
+	public void setEtatSelectioneur() {
+		m_etat = new EtatModifierComponent(this);
+	}
+
+	public void setEtatPlacerVehicule() 
+	{
+		m_etat = new EtatPlacerVehicule(this);
+	}
+	public boolean isStrategieCourante(String strategie)
+	{
+		return m_parametres.reqStrategie().equals(strategie);	
+	}
+	public String reqStrategieCourante(){
+		return m_parametres.reqStrategie();
+	}
+	public void asgStrategie(String strategie){
+		m_parametres.asgStrategie(strategie);
+	}
+	public float reqVitesseVehicule(){
+		return m_parametres.reqVitesseVehicule();
+	}
+	public void asgVitesseVehicule(float vitesse){
+		if(vitesse > 0){
+			m_parametres.asgVitesseVehicule(vitesse);
+		}
+	}
+	public boolean isretourPointAttache(){
+		return m_parametres.reqRetourPointAttache();
+	}
+	public void asgRetourPointAttache(boolean flag){
+		m_parametres.asgRetourPointAttache(flag);
+	}
+	public int reqMetreParStep(){
+		return m_echelle.reqMetreParStep();
+	}
+	public void asgMetreParStep(int value){
+		if(value  > 0){
+		m_echelle.setMetreParStep(value);
+		}
+	}
+	
 	public Carte reqCarte() {
 		return carte;
 	}
-
-	public Grille reqGrille() {
-		return m_grille;
-	}
-
-	public void asgVehiculeUrgence(Noeud noeud) {
-		m_vehicule.asgPointAttache(noeud);
-	}
-
-	public Position reqPositionVehicule() {
-		return m_vehicule.reqPosition();
-	}
-
 	public void ajouterNoeud(int positionX, int positionY) {
 		Position position = new Position((float) positionX, (float) positionY);
 		position = m_grille.reqPositionEnMetre(position);
@@ -109,21 +148,18 @@ public class Simulateur implements MouseInputListener {
 			}
 		}
 	}
-
-	public void setEtatAjouterNoeud() {
-		m_etat = new EtatAjouterNoeud(this);
+	
+	
+	public Grille reqGrille() {
+		return m_grille;
+	}
+	
+	public void asgVehiculeUrgence(Noeud noeud) {
+		m_vehicule.asgPointAttache(noeud);
 	}
 
-	public void setEtatAjouterArc() {
-		m_etat = new EtatAjouterArc(this);
-	}
-
-	public void setEtatSelectioneur() {
-		m_etat = new EtatModifierComponent(this);
-	}
-
-	public void setEtatPlacerVehicule() {
-		m_etat = new EtatPlacerVehicule(this);
+	public Position reqPositionVehicule() {
+		return m_vehicule.reqPosition();
 	}
 
 	
@@ -136,43 +172,6 @@ public class Simulateur implements MouseInputListener {
 	}
 	public String diminueZoom(){
 		return (int)(m_zoom.diminueZoom()*100)+ "%";
-	}
-
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		m_etat.mouseClicked(e);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		m_etat.mouseEntered(e);
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		m_etat.mouseExited(e);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		m_etat.mousePressed(e);
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		m_etat.mouseReleased(e);
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		m_etat.mouseDragged(e);
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		m_etat.mouseMoved(e);
 	}
 
 	public void supprimerUrgence(Urgence uneUrgence) {
@@ -233,6 +232,40 @@ public class Simulateur implements MouseInputListener {
 			m_etatsimu.reqListeEtatsuivantSimu().poll();
 		}
 	}
-	
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		m_etat.mouseClicked(e);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		m_etat.mouseEntered(e);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		m_etat.mouseExited(e);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		m_etat.mousePressed(e);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		m_etat.mouseReleased(e);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		m_etat.mouseDragged(e);
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		m_etat.mouseMoved(e);
+	}
 
 }

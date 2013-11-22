@@ -51,5 +51,9 @@ public class StrategieAnciennete extends StrategieGestion {
 
 		this.asgListUrgence(listTempTriee);
 	}
+	
+	public String toString(){
+		return Default.STRATEGIE_ANC;
+	}
 
 }

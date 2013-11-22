@@ -3,35 +3,54 @@ package domainePartie1;
 public class Parametres {
 	
 	private  float m_vitesseVehicule;
-	private  StrategieGestion m_strategie;
-	private boolean m_comportementVehicule ;
+	private  String m_strategie;
+	private boolean m_retourPointAttache ;
+
 	
 	
+	public Parametres(){
+		m_vitesseVehicule = Default.VITESSE_VEHICULE;
+		m_strategie = Default.STRATEGIE_GESTION;
+		m_retourPointAttache = Default.RETOUR_POINT_ATTACHE;
+		
+		
+	}
+	
+
 	
 	public float reqVitesseVehicule()
 	{
 		return this.m_vitesseVehicule;
 	}
-
-	public StrategieGestion  reqStrategie ()
-	{
-	return this.m_strategie;
-	}
-	
-	public boolean reqcomportementVehicule()
-	{
-		return this.m_comportementVehicule;
-	}
-	
 	public void asgVitesseVehicule(float vitesse)
 	{
 		this.m_vitesseVehicule = vitesse;
 	}
-
-	public void  asgStrategie ( StrategieGestion strategie)
+	
+	public String  reqStrategie ()
+	{
+	return this.m_strategie;
+	}
+	public void  asgStrategie ( String strategie)
 	{
 		this.m_strategie = strategie;
 	}
+	
+	public boolean reqRetourPointAttache()
+	{
+		return this.m_retourPointAttache;
+	}
+	public void asgRetourPointAttache(boolean value){
+		this.m_retourPointAttache = value;
+	}
+	
+
+	
+	
+	
+	
+
+	
 	
 	
 }

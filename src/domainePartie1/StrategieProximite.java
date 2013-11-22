@@ -52,6 +52,10 @@ public class StrategieProximite extends StrategieGestion {
 		} else
 			System.out.println("il ya plus d'ergence a Traiter");
 	}
+	
+	public String toString() {
+		return Default.STRATEGIE_PROX;
+	}
 
 	
 }

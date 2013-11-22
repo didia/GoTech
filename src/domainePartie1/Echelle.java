@@ -2,12 +2,15 @@ package domainePartie1;
 
 public class Echelle {
 	
-	private int m_metreParStep;
+	private int m_metreParStep = Default.METRE_PAR_STEP;
 	
 	public Echelle(){
-		m_metreParStep = Default.METRE_PAR_STEP;
+		
 	}
 	
+	public int reqMetreParStep(){
+		return m_metreParStep;
+	}
 	public void setMetreParStep(int metreParStep){
 		m_metreParStep = metreParStep;
 	}
@@ -27,5 +30,5 @@ public class Echelle {
 		
 		return new Position(posX, posY);
 	}
- 
+	
 }

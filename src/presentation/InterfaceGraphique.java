@@ -1,5 +1,6 @@
 package presentation;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -18,6 +19,8 @@ import java.awt.event.MouseListener;
 import domainePartie1.Default;
 import domainePartie1.Simulateur;
 import java.awt.Dialog.ModalityType;
+import java.io.File;
+import java.io.IOException;
 
 public class InterfaceGraphique extends JFrame implements ActionListener
 {
@@ -35,19 +38,34 @@ public class InterfaceGraphique extends JFrame implements ActionListener
     private ParametrePanel m_parametrePanel;
     private JOptionPane m_parametrePane;
   
-    public static String ADD_PARAMETRES = "ParamÔøΩtres de Simulation";
-    public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
-	public static  String ADD_ARC_STRING = "Ajouter Arc";
-	public static  String PUT_VEHICULE = "Placer Vehicule";
-	public static String SELECTEUR_SOURIS = "Selectionner/DÔøΩplacer";
-	public static int WIDTH_ICON = 40;
-	public static int HEIGHT_ICON = 40;
+    private static String ADD_PARAMETRES = "Paramètres de Simulation";
+    private static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
+	private static  String ADD_ARC_STRING = "Ajouter Arc";
+	private static  String PUT_VEHICULE = "Placer Vehicule";
+	private static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
+	private static int WIDTH_ICON = 40;
+	private static int HEIGHT_ICON = 40;
+	
+	private ImageIcon iconNoeud;
+	private ImageIcon iconVehicule;
+	private ImageIcon iconSouris;
+	private ImageIcon iconSettings;
+	private ImageIcon iconArc;
+	
 
 	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) 
 	{
 		super("Intervensim");
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
+		
+		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
+		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
+		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
+		iconSouris = reqIcon(Default.SOURIS_ICON_PATH);
+		iconSettings = reqIcon(Default.SETTINGS_ICON_PATH);
+		
+		
 		
 		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
 		JPanel westPanel= new JPanel();
@@ -56,12 +74,20 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_panneauEdition = new JPanel(new GridLayout(5,1,0,5));
 		  // buttons d'ÔøΩdition
 		JButton ajouterNoeudBouton = new JButton(ADD_NOEUD_STRING);
+		ajouterNoeudBouton.setHorizontalAlignment(SwingConstants.LEFT);
+		ajouterNoeudBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		ajouterNoeudBouton.setIcon(iconNoeud);
+		ajouterNoeudBouton.setIconTextGap(10);
 		ajouterNoeudBouton.setPreferredSize(new Dimension(200, 50));
 		ajouterNoeudBouton.setActionCommand(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.addActionListener(this);
 
 		//Bouton ajouter arc
 		JButton ajouterArcBouton = new JButton(ADD_ARC_STRING);
+		ajouterArcBouton.setHorizontalAlignment(SwingConstants.LEFT);
+		ajouterArcBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		ajouterArcBouton.setIcon(iconArc);
+		ajouterArcBouton.setIconTextGap(10);
 		ajouterArcBouton.setPreferredSize(new Dimension(200 ,50));
 		ajouterArcBouton.setActionCommand(ADD_ARC_STRING);
 		ajouterArcBouton.addActionListener(this);
@@ -70,11 +96,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		JButton selectionnerBouton = new JButton(SELECTEUR_SOURIS );
 		selectionnerBouton.setHorizontalAlignment(SwingConstants.LEFT);
 		selectionnerBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
-		ImageIcon icon = new ImageIcon(InterfaceGraphique.class.getResource("/images/souris.png"));
-		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ;  
-		icon = new ImageIcon( newimg );
-		selectionnerBouton.setIcon(icon);
+		
+		selectionnerBouton.setIcon(iconSouris);
 		selectionnerBouton.setIconTextGap(10);
 		
 		selectionnerBouton.setPreferredSize(new Dimension(200 ,50));
@@ -87,17 +110,20 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		JButton placerVehiculeBouton = new JButton(PUT_VEHICULE);
 		placerVehiculeBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		placerVehiculeBouton.setHorizontalAlignment(SwingConstants.LEFT);
-		icon = new ImageIcon(InterfaceGraphique.class.getResource("/images/VehiculeUrgence.png"));
-		img = icon.getImage() ; 
-		newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ; 
-		icon = new ImageIcon( newimg );
-		placerVehiculeBouton.setIcon(icon);
+		
+		placerVehiculeBouton.setIcon(iconVehicule);
 		placerVehiculeBouton.setIconTextGap(10);
 		placerVehiculeBouton.setPreferredSize(new Dimension(200,50));
 		placerVehiculeBouton.setActionCommand(PUT_VEHICULE);
 		placerVehiculeBouton.addActionListener(this);
 		
+		// Set Paramètres button
 		JButton setParametreBouton = new JButton(ADD_PARAMETRES);
+		setParametreBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		setParametreBouton.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		setParametreBouton.setIcon(iconSettings);
+		setParametreBouton.setIconTextGap(10);
 		setParametreBouton.setPreferredSize(new Dimension(200, 50));
 		setParametreBouton.setActionCommand(ADD_PARAMETRES);
 		setParametreBouton.addActionListener(this);
@@ -131,23 +157,22 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_parametrePanel = new ParametrePanel(m_simulateur);
 		
 		
-		// Ajout du Tabbed Pane des paramÔøΩtres de simulation
-		
-		//JTabbedPane tabbedPane = new JTabbedPane();
-		//JPanel parametrePanel = new ParametrePanel(m_simulateur);
-        //tabbedPane.addTab("ParamÔøΩtres de simulation", null,
-                          //parametrePanel,
-                         // "ParamÔøΩtres de simulation"); //tooltip text
-       
- 
-        //getContentPane().add(tabbedPane, BorderLayout.CENTER);
+
         
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 	
-
+	public ImageIcon reqIcon(String path){
+		
+			ImageIcon icon = new ImageIcon(InterfaceGraphique.class.getResource(path));
+			Image img = icon.getImage() ; 
+			Image newimg = img.getScaledInstance( WIDTH_ICON, HEIGHT_ICON,  Image.SCALE_SMOOTH) ; 
+			icon = new ImageIcon( newimg );
+			return icon;
+		
+	}
 	
 	public void rafraichirCarte() 
 	{
@@ -176,8 +201,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		}
 
 		else if(command.equals(ADD_PARAMETRES)){
-			JOptionPane.showOptionDialog(this, m_parametrePanel, ADD_PARAMETRES,
-					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+			int option = JOptionPane.showOptionDialog(this, m_parametrePanel, ADD_PARAMETRES,
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, iconSettings, null, null);
+			if(option == JOptionPane.OK_OPTION){
+				m_simulateur.asgStrategie(m_parametrePanel.reqStrategie());
+				m_simulateur.asgRetourPointAttache(m_parametrePanel.isRetourPointAttache());
+				m_simulateur.asgMetreParStep(m_parametrePanel.reqMetreParStep());
+				m_simulateur.asgVitesseVehicule(m_parametrePanel.reqVitesseVehicule());
+			}
+			
 		}
 	}
 		
