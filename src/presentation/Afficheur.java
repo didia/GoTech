@@ -26,7 +26,7 @@ import domainePartie1.Default;
 public class Afficheur 
 {
 	private static final String NOEUD_IMAGE_PATH = Default.NOEUD_IMAGE_PATH;
-	private static final String VEHICULE_IMAGE_PATH = Default.VEHICULE_IMAGE_PATH;
+	private static final String VEHICULE_IMAGE_PATH = "src/"+Default.VEHICULE_IMAGE_PATH;
 
 	private Image m_imageDeFond = null;
 	private Image m_imageDeNoeud;
