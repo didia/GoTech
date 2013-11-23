@@ -9,18 +9,21 @@ public class Vehicule {
 	private static Noeud m_noeudAtuel = null;
 	
 	
+	
 	//constructeur priv�e vehicule
 	
 	public Vehicule(){
 		this.m_portAttache = new Noeud();
 		this.m_Vistesse = 0;
-		this.m_noeudAtuel = new Noeud();	
+		this.m_noeudAtuel = new Noeud();
+		this.m_position = this.m_noeudAtuel.reqPosition();
 	}
 	
-	public Vehicule(Noeud p_noeudActuel, float p_vitesse)
+	public Vehicule(Noeud p_noeudActuel, float p_vitesse, Position p_position)
 	{
 		this.m_noeudAtuel = p_noeudActuel;
 		this.m_Vistesse = p_vitesse;
+		this.m_position = m_position;
 	}
 	
 	//Obtenir le v�hicule
@@ -70,5 +73,9 @@ public class Vehicule {
 	public void asgNoeudActuel(Noeud noeud)
 	{
 		this.m_portAttache = noeud;
+	}
+	public void asgPositin(Position unePosition)
+	{
+		this.m_position = unePosition;
 	}
 }
