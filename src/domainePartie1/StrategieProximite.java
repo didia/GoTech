@@ -2,22 +2,23 @@ package domainePartie1;
 
 import java.util.ArrayList;
 
-public class StrategieProximite extends StrategieGestion {
+public class StrategieProximite extends StrategieGestion 
+{
 
-	public StrategieProximite(){
+	public StrategieProximite()
+	{
 		super();
 	}
 	
 	public Urgence reqProchaineUrgence( Carte carte)
 	{
-		
-		
 		Noeud noeudPlusProche = carte.plusProche(this.reqUrgencActuelle().reqNoeudCible(), listeDesNoeudAyantUneUrgence() );
 		int trouve = 0;
+		
 		Urgence prochaineUrgence = new Urgence();
-		for(int i = 0;((i< this.reqListeUrgence().size())||(trouve == 0)) ;++i)
+		for (int i = 0;((i < this.reqListeUrgence().size()) || (trouve == 0)) ; i++)
 		{
-			if(noeudPlusProche == this.reqListeUrgence().get(i).reqNoeudCible()  )
+			if(noeudPlusProche == this.reqListeUrgence().get(i).reqNoeudCible())
 			{
 				prochaineUrgence = this.reqListeUrgence().get(i);
 				trouve = 1;
@@ -33,9 +34,9 @@ public class StrategieProximite extends StrategieGestion {
 	public ArrayList<Noeud> listeDesNoeudAyantUneUrgence()
 	{
 		ArrayList<Noeud> listNoeudUrgence = new ArrayList<Noeud>();
-		if(this.reqListeUrgence().size() !=0)
+		if (this.reqListeUrgence().size() !=0)
 		{
-			for(int i = 0;i< this.reqListeUrgence().size() ;++i)
+			for(int i = 0; i< this.reqListeUrgence().size(); i++)
 			{
 				listNoeudUrgence.add(this.reqListeUrgence().get(i).reqNoeudCible());
 			}
@@ -44,16 +45,23 @@ public class StrategieProximite extends StrategieGestion {
 		return listNoeudUrgence;
 	}
 	
-	public void traiterUrgenceActuelle() {
-		if (this.reqListeUrgence().size() != 0) {
+	public void traiterUrgenceActuelle() 
+	{
+		if (this.reqListeUrgence().size() != 0) 
+		{
 			Urgence urgence = this.reqUrgencActuelle();
 			this.asgUrgenceAtuelle(urgence);
 			this.traiterUrgencAtuelle();
-		} else
+		} 
+		else
+		{
 			System.out.println("il ya plus d'ergence a Traiter");
+		}
+			
 	}
 	
-	public String toString() {
+	public String toString() 
+	{
 		return Default.STRATEGIE_PROX;
 	}
 
