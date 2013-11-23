@@ -249,33 +249,3 @@ public class Carte {
 	}
 
 }
-
-/*
-  Fonction Dijkstra (nœuds, fils, distance, début, fin)
-     Pour n parcourant nœuds
-         n.parcouru = infini   // Peut être implémenté avec -1 (*)
-         n.précédent = 0
-     Fin pour
-     début.parcouru = 0
-     pasEncoreVu = nœuds
-     Tant que pasEncoreVu != liste vide
-         n1 = minimum(pasEncoreVu)   // Le nœud dans pasEncoreVu avec parcouru le plus petit
-         pasEncoreVu.enlever(n1)
-         Pour n2 parcourant fils(n1)   // Les nœuds reliés à n1 par un arc
-             Si n2.parcouru > n1.parcouru + distance(n1, n2)   // distance correspond au poids de l'arc reliant n1 et n2
-                 n2.parcouru = n1.parcouru + distance(n1, n2)
-                 n2.précédent = n1   // Dit que pour aller à n2, il faut passer par n1
-             Fin si
-         Fin pour
-     Fin tant que
-     chemin = liste vide
-     n = fin
-     Tant que n != début
-         chemin.ajouterAvant(n)
-         n = n.précédent
-     Fin tant que
-     chemin.ajouterAvant(début)
-     Retourner chemin
- Fin fonction Dijkstra 
- */
-
