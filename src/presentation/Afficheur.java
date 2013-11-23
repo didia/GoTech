@@ -101,8 +101,8 @@ public class Afficheur
 		//carteGraphique.setPreferredSize(new Dimension(Math.round(Default.CARTE_WIDTH*m_zoom),Math.round(Default.CARTE_HEIGHT*m_zoom)));
 		//carteGraphique.revalidate();
 			
-		for(int i = 0; i<width; i+=m_grille.reqPixelParStep()){
-			for (int j =0; j<height; j+= m_grille.reqPixelParStep()){
+		for(int i = m_grille.reqPixelParStep(); i<width; i+=m_grille.reqPixelParStep()){
+			for (int j =m_grille.reqPixelParStep(); j<height; j+= m_grille.reqPixelParStep()){
 				
 				g2d.setStroke(new BasicStroke(m_zoom));
 				g2d.draw(new Line2D.Double(i, j, i, j));
@@ -117,12 +117,12 @@ public class Afficheur
 		for(Noeud noeud: listeDeNoeuds){
 			Position position = m_grille.reqPositionEnPixel(noeud.reqPosition());
 			//System.out.println("Noeud " + position.reqPositionX() + " " + position.reqPositionY());
-            if(position.reqPositionX() > maxWidth){
-            	maxWidth = (int)position.reqPositionX();
+            if(position.reqPositionX() + m_grille.reqPixelParStep()> maxWidth){
+            	maxWidth = (int)position.reqPositionX() + 3*m_grille.reqPixelParStep();
             }
-            if(position.reqPositionY() > maxHeight){
+            if(position.reqPositionY() + m_grille.reqPixelParStep() > maxHeight){
             	
-            	maxHeight = (int)position.reqPositionY();
+            	maxHeight = (int)position.reqPositionY() + 3*m_grille.reqPixelParStep();
             }
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
 			double b = position.reqPositionY() - WIDTH_NOEUD/2;

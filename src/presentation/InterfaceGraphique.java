@@ -5,8 +5,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -21,6 +23,7 @@ import domainePartie1.Simulateur;
 import java.awt.Dialog.ModalityType;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class InterfaceGraphique extends JFrame implements ActionListener
 {
@@ -32,17 +35,23 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private Menu menu;
 	private CarteGraphique m_carteGraphique;
 	private JPanel m_panneauEdition;
+	private JPanel m_outilPanel;
+	private JTextField textZoom;
     private static Simulateur m_simulateur;
     private Afficheur m_afficheur;
+    private ArrayList<JButton> m_listeEditButtons;
 
     private ParametrePanel m_parametrePanel;
-    private JOptionPane m_parametrePane;
-  
+
     private static String ADD_PARAMETRES = "Paramètres de Simulation";
     private static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	private static  String ADD_ARC_STRING = "Ajouter Arc";
 	private static  String PUT_VEHICULE = "Placer Vehicule";
 	private static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
+	public static String SHOW_OUTILS = "Outils";
+	private static String SAVE = "SAVE";
+	private static String UNDO = "UNDO";
+	private static String REDO = "REDO";
 	private static int WIDTH_ICON = 40;
 	private static int HEIGHT_ICON = 40;
 	
@@ -52,6 +61,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private ImageIcon iconSettings;
 	private ImageIcon iconArc;
 	
+	
 
 	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) 
 	{
@@ -59,19 +69,145 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
 		
+		ImageIcon iconSave = reqResizedIcon(reqIcon(Default.SAVE_ICON_PATH), 20,20);
+		ImageIcon iconUndo = reqResizedIcon(reqIcon(Default.UNDO_ICON_PATH), 20, 20);
+		ImageIcon iconRedo = reqResizedIcon(reqIcon(Default.REDO_ICON_PATH), 20, 20);
+		ImageIcon iconPlus = reqResizedIcon(reqIcon(Default.PLUS_ICON_PATH), 20, 20);
+		ImageIcon iconMoins = reqResizedIcon(reqIcon(Default.MOINS_ICON_PATH), 20, 20);
 		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
 		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
 		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
 		iconSouris = reqIcon(Default.SOURIS_ICON_PATH);
 		iconSettings = reqIcon(Default.SETTINGS_ICON_PATH);
 		
+		m_listeEditButtons = new ArrayList<JButton>();
+		
+		// AJOUT DES BUTTONS DE LA BARRE D'OUTIL
+		
+		JToolBar toolbar = new JToolBar();
+		toolbar.setRollover(true);
+		toolbar.setFloatable(false);
+		//toolbar.setBorder(new EmptyBorder(10, 10, 10, 890));
+		JButton btnZoomMoins = new JButton(iconMoins);
+		
+		btnZoomMoins.setActionCommand(Default.ZOOMMOINS);
+		btnZoomMoins.addActionListener(this);
+	
+		
+		
+		JButton btnZoomPlus = new JButton(iconPlus);
+		
+		btnZoomPlus.setActionCommand(Default.ZOOMPLUS);
+		btnZoomPlus.addActionListener(this);
+		
+		
+		textZoom = new JTextField("100%");
+
+		//textZoom.setPreferredSize(new Dimension(10,10));
+		textZoom.setEditable(false);
+		//textZoom.setColumns(3);
+		
+	
+		JButton btnSave = new JButton(iconSave);
+		btnSave.setToolTipText("Enregistrer travail en cours");
+		btnSave.setActionCommand(SAVE);
+		
+		
+		JButton btnUndo = new JButton(iconUndo);
+		btnUndo.setToolTipText("Annuler");
+		btnUndo.setActionCommand(UNDO);
+		
+		
+		JButton btnRedo = new JButton(iconRedo);
+		btnRedo.setToolTipText("Recommencer");
+		btnRedo.setActionCommand(REDO);
+		
+		JButton iconAjoutNoeud =new JButton(reqResizedIcon(iconNoeud, 20, 20));
+		iconAjoutNoeud.setToolTipText("Placer des noeuds");
+		iconAjoutNoeud.setActionCommand(ADD_NOEUD_STRING);
+		//iconAjoutNoeud.setBorderPainted(false);
+		//iconAjoutNoeud.setOpaque(false);
+		//iconAjoutNoeud.setContentAreaFilled(false);
+		
+		m_listeEditButtons.add(iconAjoutNoeud);
+		
+		JButton iconAjoutArc = new JButton(reqResizedIcon(iconArc, 20, 20));
+		iconAjoutArc.setToolTipText("Tracer des arcs");
+		iconAjoutArc.setActionCommand(ADD_ARC_STRING);
+		//iconAjoutArc.setBorderPainted(false);
+		//iconAjoutArc.setOpaque(false);
+		//iconAjoutArc.setContentAreaFilled(false);
+		m_listeEditButtons.add(iconAjoutArc);
+		
+		JButton iconSelect = new JButton(reqResizedIcon(iconSouris, 20, 20));
+		iconSelect.setToolTipText("Modifier et Déplacer des noeuds et des arcs");
+		iconSelect.setActionCommand(SELECTEUR_SOURIS);
+		//iconSelect.setBorderPainted(false);
+		//iconSelect.setOpaque(false);
+		//iconSelect.setContentAreaFilled(false);
+		m_listeEditButtons.add(iconSelect);
+		
+		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule, 20, 20));
+		iconAjoutVehicule.setToolTipText("Placer Véhicule d'urgence sur un port d'attache");
+		iconAjoutVehicule.setActionCommand(PUT_VEHICULE);
+		//iconAjoutVehicule.setBorderPainted(false);
+		//iconAjoutVehicule.setOpaque(false);
+		//iconAjoutVehicule.setContentAreaFilled(false);
+		m_listeEditButtons.add(iconAjoutVehicule);
+		
+		JButton iconAddSettings = new JButton(reqResizedIcon(iconSettings, 20, 20));
+		iconAddSettings.setToolTipText("Modifier les paramètres de la simulation");
+		iconAddSettings.setActionCommand(ADD_PARAMETRES);
+		//iconAddSettings.setBorderPainted(false);
+		//iconAddSettings.setOpaque(false);
+		//iconAddSettings.setContentAreaFilled(false);
+		m_listeEditButtons.add(iconAddSettings);
+		
+		JToggleButton showOutils = new JToggleButton(SHOW_OUTILS);
+		
+		showOutils.setToolTipText("Afficher le volet Outils");
+		showOutils.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		showOutils.setActionCommand(SHOW_OUTILS);
+		showOutils.addActionListener(this);
+		
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		toolbar.add(btnSave);
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		toolbar.add(btnUndo);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(btnRedo);
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		toolbar.add(iconSelect);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(iconAjoutNoeud);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(iconAjoutArc);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(iconAjoutVehicule);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(iconAddSettings);
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		toolbar.add(btnZoomMoins);
+		toolbar.add(textZoom);
+		toolbar.add(btnZoomPlus);
+		toolbar.add(Box.createRigidArea(new Dimension(500,0)));
+		toolbar.add(showOutils);
+		toolbar.add(Box.createRigidArea(new Dimension(50,0)));
+		for(JButton button: m_listeEditButtons){
+			button.addActionListener(this);
+		}
+		
+		getContentPane().add(toolbar, BorderLayout.NORTH);
 		
 		
 		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
-		JPanel westPanel= new JPanel();
-		westPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
-		getContentPane().add(westPanel, BorderLayout.WEST);
+		m_outilPanel= new JPanel();
+		//m_outilPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
+		m_outilPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
+		getContentPane().add(m_outilPanel, BorderLayout.EAST);
+		m_outilPanel.setVisible(false);
 		m_panneauEdition = new JPanel(new GridLayout(5,1,0,5));
+		m_panneauEdition.setBorder(new EmptyBorder(50, 0,0,0));
 		  // buttons d'ÔøΩdition
 		JButton ajouterNoeudBouton = new JButton(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -135,7 +271,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_panneauEdition.add(placerVehiculeBouton);
 		m_panneauEdition.add(setParametreBouton);
 		
-		westPanel.add(m_panneauEdition, BorderLayout.CENTER);
+		m_outilPanel.add(m_panneauEdition, BorderLayout.CENTER);
 		
 		
 		// Ajout de la carte graphique au centre
@@ -143,7 +279,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		
 		
 		JScrollPane scroller = new JScrollPane(m_carteGraphique);
-		scroller.setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
+		//scroller.setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
 		getContentPane().add(scroller);
 	
 		
@@ -152,8 +288,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		menu = new Menu();
 		this.setJMenuBar(menu);
 		
-		bar = new BarBoutons(m_carteGraphique, m_simulateur);
-		getContentPane().add(bar, BorderLayout.NORTH);
+		//bar = new BarBoutons(m_carteGraphique, m_simulateur);
+		//getContentPane().add(bar, BorderLayout.NORTH);
 		
 		m_parametrePanel = new ParametrePanel(m_simulateur);
 		
@@ -173,6 +309,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			icon = new ImageIcon( newimg );
 			return icon;
 		
+	}
+	public ImageIcon reqResizedIcon(ImageIcon icon, int width, int height){
+		Image img = icon.getImage();
+		Image newimg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return new ImageIcon(newimg);
 	}
 	
 	public void rafraichirCarte() 
@@ -211,6 +352,22 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 				m_simulateur.asgVitesseVehicule(m_parametrePanel.reqVitesseVehicule());
 			}
 			
+		}
+		else if (command.equals(Default.ZOOMPLUS)) 
+		{
+			textZoom.setText(m_simulateur.augmenteZoom());
+			m_carteGraphique.repaint();
+			
+		}
+		else if (command.equals(Default.ZOOMMOINS))
+		{
+			textZoom.setText(m_simulateur.diminueZoom());
+			
+			m_carteGraphique.repaint();
+			
+		}
+		else if(command.equals(SHOW_OUTILS)){
+			m_outilPanel.setVisible(!m_outilPanel.isVisible());
 		}
 	}
 		

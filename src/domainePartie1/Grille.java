@@ -17,9 +17,10 @@ public class Grille {
 	public Position reqPositionEnPixel(Position positionEnMetre){
 		
 		Position positionEnStep = m_echelle.reqPositionEnStep(positionEnMetre);
+		
 		int pixelParStep = reqPixelParStep();
-		int posX = Math.round(positionEnStep.reqPositionX() * pixelParStep);
-		int posY = Math.round(positionEnStep.reqPositionY() * pixelParStep);
+		int posX = Math.round((positionEnStep.reqPositionX() + 1) * pixelParStep);
+		int posY = Math.round((positionEnStep.reqPositionY() + 1) * pixelParStep);
 		
 		return new Position(posX, posY);
 		
@@ -29,7 +30,8 @@ public class Grille {
 		
 		Position positionEnStep = reqPrecisePositionEnStep(positionEnPixel);
 		
-		return m_echelle.reqPositionEnMetre(positionEnStep);
+		return m_echelle.reqPositionEnMetre(new Position(positionEnStep.reqPositionX() - 1, 
+				positionEnStep.reqPositionY()-1));
 		
 	}
 	public Position reqUpdatedPosition(Position position){

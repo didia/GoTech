@@ -17,7 +17,7 @@ public class Echelle {
 	}
 	
 	public Position reqPositionEnMetre(Position positionEnStep){
-		System.out.println(m_metreParStep);
+		
 		float posX = positionEnStep.reqPositionX() *m_metreParStep;
 		float posY = positionEnStep.reqPositionY()* m_metreParStep;
 		

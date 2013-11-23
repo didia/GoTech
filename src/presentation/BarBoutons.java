@@ -19,7 +19,6 @@ public class BarBoutons extends JToolBar implements ActionListener {
 	private static Simulateur m_simulateur;
 	
 	public BarBoutons(CarteGraphique carte, Simulateur simulateur) {
-		setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		//Initialisation Bar Boutons
 		this.setRollover(true);
 		this.setFloatable(false);
@@ -29,6 +28,15 @@ public class BarBoutons extends JToolBar implements ActionListener {
 		btnZoomMoins.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		btnZoomMoins.setActionCommand(ZOOMMOINS);
 		btnZoomMoins.addActionListener(this);
+		
+		JButton button = new JButton("");
+		button.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		add(button);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		
+		add(separator);
 		
 		
 		add(btnZoomMoins);
@@ -54,19 +62,7 @@ public class BarBoutons extends JToolBar implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		if (command.equals(Default.ZOOMPLUS)) 
-		{
-			textZoom.setText(m_simulateur.augmenteZoom());
-			m_carte.repaint();
-			
-		}
-		else if (command.equals(Default.ZOOMMOINS))
-		{
-			textZoom.setText(m_simulateur.diminueZoom());
-			
-			m_carte.repaint();
-			
-		}
+		
 		
 	}
 

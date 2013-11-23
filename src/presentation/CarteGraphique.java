@@ -51,7 +51,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		this.m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
 		final CarteGraphique mycarte = this;
-		//setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
+		setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
 		//setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
 		setBackground(Color.WHITE);
 		setVisible(true);
