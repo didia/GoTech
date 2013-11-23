@@ -15,7 +15,7 @@ public class Noeud implements Comparable<Noeud>
 		
 		private Position m_position;
 		private float m_cout; // pour Dijkstra 
-		private Arc m_predecesseur;
+		private Noeud m_predecesseur;
 		private boolean m_etat;
 		
 		
@@ -42,13 +42,13 @@ public class Noeud implements Comparable<Noeud>
 		{
 			this.m_etat = a;
 		}
-		public Arc reqPredecesseur()
+		public Noeud reqPredecesseur()
 		{
 			return this.m_predecesseur;
 		}
-		public void setPredecesseur(Arc arc)
+		public void setPredecesseur(Noeud n)
 		{
-			this.m_predecesseur = arc;
+			this.m_predecesseur = n;
 		}
 		
 

@@ -152,6 +152,36 @@ public class Carte {
 		return tab;
 	}
 	
+	public ArrayList<Noeud> trouverNoeudsAdjacents (Noeud noeud1)
+	{
+		ArrayList<Noeud> tab = new ArrayList<Noeud>(); 
+		if (this.m_listeDeNoeuds.contains(noeud1))
+		{
+			for(int i = 0; i < this.m_listeArcs.size(); i++)
+			{
+				if(this.m_listeArcs.get(i).reqNoeudDest() == noeud1)
+				{
+					tab.add(this.m_listeArcs.get(i).reqNoeudSource());
+				}
+				if(this.m_listeArcs.get(i).reqNoeudSource() == noeud1)
+				{
+					tab.add(this.m_listeArcs.get(i).reqNoeudDest());
+				}
+				
+			}
+		 
+		}
+		return tab;
+	}
+	
+	private float calculerDist(Noeud n1 , Noeud n2)
+	{
+		float res = 0;
+		float res1 = (float)Math.pow((float)(n1.reqPosition().reqPositionX() - n2.reqPosition().reqPositionX()), 2);
+		float res2 = (float)Math.pow((float)(n1.reqPosition().reqPositionY() - n2.reqPosition().reqPositionY()), 2);
+		res = (float)Math.sqrt(res1+res2);
+		return res;
+	}
 
 	private void _initialisationDijkstra(Noeud a)// noeud a doit appartenir ï¿½ la
 													// carte
@@ -164,6 +194,8 @@ public class Carte {
 			else {
 				this.m_listeDeNoeuds.get(i).setCout(INF);
 			}
+			
+			this.m_listeDeNoeuds.get(i).setPredecesseur(null);
 		}
 
 	}
@@ -174,33 +206,76 @@ public class Carte {
 	{// gestion d'erreur
 		
 		this._initialisationDijkstra(noeud1);
-		int a = this.m_listeDeNoeuds.indexOf(noeud1);
-		ArrayList<Noeud> tabPrets = new ArrayList<Noeud>();
-		this.m_listeDeNoeuds.get(a).setEtat(true);
-		tabPrets.add(this.m_listeDeNoeuds.get(a));
+		//int a = this.m_listeDeNoeuds.indexOf(noeud1);
+
+		ArrayList<Noeud> tabPasParcourus = new ArrayList<Noeud>(this.m_listeDeNoeuds);
 		
-			for (int i = 0; i < this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).size(); i++)
+		
+		while(!tabPasParcourus.isEmpty())
+		{
+			Noeud n1 = new Noeud();
+			n1.setCout(INF);
+			for(Noeud item: tabPasParcourus)
+			{
+				if(n1.reqCout()>item.reqCout())
+					n1 = item;
+			}  // Le nœud dans tabpasParcouru avec le plus petit cout
+			
+			tabPasParcourus.remove(n1);
+			
+			for (Noeud n2:trouverNoeudsAdjacents(n1))
 
 			{
-				float dist = this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqLongueur();
-				
-				if (dist < this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest()
-						.reqCout())
+				if(n2.reqCout()>(n1.reqCout()+ calculerDist(n1,n2)))
 				{
-					this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest().setCout(dist);
-					
-					this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest()
-							.setPredecesseur(this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i));
+					n2.setCout(n1.reqCout()+ calculerDist(n1,n2));
+					n2.setPredecesseur(n1);
 				}
-				
-				this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest().setEtat(true);
-				tabPrets.add(this.trouverArcsAdjacents(this.m_listeDeNoeuds.get(a)).get(i).reqNoeudDest());
-
 			}
-			noeud1 = tabPrets.get(a+1);
+		}
+		
+		ArrayList<Noeud> chemin = new ArrayList<Noeud>();
+		Noeud fin = noeud2;
+		Noeud debut = noeud1;
+		
+		while(fin!=debut)
+		{
+			chemin.add(0, fin);
+			fin = fin.reqPredecesseur();
+		}
 		
 
-		return m_listeDeNoeuds;
+		return chemin;
 	}
 
 }
+
+/*
+  Fonction Dijkstra (nœuds, fils, distance, début, fin)
+     Pour n parcourant nœuds
+         n.parcouru = infini   // Peut être implémenté avec -1 (*)
+         n.précédent = 0
+     Fin pour
+     début.parcouru = 0
+     pasEncoreVu = nœuds
+     Tant que pasEncoreVu != liste vide
+         n1 = minimum(pasEncoreVu)   // Le nœud dans pasEncoreVu avec parcouru le plus petit
+         pasEncoreVu.enlever(n1)
+         Pour n2 parcourant fils(n1)   // Les nœuds reliés à n1 par un arc
+             Si n2.parcouru > n1.parcouru + distance(n1, n2)   // distance correspond au poids de l'arc reliant n1 et n2
+                 n2.parcouru = n1.parcouru + distance(n1, n2)
+                 n2.précédent = n1   // Dit que pour aller à n2, il faut passer par n1
+             Fin si
+         Fin pour
+     Fin tant que
+     chemin = liste vide
+     n = fin
+     Tant que n != début
+         chemin.ajouterAvant(n)
+         n = n.précédent
+     Fin tant que
+     chemin.ajouterAvant(début)
+     Retourner chemin
+ Fin fonction Dijkstra 
+ */
+
