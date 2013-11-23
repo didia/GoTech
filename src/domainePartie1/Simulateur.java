@@ -19,8 +19,10 @@ public class Simulateur implements MouseInputListener {
 	private Parametres m_parametres = new Parametres();
 	
 	private static Resultats m_resultat = new Resultats();
-	private static Urgence m_urgence;
+	private static Urgence m_urgence = Urgence.getInstance();
 	private static StrategieGestion m_strategie = new StrategieGestion();
+
+	private static StrategieAnciennete unestrategie = new StrategieAnciennete();
 
 	private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
@@ -46,6 +48,14 @@ public class Simulateur implements MouseInputListener {
 	public void setEtatPlacerVehicule() 
 	{
 		m_etat = new EtatPlacerVehicule(this);
+	}
+	public void setEtatAjouterUregence() 
+	{
+		m_etat = new EtatAjouterUrgence(this);
+	}
+	public StrategieAnciennete reqStrategieAnciennetee()
+	{
+		return unestrategie;
 	}
 	public boolean isStrategieCourante(String strategie)
 	{
@@ -199,9 +209,19 @@ public class Simulateur implements MouseInputListener {
 		m_vehicule.asgPointAttache(noeud);
 	}
 
+	public void asgUrgence(Noeud noeud) 
+	{
+		m_urgence.asgNoeudCible(noeud);
+	}
+
 	public Position reqPositionVehicule() 
 	{
 		return m_vehicule.reqPosition();
+	}
+	
+	public Position reqPositionUrgence() 
+	{
+		return m_urgence.reqNoeudCible().reqPosition();
 	}
 
 	
