@@ -11,7 +11,7 @@ public class Simulation  implements Runnable {
 		// TODO Auto-generated method stub
 		
 		simulateur.lancerSimulation();
-		
+		//seter la position et et l'effecter au vehicule a temps reel
 	}
 	
 }

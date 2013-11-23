@@ -7,18 +7,24 @@ public class Default {
 	public static final String VEHICULE_IMAGE_PATH = "/images/VehiculeUrgence.png";
 	public static final String SETTINGS_ICON_PATH = "/images/settings.png";
 	public static final String SOURIS_ICON_PATH = "/images/souris.png";
+
 	public static final String SAVE_ICON_PATH = "/images/save.png";
 	public static final String UNDO_ICON_PATH = "/images/Undo-icon.png";
 	public static final String REDO_ICON_PATH = "/images/Redo-icon.png";
 	public static final String PLUS_ICON_PATH = "/images/ZoomPlus.png";
 	public static final String MOINS_ICON_PATH = "/images/ZoomMoins.png";
+
+	public static final String PLAYS_IMAGE_PATH = "/images/play.png";
+	public static final String PAUSE_IMAGE_PATH = "/images/pause.png";
+	public static final String TERMINER_IMAGE_PATH = "/images/terminer.png";
+	public static final String URGENCE_IMAGE_PATH = "/images/urgence.png";
+
 	public static final String ZOOMMOINS = "-";
 	public static final String ZOOMPLUS = "+";
 	public static final String STRATEGIE_PROX = "Stratégie de proximité";
 	public static final String STRATEGIE_ANC = "Stratégie d'ancienneté";
 	public static final String STRATEGIE_MIN = "Stratégie de chemin minimal";
 	public static final String STRATEGIE_GESTION = STRATEGIE_ANC;
-	
 	
 	public static final int WIDTH_NOEUD = 20;
     public static final int HEIGHT_NOEUD = 20;
