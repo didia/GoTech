@@ -2,8 +2,8 @@ package domainePartie1;
 
 import java.util.ArrayList;
 
-import ca.gotech.intervensim.domaine.Noeud;
-import ca.gotech.intervensim.domaine.Position;
+import domainePartie1.Noeud;
+import domainePartie1.Position;
 
 
 
