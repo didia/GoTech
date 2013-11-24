@@ -1,12 +1,20 @@
 package domainePartie1;
 
+import java.util.ArrayList;
+
 public class Vehicule {
 	
 	private static Vehicule m_vehicule = new Vehicule();
-	private static Noeud m_portAttache = null;
-	private float m_Vistesse = 0;
+	private Noeud m_portAttache = null;
+	private float m_vitesse = 0;
 	private Position m_position = null;
-	private static Noeud m_noeudAtuel = null;
+	private Noeud m_noeudActuel = null;
+	private Arc m_arcActuel = null;
+	private GestionnaireUrgence m_gestionnaireUrgence;
+	private Noeud m_noeudDestination = null;
+	private Carte m_gps;
+	private ArrayList<Noeud> m_itineraireActuel = null;
+	
 	
 	
 	
@@ -24,10 +32,20 @@ public class Vehicule {
 		return m_vehicule;
 	}
 	
+	public void lancerMission(GestionnaireUrgence gestionnaire, float vitesse, Carte gps){
+		m_gestionnaireUrgence = gestionnaire;
+		m_vitesse = vitesse;
+		m_gps = gps;
+	}
+	
 	public void asgPointAttache(Noeud noeud)
 	{
 		m_portAttache = noeud;
+		m_noeudActuel = m_portAttache;
 		m_position = m_portAttache.reqPosition();
+	}
+	public void asgGestionnaireUrgence(GestionnaireUrgence gps){
+		m_gestionnaireUrgence = gps;
 	}
 	
 	public void AllerVers(Noeud p_noeudDestination)
@@ -54,20 +72,46 @@ public class Vehicule {
 
 	public  float reqVistess()
 	{
-		return this.m_Vistesse;
+		return this.m_vitesse;
 	}
 	
 	public Noeud reqnoeudActuel()
 	{
-		return m_noeudAtuel;
+		return m_noeudActuel;
 	}
 	
 	public void asgNoeudActuel(Noeud noeud)
 	{
-		this.m_portAttache = noeud;
+		this.m_noeudActuel= noeud;
+		this.m_position = noeud.reqPosition();
 	}
 	public void asgPositin(Position unePosition)
 	{
 		this.m_position = unePosition;
+	}
+	public void avance(int duree){
+		// ne tiens pas encore compte du chemin
+		if(this.m_itineraireActuel != null && !this.m_itineraireActuel.isEmpty()){
+			this.poursuisChemin();
+		}
+		else{
+			m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite();
+			if(m_noeudDestination != null){
+				this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
+				this.poursuisChemin();
+			}
+		}
+		
+	}
+	private void poursuisChemin(){
+		Noeud noeud = this.m_itineraireActuel.get(0);
+		this.asgNoeudActuel(noeud);
+		this.m_itineraireActuel.remove(noeud);
+		if((m_noeudActuel.reqPosition().reqPositionX() == m_noeudDestination.reqPosition().reqPositionX()) &&
+				(m_noeudActuel.reqPosition().reqPositionY() == m_noeudDestination.reqPosition().reqPositionY())){
+			this.m_gestionnaireUrgence.traiterUrgenceActuelle();
+			this.m_itineraireActuel = null;
+			this.m_noeudDestination = null;
+		}
 	}
 }

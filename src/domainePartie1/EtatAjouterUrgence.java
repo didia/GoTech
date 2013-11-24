@@ -3,7 +3,7 @@ package domainePartie1;
 
 import java.awt.event.MouseEvent;
 
-public class EtatAjouterUrgence extends EtatDEdition {
+public class EtatAjouterUrgence extends EtatDEdition{
 	
 	
 	public EtatAjouterUrgence(Simulateur simulateur){
@@ -18,7 +18,7 @@ public class EtatAjouterUrgence extends EtatDEdition {
 		super.mouseClicked(e);
 		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
 		if(noeud != null){
-			m_simulateur.asgUrgence(noeud);
+			m_simulateur.declencherUrgence(noeud);
 		}
 	}
 

@@ -1,24 +1,19 @@
 package domainePartie1;
+
 import java.awt.event.MouseEvent;
 
-import javax.swing.event.MouseInputListener;
+public class EtatEnSimulation implements Etat{
 
-
-
-class EtatDEdition implements Etat {
+	private Simulateur m_simulateur;
 	
-	protected static Noeud noeud_selectione = null;
-	protected static Arc arc_selectione = null;
-	protected static Simulateur m_simulateur;
-	public EtatDEdition(Simulateur simulateur){
+	public EtatEnSimulation(Simulateur simulateur){
 		m_simulateur = simulateur;
 	}
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
-		if (noeud_selectione == null){
-			arc_selectione = m_simulateur.reqArc(e.getX(), e.getY());
+		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
+		if(noeud != null){
+			m_simulateur.declencherUrgence(noeud);
 		}
 		
 	}
@@ -58,14 +53,18 @@ class EtatDEdition implements Etat {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public Noeud reqNoeudSelectione(){
-		return noeud_selectione;
-	}
-	public Arc reqArcSelectione(){
-		return arc_selectione;
-	}
-	
 
+	@Override
+	public Arc reqArcSelectione() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Noeud reqNoeudSelectione() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }

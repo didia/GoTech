@@ -16,32 +16,49 @@ public class Noeud implements Comparable<Noeud>
 		private Position m_position;
 		private float m_cout; // pour Dijkstra 
 		private Noeud m_predecesseur;
-		private boolean m_etat;
+		private boolean en_attente;
+		private boolean en_traitement;
+		private boolean traitee;
 		
 		
-		public Noeud()
-		{
-			this.m_cout = 0;
-			this.m_position = new Position(0,0);
-			this.m_etat = false;
-			
-		}
+		
 		
 		public Noeud(Position pos)
 		{
 			this.m_position = pos;
 			this.m_cout = 0;
-			this.m_etat = false;
+			this.en_attente = false;
+			this.en_traitement = false;
+			this.traitee = false;
 		}
-		//Getters and setters noeuds
-		public boolean reqEtat()
-		{
-			return this.m_etat;
+		public boolean isEnAttente(){
+			return this.en_attente;
 		}
-		public void setEtat(boolean a)
-		{
-			this.m_etat = a;
+		public boolean isFree(){
+			return !(this.en_attente || this.en_traitement);
 		}
+		public boolean isTraitee(){
+			return this.traitee;
+		}
+		public boolean isEnTraitement(){
+			return this.en_traitement;
+		}
+		public void setEnAttente(){
+			this.en_attente = true;
+			this.en_traitement = false;
+			this.traitee = false;
+		}
+		public void setEnTraitement(){
+			this.en_traitement = true;
+			this.en_attente = false;
+			this.traitee =false;
+		}
+		public void setTraitee(){
+			this.en_traitement = false;
+			this.en_attente = false;
+			this.traitee = true;
+		}
+		
 		public Noeud reqPredecesseur()
 		{
 			return this.m_predecesseur;
@@ -79,6 +96,7 @@ public class Noeud implements Comparable<Noeud>
 		public int compareTo(Noeud n) {
 			return m_position.compareTo(n.reqPosition());
 		}
+		
 		
 	
 	

@@ -122,7 +122,7 @@ public class Carte {
 	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds) 
 	{
 		float res = INFINI;
-		Noeud noeudDest = new Noeud();
+		Noeud noeudDest = new Noeud(new Position(0,0));
 		if (this.m_listeDeNoeuds.contains(noeudSrc)) 
 		{
 			for (int i = 0; i < listNoeuds.size(); i++) 
@@ -225,7 +225,7 @@ public class Carte {
 		
 		while (!tabPasParcourus.isEmpty())
 		{
-			Noeud n1 = new Noeud();
+			Noeud n1 = new Noeud(new Position(0,0));
 			n1.setCout(INFINI);
 			
 			for (Noeud item: tabPasParcourus)

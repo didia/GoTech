@@ -5,45 +5,30 @@ import java.util.ArrayList;
 public class StrategieAnciennete extends StrategieGestion 
 {
 
-	public StrategieAnciennete() 
+	public StrategieAnciennete(ArrayList<Urgence> listeUrgence) 
 	{
-		super();
+		super(listeUrgence);
 	}
 	
-	public Urgence urgenceActuelle()
+	public Urgence reqUrgenceActuelle()
 	{
-		try 
-		{
-			Urgence	 uneUrgence = this.reqListeUrgence().get(0);
-			this.asgUrgenceAtuelle(uneUrgence);
+		if(this.m_urgenceActuelle == null && !this.m_listeUrgence.isEmpty()){
+			this.m_urgenceActuelle = this.m_listeUrgence.get(0);
 		}
-		catch(NullPointerException e) 
-		{
-			System.out.println("Plus d'urgence en attente");
-				
-		}
-		catch (IndexOutOfBoundsException e) 
-		{
-		    System.out.println("il Y a plus d'urgence a traiter  :(");
-		}
-		
-		//TODO changer le nom voir strategie gestion
-		return this.reqUrgencActuelle();
+		return this.m_urgenceActuelle;
 	}
 
 
 	public void traiterUrgenceActuelle() 
 	{
-		if (this.existeUrgenceNonTraitee()) 
+		if(this.m_urgenceActuelle != null)
 		{
-			Urgence urgence = this.reqUrgencActuelle();
-			this.asgUrgenceAtuelle(urgence);
-			this.traiterUrgencAtuelle();
-		} 
-		else
-		{
-			System.out.println("il ya plus d'ergence a Traiter");
+			this.m_urgenceActuelle.reqNoeudCible().setTraitee();
+			this.m_listeUrgence.remove(this.m_urgenceActuelle);
+			this.m_listeUrgenceTraitee.add(this.m_urgenceActuelle);
+			this.m_urgenceActuelle = this.m_listeUrgence.get(0);
 		}
+		
 	}
 
 	public void ajouterUrgence(Urgence uneUrgence) 

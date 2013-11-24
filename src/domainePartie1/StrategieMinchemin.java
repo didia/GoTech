@@ -1,10 +1,12 @@
 package domainePartie1;
 
+import java.util.ArrayList;
+
 public class StrategieMinchemin extends StrategieGestion
 {
-	public StrategieMinchemin()
+	public StrategieMinchemin(ArrayList<Urgence> listeUrgence)
 	{
-		super();
+		super(listeUrgence);
 	}
 
 	public Urgence reqUrgenceAcctuelle()

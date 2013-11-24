@@ -20,16 +20,16 @@ import java.util.LinkedList;
 
 public class StrategieGestion 
 {
-	private ArrayList<Urgence> m_listeUrgence;
-	private Urgence m_urgenceActuelle;
-	private ArrayList<Urgence> m_listeUrgenceTraitee;
-	private Itineraire m_itineraire;
+	protected ArrayList<Urgence> m_listeUrgence;
+	protected Urgence m_urgenceActuelle;
+	protected ArrayList<Urgence> m_listeUrgenceTraitee;
+	protected Itineraire m_itineraire;
 
 	
 	//Constructeur
-	public StrategieGestion() 
+	public StrategieGestion(ArrayList<Urgence> list_urgence) 
 	{
-		this.m_listeUrgence = new ArrayList<Urgence>();
+		this.m_listeUrgence = list_urgence;
 		this.m_urgenceActuelle =null;
 		this.m_listeUrgenceTraitee = new ArrayList<Urgence>();
 	}
@@ -37,6 +37,7 @@ public class StrategieGestion
 	// retourne l'urgenc actuelle
 	public Urgence reqUrgencActuelle() 
 	{
+	
 		return this.m_urgenceActuelle;
 	}
 

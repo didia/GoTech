@@ -12,17 +12,15 @@ public class Simulateur implements MouseInputListener {
 
 	private static Carte m_carte = new Carte();
 	private static Vehicule m_vehicule = Vehicule.getInstance();
-	private EtatDEdition m_etat = new EtatDEdition(this);
+	private Etat m_etat = new EtatDEdition(this);
 	private static ZoomModel m_zoom = new ZoomModel();
 	private static Echelle m_echelle = new Echelle();
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
 	private Parametres m_parametres = new Parametres();
 	
-	private static Resultats m_resultat = new Resultats();
-	private static Urgence m_urgence = Urgence.getInstance();
-	private static StrategieGestion m_strategie = new StrategieGestion();
-
-	private static StrategieAnciennete unestrategie = new StrategieAnciennete();
+	private Resultats m_resultat = new Resultats();
+	
+	private  GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
 
 	private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
@@ -53,9 +51,14 @@ public class Simulateur implements MouseInputListener {
 	{
 		m_etat = new EtatAjouterUrgence(this);
 	}
-	public StrategieAnciennete reqStrategieAnciennetee()
-	{
-		return unestrategie;
+
+	public void lancerSimulation() {
+
+		m_etat = new EtatEnSimulation(this);
+		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
+		m_vehicule.lancerMission(m_gestionnaireUrgence, m_parametres.reqVitesseVehicule(), m_carte);
+		
+
 	}
 	public boolean isStrategieCourante(String strategie)
 	{
@@ -209,21 +212,12 @@ public class Simulateur implements MouseInputListener {
 		m_vehicule.asgPointAttache(noeud);
 	}
 
-	public void asgUrgence(Noeud noeud) 
-	{
-		m_urgence.asgNoeudCible(noeud);
-	}
 
 	public Position reqPositionVehicule() 
 	{
 		return m_vehicule.reqPosition();
 	}
 	
-	public Position reqPositionUrgence() 
-	{
-		return m_urgence.reqNoeudCible().reqPosition();
-	}
-
 	
 	public float reqZoom()
 	{
@@ -242,32 +236,35 @@ public class Simulateur implements MouseInputListener {
 	public void supprimerUrgence(Urgence uneUrgence) 
 	{
 
-		m_strategie.reqListeUrgence().remove(uneUrgence);
+		m_gestionnaireUrgence.supprimerUrgence(uneUrgence);
 	}
 
-	public void lancerSimulation() {
 
-		if (!m_strategie.reqListeUrgence().isEmpty()) {
-			
-			m_vehicule.AllerVers(m_strategie.reqUrgencActuelle()
-					.reqNoeudCible());
-			m_strategie.traiterUrgencAtuelle();
-		}
-
+	
+	public void deplacerVehiculeUrgence(int duree){
+		m_vehicule.avance(duree);
 	}
-
 	public void terminerSimulation() 
 	{
 		m_vehicule.allerPortAttache();
 	}
 
-	public void declencherUrgence(Noeud noeudcible, int p_priorite) 
-	{
-		m_urgence = new Urgence(noeudcible, p_priorite);
-		m_strategie.reqListeUrgence().add(m_urgence);
-		System.out.println("une urgence a eté declenché Position "
-				+ noeudcible.reqPosition().reqPositionX() + ","
-				+ noeudcible.reqPosition().reqPositionY());
+	public void declencherUrgence(Noeud noeud) 
+	{	if(noeud.isFree()){
+			this.m_gestionnaireUrgence.ajouterUrgence(noeud);
+			noeud.setEnAttente();
+		}
+		
+		
+	}
+	
+	public Position reqPositionProchaineUrgence(){
+		Urgence urgence = m_gestionnaireUrgence.reqProchaineUrgence();
+		if (urgence != null){
+			return m_gestionnaireUrgence.reqProchaineUrgence().reqNoeudCible().reqPosition();
+		}
+		return null;
+		
 	}
 
 

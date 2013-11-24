@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class StrategieProximite extends StrategieGestion 
 {
 
-	public StrategieProximite()
+	public StrategieProximite(ArrayList<Urgence> listeUrgence)
 	{
-		super();
+		super(listeUrgence);
 	}
 	
 	public Urgence reqProchaineUrgence( Carte carte)
@@ -15,7 +15,7 @@ public class StrategieProximite extends StrategieGestion
 		Noeud noeudPlusProche = carte.plusProche(this.reqUrgencActuelle().reqNoeudCible(), listeDesNoeudAyantUneUrgence() );
 		int trouve = 0;
 		
-		Urgence prochaineUrgence = new Urgence();
+		Urgence prochaineUrgence = new Urgence(noeudPlusProche);
 		for (int i = 0;((i < this.reqListeUrgence().size()) || (trouve == 0)) ; i++)
 		{
 			if(noeudPlusProche == this.reqListeUrgence().get(i).reqNoeudCible())

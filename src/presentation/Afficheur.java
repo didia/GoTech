@@ -1,6 +1,7 @@
 package presentation;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -56,26 +57,28 @@ public class Afficheur {
 	public void afficherReseau(Graphics g, Simulateur simulateur,
 			CarteGraphique carteGraphique) {
 		Carte carte = simulateur.reqCarte();
-		StrategieGestion strategie = simulateur.reqStrategieAnciennetee();
+		//StrategieGestion strategie = simulateur.reqStrategieAnciennetee();
 		m_grille = simulateur.reqGrille();
 		ArrayList<Noeud> listeDeNoeuds = carte.reqListeNoeuds();
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
-		ArrayList<Urgence> listUrgence = strategie.reqListeUrgence(); 
+		//ArrayList<Urgence> listUrgence = strategie.reqListeUrgence(); 
 		m_zoom = simulateur.reqZoom(); 
 		WIDTH_NOEUD = Math.round(Default.WIDTH_NOEUD * m_zoom);
 		this.afficherNoeuds(g, listeDeNoeuds);
 		this.afficherArcs(g, listeDeArcs);
 		if (simulateur.reqPositionVehicule() != null)
+		{
 			this.afficherVehicule(g, m_grille.reqPositionEnPixel(simulateur
 					.reqPositionVehicule()));
+		}
+		if(simulateur.reqPositionProchaineUrgence() != null)
+		{
+			this.afficherProchaineUrgence(g, simulateur.reqPositionProchaineUrgence());
+		}
 		this.afficherCarte(g, carteGraphique);
 		this.afficherGrille(g, carteGraphique);
+		
 
-		//if (simulateur.reqPositionUrgence() != null)
-			//this.afficherjusteUneUrgence(g, m_grille.reqPositionEnPixel(simulateur
-					//.reqPositionUrgence()));
-		//this.afficherCarte(g, carteGraphique);
-		//this.afficherGrille(g, carteGraphique);
 
 	}
 
@@ -133,29 +136,28 @@ public class Afficheur {
             }
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
 			double b = position.reqPositionY() - WIDTH_NOEUD/2;
+			if(noeud.isEnAttente()){
+				g2d.setColor(Color.RED);
+			}
+			else if(noeud.isTraitee()){
+				g2d.setColor(Color.GREEN);
+			}
+			else if(noeud.isEnTraitement()){
+				g2d.setColor(Color.YELLOW);
+			}
+			else {
+				g2d.setColor(Color.BLUE);
+			}
 			
+			g2d.setStroke(new BasicStroke(m_zoom*7));
 			Ellipse2D.Double circle = new Ellipse2D.Double(a, b, WIDTH_NOEUD, WIDTH_NOEUD);
-			g2d.fill(circle);
+			g2d.draw(circle);
+			
 		}
 	}
 	
-	private void afficherUrgence(Graphics g, ArrayList<Urgence> listeUrgence) {
-		Graphics2D g2d = (Graphics2D) g;
-		Image img = m_ImageUrgence.getScaledInstance(40, 40,
-				Image.SCALE_SMOOTH);
 
-		for (Urgence urgence : listeUrgence) {
-			Position position = m_grille.reqPositionEnPixel(urgence
-					.reqNoeudCible().reqPosition());
-
-			g2d.setStroke(new BasicStroke(2 * m_zoom));
-			double a = position.reqPositionX() - WIDTH_NOEUD / 2;
-			double b = position.reqPositionY() - WIDTH_NOEUD - 40;
-			g2d.drawImage(img, (int) a, (int) b, 50, 50, null);
-
-		}
-	}
-	private void afficherjusteUneUrgence(Graphics g, Position position) {
+	private void afficherProchaineUrgence(Graphics g, Position position) {
 		if (position != null) {
 			Graphics2D g2d = (Graphics2D) g;
 			Image img = m_ImageUrgence.getScaledInstance(40, 40,
@@ -175,7 +177,7 @@ public class Afficheur {
 					.reqPosition());
 			Position destination = m_grille.reqPositionEnPixel(arc
 					.reqNoeudDest().reqPosition());
-
+			g2d.setColor(Color.BLACK);
 			g2d.setStroke(new BasicStroke(2 * m_zoom));
 			g2d.draw(new Line2D.Double(source.reqPositionX(), source
 					.reqPositionY(), destination.reqPositionX(), destination

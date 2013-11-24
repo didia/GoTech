@@ -7,9 +7,9 @@ import javax.xml.ws.LogicalMessage;
 public class StrategiePriorite extends StrategieGestion
 {
 
-	public StrategiePriorite()
+	public StrategiePriorite(ArrayList<Urgence> listeUrgence)
 	{
-		super();
+		super(listeUrgence);
 	}
 
 	// l'urgence actuelle est la premiere de la liste desja tri�e

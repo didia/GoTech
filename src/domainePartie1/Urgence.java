@@ -1,17 +1,16 @@
 package domainePartie1;
 import java.util.Timer;
 public class Urgence {
-	private static Urgence m_urgence = new Urgence();
-	private  Timer m_heuredebut; 
-	private Timer m_duree;
-	private static Noeud m_noeudCible;
-	private int m_priorite; // de 0 a 5
-	public static Timer dureeUrgence;
+
+	private int m_heuredebut; 
+	private int m_duree = 0;
+	private Noeud m_noeudCible;
+	private int m_priorite = 0; // de 0 a 5
+
 	
-	public Urgence()
+	public Urgence(Noeud p_NoeudCible)
 	{
-		this.m_noeudCible = new Noeud();
-		this.m_priorite = 5;
+		this.m_noeudCible = p_NoeudCible;
 	}
 	public Urgence(Noeud p_NoeudCible, int p_priorite)
 	{
@@ -20,18 +19,13 @@ public class Urgence {
 		
 	}
 	
-	// le vehicule elle même
-	public static Urgence getInstance()
-	{
-		return m_urgence;
-	}
-	
-	public Timer reqDuree()
+
+	public int reqDuree()
 	{
 		return this.m_duree;
 	}
 	
-	public Timer reqHeureDebut()
+	public int reqHeureDebut()
 	{
 		return this.m_heuredebut;
 	}
@@ -46,9 +40,4 @@ public class Urgence {
 		return this.m_noeudCible;
 	}
 	
-	public void asgNoeudCible(Noeud noeud)
-	{
-		this.m_noeudCible = noeud;
-	
-	}
 }
