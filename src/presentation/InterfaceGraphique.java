@@ -34,7 +34,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JPanel m_cadreGestionSImu;
 	private Menu menu;
 	private CarteGraphique m_carteGraphique;
 	private JPanel m_panneauEdition;
@@ -53,11 +52,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 	private static  String PUT_VEHICULE = "Placer Vehicule";
 	private static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
 	public static String SHOW_OUTILS = "Outils";
+	public static String LANCER_SIMULATION = "Lancer simulation";
 	private static String SAVE = "SAVE";
 	private static String UNDO = "UNDO";
 	private static String REDO = "REDO";
 	private static String ADD_URGENCE = "Ajouter Urgence";
-	private static String PLAY = "Plays";
+	private static String PLAY = "Lancer simulation";
 	private static String PAUSE = " Pause";
 	private static String TERMINER = "Terminer";
 
@@ -97,6 +97,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		iconPLAYS = reqIcon(Default.PLAYS_IMAGE_PATH);
 		iconTERMINER = reqIcon(Default.TERMINER_IMAGE_PATH);
 		iconUrgence = reqIcon(Default.URGENCE_IMAGE_PATH);
+		
 
 		
 		m_listeEditButtons = new ArrayList<JButton>();
@@ -153,33 +154,27 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		JButton iconAjoutArc = new JButton(reqResizedIcon(iconArc, 20, 20));
 		iconAjoutArc.setToolTipText("Tracer des arcs");
 		iconAjoutArc.setActionCommand(ADD_ARC_STRING);
-		//iconAjoutArc.setBorderPainted(false);
-		//iconAjoutArc.setOpaque(false);
-		//iconAjoutArc.setContentAreaFilled(false);
+
 		m_listeEditButtons.add(iconAjoutArc);
 		
 		JButton iconSelect = new JButton(reqResizedIcon(iconSouris, 20, 20));
 		iconSelect.setToolTipText("Modifier et Déplacer des noeuds et des arcs");
 		iconSelect.setActionCommand(SELECTEUR_SOURIS);
-		//iconSelect.setBorderPainted(false);
-		//iconSelect.setOpaque(false);
-		//iconSelect.setContentAreaFilled(false);
+
 		m_listeEditButtons.add(iconSelect);
 		
 		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule, 20, 20));
 		iconAjoutVehicule.setToolTipText("Placer Véhicule d'urgence sur un port d'attache");
 		iconAjoutVehicule.setActionCommand(PUT_VEHICULE);
-		//iconAjoutVehicule.setBorderPainted(false);
-		//iconAjoutVehicule.setOpaque(false);
-		//iconAjoutVehicule.setContentAreaFilled(false);
+
 		m_listeEditButtons.add(iconAjoutVehicule);
+		
+		
 		
 		JButton iconAddSettings = new JButton(reqResizedIcon(iconSettings, 20, 20));
 		iconAddSettings.setToolTipText("Modifier les paramètres de la simulation");
 		iconAddSettings.setActionCommand(ADD_PARAMETRES);
-		//iconAddSettings.setBorderPainted(false);
-		//iconAddSettings.setOpaque(false);
-		//iconAddSettings.setContentAreaFilled(false);
+		
 		m_listeEditButtons.add(iconAddSettings);
 		
 		JToggleButton showOutils = new JToggleButton(SHOW_OUTILS);
@@ -188,6 +183,22 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		showOutils.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		showOutils.setActionCommand(SHOW_OUTILS);
 		showOutils.addActionListener(this);
+		
+		JButton iconPlaySim = new JButton(reqResizedIcon(iconPLAYS, 20, 20));
+		iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
+		iconPlaySim.setToolTipText("Lancer la simulation");
+		iconPlaySim.setActionCommand(PLAY);
+		
+		JButton iconStopSim = new JButton(reqResizedIcon(iconTERMINER, 20, 20));
+		iconStopSim.setPressedIcon(reqResizedIcon(iconTERMINER, 20, 20));
+		iconStopSim.setEnabled(false);
+		iconStopSim.setToolTipText("Terminer la simulation");
+		iconPlaySim.setActionCommand(TERMINER);
+		
+		JButton iconAjoutUrgence = new JButton(reqResizedIcon(iconUrgence, 20, 20));
+		iconAjoutUrgence.setToolTipText("Ajouter des urgences");
+		iconAjoutUrgence.setActionCommand(ADD_URGENCE);
+		iconAjoutUrgence.addActionListener(this);
 		
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolbar.add(btnSave);
@@ -202,9 +213,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
 		toolbar.add(iconAjoutArc);
 		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(iconAjoutUrgence);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
 		toolbar.add(iconAjoutVehicule);
 		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
 		toolbar.add(iconAddSettings);
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		toolbar.add(iconPlaySim);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(iconStopSim);
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolbar.add(btnZoomMoins);
 		toolbar.add(textZoom);
@@ -231,10 +248,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 	
 
 		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
-		JPanel westPanel = new JPanel();
-		westPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
-		getContentPane().add(westPanel, BorderLayout.WEST);
-		m_panneauEdition = new JPanel(new GridLayout(6, 1, 0, 5));
+		m_panneauEdition = new JPanel(new GridLayout(7, 1, 0, 5));
 		
 		// buttons d'ÔøΩdition
 
@@ -301,6 +315,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		setParametreBouton.setPreferredSize(new Dimension(200, 50));
 		setParametreBouton.setActionCommand(ADD_PARAMETRES);
 		setParametreBouton.addActionListener(this);
+		
+		JButton playBouton = new JButton(PLAY);
+		playBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		playBouton.setHorizontalAlignment(SwingConstants.LEFT);
+		playBouton.setIcon(iconPLAYS);
+		playBouton.setIconTextGap(10);
+		playBouton.setPreferredSize(new Dimension(200, 50));
+		playBouton.setActionCommand(PLAY);
+		playBouton.addActionListener(this);
 
 		m_panneauEdition.add(selectionnerBouton);
 		m_panneauEdition.add(ajouterNoeudBouton);
@@ -308,47 +331,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		m_panneauEdition.add(urgenceBouton);
 		m_panneauEdition.add(placerVehiculeBouton);
 		m_panneauEdition.add(setParametreBouton);
+		m_panneauEdition.add(playBouton);
 
 		m_outilPanel.add(m_panneauEdition, BorderLayout.CENTER);
 		
 		// TODO
 
-		// Placer Bouton play
-		JButton placerPlayBouton = new JButton(PLAY);
-		placerPlayBouton.setIcon(iconPLAYS);
-		placerPlayBouton.setIconTextGap(10);
-		placerPlayBouton.setActionCommand(PLAY);
-		placerPlayBouton.addActionListener(this);
-
-		// Placer Bouton pause
-		JButton boutonPause = new JButton(PAUSE);
-		boutonPause.setIcon(iconPAUSE);
-		boutonPause.setIconTextGap(10);
-		boutonPause.setActionCommand(PAUSE);
-		boutonPause.addActionListener(this);
-
-		// Placer Bouton terminer
-		JButton boutonterminer = new JButton(TERMINER);
-		boutonterminer.setHorizontalTextPosition(SwingConstants.RIGHT);
-		boutonterminer.setIcon(iconTERMINER);
-		boutonterminer.setIconTextGap(1);
-
-		boutonterminer.setActionCommand(TERMINER);
-		boutonterminer.addActionListener(this);
-
-		// bas de l'interfaceGraphique
-		JToolBar SouthPanel = new JToolBar();
-		SouthPanel.setBorder(new EmptyBorder(1, 1, 1, 1));
-		getContentPane().add(SouthPanel, BorderLayout.SOUTH);
-		m_cadreGestionSImu = new JPanel(new GridLayout(1, 1, 0, 2));
-
-		m_cadreGestionSImu.add(placerPlayBouton);
-		m_cadreGestionSImu.add(boutonPause);
-		m_cadreGestionSImu.add(boutonterminer);
-
-		// SouthPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		SouthPanel.add(m_cadreGestionSImu, BorderLayout.EAST);
-		SouthPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		// TODO
 

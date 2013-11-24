@@ -71,11 +71,11 @@ public class Afficheur {
 		this.afficherCarte(g, carteGraphique);
 		this.afficherGrille(g, carteGraphique);
 
-		if (simulateur.reqPositionUrgence() != null)
-			this.afficherjusteUneUrgence(g, m_grille.reqPositionEnPixel(simulateur
-					.reqPositionUrgence()));
-		this.afficherCarte(g, carteGraphique);
-		this.afficherGrille(g, carteGraphique);
+		//if (simulateur.reqPositionUrgence() != null)
+			//this.afficherjusteUneUrgence(g, m_grille.reqPositionEnPixel(simulateur
+					//.reqPositionUrgence()));
+		//this.afficherCarte(g, carteGraphique);
+		//this.afficherGrille(g, carteGraphique);
 
 	}
 
