@@ -34,7 +34,6 @@ public class ParametrePanel extends JPanel {
 		setPreferredSize(new Dimension(500, 400));
 		m_simulateur = simulateur;
 		setLayout(null);
-		
 
 		JLabel lblStratgieDeSimulation = new JLabel("Strat�gie de simulation");
 		lblStratgieDeSimulation.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
@@ -107,26 +106,34 @@ public class ParametrePanel extends JPanel {
 		setVisible(true);
 	}
 	
-	public String reqStrategie(){
-		if(rdbtnParProximit.isSelected()){
+	public String reqStrategie()
+	{
+		if (rdbtnParProximit.isSelected())
+		{
 			return Default.STRATEGIE_PROX;
 		}
-		else if (rdbtnCheminMinimum.isSelected()){
+		else if (rdbtnCheminMinimum.isSelected())
+		{
 			return Default.STRATEGIE_MIN;
 		}
-		else{
+		else
+		{
 			return Default.STRATEGIE_ANC;
 		}
 	}
 	
-	public boolean isRetourPointAttache(){
+	public boolean isRetourPointAttache()
+	{
 		return chckbxRetourne.isSelected();
 	}
-	public float reqVitesseVehicule(){
+	
+	public float reqVitesseVehicule()
+	{
 		return Float.parseFloat(vitesseVehicule.getText());
 	}
 	
-	public int reqMetreParStep(){
+	public int reqMetreParStep()
+	{
 		System.out.println(echelle.getText());
 		return Integer.parseInt(echelle.getText());
 	}
