@@ -2,49 +2,52 @@ package domainePartie1;
 
 import java.util.ArrayList;
 
-public class StrategieAnciennete extends StrategieGestion {
+public class StrategieAnciennete extends StrategieGestion 
+{
 
-	public StrategieAnciennete() {
+	public StrategieAnciennete() 
+	{
 		super();
 	}
-
-
 	
 	public Urgence urgenceActuelle()
 	{
-
-		 try {
-			    
-			 
-		Urgence	 uneUrgence = this.reqListeUrgence().get(0);
-		this.asgUrgenceAtuelle(uneUrgence);
-		 }
-		 catch(NullPointerException e) 
-			{
-				System.out.println("Plus d'urgence en attente");
+		try 
+		{
+			Urgence	 uneUrgence = this.reqListeUrgence().get(0);
+			this.asgUrgenceAtuelle(uneUrgence);
+		}
+		catch(NullPointerException e) 
+		{
+			System.out.println("Plus d'urgence en attente");
 				
-			}
-		catch (IndexOutOfBoundsException e) {
+		}
+		catch (IndexOutOfBoundsException e) 
+		{
 		    System.out.println("il Y a plus d'urgence a traiter  :(");
 		}
-		 
 		
-		
+		//TODO changer le nom voir strategie gestion
 		return this.reqUrgencActuelle();
 	}
 
 
-	public void traiterUrgenceActuelle() {
-		if (this.existeUrgenceNonTraitee()) {
+	public void traiterUrgenceActuelle() 
+	{
+		if (this.existeUrgenceNonTraitee()) 
+		{
 			Urgence urgence = this.reqUrgencActuelle();
 			this.asgUrgenceAtuelle(urgence);
 			this.traiterUrgencAtuelle();
-		} else
+		} 
+		else
+		{
 			System.out.println("il ya plus d'ergence a Traiter");
+		}
 	}
 
-	public void ajouterUrgence(Urgence uneUrgence) { 
-
+	public void ajouterUrgence(Urgence uneUrgence) 
+	{ 
 		ArrayList<Urgence> listTempTriee = new ArrayList<Urgence>();
 
 		listTempTriee.add(uneUrgence);
@@ -52,7 +55,8 @@ public class StrategieAnciennete extends StrategieGestion {
 		this.asgListUrgence(listTempTriee);
 	}
 	
-	public String toString(){
+	public String toString()
+	{
 		return Default.STRATEGIE_ANC;
 	}
 
