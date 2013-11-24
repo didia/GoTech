@@ -12,6 +12,7 @@ public class StrategieAnciennete extends StrategieGestion
 	
 	public Urgence reqUrgenceActuelle()
 	{
+		System.out.println("Je suis lˆ");
 		if(this.m_urgenceActuelle == null && !this.m_listeUrgence.isEmpty()){
 			this.m_urgenceActuelle = this.m_listeUrgence.get(0);
 		}
@@ -26,7 +27,12 @@ public class StrategieAnciennete extends StrategieGestion
 			this.m_urgenceActuelle.reqNoeudCible().setTraitee();
 			this.m_listeUrgence.remove(this.m_urgenceActuelle);
 			this.m_listeUrgenceTraitee.add(this.m_urgenceActuelle);
+			if(this.m_listeUrgence.isEmpty()){
+				this.m_urgenceActuelle = null;
+			}
+			else{
 			this.m_urgenceActuelle = this.m_listeUrgence.get(0);
+			}
 		}
 		
 	}

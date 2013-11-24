@@ -126,7 +126,7 @@ public class Afficheur {
 
 		for(Noeud noeud: listeDeNoeuds){
 			Position position = m_grille.reqPositionEnPixel(noeud.reqPosition());
-			//System.out.println("Noeud " + position.reqPositionX() + " " + position.reqPositionY());
+			System.out.println("Noeud " + noeud.isTraitee());
             if(position.reqPositionX() + m_grille.reqPixelParStep()> maxWidth){
             	maxWidth = (int)position.reqPositionX() + 3*m_grille.reqPixelParStep();
             }
@@ -158,6 +158,7 @@ public class Afficheur {
 	
 
 	private void afficherProchaineUrgence(Graphics g, Position position) {
+		position = m_grille.reqPositionEnPixel(position);
 		if (position != null) {
 			Graphics2D g2d = (Graphics2D) g;
 			Image img = m_ImageUrgence.getScaledInstance(40, 40,

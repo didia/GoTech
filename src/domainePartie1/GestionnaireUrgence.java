@@ -31,18 +31,19 @@ public class GestionnaireUrgence {
 	}
 	public Urgence reqProchaineUrgence(){
 		if(m_strategie != null){
-			return m_strategie.reqUrgencActuelle();
+			
+			return m_strategie.reqUrgenceActuelle();
 		}
 		return null;
 	}
 	
 	public Noeud reqProchainNoeudATraite(){
-		if(!(reqProchaineUrgence() == null)){
+		if(reqProchaineUrgence() != null){
 			return reqProchaineUrgence().reqNoeudCible();
 		}
 		return null;
 	}
 	public void traiterUrgenceActuelle(){
-		m_strategie.traiterUrgencAtuelle();
+		m_strategie.traiterUrgenceAtuelle();
 	}
 }

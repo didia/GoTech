@@ -12,7 +12,7 @@ public class StrategieProximite extends StrategieGestion
 	
 	public Urgence reqProchaineUrgence( Carte carte)
 	{
-		Noeud noeudPlusProche = carte.plusProche(this.reqUrgencActuelle().reqNoeudCible(), listeDesNoeudAyantUneUrgence() );
+		Noeud noeudPlusProche = carte.plusProche(this.reqUrgenceActuelle().reqNoeudCible(), listeDesNoeudAyantUneUrgence() );
 		int trouve = 0;
 		
 		Urgence prochaineUrgence = new Urgence(noeudPlusProche);
@@ -49,9 +49,9 @@ public class StrategieProximite extends StrategieGestion
 	{
 		if (this.reqListeUrgence().size() != 0) 
 		{
-			Urgence urgence = this.reqUrgencActuelle();
+			Urgence urgence = this.reqUrgenceActuelle();
 			this.asgUrgenceAtuelle(urgence);
-			this.traiterUrgencAtuelle();
+			this.traiterUrgenceAtuelle();
 		} 
 		else
 		{

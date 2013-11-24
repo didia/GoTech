@@ -374,6 +374,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 	              m_carteGraphique.repaint();
 	          }
 	       });
+		
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);

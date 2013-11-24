@@ -25,17 +25,17 @@ public class StrategiePriorite extends StrategieGestion
 			System.out.println("il Y a plus d'urgence a traiter  :(");
 		}
 		
-		return this.reqUrgencActuelle();
+		return this.reqUrgenceActuelle();
 	}
 
 	 
 	public void traiterUrgenceActuelle() 
 	{
-		if (this.reqListeUrgence().contains(this.reqUrgencActuelle())) 
+		if (this.reqListeUrgence().contains(this.reqUrgenceActuelle())) 
 		{
-			Urgence urgence = this.reqUrgencActuelle();
+			Urgence urgence = this.reqUrgenceActuelle();
 			this.asgUrgenceAtuelle(urgence);
-			this.traiterUrgencAtuelle();
+			this.traiterUrgenceAtuelle();
 		} 
 		else
 		{

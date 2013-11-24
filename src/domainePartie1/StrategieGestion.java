@@ -35,7 +35,7 @@ public class StrategieGestion
 	}
 
 	// retourne l'urgenc actuelle
-	public Urgence reqUrgencActuelle() 
+	public Urgence reqUrgenceActuelle() 
 	{
 	
 		return this.m_urgenceActuelle;
@@ -73,7 +73,7 @@ public class StrategieGestion
 	}
 
 	// effectue les operation attendu sur une urgence
-	public void traiterUrgencAtuelle() 
+	public void traiterUrgenceAtuelle() 
 	{
 		this.m_listeUrgenceTraitee.add(m_urgenceActuelle);
 		this.m_listeUrgence.remove(m_urgenceActuelle);			

@@ -91,11 +91,13 @@ public class Vehicule {
 	}
 	public void avance(int duree){
 		// ne tiens pas encore compte du chemin
+		
 		if(this.m_itineraireActuel != null && !this.m_itineraireActuel.isEmpty()){
 			this.poursuisChemin();
 		}
 		else{
 			m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite();
+
 			if(m_noeudDestination != null){
 				this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
 				this.poursuisChemin();
