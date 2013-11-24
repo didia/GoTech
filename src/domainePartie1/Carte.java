@@ -1,4 +1,19 @@
+/**
+* Cette classe encapsule et gere les informations d'un reseaux routier,
+* constitue de noeuds et d'arc reliant les noeuds.
+*
+* 
+* @version 1.0
+*
+*
+* @author GoTech
+*
+*
+*/
+
 package domainePartie1;
+
+
 
 import java.util.ArrayList;
 
@@ -7,18 +22,32 @@ import domainePartie1.Position;
 
 
 
-public class Carte {
-
+public class Carte 
+{
 	final private int INFINI = 999999999;
 	private ArrayList<Noeud> m_listeDeNoeuds;
 	private ArrayList<Arc> m_listeArcs;
 	
+	/**
+	* Constructeur d'une carte vide
+	*
+	*
+    */
 	public Carte() 
 	{
 		m_listeDeNoeuds = new ArrayList<Noeud>();
 		m_listeArcs = new ArrayList<Arc>();
 	}
 
+	
+	/**
+	* Ajoute un arc a la carte
+	*
+	*
+	* @param noeudSource, le Noeud source contenu dans la carte
+	* @param noeudDest, un Noeud destination contenu dans la carte
+	*
+    */
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest)
 	{
 		if (this.m_listeDeNoeuds.contains(noeudSource) && this.m_listeDeNoeuds.contains(noeudDest))
@@ -29,31 +58,70 @@ public class Carte {
 
 	}
 
+	
+	/**
+	* Ajoute un noeud a la carte
+	*
+	*
+	* @param position une Position
+	* 
+	*
+    */
 	public void ajouterNoeud(Position position)
 	{
 		Noeud nouveauNoeud = new Noeud(position);
 		this.m_listeDeNoeuds.add(nouveauNoeud);
 	}
 
-    public void deplacerNoeud(Noeud noeud, Position nouvellePosition){
+	
+	/**
+	* Deplace la position d'un noeud
+	*
+	*
+	* @param noeud, le Noeud a deplacer
+	* @param nouvellePosition, la nouvelle Position du noeud
+	*
+    */
+    public void deplacerNoeud(Noeud noeud, Position nouvellePosition)
+    {
     	if (m_listeDeNoeuds.contains(noeud))
     	{
     		noeud.setPosition(nouvellePosition);
     	}
     }
 
+	/**
+	* Acceder a la liste des noeuds de la carte
+	*
+	*
+	* @return la liste des noeuds contenues dans la carte
+    */
 	public ArrayList<Noeud> reqListeNoeuds()
 	{
 		return this.m_listeDeNoeuds;
 	}
 
+	
+	/**
+	* Acceder a la liste des arcs de la carte
+	*
+	*
+	* @return la liste des arcs contenus dans la carte
+    */
 	public ArrayList<Arc> reqListeArcs() 
 	{
 		return this.m_listeArcs;
 	}
 
 	
-	//TODO a reviser, 2 sorties avec return
+	/**
+	* Acceder a un noeud par sa position
+	*
+	* @param position, une Position a laquelle on veut evaluer si il y a un noeud
+	*
+	* @return le noeud si il existe a cet endroit, null sinon
+	* 
+    */
 	public Noeud reqNoeud(Position position) 
 	{
 		for (Noeud noeud: m_listeDeNoeuds) 
@@ -80,7 +148,16 @@ public class Carte {
 		return null;
 	}
 	
-	//TODO a reviser 2 sorties avec return
+	
+	/**
+	* Accesseur pour un arc par sa position
+	*
+	*
+	* @param position, une Position que l'on veut evaluer si un arc passe
+	*
+	* @return l'arc si il croise la position, null sinon
+	* 
+    */
 	public Arc reqArc(Position position)
 	{
 		for (Arc arc:m_listeArcs)
@@ -93,6 +170,14 @@ public class Carte {
 		return null;
 	}
 
+	
+	/**
+	* Supprime un noeud de la carte en verifiant s'il existe
+	*
+	*
+	* @param noeud, le Noeud a supprimer
+	* 
+    */
 	public void enleverNoeud(Noeud noeud)
 	{
 		if (this.m_listeDeNoeuds.contains(noeud))
@@ -109,6 +194,15 @@ public class Carte {
 		}
 	}
 	
+	/**
+	* Supprime un arc en verifiant s'il existe
+	*
+	*
+	* @param position, une Position a laquel on veut evaluer si il y a un noeud
+	*
+	* @return le noeud si il existe a cet endroit, null sinon
+	* 
+    */
 	public void enleverArc(Arc arc)
 	{
 		if (m_listeArcs.contains(arc))
@@ -116,9 +210,17 @@ public class Carte {
 			this.m_listeArcs.remove(arc);
 		}	
 	}
-	
 
-
+	/**
+	* Trouve quel est le plus proche noeud
+	*
+	*
+	* @param noeudSrc, le Noeud source
+	* @param listeNoeuds, la liste des noeuds de la carte
+	*
+	* @return le plus proche noeud du noeud source
+	* 
+    */
 	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds) 
 	{
 		float res = INFINI;
@@ -139,6 +241,15 @@ public class Carte {
 		return noeudDest;
 	}
 	
+	/**
+	* Trouve les arcs adjacents a un noeud
+	*
+	*
+	* @param noeud, le Noeud dont l'on veut trouver les arcs adjacents
+	*
+	* @return la liste des arcs permettant de se rendre au noeud destination 
+	* 
+    */
 	public ArrayList<Arc> trouverArcsAdjacents(Noeud noeud1)
 	{
 		ArrayList<Arc> tab = new ArrayList<Arc>(); 
@@ -154,8 +265,7 @@ public class Carte {
 				if (this.m_listeArcs.get(i).reqNoeudSource() == noeud1)
 				{
 					tab.add(this.m_listeArcs.get(i));
-				}
-				
+				}		
 			}
 		 
 		}
@@ -163,6 +273,15 @@ public class Carte {
 		return tab;
 	}
 	
+	/**
+	* Trouve les noeuds adjacents a un noeud
+	*
+	*
+	* @param noeud, le Noeud dont l'on veut trouver les noeuds adjacents
+	*
+	* @return la liste des noeuds adjacents
+	* 
+    */
 	public ArrayList<Noeud> trouverNoeudsAdjacents(Noeud noeud1)
 	{
 		ArrayList<Noeud> tab = new ArrayList<Noeud>(); 
@@ -185,6 +304,16 @@ public class Carte {
 		return tab;
 	}
 	
+	/**
+	* Calculer la distance entre deux noeuds
+	*
+	*
+	* @param n1, le Noeud source
+	* @param n2, le Noeud de destinations
+	*
+	* @return la distance entre deux noeuds en float
+	* 
+    */
 	private float calculerDist(Noeud n1 , Noeud n2)
 	{
 		float res = 0;
@@ -194,6 +323,15 @@ public class Carte {
 		return res;
 	}
 
+	
+	/**
+	* Initialise les donnes relatives au calcul du plus court chemin
+	*
+	*
+	* @param a, le Noeud source ou l'algorithme sera applique
+	* 
+	* 
+    */
 	private void _initialisationDijkstra(Noeud a)// noeud a doit appartenir ��� la carte
 	{
 		for (int i = 0; i < this.m_listeDeNoeuds.size(); i++) 
@@ -213,7 +351,16 @@ public class Carte {
 	}
 	
 	
-
+	/**
+	* Trouve le plus court itineraire pour se rendre d'un noeud source a un noeud destination
+	*
+	*
+	* @param noeud1, le Noeud source
+	* @param noeud2, le Noeud de destination
+	*
+	* @return le plus proche noeud du noeud source
+	* 
+    */
 	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2) 
 	{// gestion d'erreur
 		
