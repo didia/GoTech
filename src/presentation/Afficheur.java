@@ -47,6 +47,7 @@ public class Afficheur
 	private int maxWidth = 0;
 	private int maxHeight = 0;
 	private boolean toggleUrgence = true;
+	private javax.swing.Timer urgenceToggleTimer;
 
 	
 	public Afficheur() 
@@ -85,6 +86,7 @@ public class Afficheur
 		
 		if (simulateur.reqPositionProchaineUrgence() != null)
 		{
+			
 			this.afficherProchaineUrgence(g, simulateur.reqPositionProchaineUrgence());
 		}
 		
