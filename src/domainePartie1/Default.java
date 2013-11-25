@@ -2,9 +2,9 @@ package domainePartie1;
 
 public class Default {
 	
-	public static final String NOEUD_IMAGE_PATH = "/images/noeud.png";
+	public static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.png";
 	public static final String ARC_IMAGE_PATH = "/images/arc.png";
-	public static final String VEHICULE_IMAGE_PATH = "/images/VehiculeUrgence.png";
+	public static final String VEHICULE_IMAGE_PATH = "/images/Vehicule1.png";
 	public static final String SETTINGS_ICON_PATH = "/images/settings.png";
 	public static final String SOURIS_ICON_PATH = "/images/souris.png";
 
@@ -25,6 +25,7 @@ public class Default {
 	public static final String STRATEGIE_ANC = "Stratégie d'ancienneté";
 	public static final String STRATEGIE_MIN = "Stratégie de chemin minimal";
 	public static final String STRATEGIE_GESTION = STRATEGIE_ANC;
+	 
 	
 	public static final int WIDTH_NOEUD = 20;
     public static final int HEIGHT_NOEUD = 20;
@@ -36,6 +37,7 @@ public class Default {
 	public static final int CARTE_HEIGHT =600;
 	
 	public static final float VITESSE_VEHICULE = 100;
+	public static final float TEMPS_TRAITEMENT = 0.1f;
 	public static final float ZOOM = 1f;
 	
 	public static final boolean RETOUR_POINT_ATTACHE = true;

@@ -4,7 +4,8 @@ public class Parametres {
 	
 	private  float m_vitesseVehicule;
 	private  String m_strategie;
-	private boolean m_retourPointAttache ;
+	private  boolean m_retourPointAttache ;
+	private  float m_tempsTraitement; 
 
 	
 	
@@ -12,6 +13,7 @@ public class Parametres {
 		m_vitesseVehicule = Default.VITESSE_VEHICULE;
 		m_strategie = Default.STRATEGIE_GESTION;
 		m_retourPointAttache = Default.RETOUR_POINT_ATTACHE;
+		m_tempsTraitement = Default.TEMPS_TRAITEMENT;
 		
 		
 	}
@@ -42,6 +44,18 @@ public class Parametres {
 	}
 	public void asgRetourPointAttache(boolean value){
 		this.m_retourPointAttache = value;
+	}
+
+
+
+	public float reqTempsTraitement() {
+		return m_tempsTraitement;
+	}
+
+
+
+	public void asgTempsTraitement(float m_tempsTraitement) {
+		this.m_tempsTraitement = m_tempsTraitement;
 	}
 	
 

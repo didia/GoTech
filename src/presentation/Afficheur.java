@@ -46,6 +46,7 @@ public class Afficheur
 	private static float m_zoom;
 	private int maxWidth = 0;
 	private int maxHeight = 0;
+	private boolean toggleUrgence = true;
 
 	
 	public Afficheur() 
@@ -192,14 +193,15 @@ public class Afficheur
 	private void afficherProchaineUrgence(Graphics g, Position position) 
 	{
 		position = m_grille.reqPositionEnPixel(position);
-		if (position != null) 
+		if (position != null && toggleUrgence) 
 		{
 			Graphics2D g2d = (Graphics2D) g;
-			Image img = m_ImageUrgence.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+			Image img = m_ImageUrgence.getScaledInstance(WIDTH_NOEUD, WIDTH_NOEUD, Image.SCALE_SMOOTH);
 			double a = position.reqPositionX() - WIDTH_NOEUD / 2;
 			double b = position.reqPositionY() - WIDTH_NOEUD;
 			g2d.drawImage(img, (int) a, (int) b, 20, 20, null);
 		}
+		toggleUrgence = !toggleUrgence;
 	}
 
 	
@@ -233,7 +235,7 @@ public class Afficheur
 			
 			double locationX = img.getWidth() / 2;
 			double locationY = img.getHeight() / 2;
-			AffineTransform tx = AffineTransform.getRotateInstance(direction, locationX, locationY+1);
+			AffineTransform tx = AffineTransform.getRotateInstance(direction, locationX-1, locationY+1);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 			
 

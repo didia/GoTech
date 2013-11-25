@@ -39,10 +39,11 @@ public class Vehicule {
 		return m_vehicule;
 	}
 	
-	public void lancerMission(GestionnaireUrgence gestionnaire, float vitesse, Carte gps){
+	public void lancerMission(GestionnaireUrgence gestionnaire, Carte gps, float vitesse, float tempsTraitement){
 		m_gestionnaireUrgence = gestionnaire;
 		m_vitesse = (vitesse * 1000)/3600;
 		m_gps = gps;
+		m_tempsTraitementUrgence = Math.round(tempsTraitement*60);
 	}
 	
 	public void asgPointAttache(Noeud noeud)
@@ -114,7 +115,8 @@ public class Vehicule {
 		// ne tiens pas encore compte du chemin
 		
 		if(this.isEnTraitement()){
-			if(++compteurTempsTraitement == this.m_tempsTraitementUrgence){
+			compteurTempsTraitement += duree;
+			if(compteurTempsTraitement == this.m_tempsTraitementUrgence * 1000){
 				this.finirTraitement();
 			}
 			

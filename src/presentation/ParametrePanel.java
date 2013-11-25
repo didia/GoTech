@@ -17,6 +17,7 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.text.NumberFormat;
+import javax.swing.JTextField;
 
 public class ParametrePanel extends JPanel {
 	
@@ -27,6 +28,7 @@ public class ParametrePanel extends JPanel {
 	private JFormattedTextField vitesseVehicule;
 	private JFormattedTextField echelle;
 	private JCheckBox chckbxRetourne;
+	private JFormattedTextField tempsTraitement;
 	
 	public ParametrePanel(Simulateur simulateur) {
 
@@ -38,7 +40,7 @@ public class ParametrePanel extends JPanel {
 		JLabel lblStratgieDeSimulation = new JLabel("Strat�gie de simulation");
 		lblStratgieDeSimulation.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
 		lblStratgieDeSimulation.setToolTipText("Choisissez une strat\u00E9gie de simulation");
-		lblStratgieDeSimulation.setBounds(16, 26, 229, 34);
+		lblStratgieDeSimulation.setBounds(16, 26, 254, 34);
 		add(lblStratgieDeSimulation);
 		
 		rdbtnAncien = new JRadioButton("Anciennet�");
@@ -69,7 +71,7 @@ public class ParametrePanel extends JPanel {
 		lblVehiculeDurgence.setBounds(16, 159, 205, 28);
 		add(lblVehiculeDurgence);
 		JLabel lblVitesseDuVhicule = new JLabel("Vitesse du v�hicule (Km/h) : ");
-		lblVitesseDuVhicule.setBounds(37, 208, 185, 23);
+		lblVitesseDuVhicule.setBounds(37, 208, 208, 23);
 		add(lblVitesseDuVhicule);
 		
 		NumberFormat numberFormat = NumberFormat.getInstance();
@@ -79,20 +81,20 @@ public class ParametrePanel extends JPanel {
 		vitesseVehicule.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVitesseDuVhicule.setLabelFor(vitesseVehicule);
 		vitesseVehicule.setText(Float.toString(m_simulateur.reqVitesseVehicule()));
-		vitesseVehicule.setBounds(234, 208, 56, 23);
+		vitesseVehicule.setBounds(351, 207, 56, 23);
 		add(vitesseVehicule);
 		
 		chckbxRetourne = new JCheckBox("Retour au point d'attache apr�s traitement des urgences");
-		chckbxRetourne.setBounds(29, 243, 405, 23);
+		chckbxRetourne.setBounds(28, 279, 405, 23);
 		chckbxRetourne.setSelected(m_simulateur.isretourPointAttache());
 		add(chckbxRetourne);
 		JLabel lblEchelle = new JLabel("Echelle de la carte");
 		lblEchelle.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
-		lblEchelle.setBounds(16, 286, 195, 27);
+		lblEchelle.setBounds(19, 314, 195, 27);
 		add(lblEchelle);
 		
 		JLabel lblDistanceEntreDeux = new JLabel("Distance entre deux points de la grille (m) :");
-		lblDistanceEntreDeux.setBounds(32, 338, 277, 16);
+		lblDistanceEntreDeux.setBounds(28, 362, 277, 16);
 		add(lblDistanceEntreDeux);
 		
 		numberFormat.setMaximumFractionDigits(0);
@@ -100,8 +102,18 @@ public class ParametrePanel extends JPanel {
 		echelle.setHorizontalAlignment(SwingConstants.CENTER);
 		echelle.setText(Integer.toString(m_simulateur.reqMetreParStep()));
 		lblDistanceEntreDeux.setLabelFor(echelle);
-		echelle.setBounds(321, 336, 47, 19);
+		echelle.setBounds(351, 360, 56, 19);
 		add(echelle);
+		
+		JLabel lblNewLabel = new JLabel("Temps de traitement d'une urgence (minutes) :");
+		lblNewLabel.setBounds(37, 243, 302, 16);
+		add(lblNewLabel);
+		
+		tempsTraitement = new JFormattedTextField(numberFormat);
+		tempsTraitement.setBounds(351, 239, 56, 28);
+		tempsTraitement.setText(Float.toString(m_simulateur.reqTempsTraitement()));
+		add(tempsTraitement);
+		
 		
 		setVisible(true);
 	}
@@ -134,7 +146,11 @@ public class ParametrePanel extends JPanel {
 	
 	public int reqMetreParStep()
 	{
-		System.out.println(echelle.getText());
+
 		return Integer.parseInt(echelle.getText());
 	}
+	public int reqTempsTraitement(){
+		return Integer.parseInt(tempsTraitement.getText());
+	}
+
 }

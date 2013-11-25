@@ -435,6 +435,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 				m_simulateur.asgRetourPointAttache(m_parametrePanel.isRetourPointAttache());
 				m_simulateur.asgMetreParStep(m_parametrePanel.reqMetreParStep());
 				m_simulateur.asgVitesseVehicule(m_parametrePanel.reqVitesseVehicule());
+				m_simulateur.asgTempsTraitement(m_parametrePanel.reqTempsTraitement());
 			}
 		}
 		else if (command.equals(Default.ZOOMPLUS)) 
@@ -462,8 +463,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		
 			this.playBouton.setIcon(iconPAUSE);
 			this.playBouton.setPressedIcon(iconPLAYS);
+			this.playBouton.setActionCommand(PAUSE);
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
+			this.iconPlaySim.setActionCommand(PAUSE);
 			this.iconStopSim.setEnabled(true);
 			
 			m_simulateur.lancerSimulation();	
@@ -473,6 +476,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			m_timer.stop();
 			this.playBouton.setPressedIcon(iconPAUSE);
 			this.playBouton.setIcon(iconPLAYS);
+			this.playBouton.setActionCommand(PLAY);
 			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		}
