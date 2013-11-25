@@ -3,7 +3,7 @@ package domainePartie1;
 import java.util.ArrayList;
 
 public class Vehicule {
-	
+
 	private static Vehicule m_vehicule = new Vehicule();
 	private Noeud m_portAttache = null;
 	private float m_vitesse = 0;
@@ -14,6 +14,7 @@ public class Vehicule {
 	private Noeud m_noeudDestination = null;
 	private Carte m_gps;
 	private ArrayList<Noeud> m_itineraireActuel = null;
+
 	private float distanceDuProchainNoeud;
 	private boolean en_traitement;
 	private int m_tempsTraitementUrgence = 10;
@@ -36,38 +37,38 @@ public class Vehicule {
 	//Obtenir le v�hicule
 	public static Vehicule getInstance()
 	{
+
 		return m_vehicule;
 	}
+
 	
 	public void lancerMission(GestionnaireUrgence gestionnaire, Carte gps, float vitesse, float tempsTraitement){
+
 		m_gestionnaireUrgence = gestionnaire;
 		m_vitesse = (vitesse * 1000)/3600;
 		m_gps = gps;
 		m_tempsTraitementUrgence = Math.round(tempsTraitement*60);
 	}
-	
-	public void asgPointAttache(Noeud noeud)
-	{
+
+	public void asgPointAttache(Noeud noeud) {
 		m_portAttache = noeud;
 		m_noeudActuel = m_portAttache;
 		m_position = m_portAttache.reqPosition();
 	}
-	public void asgGestionnaireUrgence(GestionnaireUrgence gps){
+
+	public void asgGestionnaireUrgence(GestionnaireUrgence gps) {
 		m_gestionnaireUrgence = gps;
 	}
-	
-	public void AllerVers(Noeud p_noeudDestination)
-	{
-		//le Noeud actuel devien le noeud de destination 
+
+	public void AllerVers(Noeud p_noeudDestination) {
+		// le Noeud actuel devien le noeud de destination
 		this.asgNoeudActuel(p_noeudDestination);
 	}
-	
-	public void allerPortAttache()
-	{
-		//le Noeud actuel devien le noeudAttache
+
+	public void allerPortAttache() {
+		// le Noeud actuel devien le noeudAttache
 		this.asgNoeudActuel(this.m_portAttache);
 	}
-	
 	public Position reqPosition()
 	{
 		if(this.m_noeudActuel != null){
@@ -84,36 +85,36 @@ public class Vehicule {
 	
 	public Noeud reqPortAttache()
 	{
+
 		return this.m_portAttache;
 	}
 
-	public  float reqVistess()
-	{
+	public float reqVistess() {
 		return this.m_vitesse;
 	}
-	
-	public Noeud reqnoeudActuel()
-	{
+
+	public Noeud reqnoeudActuel() {
 		return m_noeudActuel;
 	}
-	//TODO
-	public Arc arcActuel()
-	{
-		return  m_arcActuel = new Arc(m_noeudActuel, m_noeudDestination);
+
+	// TODO
+	public Arc arcActuel() {
+		return m_arcActuel = new Arc(m_noeudActuel, m_noeudDestination);
 	}
-	
-	public void asgNoeudActuel(Noeud noeud)
-	{
-		this.m_noeudActuel= noeud;
+
+	public void asgNoeudActuel(Noeud noeud) {
+		this.m_noeudActuel = noeud;
 		this.m_position = noeud.reqPosition();
 	}
 	public void asgPosition(Position unePosition)
 	{
+
 		this.m_position = unePosition;
 	}
-	public void avance(int duree){
+
+	public void avance(int duree) {
 		// ne tiens pas encore compte du chemin
-		
+
 		if(this.isEnTraitement()){
 			compteurTempsTraitement += duree;
 			if(compteurTempsTraitement == this.m_tempsTraitementUrgence * 1000){
@@ -139,9 +140,10 @@ public class Vehicule {
 					}
 				
 				}
+
 			}
 		}
-		
+
 	}
 	private void declencherMission(){
 		Noeud noeud = this.m_itineraireActuel.get(0);
@@ -154,6 +156,7 @@ public class Vehicule {
 		this.angle = Math.atan2(y2-y1,x2-x1);
 		if(x1-x2 > 0){
 			this.angle += Math.PI;
+
 		}
 		this.directionX = (float) Math.cos(Math.atan2(y2-y1,x2-x1));
 		this.directionY = (float) Math.sin(Math.atan2(y2-y1,x2-x1));
@@ -166,6 +169,7 @@ public class Vehicule {
 		
 		
 	}
+
 	
 	private void asgNouvellePositionVoiture(int duree)
 	{
@@ -227,5 +231,6 @@ public class Vehicule {
 	}
 	private boolean isEnTraitement(){
 		return this.en_traitement;
+
 	}
 }
