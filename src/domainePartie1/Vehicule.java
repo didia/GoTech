@@ -79,6 +79,11 @@ public class Vehicule {
 	{
 		return m_noeudActuel;
 	}
+	//TODO
+	public Arc arcActuel()
+	{
+		return  m_arcActuel = new Arc(m_noeudActuel, m_noeudDestination);
+	}
 	
 	public void asgNoeudActuel(Noeud noeud)
 	{
@@ -91,6 +96,10 @@ public class Vehicule {
 	}
 	public void avance(int duree){
 		// ne tiens pas encore compte du chemin
+		
+	nouvellePositionVoiture(duree );//TODO
+		
+
 		
 		if(this.m_itineraireActuel != null && !this.m_itineraireActuel.isEmpty()){
 			this.poursuisChemin();
@@ -115,5 +124,21 @@ public class Vehicule {
 			this.m_itineraireActuel = null;
 			this.m_noeudDestination = null;
 		}
+	}
+	
+	public Position nouvellePositionVoiture(int duree )
+	{
+		//TODO
+		Position position = null;
+		float newHypotenuse = this.m_vitesse * duree;
+		
+		float newPositionX  =( m_arcActuel.reqNoeudDest().reqPosition().reqPositionX() *newHypotenuse) /m_arcActuel.reqLongueur();
+		float newPositionY  = ( m_arcActuel.reqNoeudDest().reqPosition().reqPositionY() * newHypotenuse) /m_arcActuel.reqLongueur();
+position = new Position(newPositionX,newPositionY);
+		this.asgPositin(position);
+		return position;
+		
+		
+		
 	}
 }
