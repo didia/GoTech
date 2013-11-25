@@ -20,25 +20,25 @@ import java.util.LinkedList;
 
 public class StrategieGestion 
 {
-	protected ArrayList<Urgence> m_listeUrgence;
-	protected Urgence m_urgenceActuelle;
-	protected ArrayList<Urgence> m_listeUrgenceTraitee;
-	protected Itineraire m_itineraire;
+	private ArrayList<Urgence> m_listeUrgence;
+	private Urgence m_prochaineUrgence;
+	private ArrayList<Urgence> m_listeUrgenceTraitee;
+	private Itineraire m_itineraire;
 
 	
 	//Constructeur
 	public StrategieGestion(ArrayList<Urgence> list_urgence) 
 	{
 		this.m_listeUrgence = list_urgence;
-		this.m_urgenceActuelle =null;
+		this.m_prochaineUrgence =null;
 		this.m_listeUrgenceTraitee = new ArrayList<Urgence>();
 	}
 
 	// retourne l'urgenc actuelle
-	public Urgence reqUrgenceActuelle() 
+	public Urgence reqProchaineUrgence() 
 	{
 	
-		return this.m_urgenceActuelle;
+		return this.m_prochaineUrgence;
 	}
 
 	// renvoyer sous forme de liste les urgence les urgence non traitées
@@ -57,6 +57,15 @@ public class StrategieGestion
 	{
 		return m_itineraire;
 	}
+	public void asgListUrgence(ArrayList<Urgence> listeUrgences) 
+	{
+		this.m_listeUrgence = listeUrgences;
+	}
+	public void asgProchaineUrgence(Urgence uneUrgence) 
+	{
+		this.m_prochaineUrgence = uneUrgence;
+	}
+
 	
 	//TODO logique a revoir
 	// determine si toute les urgence on été dejas traitées ou pas
@@ -75,18 +84,13 @@ public class StrategieGestion
 	// effectue les operation attendu sur une urgence
 	public void traiterUrgenceAtuelle() 
 	{
-		this.m_listeUrgenceTraitee.add(m_urgenceActuelle);
-		this.m_listeUrgence.remove(m_urgenceActuelle);			
+		this.m_listeUrgenceTraitee.add(m_prochaineUrgence);
+		this.m_listeUrgence.remove(m_prochaineUrgence);	
+		this.m_prochaineUrgence = null;
+		this.m_prochaineUrgence = this.reqProchaineUrgence();
 	}
 	
-	public void asgListUrgence(ArrayList<Urgence> listeUrgences) 
-	{
-		this.m_listeUrgence = listeUrgences;
-	}
+	
 
-	public void asgUrgenceAtuelle(Urgence uneUrgence) 
-	{
-		this.m_urgenceActuelle = uneUrgence;
-	}
-
+	
 }

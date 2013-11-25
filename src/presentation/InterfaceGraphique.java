@@ -41,7 +41,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private Menu menu;
 	private CarteGraphique m_carteGraphique;
 	private Afficheur m_afficheur;
-
+	private ArrayList<JButton> m_listeEditButtons;
+	
 	private JPanel m_panneauEdition;
 	private JPanel m_outilPanel;
 	private ParametrePanel m_parametrePanel;
@@ -51,7 +52,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
     private JButton iconPlaySim;
     private JButton iconStopSim;
 
-    private ArrayList<JButton> m_listeEditButtons;
+
+
 
   
     private static String ADD_PARAMETRES = "Param�tres de Simulation";
@@ -360,12 +362,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_parametrePanel = new ParametrePanel(m_simulateur);
 		
 		// Ajout du Timer
-		m_timer = new Timer(1000, new ActionListener() 
+		m_timer = new Timer(50, new ActionListener() 
 		{
 	          public void actionPerformed(ActionEvent e) 
 	          {
-	        	  m_simulateur.deplacerVehiculeUrgence(1000);
+	        	  m_simulateur.deplacerVehiculeUrgence(50);
 	              m_carteGraphique.repaint();
+	            
 	          }
 	          });
 		
@@ -470,8 +473,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			m_timer.stop();
 			this.playBouton.setPressedIcon(iconPAUSE);
 			this.playBouton.setIcon(iconPLAYS);
-			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
-			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
+			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
+			this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		}
 		else if (command.equals(TERMINER))
 		{

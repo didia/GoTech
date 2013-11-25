@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 
 
-public class Noeud implements Comparable<Noeud>
+public class Noeud
 {
 		private Position m_position;
 		private float m_cout; // pour Dijkstra 
@@ -196,10 +196,10 @@ public class Noeud implements Comparable<Noeud>
 		}
 
 		
-		@Override
-		public int compareTo(Noeud n) 
+		
+		public boolean equals(Noeud n) 
 		{
-			return m_position.compareTo(n.reqPosition());
+			return n.reqPosition().equals(this.m_position);
 		}
 		
 	}
