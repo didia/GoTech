@@ -1,21 +1,32 @@
+/**
+* Cette classe encapsule et gere les parametres de la simulation
+* 
+* 
+* Permet de reccuperer et d'emagasiner les parametres de la simulation
+*
+*
+* @version 1.0
+*
+* @author GoTech
+*
+*
+*/
+
 package domainePartie1;
 
-public class Parametres {
-	
+public class Parametres 
+{
 	private  float m_vitesseVehicule;
 	private  String m_strategie;
 	private  boolean m_retourPointAttache ;
 	private  float m_tempsTraitement; 
-
 	
-	
-	public Parametres(){
+	public Parametres()
+	{
 		m_vitesseVehicule = Default.VITESSE_VEHICULE;
 		m_strategie = Default.STRATEGIE_GESTION;
 		m_retourPointAttache = Default.RETOUR_POINT_ATTACHE;
 		m_tempsTraitement = Default.TEMPS_TRAITEMENT;
-		
-		
 	}
 	
 
@@ -24,16 +35,18 @@ public class Parametres {
 	{
 		return this.m_vitesseVehicule;
 	}
+	
 	public void asgVitesseVehicule(float vitesse)
 	{
 		this.m_vitesseVehicule = vitesse;
 	}
 	
-	public String  reqStrategie ()
+	public String reqStrategie ()
 	{
-	return this.m_strategie;
+		return this.m_strategie;
 	}
-	public void  asgStrategie ( String strategie)
+	
+	public void  asgStrategie(String strategie)
 	{
 		this.m_strategie = strategie;
 	}
@@ -42,29 +55,19 @@ public class Parametres {
 	{
 		return this.m_retourPointAttache;
 	}
-	public void asgRetourPointAttache(boolean value){
+	
+	public void asgRetourPointAttache(boolean value)
+	{
 		this.m_retourPointAttache = value;
 	}
 
-
-
-	public float reqTempsTraitement() {
+	public float reqTempsTraitement() 
+	{
 		return m_tempsTraitement;
 	}
 
-
-
-	public void asgTempsTraitement(float m_tempsTraitement) {
+	public void asgTempsTraitement(float m_tempsTraitement) 
+	{
 		this.m_tempsTraitement = m_tempsTraitement;
-	}
-	
-
-	
-	
-	
-	
-
-	
-	
-	
+	}	
 }
