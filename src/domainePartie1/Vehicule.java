@@ -100,7 +100,11 @@ public class Vehicule {
 
 			if(m_noeudDestination != null){
 				this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
-				this.poursuisChemin();
+				if(!this.m_itineraireActuel.isEmpty())
+				{
+					this.poursuisChemin();
+				}
+				
 			}
 		}
 		
@@ -112,6 +116,7 @@ public class Vehicule {
 		if((m_noeudActuel.reqPosition().reqPositionX() == m_noeudDestination.reqPosition().reqPositionX()) &&
 				(m_noeudActuel.reqPosition().reqPositionY() == m_noeudDestination.reqPosition().reqPositionY())){
 			this.m_gestionnaireUrgence.traiterUrgenceActuelle();
+			m_noeudActuel.setTraitee();
 			this.m_itineraireActuel = null;
 			this.m_noeudDestination = null;
 		}

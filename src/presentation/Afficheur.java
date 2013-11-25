@@ -92,7 +92,7 @@ public class Afficheur {
 			newWidth = Default.CARTE_WIDTH;
 		}
 		if (maxHeight > Default.CARTE_HEIGHT) {
-			System.out.println("MaxHeight plus grand");
+			
 			newHeight = maxHeight;
 		} else {
 			newHeight = Default.CARTE_HEIGHT;
@@ -126,7 +126,6 @@ public class Afficheur {
 
 		for(Noeud noeud: listeDeNoeuds){
 			Position position = m_grille.reqPositionEnPixel(noeud.reqPosition());
-			System.out.println("Noeud " + noeud.isTraitee());
             if(position.reqPositionX() + m_grille.reqPixelParStep()> maxWidth){
             	maxWidth = (int)position.reqPositionX() + 3*m_grille.reqPixelParStep();
             }

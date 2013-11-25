@@ -48,7 +48,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
     private Afficheur m_afficheur;
     private ArrayList<JButton> m_listeEditButtons;
     
-
+    private int temps = 0;
     private ParametrePanel m_parametrePanel;
 
     private static String ADD_PARAMETRES = "Paramètres de Simulation";
@@ -372,6 +372,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 	          public void actionPerformed(ActionEvent e) {
 	        	  m_simulateur.deplacerVehiculeUrgence(1000);
 	              m_carteGraphique.repaint();
+	              ++temps;
+	              System.out.println(temps);
+	              
 	          }
 	       });
 		

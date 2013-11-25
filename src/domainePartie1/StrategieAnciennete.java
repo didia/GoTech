@@ -10,41 +10,14 @@ public class StrategieAnciennete extends StrategieGestion
 		super(listeUrgence);
 	}
 	
-	public Urgence reqUrgenceActuelle()
+	public Urgence reqProchaineUrgence()
 	{
-		System.out.println("Je suis lˆ");
-		if(this.m_urgenceActuelle == null && !this.m_listeUrgence.isEmpty()){
-			this.m_urgenceActuelle = this.m_listeUrgence.get(0);
+		if(super.reqProchaineUrgence() == null && !this.reqListeUrgence().isEmpty()){
+			this.asgProchaineUrgence(this.reqListeUrgence().get(0));
 		}
-		return this.m_urgenceActuelle;
+		return super.reqProchaineUrgence();
 	}
 
-
-	public void traiterUrgenceActuelle() 
-	{
-		if(this.m_urgenceActuelle != null)
-		{
-			this.m_urgenceActuelle.reqNoeudCible().setTraitee();
-			this.m_listeUrgence.remove(this.m_urgenceActuelle);
-			this.m_listeUrgenceTraitee.add(this.m_urgenceActuelle);
-			if(this.m_listeUrgence.isEmpty()){
-				this.m_urgenceActuelle = null;
-			}
-			else{
-			this.m_urgenceActuelle = this.m_listeUrgence.get(0);
-			}
-		}
-		
-	}
-
-	public void ajouterUrgence(Urgence uneUrgence) 
-	{ 
-		ArrayList<Urgence> listTempTriee = new ArrayList<Urgence>();
-
-		listTempTriee.add(uneUrgence);
-
-		this.asgListUrgence(listTempTriee);
-	}
 	
 	public String toString()
 	{

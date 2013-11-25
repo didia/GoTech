@@ -18,23 +18,23 @@ public class StrategiePriorite extends StrategieGestion
 		try 
 		{
 			Urgence uneUrgence = this.reqListeUrgence().get(0);
-			this.asgUrgenceAtuelle(uneUrgence);
+			this.asgProchaineUrgence(uneUrgence);
 		}
 		catch (IndexOutOfBoundsException e) 
 		{
 			System.out.println("il Y a plus d'urgence a traiter  :(");
 		}
 		
-		return this.reqUrgenceActuelle();
+		return this.reqProchaineUrgence();
 	}
 
 	 
 	public void traiterUrgenceActuelle() 
 	{
-		if (this.reqListeUrgence().contains(this.reqUrgenceActuelle())) 
+		if (this.reqListeUrgence().contains(this.reqProchaineUrgence())) 
 		{
-			Urgence urgence = this.reqUrgenceActuelle();
-			this.asgUrgenceAtuelle(urgence);
+			Urgence urgence = this.reqProchaineUrgence();
+			this.asgProchaineUrgence(urgence);
 			this.traiterUrgenceAtuelle();
 		} 
 		else

@@ -32,7 +32,7 @@ public class GestionnaireUrgence {
 	public Urgence reqProchaineUrgence(){
 		if(m_strategie != null){
 			
-			return m_strategie.reqUrgenceActuelle();
+			return m_strategie.reqProchaineUrgence();
 		}
 		return null;
 	}

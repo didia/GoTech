@@ -80,7 +80,6 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	
 	@Override
 	public String getToolTipText(MouseEvent event) {
-		System.out.println("Method called");
 		return m_simulateur.reqPositionDescription(event.getX(), event.getY());
 	}
 	

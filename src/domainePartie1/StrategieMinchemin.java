@@ -11,7 +11,7 @@ public class StrategieMinchemin extends StrategieGestion
 
 	public Urgence reqUrgenceAcctuelle()
 	{
-		return this.reqUrgenceActuelle();
+		return this.reqProchaineUrgence();
 	}
 	
 	public String toString()
