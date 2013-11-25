@@ -13,7 +13,7 @@
 
 package domainePartie1;
 
-public class Position implements Comparable<Position>
+public class Position 
 {
 	private float positionX;
 	private float positionY;
@@ -40,18 +40,16 @@ public class Position implements Comparable<Position>
 	}
 
 	
-	//TODO Doit etre reviser car deux points de sorties
-	@Override
-	public int compareTo(Position o)
+	public boolean equals(Position o)
 	{
 		// TODO Auto-generated method stub
 		if (positionX == o.reqPositionX() && positionY == o.reqPositionY())
 		{
-			return 0;
+			return true;
 		}
 		else
 		{
-			return (int)(this.reqDistanceOrigine() - o.reqDistanceOrigine());
+			return false;
 		}
 	}
 	

@@ -42,8 +42,8 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	private static  Simulateur m_simulateur;
 	private JScrollPane viewport;
 	private JPopupMenu noeudPopup;
-	private static final String SUPPRIMER_NOEUD= "Supprimer";
-	
+	private static final String SUPPRIMER_NOEUD = "Supprimer";
+
 	
 	//Constructeur
 	public CarteGraphique(Afficheur afficheurGraphique, Simulateur p_simulateur) 
@@ -66,20 +66,21 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		{
 			  public void actionPerformed(ActionEvent e)
 			  {
-						m_simulateur.supprimer_component();
-						mycarte.repaint();
+				  m_simulateur.supprimer_component();
+				  mycarte.repaint();
 			  }  
 		});
-		
+	
 		noeudPopup.add(menuItem);
 		addPopup(this, noeudPopup);
-		ToolTipManager.sharedInstance().registerComponent(this);
-		
+		ToolTipManager.sharedInstance().registerComponent(this);		
 	}
 		
 	
 	@Override
-	public String getToolTipText(MouseEvent event) {
+
+	public String getToolTipText(MouseEvent event)
+	{
 		return m_simulateur.reqPositionDescription(event.getX(), event.getY());
 	}
 	
@@ -88,18 +89,18 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	{
 		super.paintComponent(g);
 		m_afficheur.afficherReseau(g, m_simulateur, this);
-		
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) 
+	{
 		m_simulateur.mouseClicked(e);
 		this.repaint();
 	}
 	
 	@Override
-
-	public void mouseEntered(MouseEvent e) {
+	public void mouseEntered(MouseEvent e) 
+	{
 		m_simulateur.mouseEntered(e);
 		this.repaint();
 	}
@@ -165,26 +166,24 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 			}
 			private void showMenu(MouseEvent e) 
 			{
-					if (m_simulateur.existeComponent(e.getX(), e.getY()) == true)
-					{
-						popup.show(e.getComponent(), e.getX(), e.getY());
-					}
+				if (m_simulateur.existeComponent(e.getX(), e.getY()) == true)
+				{
+					popup.show(e.getComponent(), e.getX(), e.getY());
+				}
 			}
 		});
 	}
 
 
 
-	public JScrollPane getViewport() {
+	public JScrollPane getViewport() 
+	{
 		// TODO Auto-generated method stub
 		return this.viewport;
 	}
-
-
-
 	
 		
-	}
+}
 
 
     		

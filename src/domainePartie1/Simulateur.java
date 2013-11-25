@@ -217,6 +217,9 @@ public class Simulateur implements MouseInputListener {
 	{
 		return m_vehicule.reqPosition();
 	}
+	public double reqDirectionVehicule(){
+		return m_vehicule.reqDirection();
+	}
 	
 	
 	public float reqZoom()

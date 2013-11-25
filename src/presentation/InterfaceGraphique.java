@@ -28,34 +28,39 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class InterfaceGraphique extends JFrame implements ActionListener {
+public class InterfaceGraphique extends JFrame implements ActionListener 
+{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private Timer m_timer;
+	
+	private static Simulateur m_simulateur;
 	private Menu menu;
 	private CarteGraphique m_carteGraphique;
+	private Afficheur m_afficheur;
+	private ArrayList<JButton> m_listeEditButtons;
+	
 	private JPanel m_panneauEdition;
-	private Timer m_timer;
 	private JPanel m_outilPanel;
-	private JTextField textZoom;
-    private static Simulateur m_simulateur;
- 
+	private ParametrePanel m_parametrePanel;
+	
+    private JTextField textZoom;
     private JButton playBouton;
     private JButton iconPlaySim;
     private JButton iconStopSim;
-    private Afficheur m_afficheur;
-    private ArrayList<JButton> m_listeEditButtons;
-    
-    private int temps = 0;
-    private ParametrePanel m_parametrePanel;
 
-    private static String ADD_PARAMETRES = "Paramètres de Simulation";
+
+
+
+  
+    private static String ADD_PARAMETRES = "ParamÔøΩtres de Simulation";
     private static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	private static  String ADD_ARC_STRING = "Ajouter Arc";
 	private static  String PUT_VEHICULE = "Placer Vehicule";
-	private static String SELECTEUR_SOURIS = "Selectionner/Déplacer";
+	private static String SELECTEUR_SOURIS = "Selectionner/DÔøΩplacer";
 	public static String SHOW_OUTILS = "Outils";
 	public static String LANCER_SIMULATION = "Lancer simulation";
 	private static String SAVE = "SAVE";
@@ -66,24 +71,24 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 	private static String PAUSE = " Pause";
 	private static String TERMINER = "Terminer";
 
+	//Taille boutons
 	private static int WIDTH_ICON = 40;
 	private static int HEIGHT_ICON = 40;
 
+	//Icon pour boutons
 	private ImageIcon iconNoeud;
 	private ImageIcon iconVehicule;
 	private ImageIcon iconSouris;
 	private ImageIcon iconSettings;
 	private ImageIcon iconArc;
-
 	private ImageIcon iconUrgence;
-
-
 	private ImageIcon iconPLAYS;
 	private ImageIcon iconPAUSE;
 	private ImageIcon iconTERMINER;
 
-	public InterfaceGraphique(Simulateur p_simulateur,
-			Afficheur p_afficheurGraphique) {
+	public InterfaceGraphique(Simulateur p_simulateur, Afficheur p_afficheurGraphique) 
+	{
+		//Initialisation
 		super("Intervensim");
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
@@ -102,13 +107,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		iconPLAYS = reqIcon(Default.PLAYS_IMAGE_PATH);
 		iconTERMINER = reqIcon(Default.TERMINER_IMAGE_PATH);
 		iconUrgence = reqIcon(Default.URGENCE_IMAGE_PATH);
-		
-
+	
 		
 		m_listeEditButtons = new ArrayList<JButton>();
 		
-		// AJOUT DES BUTTONS DE LA BARRE D'OUTIL
 		
+		// AJOUT DES BUTTONS DE LA BARRE D'OUTIL
 		JToolBar toolbar = new JToolBar();
 		toolbar.setRollover(true);
 		toolbar.setFloatable(false);
@@ -117,21 +121,17 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		
 		btnZoomMoins.setActionCommand(Default.ZOOMMOINS);
 		btnZoomMoins.addActionListener(this);
-	
-		
 		
 		JButton btnZoomPlus = new JButton(iconPlus);
 		
 		btnZoomPlus.setActionCommand(Default.ZOOMPLUS);
 		btnZoomPlus.addActionListener(this);
-		
-		
+
 		textZoom = new JTextField("100%");
 
 		//textZoom.setPreferredSize(new Dimension(10,10));
 		textZoom.setEditable(false);
 		//textZoom.setColumns(3);
-		
 	
 		JButton btnSave = new JButton(iconSave);
 		btnSave.setToolTipText("Enregistrer travail en cours");
@@ -150,12 +150,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		btnRedo.addActionListener(this);
 		m_listeEditButtons.add(btnRedo);
 		
-		JButton iconAjoutNoeud =new JButton(reqResizedIcon(iconNoeud, 20, 20));
+		JButton iconAjoutNoeud = new JButton(reqResizedIcon(iconNoeud, 20, 20));
 		iconAjoutNoeud.setToolTipText("Placer des noeuds");
 		iconAjoutNoeud.setActionCommand(ADD_NOEUD_STRING);
 		iconAjoutNoeud.addActionListener(this);
-		
-		
 		m_listeEditButtons.add(iconAjoutNoeud);
 		
 		JButton iconAjoutArc = new JButton(reqResizedIcon(iconArc, 20, 20));
@@ -165,28 +163,24 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		m_listeEditButtons.add(iconAjoutArc);
 		
 		JButton iconSelect = new JButton(reqResizedIcon(iconSouris, 20, 20));
-		iconSelect.setToolTipText("Modifier et Déplacer des noeuds et des arcs");
+		iconSelect.setToolTipText("Modifier et DÔøΩplacer des noeuds et des arcs");
 		iconSelect.setActionCommand(SELECTEUR_SOURIS);
 		iconSelect.addActionListener(this);
-
 		m_listeEditButtons.add(iconSelect);
 		
 		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule, 20, 20));
-		iconAjoutVehicule.setToolTipText("Placer Véhicule d'urgence sur un port d'attache");
+		iconAjoutVehicule.setToolTipText("Placer VÔøΩhicule d'urgence sur un port d'attache");
 		iconAjoutVehicule.setActionCommand(PUT_VEHICULE);
 		iconAjoutVehicule.addActionListener(this);
-		m_listeEditButtons.add(iconAjoutVehicule);
-		
-		
+		m_listeEditButtons.add(iconAjoutVehicule);		
 		
 		JButton iconAddSettings = new JButton(reqResizedIcon(iconSettings, 20, 20));
-		iconAddSettings.setToolTipText("Modifier les paramètres de la simulation");
+		iconAddSettings.setToolTipText("Modifier les paramÔøΩtres de la simulation");
 		iconAddSettings.setActionCommand(ADD_PARAMETRES);
 		iconAddSettings.addActionListener(this);
 		m_listeEditButtons.add(iconAddSettings);
 		
 		JToggleButton showOutils = new JToggleButton(SHOW_OUTILS);
-		
 		showOutils.setToolTipText("Afficher le volet Outils");
 		showOutils.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		showOutils.setActionCommand(SHOW_OUTILS);
@@ -197,7 +191,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		iconPlaySim.setToolTipText("Lancer la simulation");
 		iconPlaySim.setActionCommand(PLAY);
 		iconPlaySim.addActionListener(this);
-		
 		
 		iconStopSim = new JButton(reqResizedIcon(iconTERMINER, 20, 20));
 		iconStopSim.setPressedIcon(reqResizedIcon(iconTERMINER, 20, 20));
@@ -260,7 +253,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		m_panneauEdition = new JPanel(new GridLayout(7, 1, 0, 5));
 		
 		// buttons d'ÔøΩdition
-
 		JButton ajouterNoeudBouton = new JButton(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.setHorizontalAlignment(SwingConstants.LEFT);
 		ajouterNoeudBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -270,6 +262,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		ajouterNoeudBouton.setActionCommand(ADD_NOEUD_STRING);
 		ajouterNoeudBouton.addActionListener(this);
 		m_listeEditButtons.add(ajouterNoeudBouton);
+		
 		// Bouton ajouter arc
 		JButton ajouterArcBouton = new JButton(ADD_ARC_STRING);
 		ajouterArcBouton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -280,6 +273,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		ajouterArcBouton.setActionCommand(ADD_ARC_STRING);
 		ajouterArcBouton.addActionListener(this);
 		m_listeEditButtons.add(ajouterArcBouton);
+		
 		// Bouton selectionner/deplacer
 		JButton selectionnerBouton = new JButton(SELECTEUR_SOURIS);
 		selectionnerBouton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -368,34 +362,33 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 		m_parametrePanel = new ParametrePanel(m_simulateur);
 		
 		// Ajout du Timer
-		m_timer = new Timer(1000, new ActionListener() {
-	          public void actionPerformed(ActionEvent e) {
-	        	  m_simulateur.deplacerVehiculeUrgence(1000);
+		m_timer = new Timer(50, new ActionListener() 
+		{
+	          public void actionPerformed(ActionEvent e) 
+	          {
+	        	  m_simulateur.deplacerVehiculeUrgence(50);
 	              m_carteGraphique.repaint();
-	              ++temps;
-	              System.out.println(temps);
-	              
+	            
 	          }
-	       });
+	          });
 		
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 
-	public ImageIcon reqIcon(String path) {
+	public ImageIcon reqIcon(String path) 
+	{
 
-		ImageIcon icon = new ImageIcon(
-				InterfaceGraphique.class.getResource(path));
+		ImageIcon icon = new ImageIcon(InterfaceGraphique.class.getResource(path));
 		Image img = icon.getImage();
-		Image newimg = img.getScaledInstance(WIDTH_ICON, HEIGHT_ICON,
-				Image.SCALE_SMOOTH);
+		Image newimg = img.getScaledInstance(WIDTH_ICON, HEIGHT_ICON, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
 		return icon;
-
 	}
 
-	public ImageIcon reqResizedIcon(ImageIcon icon, int width, int height){
+	public ImageIcon reqResizedIcon(ImageIcon icon, int width, int height)
+	{
 		Image img = icon.getImage();
 		Image newimg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		return new ImageIcon(newimg);
@@ -407,79 +400,87 @@ public class InterfaceGraphique extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		String command = e.getActionCommand();
-		if (command.equals(ADD_NOEUD_STRING)) {
-			m_simulateur.setEtatAjouterNoeud();
-		} else if (command.equals(ADD_ARC_STRING)) {
+		if (command.equals(ADD_NOEUD_STRING)) 
+		{
+			m_simulateur.setEtatAjouterNoeud();	
+		} 
+		else if (command.equals(ADD_ARC_STRING)) 
+		{
 			m_simulateur.setEtatAjouterArc();
-
-		} else if (command.equals(SELECTEUR_SOURIS)) {
+		} 
+		else if (command.equals(SELECTEUR_SOURIS)) 
+		{
 			m_simulateur.setEtatSelectioneur();
-		} else if (command.equals(PUT_VEHICULE)) {
+		} 
+		else if (command.equals(PUT_VEHICULE)) 
+		{
 			m_simulateur.setEtatPlacerVehicule();
 		}
-		else if(command.equals(ADD_URGENCE))
+		else if (command.equals(ADD_URGENCE))
 		{
 			m_simulateur.setEtatAjouterUregence();
 		}
-
-		else if (command.equals(ADD_PARAMETRES)) {
-			int option = JOptionPane.showOptionDialog(this, m_parametrePanel,
-					ADD_PARAMETRES, JOptionPane.OK_CANCEL_OPTION,
-					JOptionPane.PLAIN_MESSAGE, iconSettings, null, null);
-			if (option == JOptionPane.OK_OPTION) {
+		else if (command.equals(ADD_PARAMETRES)) 
+		{
+			int option = JOptionPane.showOptionDialog(this, m_parametrePanel, ADD_PARAMETRES, 
+														JOptionPane.OK_CANCEL_OPTION,
+														JOptionPane.PLAIN_MESSAGE, 
+														iconSettings, null, null);
+			if (option == JOptionPane.OK_OPTION) 
+			{
 				m_simulateur.asgStrategie(m_parametrePanel.reqStrategie());
-				m_simulateur.asgRetourPointAttache(m_parametrePanel
-						.isRetourPointAttache());
-				m_simulateur
-						.asgMetreParStep(m_parametrePanel.reqMetreParStep());
-				m_simulateur.asgVitesseVehicule(m_parametrePanel
-						.reqVitesseVehicule());
+				m_simulateur.asgRetourPointAttache(m_parametrePanel.isRetourPointAttache());
+				m_simulateur.asgMetreParStep(m_parametrePanel.reqMetreParStep());
+				m_simulateur.asgVitesseVehicule(m_parametrePanel.reqVitesseVehicule());
 			}
-
 		}
 		else if (command.equals(Default.ZOOMPLUS)) 
 		{
 			textZoom.setText(m_simulateur.augmenteZoom());
 			m_carteGraphique.repaint();
-			
 		}
 		else if (command.equals(Default.ZOOMMOINS))
 		{
 			textZoom.setText(m_simulateur.diminueZoom());
 			
-			m_carteGraphique.repaint();
-			
+			m_carteGraphique.repaint();	
 		}
-		else if(command.equals(SHOW_OUTILS)){
+		else if (command.equals(SHOW_OUTILS))
+		{
 			m_outilPanel.setVisible(!m_outilPanel.isVisible());
 		}
-		else if(command.equals(PLAY)){
+		else if (command.equals(PLAY))
+		{
 			m_timer.start();
-			for(JButton button : this.m_listeEditButtons){
+			for (JButton button : this.m_listeEditButtons)
+			{
 				button.setEnabled(false);
 			}
-			
+		
 			this.playBouton.setIcon(iconPAUSE);
 			this.playBouton.setPressedIcon(iconPLAYS);
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconStopSim.setEnabled(true);
 			
-			m_simulateur.lancerSimulation();
-			
+			m_simulateur.lancerSimulation();	
 		}
-		else if(command.equals(PAUSE)){
+		else if (command.equals(PAUSE))
+		{
 			m_timer.stop();
 			this.playBouton.setPressedIcon(iconPAUSE);
 			this.playBouton.setIcon(iconPLAYS);
-			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
-			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
+			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
+			this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		}
-		else if(command.equals(TERMINER)){
+		else if (command.equals(TERMINER))
+		{
 			m_timer.stop();
-			for(JButton button : this.m_listeEditButtons){
+			for (JButton button : this.m_listeEditButtons)
+			{
 				button.setEnabled(true);
 			}
 			this.playBouton.setPressedIcon(iconPAUSE);

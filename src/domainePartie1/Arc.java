@@ -1,3 +1,17 @@
+/**
+* Cette classe encapsule et gere les informations d'un arc reliant deux noeuds
+*
+* Permet l'asignation et la requisition d'un noeud sources et destination, 
+* permet aussi de calculer la longueur reliant ceux-ci.
+*
+*
+* @version 1.0
+*
+* @author GoTech
+*
+*
+*/
+
 package domainePartie1;
 
 public class Arc
@@ -15,23 +29,38 @@ public class Arc
 		this.m_longueur = calculerLongueur();
 		this.initAetB();
 	}
-
-	public float reqLongueur() {
+	
+	public float reqLongueur() 
+	{
 		return this.m_longueur;
 	}
 
-	public Noeud reqNoeudSource() {
+	public Noeud reqNoeudSource()
+	{
 		return this.m_source;
 	}
 
-	public Noeud reqNoeudDest() {
+	public Noeud reqNoeudDest()
+	{
 		return this.m_destination;
 	}
 
-	public void asgLongueur(float dist) {
+	public void asgLongueur(float dist)
+	{
 		this.m_longueur = this.calculerLongueur();
 	}
 	
+	
+	
+	/**
+	* Verifie que la position entree est a l'interieur d'un arc
+	*
+	*
+	* @param position une Position
+	*
+	* @return un booleen, vrai si la position entrer fait partie d'un arc, faux sinon
+	*
+    */
 	public boolean isPositionIn(Position position)
 	{
 		float c2 = this.a * position.reqPositionX() + this.b;
@@ -48,6 +77,13 @@ public class Arc
 		return false;
 	}
 
+	
+	/**
+	* Calcul la longueur d'un arc entre deux noeuds
+	* 
+	* @return la longueur d'un arc en float
+	*
+    */
 	private float calculerLongueur() 
 	{
 		float distX = (this.reqNoeudSource().reqPosition().reqPositionX() - this.reqNoeudDest().reqPosition().reqPositionX());
@@ -58,6 +94,12 @@ public class Arc
 		return (float) (Math.sqrt(somme));
 	}
 	
+	
+	/**
+	*
+	* Initialise les parametres a et b d'un arc sachant y = ax + b
+	*
+    */
 	private void initAetB()
 	{
 		float x1 = m_source.reqPosition().reqPositionX();
