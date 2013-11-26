@@ -65,6 +65,7 @@ public class Simulateur implements MouseInputListener {
 		m_carte.resetEtatNoeud();
 		this.m_gestionnaireUrgence.reset();
 		m_vehicule.reset();
+		this.setEtatSelectioneur();
 	}
 	
 	public boolean isStrategieCourante(String strategie)

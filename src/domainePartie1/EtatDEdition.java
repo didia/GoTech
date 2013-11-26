@@ -18,6 +18,7 @@ class EtatDEdition implements Etat {
 	public void mouseClicked(MouseEvent e) {
 		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
 		if (noeud_selectione == null){
+			System.out.println("Un arc selectioné");
 			arc_selectione = m_simulateur.reqArc(e.getX(), e.getY());
 		}
 		

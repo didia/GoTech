@@ -60,7 +60,6 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		this.viewport = (JScrollPane)getParent();
         JPopupMenu noeudPopup = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("Supprimer");
-		
 		menuItem.setActionCommand(SUPPRIMER_NOEUD);
 		menuItem.addActionListener(new ActionListener()
 		{
