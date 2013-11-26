@@ -26,28 +26,24 @@ public class StrategieGestion
 	private Itineraire m_itineraire;
 
 	
-	//Constructeur
 	public StrategieGestion(ArrayList<Urgence> list_urgence) 
 	{
 		this.m_listeUrgence = list_urgence;
 		this.m_prochaineUrgence =null;
 		this.m_listeUrgenceTraitee = new ArrayList<Urgence>();
 	}
-
-	// retourne l'urgenc actuelle
+	
 	public Urgence reqProchaineUrgence() 
 	{
 	
 		return this.m_prochaineUrgence;
 	}
 
-	// renvoyer sous forme de liste les urgence les urgence non traitées
 	public ArrayList<Urgence> reqListeUrgence()
 	{
 		return this.m_listeUrgence;
 	}
 	
-	//retourne sous forme de liste toutes les uregence deja trait�es 
 	public ArrayList<Urgence> reqListerUrgencetraitee() 
 	{
 		return this.m_listeUrgenceTraitee;
@@ -61,14 +57,20 @@ public class StrategieGestion
 	{
 		this.m_listeUrgence = listeUrgences;
 	}
+	
 	public void asgProchaineUrgence(Urgence uneUrgence) 
 	{
 		this.m_prochaineUrgence = uneUrgence;
 	}
 
 	
-	//TODO logique a revoir
-	// determine si toute les urgence on été dejas traitées ou pas
+	/**
+	* 
+	* Test si il existe toujours une urgence a traitee
+	*
+	* @return true si une urgence non traitee existe, false sinon
+	*
+	*/
 	public boolean existeUrgenceNonTraitee() 
 	{
 		boolean existeUrgenceNonTraitee = true;
@@ -81,7 +83,6 @@ public class StrategieGestion
 		return existeUrgenceNonTraitee;
 	}
 
-	// effectue les operation attendu sur une urgence
 	public void traiterUrgenceAtuelle() 
 	{
 		this.m_listeUrgenceTraitee.add(m_prochaineUrgence);
@@ -89,8 +90,5 @@ public class StrategieGestion
 		this.m_prochaineUrgence = null;
 		this.m_prochaineUrgence = this.reqProchaineUrgence();
 	}
-	
-	
-
 	
 }

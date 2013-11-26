@@ -1,3 +1,17 @@
+/**
+* Cette gere les urgence selon leur proximite
+* 
+* 
+* Permet de trier la liste des urgences selon leur proximite
+*
+*
+* @version 1.0
+*
+* @author GoTech
+*
+*
+*/
+
 package domainePartie1;
 
 import java.util.ArrayList;
@@ -10,15 +24,21 @@ public class StrategieProximite extends StrategieGestion
 		super(listeUrgence);
 	}
 	
+	/**
+	* Retourne le noeud ayant l'urgence la plus proche
+	* 
+	* @return l'urgence la plus proche
+	*
+	*/
 	public Urgence reqProchaineUrgence( Carte carte)
 	{
 		Noeud noeudPlusProche = carte.plusProche(this.reqProchaineUrgence().reqNoeudCible(), listeDesNoeudAyantUneUrgence() );
 		int trouve = 0;
 		
 		Urgence prochaineUrgence = new Urgence(noeudPlusProche);
-		for (int i = 0;((i < this.reqListeUrgence().size()) || (trouve == 0)) ; i++)
+		for (int i = 0; ((i < this.reqListeUrgence().size()) || (trouve == 0)) ; i++)
 		{
-			if(noeudPlusProche == this.reqListeUrgence().get(i).reqNoeudCible())
+			if (noeudPlusProche == this.reqListeUrgence().get(i).reqNoeudCible())
 			{
 				prochaineUrgence = this.reqListeUrgence().get(i);
 				trouve = 1;
@@ -26,11 +46,17 @@ public class StrategieProximite extends StrategieGestion
 		}
 		
 		this.asgProchaineUrgence(prochaineUrgence);
+		
 		return prochaineUrgence;
 		
 	}
 	
-	
+	/**
+	* Liste tous les noeuds ayant une urgence
+	* 
+	* @return la liste des noeuds ayant une urgence
+	*
+	*/
 	public ArrayList<Noeud> listeDesNoeudAyantUneUrgence()
 	{
 		ArrayList<Noeud> listNoeudUrgence = new ArrayList<Noeud>();
@@ -44,6 +70,7 @@ public class StrategieProximite extends StrategieGestion
 			
 		return listNoeudUrgence;
 	}
+	
 	
 	public void traiterUrgenceActuelle() 
 	{

@@ -1,8 +1,8 @@
 /**
 * Cette classe encapsule et gere les informations d'un arc reliant deux noeuds
 *
-* Permet l'asignation et la requisition d'un noeud sources et destination, 
-* permet aussi de calculer la longueur reliant ceux-ci.
+* Permet l'asignation et la requisition d'un noeud source et destination, 
+* permet aussi de calculer la longueur de l'arc reliant ceux-ci.
 *
 *
 * @version 1.0
@@ -30,6 +30,7 @@ public class Arc
 		this.initAetB();
 	}
 	
+
 	public float reqLongueur() 
 	{
 		return this.m_longueur;
@@ -45,7 +46,13 @@ public class Arc
 		return this.m_destination;
 	}
 
-	public void asgLongueur(float dist)
+	
+	/**
+	* Met a jour la longueur de l'arc avec les coordonnees actuelles
+	*
+	*
+    */
+	public void asgLongueur()
 	{
 		this.m_longueur = this.calculerLongueur();
 	}
@@ -57,6 +64,7 @@ public class Arc
 	*
 	*
 	* @param position une Position
+	*
 	*
 	* @return un booleen, vrai si la position entrer fait partie d'un arc, faux sinon
 	*
@@ -80,6 +88,7 @@ public class Arc
 	
 	/**
 	* Calcul la longueur d'un arc entre deux noeuds
+	* 
 	* 
 	* @return la longueur d'un arc en float
 	*
@@ -111,4 +120,4 @@ public class Arc
 		this.b = y1 - (x1 * this.a);
 	}
 
-}// fin classe arc
+}
