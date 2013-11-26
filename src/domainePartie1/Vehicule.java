@@ -177,7 +177,6 @@ public class Vehicule {
 		Position position = null;
 		float distance = this.m_vitesse * duree/1000;
 		if(distanceDuProchainNoeud < distance){
-			System.out.println("Dans asgNouvellePosition : La distanceAuprochainNoeud est infŽrieure ˆ celle ˆ parcourir");
 			this.arriverAuProchainNoeud();
 		}
 		else{
@@ -228,6 +227,7 @@ public class Vehicule {
 		this.angle= 0;
 		this.directionX =0;
 		this.directionY = 0;
+		this.allerPortAttache();
 	}
 	private boolean isEnTraitement(){
 		return this.en_traitement;
