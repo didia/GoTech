@@ -202,6 +202,15 @@ public class Noeud
 			return n.reqPosition().equals(this.m_position);
 		}
 		
+		/**
+		* Reinitialise les Žtats du noeud.
+		* 
+	    */
+		public void reset(){
+			this.en_attente = false;
+			this.en_traitement = false;
+			this.traitee = false;
+		}
 	}
 
 

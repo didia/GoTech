@@ -17,12 +17,14 @@ import java.util.ArrayList;
 public class GestionnaireUrgence
 {
 	private ArrayList<Urgence> m_urgencesNonTraitee;
+	private ArrayList<Urgence> m_urgencesTraitee;
 	private StrategieGestion m_strategie = null;
 	
 	
 	public GestionnaireUrgence()
 	{
 		m_urgencesNonTraitee = new ArrayList<Urgence>();
+		m_urgencesTraitee = new ArrayList<Urgence>();
 	}
 	
 	/**
@@ -35,15 +37,15 @@ public class GestionnaireUrgence
 	{
 		if (strategie.equals(Default.STRATEGIE_PROX))
 		{
-			m_strategie = new StrategieProximite(m_urgencesNonTraitee);
+			m_strategie = new StrategieProximite(m_urgencesNonTraitee, m_urgencesTraitee);
 		}
 		else if (strategie.equals(Default.STRATEGIE_MIN))
 		{
-			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee);
+			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee, m_urgencesTraitee);
 		}
 		else
 		{
-			m_strategie = new StrategieAnciennete(m_urgencesNonTraitee);
+			m_strategie = new StrategieAnciennete(m_urgencesNonTraitee, m_urgencesTraitee);
 		}	
 	}
 	
@@ -100,5 +102,11 @@ public class GestionnaireUrgence
 	public void traiterUrgenceActuelle()
 	{
 		m_strategie.traiterUrgenceAtuelle();
+	}
+	
+	public void reset(){
+		this.m_urgencesNonTraitee.clear();
+		this.m_urgencesNonTraitee.clear();
+		this.m_strategie = null;
 	}
 }

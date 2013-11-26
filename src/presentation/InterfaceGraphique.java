@@ -492,6 +492,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconStopSim.setEnabled(false);
 			m_simulateur.terminerSimulation();
+			m_carteGraphique.repaint();
 		}
 	}
 

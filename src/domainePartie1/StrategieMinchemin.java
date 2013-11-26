@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class StrategieMinchemin extends StrategieGestion
 {
-	public StrategieMinchemin(ArrayList<Urgence> listeUrgence)
+	public StrategieMinchemin(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee)
 	{
-		super(listeUrgence);
+		super(listeUrgence, listeUrgenceTraitee);
 	}
 
 	public Urgence reqUrgenceAcctuelle()

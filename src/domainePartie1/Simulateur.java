@@ -58,8 +58,15 @@ public class Simulateur implements MouseInputListener {
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
 		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement(), m_parametres.reqRetourPointAttache() );
 		
-
 	}
+	
+	public void terminerSimulation() 
+	{
+		m_carte.resetEtatNoeud();
+		this.m_gestionnaireUrgence.reset();
+		m_vehicule.reset();
+	}
+	
 	public boolean isStrategieCourante(String strategie)
 	{
 		return m_parametres.reqStrategie().equals(strategie);	
@@ -252,10 +259,6 @@ public class Simulateur implements MouseInputListener {
 	
 	public void deplacerVehiculeUrgence(int duree){
 		m_vehicule.avance(duree);
-	}
-	public void terminerSimulation() 
-	{
-		m_vehicule.allerPortAttache();
 	}
 
 	public void declencherUrgence(Noeud noeud) 

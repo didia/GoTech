@@ -20,9 +20,9 @@ import java.util.ArrayList;
 public class StrategieAnciennete extends StrategieGestion 
 {
 
-	public StrategieAnciennete(ArrayList<Urgence> listeUrgence) 
+	public StrategieAnciennete(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listUrgenceTraitee) 
 	{
-		super(listeUrgence);
+		super(listeUrgence, listUrgenceTraitee);
 	}
 	
 	

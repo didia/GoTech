@@ -15,9 +15,10 @@ public class Vehicule {
 	private Noeud m_noeudDestination = null;
 	private Carte m_gps;
 	private ArrayList<Noeud> m_itineraireActuel = null;
+	private float m_kilometrage = 0;
 
 	private float distanceDuProchainNoeud;
-	private boolean en_traitement;
+	private boolean en_traitement = false;
 	private int m_tempsTraitementUrgence = 10;
 	private int compteurTempsTraitement = 0;
 	private float directionX;
@@ -269,5 +270,13 @@ public class Vehicule {
 	private boolean isEnTraitement(){
 		return this.en_traitement;
 
+	}
+	public void reset(){
+		this.asgNoeudActuel(m_portAttache);
+		this.m_kilometrage = 0;
+		this.en_traitement = false;
+		this.angle = 0;
+		this.m_itineraireActuel = null;
+		
 	}
 }

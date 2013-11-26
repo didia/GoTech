@@ -38,6 +38,20 @@ public class Carte
 		m_listeDeNoeuds = new ArrayList<Noeud>();
 		m_listeArcs = new ArrayList<Arc>();
 	}
+	
+	/**
+	* Ajoute un noeud a la carte
+	*
+	*
+	* @param position une Position
+	* 
+	*
+    */
+	public void ajouterNoeud(Position position)
+	{
+		Noeud nouveauNoeud = new Noeud(position);
+		this.m_listeDeNoeuds.add(nouveauNoeud);
+	}
 
 	
 	/**
@@ -59,19 +73,7 @@ public class Carte
 	}
 
 	
-	/**
-	* Ajoute un noeud a la carte
-	*
-	*
-	* @param position une Position
-	* 
-	*
-    */
-	public void ajouterNoeud(Position position)
-	{
-		Noeud nouveauNoeud = new Noeud(position);
-		this.m_listeDeNoeuds.add(nouveauNoeud);
-	}
+
 
 	
 	/**
@@ -406,6 +408,19 @@ public class Carte
 		}
 		
 		return chemin;
+	}
+	
+	/**
+	* Remet les noeuds ˆ l'Žtat initial
+	*
+	*
+	* 
+    */	
+	
+	public void resetEtatNoeud(){
+		for(Noeud noeud: this.m_listeDeNoeuds){
+			noeud.reset();
+		}
 	}
 
 }
