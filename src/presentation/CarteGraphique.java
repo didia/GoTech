@@ -41,8 +41,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	private static Afficheur m_afficheur;
 	private static  Simulateur m_simulateur;
 	private JScrollPane viewport;
-	private JPopupMenu noeudPopup;
-	private static final String SUPPRIMER_NOEUD = "Supprimer";
+    private static final String SUPPRIMER_NOEUD = "Supprimer";
 
 	
 	//Constructeur
@@ -59,7 +58,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		addMouseMotionListener(this);
 		
 		this.viewport = (JScrollPane)getParent();
-		noeudPopup = new JPopupMenu();
+        JPopupMenu noeudPopup = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("Supprimer");
 		menuItem.setActionCommand(SUPPRIMER_NOEUD);
 		menuItem.addActionListener(new ActionListener()

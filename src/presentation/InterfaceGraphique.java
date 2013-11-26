@@ -38,10 +38,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private Timer m_timer;
 	
 	private static Simulateur m_simulateur;
-	private Menu menu;
-	private CarteGraphique m_carteGraphique;
-	private Afficheur m_afficheur;
-	private ArrayList<JButton> m_listeEditButtons;
+    private CarteGraphique m_carteGraphique;
+    private ArrayList<JButton> m_listeEditButtons;
 	
 	private JPanel m_panneauEdition;
 	private JPanel m_outilPanel;
@@ -90,7 +88,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	{
 		//Initialisation
 		super("Intervensim");
-		m_afficheur = p_afficheurGraphique;
+        Afficheur m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
 
 		ImageIcon iconSave = reqResizedIcon(reqIcon(Default.SAVE_ICON_PATH), 20,20);
@@ -355,7 +353,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		getContentPane().add(scroller);
 
 		// Ajout du menu et de la barre des buttons
-		menu = new Menu();
+        Menu menu = new Menu();
 		this.setJMenuBar(menu);
 
 
@@ -477,8 +475,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			this.playBouton.setPressedIcon(iconPAUSE);
 			this.playBouton.setIcon(iconPLAYS);
 			this.playBouton.setActionCommand(PLAY);
-			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
-			this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
+			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
+			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
+			this.iconPlaySim.setActionCommand(PLAY);
 		}
 		else if (command.equals(TERMINER))
 		{

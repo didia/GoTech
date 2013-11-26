@@ -56,7 +56,7 @@ public class Simulateur implements MouseInputListener {
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
-		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement() );
+		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement(), m_parametres.reqRetourPointAttache() );
 		
 
 	}
@@ -106,7 +106,7 @@ public class Simulateur implements MouseInputListener {
 	public float reqTempsTraitement(){
 		return m_parametres.reqTempsTraitement();
 	}
-	public void asgTempsTraitement(int m_tempsTraitement){
+	public void asgTempsTraitement(float m_tempsTraitement){
 		m_parametres.asgTempsTraitement(m_tempsTraitement);
 	}
 	

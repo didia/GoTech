@@ -149,8 +149,8 @@ public class ParametrePanel extends JPanel {
 
 		return Integer.parseInt(echelle.getText());
 	}
-	public int reqTempsTraitement(){
-		return Integer.parseInt(tempsTraitement.getText());
+	public float reqTempsTraitement(){
+		return Float.parseFloat(tempsTraitement.getText());
 	}
 
 }
