@@ -65,23 +65,30 @@ public class StrategiePriorite extends StrategieGestion
 	// en ajoutant, on ordonne la liste selon la strategie priorit�
 	public void ajouterUrgence(Urgence urgenceAajouter) 
 	{
+		
 		ArrayList<Urgence> listTemp = this.reqListeUrgence();
-		int priorite = urgenceAajouter.reqPriorite();
-		int debut = 0;
-		int size = listTemp.size();
-		int fin = size - 1;
-		int middle = size/2;
-		while(debut != fin){
-			if(priorite <= listTemp.get(middle).reqPriorite()){
-				fin = middle;
-				middle = (debut + fin)/2;
-			}
-			else{
-				debut = middle;
-				middle = (debut + fin)/2;
-			}
+		if(listTemp.isEmpty()){
+			listTemp.add(urgenceAajouter);
+			
 		}
-		listTemp.add(debut, urgenceAajouter);
+		else{
+			int priorite = urgenceAajouter.reqPriorite();
+			int debut = 0;
+			int size = listTemp.size();
+			int fin = size - 1;
+			int middle = size/2;
+			while(debut != fin){
+				if(priorite <= listTemp.get(middle).reqPriorite()){
+					fin = middle;
+					middle = (debut + fin)/2;
+				}
+				else{
+					debut = middle;
+					middle = (debut + fin)/2;
+				}
+			}
+			listTemp.add(debut, urgenceAajouter);
+		}
 		
 	}
 	
