@@ -18,8 +18,8 @@ class EtatDEdition implements Etat {
 	public void mouseClicked(MouseEvent e) {
 		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
 		if (noeud_selectione == null){
-			System.out.println("Un arc selectioné");
 			arc_selectione = m_simulateur.reqArc(e.getX(), e.getY());
+			System.out.println("Un arc selectioné "+ (arc_selectione != null));
 		}
 		
 	}
@@ -65,6 +65,13 @@ class EtatDEdition implements Etat {
 	}
 	public Arc reqArcSelectione(){
 		return arc_selectione;
+	}
+	
+	public void asgNoeudSelectione(Noeud noeud){
+		noeud_selectione = noeud;
+	}
+	public void asgArcSelectione(Arc arc){
+		arc_selectione = arc;
 	}
 	
 

@@ -22,7 +22,7 @@ public class EtatAjouterArc extends EtatDEdition{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		mousePressed(e);
+		super.mouseClicked(e);
 		
 	}
 
@@ -51,7 +51,7 @@ public class EtatAjouterArc extends EtatDEdition{
 
 			
 			if (noeud != null){
-				System.out.println("Noeud trouvé");
+				
 				if(noeud_selectione == null){
 					noeud_selectione = noeud;
 					
@@ -59,9 +59,11 @@ public class EtatAjouterArc extends EtatDEdition{
 				else{
 					
 					
+					if(!noeud_selectione.equals(noeud)){
+						m_simulateur.ajouterArc(noeud_selectione, noeud);
+						noeud_selectione = null;
+					}
 					
-					m_simulateur.ajouterArc(noeud_selectione, noeud);
-					noeud_selectione = null;
 				}
 		
 			}

@@ -185,7 +185,7 @@ public class Simulateur implements MouseInputListener {
 	public void supprimer_component() 
 	{
 		Noeud noeud = m_etat.reqNoeudSelectione();
-
+		System.out.println("Entrain de supprimer un noeud");
 		if (noeud != null) 
 		{
 			System.out.println("Entrain de supprimer un noeud");

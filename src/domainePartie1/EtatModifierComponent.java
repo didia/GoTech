@@ -10,22 +10,13 @@ import java.awt.event.MouseEvent;
 public class EtatModifierComponent extends EtatDEdition {
 
 
-	private static Noeud noeud_selectione = null;
-	private static Arc arc_selectione = null;
+
 	
 	public EtatModifierComponent(Simulateur simulateur){
 		super(simulateur);
 	}
 	
 	
-		
-	
-	public Noeud reqNoeudSelectione(){
-		return noeud_selectione;
-	}
-	public Arc reqArcSelectione(){
-		return arc_selectione;
-	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
@@ -47,7 +38,7 @@ public class EtatModifierComponent extends EtatDEdition {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
-		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
+		this.asgNoeudSelectione(m_simulateur.reqNoeud(e.getX(), e.getY()));
 		
 	
 		
@@ -63,7 +54,7 @@ public class EtatModifierComponent extends EtatDEdition {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		
-		m_simulateur.deplacerNoeud(noeud_selectione, e.getX(), e.getY());
+		m_simulateur.deplacerNoeud(this.reqNoeudSelectione(), e.getX(), e.getY());
 		
 	}
 
