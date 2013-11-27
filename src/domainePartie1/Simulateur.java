@@ -59,11 +59,23 @@ public class Simulateur implements MouseInputListener {
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
-		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement() );
-//		m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
-//		m_statistiques.afficherResultat(m_vehicule.reqVistess());
+
+		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement(), m_parametres.reqRetourPointAttache() );
+		//TODO
+//m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
+//m_statistiques.afficherResultat(m_vehicule.reqVistess());
+
 
 	}
+	
+	public void terminerSimulation() 
+	{
+		m_carte.resetEtatNoeud();
+		this.m_gestionnaireUrgence.reset();
+		m_vehicule.reset();
+		this.setEtatSelectioneur();
+	}
+	
 	public boolean isStrategieCourante(String strategie)
 	{
 		return m_parametres.reqStrategie().equals(strategie);	
@@ -110,7 +122,7 @@ public class Simulateur implements MouseInputListener {
 	public float reqTempsTraitement(){
 		return m_parametres.reqTempsTraitement();
 	}
-	public void asgTempsTraitement(int m_tempsTraitement){
+	public void asgTempsTraitement(float m_tempsTraitement){
 		m_parametres.asgTempsTraitement(m_tempsTraitement);
 	}
 	
@@ -181,7 +193,7 @@ public class Simulateur implements MouseInputListener {
 	public void supprimer_component() 
 	{
 		Noeud noeud = m_etat.reqNoeudSelectione();
-
+		System.out.println("Entrain de supprimer un noeud");
 		if (noeud != null) 
 		{
 			System.out.println("Entrain de supprimer un noeud");
@@ -256,10 +268,6 @@ public class Simulateur implements MouseInputListener {
 	
 	public void deplacerVehiculeUrgence(int duree){
 		m_vehicule.avance(duree);
-	}
-	public void terminerSimulation() 
-	{
-		m_vehicule.allerPortAttache();
 	}
 
 	public void declencherUrgence(Noeud noeud) 

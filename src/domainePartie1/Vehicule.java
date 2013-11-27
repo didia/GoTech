@@ -8,6 +8,7 @@ public class Vehicule {
 	private static Vehicule m_vehicule = new Vehicule();
 	private Noeud m_portAttache = null;
 	private float m_vitesse = 0;
+	private boolean m_retourPointAttache;
 	private Position m_position = null;
 	private Noeud m_noeudActuel = null;
 	private Arc m_arcActuel = null;
@@ -15,10 +16,13 @@ public class Vehicule {
 	private Noeud m_noeudDestination = null;
 	private Carte m_gps;
 	private ArrayList<Noeud> m_itineraireActuel = null;
+	private float m_kilometrage = 0;
 
 	private float distanceDuProchainNoeud;
+
 	private float distanceparcourue;
-	private boolean en_traitement;
+	
+	private boolean en_traitement = false;
 	private int m_tempsTraitementUrgence = 10;
 	private int compteurTempsTraitement = 0;
 	private int 	 tempsAttente;
@@ -46,12 +50,13 @@ public class Vehicule {
 	}
 
 	
-	public void lancerMission(GestionnaireUrgence gestionnaire, Carte gps, float vitesse, float tempsTraitement){
+	public void lancerMission(GestionnaireUrgence gestionnaire, Carte gps, float vitesse, float tempsTraitement, boolean retour){
 
 		m_gestionnaireUrgence = gestionnaire;
 		m_vitesse = (vitesse * 1000)/3600;
 		m_gps = gps;
 		m_tempsTraitementUrgence = Math.round(tempsTraitement*60);
+		m_retourPointAttache =retour;
 	}
 
 	public void asgPointAttache(Noeud noeud) {
@@ -150,6 +155,16 @@ public class Vehicule {
 					}
 				
 				}
+				else{
+					if(m_retourPointAttache && !isNoeudActuelPortAttache()){
+						m_noeudDestination = m_portAttache;
+						this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
+						if(!this.m_itineraireActuel.isEmpty()){
+							this.declencherMission();
+							this.poursuisChemin(duree);
+						}
+					}
+				}
 
 			}
 		}
@@ -213,49 +228,73 @@ public class Vehicule {
 		this.asgNoeudActuel(noeud);
 		this.m_itineraireActuel.remove(noeud);
 		distanceDuProchainNoeud = 0;
+
+		if(this.isDestinationAtteinte()){
+			if(this.isNoeudActuelEnUrgence()){
+				this.entreEnTraitement();
+				this.m_gestionnaireUrgence.traiterUrgenceActuelle();
+				
+				System.out.println("vitesse"+m_vitesse);
+				System.out.println("distance"+distanceparcourue);
+				tempsAttente = (int)(distanceparcourue / m_vitesse) + m_tempsTraitementUrgence;
+				System.out.println("temp d'Attente"+ tempsAttente);
 		
-		if((m_noeudActuel.reqPosition().reqPositionX() == m_noeudDestination.reqPosition().reqPositionX()) &&
-				(m_noeudActuel.reqPosition().reqPositionY() == m_noeudDestination.reqPosition().reqPositionY())){
-			this.entreEnTraitement();
-			this.m_gestionnaireUrgence.traiterUrgenceActuelle();
-			
-//			
-//				System.out.println("vitesse"+m_vitesse);
-//				System.out.println("distance"+distanceparcourue);
-//				tempsAttente = (int)(distanceparcourue / m_vitesse) + m_tempsTraitementUrgence;
-//				System.out.println("temp d'Attente"+ tempsAttente);
-//		
 			tempsAttente  = 0;
+
+			}
+			else{
+				this.idle();
+			}
+			
 		}
-		
 		else{
 			this.declencherMission();
 		}
 	
 	}
-	
+	private boolean isDestinationAtteinte(){
+		return this.m_noeudDestination.equals(m_noeudActuel);
+	}
+	private boolean isNoeudActuelEnUrgence(){
+		if(m_noeudActuel == null || m_gestionnaireUrgence.reqProchainNoeudATraite() == null){
+			return false;
+		}
+		return m_noeudActuel.equals(m_gestionnaireUrgence.reqProchainNoeudATraite());
+	}
 	private void entreEnTraitement(){
 		this.en_traitement = true;
 		this.m_noeudActuel.setEnTraitement();
 		this.angle = 0;
 	}
-	private void finirTraitement(){
-		
-		m_noeudActuel.setTraitee();
+	private void idle(){
 		this.m_itineraireActuel = null;
 		this.m_noeudDestination = null;
-		this.compteurTempsTraitement = 0;
-		this.en_traitement = false;
 		this.angle= 0;
 		this.directionX =0;
 		this.directionY = 0;
-		
 	}
+	private void finirTraitement(){
+		
+		m_noeudActuel.setTraitee();
+		this.compteurTempsTraitement = 0;
+		this.en_traitement = false;
+		this.idle();
+		//this.allerPortAttache();
+	}
+	
+	private boolean isNoeudActuelPortAttache(){
+		if(m_noeudActuel == null){
+			return false;
+		}
+		else{
+			return m_noeudActuel.equals(m_portAttache);
+		}
+	}
+	
 	private boolean isEnTraitement(){
 		return this.en_traitement;
 
 	}
-	
 	public int reqTempAttente()
 	{
 		return this.tempsAttente;
@@ -270,4 +309,14 @@ public class Vehicule {
 		return this.distanceparcourue;
 	}
 	
+
+	public void reset(){
+		this.asgNoeudActuel(m_portAttache);
+		this.m_kilometrage = 0;
+		this.en_traitement = false;
+		this.angle = 0;
+		this.m_itineraireActuel = null;
+		
+	}
+
 }

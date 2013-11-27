@@ -82,6 +82,14 @@ public class Arc
 		{
 			return true;
 		}
+		else{
+			c1 = (position.reqPositionY() - this.b)/this.a;
+			c2 = y;
+			circle = (x-c1)*(x-c1) + (y-c2)*(y-c2);
+			if(circle <= 3 * 3){
+				return true;
+			}
+		}
 		return false;
 	}
 

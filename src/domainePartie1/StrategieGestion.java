@@ -26,11 +26,11 @@ public class StrategieGestion
 	private Itineraire m_itineraire;
 
 	
-	public StrategieGestion(ArrayList<Urgence> list_urgence) 
+	public StrategieGestion(ArrayList<Urgence> listUrgence, ArrayList<Urgence> listUrgenceTraitee) 
 	{
-		this.m_listeUrgence = list_urgence;
+		this.m_listeUrgence = listUrgence;
 		this.m_prochaineUrgence =null;
-		this.m_listeUrgenceTraitee = new ArrayList<Urgence>();
+		this.m_listeUrgenceTraitee = listUrgenceTraitee;
 	}
 	
 	public Urgence reqProchaineUrgence() 

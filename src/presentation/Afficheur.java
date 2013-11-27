@@ -237,31 +237,18 @@ public class Afficheur
 			
 			double locationX = img.getWidth() / 2;
 			double locationY = img.getHeight() / 2;
-			AffineTransform tx = AffineTransform.getRotateInstance(direction, locationX-1, locationY+1);
+			AffineTransform tx = AffineTransform.getRotateInstance(direction, locationX, locationY);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 			
 
 			// Drawing the rotated image at the required drawing locations
 			
-			g2d.drawImage(op.filter(img, null).getScaledInstance(WIDTH_NOEUD*2, WIDTH_NOEUD*2, Image.SCALE_SMOOTH), (int)a, (int)b,WIDTH_NOEUD*2,WIDTH_NOEUD*2, null);
+			g2d.drawImage(op.filter(img, null).getScaledInstance(WIDTH_NOEUD*2, WIDTH_NOEUD*2, Image.SCALE_SMOOTH), (int)a, (int)b,(WIDTH_NOEUD*2)+2,(WIDTH_NOEUD*2)+2, null);
 			//g2d.drawImage(img, (int) a, (int) b, 50, 50, null);
 			
 					
 		}
 	}
-	
-	/*public static BufferedImage rotate(BufferedImage image, double angle) {
-	    double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
-	    int w = image.getWidth(), h = image.getHeight();
-	    int neww = (int)Math.floor(w*cos+h*sin), newh = (int)Math.floor(h*cos+w*sin);
-	    GraphicsConfiguration gc = getDefaultConfiguration();
-	    BufferedImage result = gc.createCompatibleImage(neww, newh, Transparency.TRANSLUCENT);
-	    Graphics2D g = result.createGraphics();
-	    g.translate((neww-w)/2, (newh-h)/2);
-	    g.rotate(angle, w/2, h/2);
-	    g.drawRenderedImage(image, null);
-	    g.dispose();
-	    return result;
-	}*/
+
 
 }
