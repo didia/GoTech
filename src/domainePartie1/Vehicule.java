@@ -18,10 +18,11 @@ public class Vehicule {
 	private ArrayList<Noeud> m_itineraireActuel = null;
 	private float m_kilometrage = 0;
 
+	private Resultats m_statistiques;
 	private float distanceDuProchainNoeud;
 
-	private float distanceparcourue;
-	
+	private float distanceparcourue = 0;
+
 	private boolean en_traitement = false;
 	private int m_tempsTraitementUrgence = 10;
 	private int compteurTempsTraitement = 0;
@@ -124,8 +125,9 @@ public class Vehicule {
 		// ne tiens pas encore compte du chemin
 
 		if(this.isEnTraitement()){
-			compteurTempsTraitement += duree;
 			
+			compteurTempsTraitement += duree;
+
 			if(compteurTempsTraitement == this.m_tempsTraitementUrgence * 1000){
 				this.finirTraitement();
 				
@@ -140,7 +142,7 @@ public class Vehicule {
 			}
 			else{
 				compteurTempsTraitement += duree;
-				//System.out.println(compteurTempsTraitement);
+				
 				m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite();
 				
 				if(m_noeudDestination != null){
@@ -149,8 +151,8 @@ public class Vehicule {
 					{
 						this.declencherMission();
 						this.poursuisChemin(duree);
-						tempsAttente = (int)(distanceparcourue / m_vitesse) + m_tempsTraitementUrgence;
-						
+						tempsAttente = (int) (distanceparcourue / m_vitesse)+(compteurTempsTraitement/1000);
+		
 					}
 				
 				}
@@ -205,6 +207,8 @@ public class Vehicule {
 		float distance = this.m_vitesse * duree/1000;
 		
 		distanceparcourue +=distance;
+
+		
 			if(distanceDuProchainNoeud < distance){
 			this.arriverAuProchainNoeud();
 		
@@ -234,13 +238,12 @@ public class Vehicule {
 				this.entreEnTraitement();
 				this.m_gestionnaireUrgence.traiterUrgenceActuelle();
 				
-				System.out.println("vitesse"+m_vitesse);
-				System.out.println("distance"+distanceparcourue);
-				tempsAttente = (int)(distanceparcourue / m_vitesse) + m_tempsTraitementUrgence;
-				System.out.println("temp d'Attente"+ tempsAttente);
-		
-			tempsAttente  = 0;
+					
+					 m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
+					 m_statistiques.afficherResultat(m_vehicule.reqVistess());
 
+
+				
 			}
 			else{
 				this.idle();
@@ -275,12 +278,12 @@ public class Vehicule {
 		this.directionY = 0;
 	}
 	private void finirTraitement(){
-		
+		//TODO
 		m_noeudActuel.setTraitee();
 		this.compteurTempsTraitement = 0;
 		this.en_traitement = false;
 		this.idle();
-		//this.allerPortAttache();
+		
 	}
 	
 	private boolean isNoeudActuelPortAttache(){
@@ -292,7 +295,7 @@ public class Vehicule {
 		}
 	}
 	
-	private boolean isEnTraitement(){
+	public boolean isEnTraitement(){
 		return this.en_traitement;
 
 	}

@@ -7,8 +7,6 @@ import java.util.Timer;
 
 import javax.swing.event.MouseInputListener;
 
-
-
 public class Simulateur implements MouseInputListener {
 
 	private static Carte m_carte = new Carte();
@@ -18,19 +16,15 @@ public class Simulateur implements MouseInputListener {
 	private static Echelle m_echelle = new Echelle();
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
 	private Parametres m_parametres = new Parametres();
-	
-	
-	private Resultats m_statistiques ;
-	
-	
-	private  GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
+
+	private Resultats m_statistiques;
+	int tempattente ;
+
+	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
 
 	private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
-
-
 	public Simulateur() {
-		
 
 	}
 
@@ -46,12 +40,11 @@ public class Simulateur implements MouseInputListener {
 		m_etat = new EtatModifierComponent(this);
 	}
 
-	public void setEtatPlacerVehicule() 
-	{
+	public void setEtatPlacerVehicule() {
 		m_etat = new EtatPlacerVehicule(this);
 	}
-	public void setEtatAjouterUregence() 
-	{
+
+	public void setEtatAjouterUregence() {
 		m_etat = new EtatAjouterUrgence(this);
 	}
 
@@ -59,249 +52,224 @@ public class Simulateur implements MouseInputListener {
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
-		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement(), m_parametres.reqRetourPointAttache() );
-		
-		//TODO
-//m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
-//m_statistiques.afficherResultat(m_vehicule.reqVistess());
-
-
-	}
+		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte,
+				m_parametres.reqVitesseVehicule(),
+				m_parametres.reqTempsTraitement(),
+				m_parametres.reqRetourPointAttache());
 	
-	public void terminerSimulation() 
-	{
+	}
+
+	public void terminerSimulation() {
 		m_carte.resetEtatNoeud();
 		this.m_gestionnaireUrgence.reset();
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
 	}
-	
-	public boolean isStrategieCourante(String strategie)
-	{
-		return m_parametres.reqStrategie().equals(strategie);	
+
+	public boolean isStrategieCourante(String strategie) {
+		return m_parametres.reqStrategie().equals(strategie);
 	}
-	public String reqStrategieCourante()
-	{
+
+	public String reqStrategieCourante() {
 		return m_parametres.reqStrategie();
 	}
-	public void asgStrategie(String strategie)
-	{
+
+	public void asgStrategie(String strategie) {
 		m_parametres.asgStrategie(strategie);
 	}
-	public float reqVitesseVehicule()
-	{
+
+	public float reqVitesseVehicule() {
 		return m_parametres.reqVitesseVehicule();
 	}
-	public void asgVitesseVehicule(float vitesse)
-	{
-		if (vitesse > 0)
-		{
+
+	public void asgVitesseVehicule(float vitesse) {
+		if (vitesse > 0) {
 			m_parametres.asgVitesseVehicule(vitesse);
 		}
 	}
-	public boolean isretourPointAttache()
-	{
+
+	public boolean isretourPointAttache() {
 		return m_parametres.reqRetourPointAttache();
 	}
-	public void asgRetourPointAttache(boolean flag)
-	{
+
+	public void asgRetourPointAttache(boolean flag) {
 		m_parametres.asgRetourPointAttache(flag);
 	}
-	public int reqMetreParStep()
-	{
+
+	public int reqMetreParStep() {
 		return m_echelle.reqMetreParStep();
 	}
-	public void asgMetreParStep(int value)
-	{
-		if (value  > 0)
-		{
+
+	public void asgMetreParStep(int value) {
+		if (value > 0) {
 			m_echelle.setMetreParStep(value);
-		    updaterCarte();
+			updaterCarte();
 		}
 	}
-	public float reqTempsTraitement(){
+
+	public float reqTempsTraitement() {
 		return m_parametres.reqTempsTraitement();
 	}
-	public void asgTempsTraitement(float m_tempsTraitement){
+
+	public void asgTempsTraitement(float m_tempsTraitement) {
 		m_parametres.asgTempsTraitement(m_tempsTraitement);
 	}
-	
-	public Carte reqCarte() 
-	{
+
+	public Carte reqCarte() {
 		return m_carte;
 	}
+
 	
-	public void ajouterNoeud(int positionX, int positionY) 
-	{
+	public void ajouterNoeud(int positionX, int positionY) {
 		Position position = new Position((float) positionX, (float) positionY);
 		position = m_grille.reqPositionEnMetre(position);
-		if (m_carte.reqNoeud(position) == null) 
-		{
+		if (m_carte.reqNoeud(position) == null) {
 			m_carte.ajouterNoeud(position);
-		}	
-		
+		}
 
-		} 
+	}
 
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) 
-	{
+	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
 		m_carte.ajouterArc(noeudSource, noeudDest);
 	}
 
-	public Noeud reqNoeud(int positionX, int positionY) 
-	{
-		return m_carte.reqNoeud(m_grille.reqPositionEnMetre(new Position((float) positionX, (float) positionY)));
+	public Noeud reqNoeud(int positionX, int positionY) {
+		return m_carte.reqNoeud(m_grille.reqPositionEnMetre(new Position(
+				(float) positionX, (float) positionY)));
 	}
 
-	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) 
-	{
-		Position nouvellePosition = new Position((float) positionX, (float) positionY);
+	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) {
+		Position nouvellePosition = new Position((float) positionX,
+				(float) positionY);
 		nouvellePosition = m_grille.reqPositionEnMetre(nouvellePosition);
-		
-		if (nouvellePosition.reqPositionX() >= 0 && nouvellePosition.reqPositionY() >= 0)
-		{
+
+		if (nouvellePosition.reqPositionX() >= 0
+				&& nouvellePosition.reqPositionY() >= 0) {
 			m_carte.deplacerNoeud(noeud, nouvellePosition);
 		}
 	}
-	
-	public void updaterCarte()
-	{
-		for(Noeud noeud : m_carte.reqListeNoeuds())
-		{
-			m_carte.deplacerNoeud(noeud, m_grille.reqUpdatedPosition(noeud.reqPosition()));
+
+	public void updaterCarte() {
+		for (Noeud noeud : m_carte.reqListeNoeuds()) {
+			m_carte.deplacerNoeud(noeud,
+					m_grille.reqUpdatedPosition(noeud.reqPosition()));
 		}
 	}
 
-	public Arc reqArc(int positionX, int positionY) 
-	{
-		return m_carte.reqArc(m_grille.reqPositionEnMetre(new Position((float) positionX, (float) positionY)));
+	public Arc reqArc(int positionX, int positionY) {
+		return m_carte.reqArc(m_grille.reqPositionEnMetre(new Position(
+				(float) positionX, (float) positionY)));
 	}
 
-	public boolean existeComponent(int positionX, int positionY) 
-	{
-		if (this.reqNoeud(positionX, positionY) != null || this.reqArc(positionX, positionY) != null) 
-		{
+	public boolean existeComponent(int positionX, int positionY) {
+		if (this.reqNoeud(positionX, positionY) != null
+				|| this.reqArc(positionX, positionY) != null) {
 			return true;
 		}
 
-		else 
-		{
+		else {
 			return false;
 		}
 	}
 
-	public void supprimer_component() 
-	{
+	public void supprimer_component() {
 		Noeud noeud = m_etat.reqNoeudSelectione();
 		System.out.println("Entrain de supprimer un noeud");
-		if (noeud != null) 
-		{
+		if (noeud != null) {
 			System.out.println("Entrain de supprimer un noeud");
 			m_carte.enleverNoeud(noeud);
 		}
 
-		else 
-		{
+		else {
 			Arc arc = m_etat.reqArcSelectione();
-			if (arc != null) 
-			{
+			if (arc != null) {
 				System.out.println("Entrain de supprimer un arc");
 				m_carte.enleverArc(arc);
 			}
 		}
 	}
-	
-	public String reqPositionDescription(int posX, int posY)
-	{
-		Position position = m_grille.reqPositionEnMetre(new Position(posX, posY));
+
+	public String reqPositionDescription(int posX, int posY) {
+		Position position = m_grille
+				.reqPositionEnMetre(new Position(posX, posY));
 		int positionX = Math.round(position.reqPositionX());
 		int positionY = Math.round(position.reqPositionY());
-		
-		if (positionX/1000 > 1 || positionY/1000 > 1)
-		{
-			return "<html>Abscisse : "+ positionX/1000 + "Km<br/> Ordonn�e : " + positionY/1000 +"Km</html>";
+
+		if (positionX / 1000 > 1 || positionY / 1000 > 1) {
+			return "<html>Abscisse : " + positionX / 1000
+					+ "Km<br/> Ordonn�e : " + positionY / 1000 + "Km</html>";
 		}
-		return "<html>Abscisse : " + positionX + "m<br/> Ordonn�e : " + positionY + "m</html>";
+		return "<html>Abscisse : " + positionX + "m<br/> Ordonn�e : "
+				+ positionY + "m</html>";
 	}
-	
-	public Grille reqGrille() 
-	{
+
+	public Grille reqGrille() {
 		return m_grille;
 	}
-	
-	public void asgVehiculeUrgence(Noeud noeud) 
-	{
+
+	public void asgVehiculeUrgence(Noeud noeud) {
 		m_vehicule.asgPointAttache(noeud);
 	}
 
-
-	public Position reqPositionVehicule() 
-	{
+	public Position reqPositionVehicule() {
 		return m_vehicule.reqPosition();
 	}
-	public double reqDirectionVehicule(){
+
+	public double reqDirectionVehicule() {
 		return m_vehicule.reqDirection();
 	}
-	
-	
-	public float reqZoom()
-	{
+
+	public float reqZoom() {
 		return m_zoom.reqZoom();
 	}
-	
-	public String augmenteZoom()
-	{
-		return (int)(m_zoom.augmenteZoom()*100) + "%";
-	}
-	public String diminueZoom()
-	{
-		return (int)(m_zoom.diminueZoom()*100)+ "%";
+
+	public String augmenteZoom() {
+		return (int) (m_zoom.augmenteZoom() * 100) + "%";
 	}
 
-	public void supprimerUrgence(Urgence uneUrgence) 
-	{
+	public String diminueZoom() {
+		return (int) (m_zoom.diminueZoom() * 100) + "%";
+	}
+
+	public void supprimerUrgence(Urgence uneUrgence) {
 
 		m_gestionnaireUrgence.supprimerUrgence(uneUrgence);
 	}
 
-
-	
-	public void deplacerVehiculeUrgence(int duree){
+	public void deplacerVehiculeUrgence(int duree) {
 		m_vehicule.avance(duree);
 	}
 
-	public void declencherUrgence(Noeud noeud) 
-	{	if(noeud.isFree()){
+	public void declencherUrgence(Noeud noeud) {
+		if (noeud.isFree()) {
 			this.m_gestionnaireUrgence.ajouterUrgence(noeud);
 			noeud.setEnAttente();
+			 
 		}
-		
-		
+
 	}
-	
-	public Position reqPositionProchaineUrgence(){
+
+	public Position reqPositionProchaineUrgence() {
 		Urgence urgence = m_gestionnaireUrgence.reqProchaineUrgence();
-		if (urgence != null){
-			return m_gestionnaireUrgence.reqProchaineUrgence().reqNoeudCible().reqPosition();
+		if (urgence != null) {
+			return m_gestionnaireUrgence.reqProchaineUrgence().reqNoeudCible()
+					.reqPosition();
 		}
 		return null;
-		
+
 	}
 
-
-	public void SauvegarderEtatActuel() 
-	{
+	public void SauvegarderEtatActuel() {
 		if (m_etatsimu.reqListeEtatSimu().contains(this))
 			System.out.println("cette simulation a eté dejas enregistré");
 		else
 			m_etatsimu.ajouterEtatSimu(this);
 	}
 
-	public void annuler() 
-	{
-		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) 
-		{
-			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu().peek());
+	public void annuler() {
+		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) {
+			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu()
+					.peek());
 			// TODO this = m_etatsimu.reqListeEtatSimu().peek();
 			m_etatsimu.reqListeEtatSimu().poll();
 		}
@@ -310,9 +278,9 @@ public class Simulateur implements MouseInputListener {
 
 	public void retablir() {
 
-		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) 
-		{
-			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu().peek());
+		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) {
+			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu()
+					.peek());
 			// TODO this = m_etatsimu.reqListeEtatsuivantSimu().peek();
 			m_etatsimu.reqListeEtatsuivantSimu().poll();
 		}
