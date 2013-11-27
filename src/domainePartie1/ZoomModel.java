@@ -13,7 +13,7 @@ public class ZoomModel {
                     m_zoom += 0.25;
             }
             else if(m_zoom <4){
-                    m_zoom += 1;
+                    m_zoom += 0.25;
             }
                     
             return m_zoom;

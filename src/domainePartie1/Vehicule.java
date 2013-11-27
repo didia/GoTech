@@ -173,6 +173,7 @@ public class Vehicule {
 		Noeud noeud = this.m_itineraireActuel.get(0);
 		Arc arc = new Arc(m_noeudActuel, noeud);
 		distanceDuProchainNoeud = arc.reqLongueur();
+		this.m_kilometrage += distanceDuProchainNoeud;
 		float y2 = m_itineraireActuel.get(0).reqPosition().reqPositionY();
 		float x2 = m_itineraireActuel.get(0).reqPosition().reqPositionX();
 		float x1 = this.m_position.reqPositionX();
