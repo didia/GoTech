@@ -262,6 +262,7 @@ public class Vehicule {
 		return m_noeudActuel.equals(m_gestionnaireUrgence.reqProchainNoeudATraite());
 	}
 	private void entreEnTraitement(){
+		this.compteurTempsTraitement = 0;
 		this.en_traitement = true;
 		this.m_noeudActuel.setEnTraitement();
 		this.angle = 0;
@@ -316,6 +317,7 @@ public class Vehicule {
 		this.en_traitement = false;
 		this.angle = 0;
 		this.m_itineraireActuel = null;
+		this.compteurTempsTraitement = 0;
 		
 	}
 

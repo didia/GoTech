@@ -66,6 +66,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private static String REDO = "REDO";
 	private static String ADD_URGENCE = "Ajouter Urgence";
 	private static String PLAY = "Lancer simulation";
+	private static String RESUME = "Reprendre Simulation";
 	private static String PAUSE = " Pause";
 	private static String TERMINER = "Terminer";
 
@@ -459,25 +460,24 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 				button.setEnabled(false);
 			}
 		
+			this.buttonToPlay();
+			this.iconStopSim.setEnabled(true);
+			
+			m_simulateur.lancerSimulation();	
+		}
+		else if (command.equals(RESUME)){
+			m_timer.start();
 			this.playBouton.setIcon(iconPAUSE);
 			this.playBouton.setPressedIcon(iconPLAYS);
 			this.playBouton.setActionCommand(PAUSE);
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconPlaySim.setActionCommand(PAUSE);
-			this.iconStopSim.setEnabled(true);
-			
-			m_simulateur.lancerSimulation();	
 		}
 		else if (command.equals(PAUSE))
 		{
 			m_timer.stop();
-			this.playBouton.setPressedIcon(iconPAUSE);
-			this.playBouton.setIcon(iconPLAYS);
-			this.playBouton.setActionCommand(PLAY);
-			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
-			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
-			this.iconPlaySim.setActionCommand(PLAY);
+			this.buttonToPause();
 		}
 		else if (command.equals(TERMINER))
 		{
@@ -488,12 +488,33 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			}
 			this.playBouton.setPressedIcon(iconPAUSE);
 			this.playBouton.setIcon(iconPLAYS);
+			this.playBouton.setActionCommand(PLAY);
 			this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
+			this.iconPlaySim.setActionCommand(PLAY);
 			this.iconStopSim.setEnabled(false);
 			m_simulateur.terminerSimulation();
 			m_carteGraphique.repaint();
 		}
 	}
+	
+	public void buttonToPlay(){
+		this.playBouton.setIcon(iconPAUSE);
+		this.playBouton.setPressedIcon(iconPLAYS);
+		this.playBouton.setActionCommand(PAUSE);
+		this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
+		this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
+		this.iconPlaySim.setActionCommand(PAUSE);
+	}
+	public void buttonToPause(){
+		this.playBouton.setIcon(iconPLAYS);
+		this.playBouton.setPressedIcon(iconPAUSE);
+		this.playBouton.setActionCommand(RESUME);
+		this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
+		this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
+		
+		this.iconPlaySim.setActionCommand(RESUME);
+	}
+	
 
 }

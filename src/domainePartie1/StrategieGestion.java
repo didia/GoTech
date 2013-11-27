@@ -91,4 +91,11 @@ public class StrategieGestion
 		this.m_prochaineUrgence = this.reqProchaineUrgence();
 	}
 	
+	public void trierListeUrgence(){
+		// DO NOTHING,
+		// TO BE IMPLEMENTED IN CHILDREN
+	}
+	public void ajouterUrgence(Urgence urgence){
+		
+	}
 }

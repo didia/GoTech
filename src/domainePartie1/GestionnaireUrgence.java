@@ -42,6 +42,7 @@ public class GestionnaireUrgence
 		else if (strategie.equals(Default.STRATEGIE_MIN))
 		{
 			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee, m_urgencesTraitee);
+
 		}
 		else if (strategie.equals(Default.STRATEGIE_PRIORITE))
 		{
@@ -63,7 +64,13 @@ public class GestionnaireUrgence
     */
 	public void ajouterUrgence(Noeud noeud)
 	{
-		m_urgencesNonTraitee.add(new Urgence(noeud));
+		if(m_strategie == null){
+			m_urgencesNonTraitee.add(new Urgence(noeud));
+		}
+		else{
+			m_strategie.ajouterUrgence(new Urgence(noeud));
+		}
+		
 		
 	}
 	
