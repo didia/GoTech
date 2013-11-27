@@ -29,19 +29,19 @@ public class StrategiePriorite extends StrategieGestion
 	}
 
 	 
-	public void traiterUrgenceActuelle() 
-	{
-		if (this.reqListeUrgence().contains(this.reqProchaineUrgence())) 
-		{
-			Urgence urgence = this.reqProchaineUrgence();
-			this.asgProchaineUrgence(urgence);
-			this.traiterUrgenceAtuelle();
-		} 
-		else
-		{
-			System.out.println("il ya plus d'ergence a Traiter");
-		}
-	}
+//	public void traiterUrgenceActuelle() 
+//	{
+//		if (this.reqListeUrgence().contains(this.reqProchaineUrgence())) 
+//		{
+//			Urgence urgence = this.reqProchaineUrgence();
+//			this.asgProchaineUrgence(urgence);
+//			this.traiterUrgenceAtuelle();
+//		} 
+//		else
+//		{
+//			System.out.println("il ya plus d'ergence a Traiter");
+//		}
+//	}
 
 	// une fonction qui trie la liste des urgences pass�e en parametre
 	public void trierListUrgence(ArrayList<Urgence> listUrgence)
@@ -61,17 +61,17 @@ public class StrategiePriorite extends StrategieGestion
 	}
 
 	// en ajoutant, on ordonne la liste selon la strategie priorit�
-	public void ajouterUrgence(Urgence urgenceAajouter) 
-	{
-		ArrayList<Urgence> listTemp = this.reqListeUrgence();
-
-		listTemp.add(urgenceAajouter);
-		if (listTemp.size() > 1) 
-		{
-			this.trierListUrgence(listTemp);
-		}
-		
-		this.asgListUrgence(listTemp);
-	}
+//	public void ajouterUrgence(Urgence urgenceAajouter) 
+//	{
+//		ArrayList<Urgence> listTemp = this.reqListeUrgence();
+//
+//		listTemp.add(urgenceAajouter);
+//		if (listTemp.size() > 1) 
+//		{
+//			this.trierListUrgence(listTemp);
+//		}
+//		
+//		this.asgListUrgence(listTemp);
+//	}
 
 }

@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
+
 import javax.swing.event.MouseInputListener;
 
 
@@ -18,7 +19,9 @@ public class Simulateur implements MouseInputListener {
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
 	private Parametres m_parametres = new Parametres();
 	
-	private Resultats m_resultat = new Resultats();
+	
+	private Resultats m_statistiques ;
+	
 	
 	private  GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
 
@@ -57,7 +60,8 @@ public class Simulateur implements MouseInputListener {
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
 		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement() );
-		
+		m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
+		m_statistiques.afficherResultat(m_vehicule.reqVistess());
 
 	}
 	public boolean isStrategieCourante(String strategie)

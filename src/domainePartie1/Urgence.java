@@ -16,7 +16,6 @@
 
 
 package domainePartie1;
-import java.util.Timer;
 public class Urgence
 {
 	private int m_heuredebut; 

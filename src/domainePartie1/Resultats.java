@@ -21,20 +21,20 @@ public class Resultats
 	private int nombreUrgence;
 	private float distanceParcourue;
 
-	public void Resultat(int p_tempstotale, int p_nbUrgences, float p_distanceParcourue )
+	public Resultats(int p_tempstotale, int p_nbUrgences, float p_distanceParcourue )
 	{
 		this.tempsTotal = p_tempstotale;
 		this.nombreUrgence = p_nbUrgences;
 		this.distanceParcourue = p_distanceParcourue;
 	}
 	
-	public void Resultat ()
+	public Resultats ()
 	{
 		this.tempsTotal = 0;
 		this.nombreUrgence = 0;
 		this.distanceParcourue = 0;
 	}
-	
+		
 	
 	/**
 	* 
@@ -55,6 +55,14 @@ public class Resultats
 	public float getDistanceParcourue()
 	{
 		return this.distanceParcourue;
+	}
+	
+	public void afficherResultat( float vitessVehicule)
+	{
+		System.out.println("Vistess du vehicule"+vitessVehicule);
+		System.out.println("temps d'Attente"+tempsTotal);
+		System.out.println("nombre d'urgence"+nombreUrgence);
+		System.out.println("distance Parcourue"+distanceParcourue);
 	}
 
 }

@@ -21,9 +21,10 @@ public class Default {
 
 	public static final String ZOOMMOINS = "-";
 	public static final String ZOOMPLUS = "+";
-	public static final String STRATEGIE_PROX = "StratŽgie de proximitŽ";
-	public static final String STRATEGIE_ANC = "StratŽgie d'anciennetŽ";
-	public static final String STRATEGIE_MIN = "StratŽgie de chemin minimal";
+	public static final String STRATEGIE_PROX = "Stratégie de proximité";
+	public static final String STRATEGIE_PRIORITE = "Stratégie de priorité";
+	public static final String STRATEGIE_ANC = "Stratégie d'ancienneté";
+	public static final String STRATEGIE_MIN = "Stratégie de chemin minimal";
 	public static final String STRATEGIE_GESTION = STRATEGIE_ANC;
 	 
 	

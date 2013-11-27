@@ -2,6 +2,7 @@ package domainePartie1;
 
 import java.util.ArrayList;
 
+
 public class Vehicule {
 
 	private static Vehicule m_vehicule = new Vehicule();
@@ -16,12 +17,15 @@ public class Vehicule {
 	private ArrayList<Noeud> m_itineraireActuel = null;
 
 	private float distanceDuProchainNoeud;
+	private float distanceparcourue;
 	private boolean en_traitement;
 	private int m_tempsTraitementUrgence = 10;
 	private int compteurTempsTraitement = 0;
+	private int 	 tempsAttente;
 	private float directionX;
 	private float directionY;
 	private double angle = 0;
+	
 	
 	
 	
@@ -117,8 +121,10 @@ public class Vehicule {
 
 		if(this.isEnTraitement()){
 			compteurTempsTraitement += duree;
+			
 			if(compteurTempsTraitement == this.m_tempsTraitementUrgence * 1000){
 				this.finirTraitement();
+				
 			}
 			
 		}
@@ -129,14 +135,18 @@ public class Vehicule {
 				this.poursuisChemin(duree);
 			}
 			else{
+				compteurTempsTraitement += duree;
+				//System.out.println(compteurTempsTraitement);
 				m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite();
-
+				
 				if(m_noeudDestination != null){
 					this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
 					if(!this.m_itineraireActuel.isEmpty())
 					{
 						this.declencherMission();
 						this.poursuisChemin(duree);
+						tempsAttente = (int)(distanceparcourue / m_vitesse) + m_tempsTraitementUrgence;
+						
 					}
 				
 				}
@@ -161,23 +171,28 @@ public class Vehicule {
 		this.directionX = (float) Math.cos(Math.atan2(y2-y1,x2-x1));
 		this.directionY = (float) Math.sin(Math.atan2(y2-y1,x2-x1));
 		this.m_noeudActuel = null;
+		
+			
 	}
 	private void poursuisChemin(int duree){
 
 		this.asgNouvellePositionVoiture(duree );
 		
-		
+			
 		
 	}
 
 	
 	private void asgNouvellePositionVoiture(int duree)
 	{
-		//TODO
+		
 		Position position = null;
 		float distance = this.m_vitesse * duree/1000;
-		if(distanceDuProchainNoeud < distance){
+		
+		distanceparcourue +=distance;
+			if(distanceDuProchainNoeud < distance){
 			this.arriverAuProchainNoeud();
+		
 		}
 		else{
 			
@@ -203,7 +218,14 @@ public class Vehicule {
 				(m_noeudActuel.reqPosition().reqPositionY() == m_noeudDestination.reqPosition().reqPositionY())){
 			this.entreEnTraitement();
 			this.m_gestionnaireUrgence.traiterUrgenceActuelle();
-
+			
+//			
+//				System.out.println("vitesse"+m_vitesse);
+//				System.out.println("distance"+distanceparcourue);
+//				tempsAttente = (int)(distanceparcourue / m_vitesse) + m_tempsTraitementUrgence;
+//				System.out.println("temp d'Attente"+ tempsAttente);
+//		
+			tempsAttente  = 0;
 		}
 		
 		else{
@@ -227,10 +249,25 @@ public class Vehicule {
 		this.angle= 0;
 		this.directionX =0;
 		this.directionY = 0;
-		this.allerPortAttache();
+		
 	}
 	private boolean isEnTraitement(){
 		return this.en_traitement;
 
 	}
+	
+	public int reqTempAttente()
+	{
+		return this.tempsAttente;
+	}
+	public int reqNombreUrgence()
+	{
+		
+		return this.m_itineraireActuel.size();
+	}
+	public float reqDistanceparcouru()
+	{
+		return this.distanceparcourue;
+	}
+	
 }
