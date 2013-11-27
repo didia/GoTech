@@ -71,6 +71,7 @@ public class Arc
     */
 	public boolean isPositionIn(Position position)
 	{
+		this.initAetB();
 		float c2 = this.a * position.reqPositionX() + this.b;
 		
 		float x = position.reqPositionX();
@@ -127,5 +128,6 @@ public class Arc
 		this.a = (y2-y1)/(x2-x1);
 		this.b = y1 - (x1 * this.a);
 	}
-
+   
+	 
 }

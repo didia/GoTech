@@ -51,7 +51,7 @@ public class Vehicule {
 
 	
 	public void lancerMission(GestionnaireUrgence gestionnaire, Carte gps, float vitesse, float tempsTraitement, boolean retour){
-
+		this.asgNoeudActuel(m_portAttache);
 		m_gestionnaireUrgence = gestionnaire;
 		m_vitesse = (vitesse * 1000)/3600;
 		m_gps = gps;
@@ -81,10 +81,9 @@ public class Vehicule {
 	public Position reqPosition()
 	{
 		if(this.m_noeudActuel != null){
-
-		
+			
 			return this.m_noeudActuel.reqPosition();
-	
+			
 		}
 		return this.m_position;
 	}

@@ -59,8 +59,8 @@ public class Simulateur implements MouseInputListener {
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
-
 		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte, m_parametres.reqVitesseVehicule(),m_parametres.reqTempsTraitement(), m_parametres.reqRetourPointAttache() );
+		
 		//TODO
 //m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
 //m_statistiques.afficherResultat(m_vehicule.reqVistess());
