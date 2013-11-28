@@ -37,6 +37,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	
 	private JPanel m_panneauEdition;
 	private JPanel m_outilPanel;
+	private JPanel m_resultPanel;
 	private ParametrePanel m_parametrePanel;
 	
     private JTextField textZoom;
@@ -230,8 +231,14 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		
 		getContentPane().add(toolbar, BorderLayout.NORTH);
 		
-		
 		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
+		m_resultPanel= new JPanel();
+		//m_outilPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
+		m_resultPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
+		getContentPane().add(m_resultPanel, BorderLayout.WEST);
+		m_resultPanel.setVisible(false);
+		
+		// DROITE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
 		m_outilPanel= new JPanel();
 		//m_outilPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
 		m_outilPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
@@ -278,7 +285,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		selectionnerBouton.setPreferredSize(new Dimension(200, 50));
 		selectionnerBouton.setActionCommand(SELECTEUR_SOURIS);
 		selectionnerBouton.addActionListener(this);
-		
+		m_listeEditButtons.add(selectionnerBouton);
 		// Placer vehicule bouton
 		JButton placerVehiculeBouton = new JButton(PUT_VEHICULE);
 		placerVehiculeBouton.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -321,6 +328,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		playBouton.setPreferredSize(new Dimension(200, 50));
 		playBouton.setActionCommand(PLAY);
 		playBouton.addActionListener(this);
+		
+		JButton resultButton = new JButton("Afficher les resultats");
+		resultButton.setPreferredSize(new Dimension(200, 50));
+		resultButton.setActionCommand("SHOW");
+		resultButton.addActionListener(this);
 		
 		m_panneauEdition.add(selectionnerBouton);
 		m_panneauEdition.add(ajouterNoeudBouton);
@@ -446,6 +458,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		{
 			m_outilPanel.setVisible(!m_outilPanel.isVisible());
 		}
+		else if (command.equals("SHOW"))
+		{
+			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
+		}
 		else if (command.equals(PLAY))
 		{
 			m_timer.start();
@@ -487,8 +503,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconPlaySim.setActionCommand(PLAY);
 			this.iconStopSim.setEnabled(false);
+			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
 			m_simulateur.terminerSimulation();
 			m_carteGraphique.repaint();
+			
+			
 		}
 	}
 	
