@@ -5,10 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
+
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Transparency;
+
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -18,26 +17,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-import javax.swing.JViewport;
+
 
 import domainePartie1.Carte;
 import domainePartie1.Grille;
 import domainePartie1.Noeud;
 import domainePartie1.Position;
 import domainePartie1.Arc;
-import domainePartie1.StrategieGestion;
-import domainePartie1.Urgence;
 import domainePartie1.Simulateur;
 import domainePartie1.Default;
 
 public class Afficheur
 {
-	private static final String NOEUD_IMAGE_PATH = Default.NOEUD_IMAGE_PATH;
+
 	private static final String VEHICULE_IMAGE_PATH = "src/"+ Default.VEHICULE_IMAGE_PATH;
 	private static final String URGENCE_IMAGE_PATH = "src/"+ Default.URGENCE_IMAGE_PATH;
 	
-	private Image m_imageDeFond;
+	// TODO private Image m_imageDeFond;
 	private Image m_ImageDeVehicule;
 	private Image m_ImageUrgence;
 	private int WIDTH_NOEUD = Default.WIDTH_NOEUD;
@@ -47,7 +43,7 @@ public class Afficheur
 	private int maxWidth = 0;
 	private int maxHeight = 0;
 	private boolean toggleUrgence = true;
-	private javax.swing.Timer urgenceToggleTimer;
+	
 
 	
 	public Afficheur() 

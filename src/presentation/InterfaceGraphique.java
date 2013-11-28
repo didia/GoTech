@@ -1,31 +1,26 @@
 package presentation;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import java.awt.ComponentOrientation;
+
 
 import java.awt.Dimension;
-import java.awt.Component;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 import domainePartie1.Default;
 import domainePartie1.Simulateur;
 
-import java.awt.Dialog.ModalityType;
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class InterfaceGraphique extends JFrame implements ActionListener 
@@ -36,6 +31,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	private Timer m_timer;
+	private Timer result_timer;
 	
 	
 	private static Simulateur m_simulateur;
@@ -44,7 +40,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	
 	private JPanel m_panneauEdition;
 	private JPanel m_outilPanel;
-	private JPanel m_resultPanel;
+	private StatPanel m_resultPanel;
 	private ParametrePanel m_parametrePanel;
 	
     private JTextField textZoom;
@@ -239,7 +235,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		getContentPane().add(toolbar, BorderLayout.NORTH);
 		
 		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
-		m_resultPanel= new JPanel();
+		m_resultPanel= new StatPanel(m_simulateur);
 		//m_outilPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
 		m_resultPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
 		getContentPane().add(m_resultPanel, BorderLayout.WEST);
@@ -383,6 +379,14 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	            
 	          }
 	          });
+		result_timer = new Timer(2000, new ActionListener(){
+			 public void actionPerformed(ActionEvent e) 
+	          {
+	        	  
+	              m_resultPanel.afficherResultat();
+	            
+	          }
+		});
 		
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -472,11 +476,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		else if (command.equals(PLAY))
 		{
 			m_timer.start();
+			result_timer.start();
+			m_resultPanel.setVisible(true);
 			for (JButton button : this.m_listeEditButtons)
 			{
 				button.setEnabled(false);
 			}
-		
+			
 			this.buttonToPlay();
 			this.iconStopSim.setEnabled(true);
 			
@@ -499,6 +505,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		else if (command.equals(TERMINER))
 		{
 			m_timer.stop();
+			result_timer.stop();
 			for (JButton button : this.m_listeEditButtons)
 			{
 				button.setEnabled(true);
@@ -510,7 +517,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconPlaySim.setActionCommand(PLAY);
 			this.iconStopSim.setEnabled(false);
-			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
+			JOptionPane.showOptionDialog(this, m_resultPanel, "Resultats de la Simulation", 
+					JOptionPane.OK_OPTION,
+					JOptionPane.PLAIN_MESSAGE, 
+					null, null, null);
 			m_simulateur.terminerSimulation();
 			m_carteGraphique.repaint();
 			

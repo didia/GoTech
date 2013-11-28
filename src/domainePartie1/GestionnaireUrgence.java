@@ -156,6 +156,9 @@ public class GestionnaireUrgence
 	public int reqTempsAttenteMoyen(){
 		int tempsTotal = 0;
 		int nombreUrgence = m_urgencesNonTraitee.size() + m_urgencesTraitee.size();
+		if (nombreUrgence == 0){
+			return 0;
+		}
 		for(Urgence urgence : m_urgencesNonTraitee)
 		{
 			tempsTotal += urgence.reqtempsAttente();

@@ -22,7 +22,7 @@ public class Itineraire
 {
 	private ArrayList<Arc> m_listeArcs;
 	private float m_longueur;
-	private Carte m_carte;
+
 	
 
 	public Itineraire ()

@@ -15,6 +15,8 @@
 
 package domainePartie1;
 
+import java.text.DecimalFormat;
+
 public class Resultats 
 {
 	private  int tempsDattente;
@@ -26,6 +28,7 @@ public class Resultats
 
 	public Resultats(int p_tempsDattente, float p_distanceParcourue, 
 			int nombreUrgenceTraitee, int nombreUrgenceNonTraitee, int nombreUrgenceNonAccessible){
+		
 		this.tempsDattente = p_tempsDattente;
 		this.nombreUrgenceTraitee = nombreUrgenceTraitee;
 		this.distanceParcourue = p_distanceParcourue;
@@ -47,9 +50,18 @@ public class Resultats
 	* Differents accesseurs pour la classe resultats
 	* 
 	*/
-	public int gettempsDattente()
+	public String gettempsDattente()
 	{
-		return this.tempsDattente;
+		String toReturn="";
+		int minutes = (int) ((tempsDattente / (60)) % 60);
+		int hours   = (int) ((tempsDattente / (60*60)) % 24);
+		if(hours != 0){
+			toReturn = toReturn +hours+"h";
+		}
+		if(minutes != 0){
+			toReturn = toReturn + minutes +"min";
+		}
+		return toReturn + this.tempsDattente + "sec";
 	}
 	
 	public int getNombreUrgence()
@@ -57,9 +69,18 @@ public class Resultats
 		return this.nombreUrgenceNonAccessible + this.nombreUrgenceNonTraitee + this.nombreUrgenceTraitee;
 	}
 	
-	public float getDistanceParcourue()
+	public String getDistanceParcourue()
 	{
-		return this.distanceParcourue;
+		String distance = "";
+		DecimalFormat numberFormat = new DecimalFormat("#.00");
+		if(this.distanceParcourue >= 1000){
+			distance += numberFormat.format(this.distanceParcourue/1000) + " Km"; 
+		}
+		else{
+			distance += numberFormat.format(this.distanceParcourue) + " m";
+		}
+		
+		return distance;
 	}
 	
 	public void afficherResultat( float vitessVehicule)

@@ -1,9 +1,7 @@
 package domainePartie1;
 
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Timer;
+
 
 import javax.swing.event.MouseInputListener;
 
@@ -18,7 +16,6 @@ public class Simulateur implements MouseInputListener {
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
 
-	private Resultats m_statistiques;
 	int tempattente ;
 
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
@@ -236,10 +233,14 @@ public class Simulateur implements MouseInputListener {
 		return "<html>Statut : <b>" + statut + "</b><br/> Temps d'attente : <b>"
 		+ tempsAttente + "</b></html>";
 	}
-	public String reqResults (){
+	public String reqResults(){
 		Resultats results = this.m_gestionnaireResultat.reqResultats();
 		return "Temps De Traitement Moyen : " + results.gettempsDattente() + " secondes\n" +
 		       "Distance Totale parcourue : " + results.getDistanceParcourue() + " mètres";
+	}
+	public Resultats reqResultats(){
+		Resultats results = this.m_gestionnaireResultat.reqResultats();
+		return results;
 	}
 	public Grille reqGrille() {
 		return m_grille;
