@@ -35,9 +35,9 @@ public class Urgence
 		this.m_priorite = p_priorite;	
 	}
 
-	public int reqDuree()
+	public float reqtempsAttente()
 	{
-		return this.m_tempsAttente;
+		return this.m_tempsAttente/1000;
 	}
 	
 	public int reqHeureDebut()

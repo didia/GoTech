@@ -370,7 +370,7 @@ public class Carte
 		this._initialisationDijkstra(noeud1);
 		if (noeud2.reqCout()==0)
 		{
-			System.out.println("okay!!");
+			
 			ArrayList<Noeud> res = new ArrayList<Noeud>();
 			res.add(noeud2);
 			return res;
@@ -383,7 +383,6 @@ public class Carte
 		while (!tabPasParcourus.isEmpty() && cpt <= this.m_listeDeNoeuds.size())
 		{
 			cpt = cpt+1;
-			System.out.println(cpt);
 			Noeud n1 = new Noeud(new Position(0,0));
 			n1.setCout(INFINI);
 			
@@ -410,7 +409,7 @@ public class Carte
 		
 		if (!tabPasParcourus.isEmpty() && tabPasParcourus.contains(noeud2))
 		{
-			System.out.println("et merde");
+		
 			return null;
 			
 		}

@@ -121,7 +121,7 @@ public class GestionnaireUrgence
 
 	public void reset(){
 		this.m_urgencesNonTraitee.clear();
-		this.m_urgencesNonTraitee.clear();
+		//TODO this.m_urgencesNonTraitee.clear();
 		this.m_strategie = null;
 	}
 	
@@ -136,10 +136,88 @@ public class GestionnaireUrgence
 	/**
 	 * 
 	 */
+	public ArrayList<Urgence> reqUrgencesNonTraitee()
+	{
+		return this.m_urgencesNonTraitee;
+	}
+	/**
+	 * 
+	 */
 	public void incrementerTempsAttenteUrgence(int duree){
 		for(Urgence urgence: m_urgencesNonTraitee){
 			urgence.incrementeTempsAttente(duree);
 		}
 	}
+	
+	/**
+	 * 
+	 */
 	 
+	public int reqTempsAttenteMoyen(){
+		int tempsTotal = 0;
+		int nombreUrgence = m_urgencesNonTraitee.size() + m_urgencesTraitee.size();
+		for(Urgence urgence : m_urgencesNonTraitee)
+		{
+			tempsTotal += urgence.reqtempsAttente();
+		}
+		for(Urgence urgence : m_urgencesTraitee){
+			tempsTotal += urgence.reqtempsAttente();
+		}
+	
+		return Math.round(tempsTotal/nombreUrgence);
+	}
+	
+	public int reqNombreUrgenceNonTraitee(){
+		return this.m_urgencesNonTraitee.size();
+		
+	}
+	public int reqNombreUrgenceTraitee(){
+		return this.m_urgencesTraitee.size();
+	}
+	public int reqNombreUrgenceNonAccessible(){
+		return this.m_urgencesTraitee.size();
+	}
+	
+	public Urgence reqUrgenceAssocieA(Noeud noeud){
+		Urgence urgence;
+		urgence = this.reqUrgenceNonTraiteeAssocieA(noeud);
+		if(urgence != null){
+			return urgence;
+		}
+		urgence = this.reqUrgenceTraiteeAssocieA(noeud);
+		if(urgence != null){
+			return urgence;
+		}
+		urgence = this.reqUrgenceNonAccessibleAssocieA(noeud);
+		return urgence;
+		
+		
+	}
+	
+	public Urgence reqUrgenceNonTraiteeAssocieA(Noeud noeud){
+		for (Urgence urgence:this.m_urgencesNonTraitee){
+			if (urgence.reqNoeudCible().equals(noeud)){
+				return urgence;
+			}
+		}
+		return null;
+	}
+	
+	public Urgence reqUrgenceTraiteeAssocieA(Noeud noeud){
+		for (Urgence urgence:this.m_urgencesTraitee){
+			if (urgence.reqNoeudCible().equals(noeud)){
+				return urgence;
+			}
+		}
+		return null;
+	}
+	
+	public Urgence reqUrgenceNonAccessibleAssocieA(Noeud noeud){
+		for (Urgence urgence:this.m_urgencesNonAccessible){
+			if (urgence.reqNoeudCible().equals(noeud)){
+				return urgence;
+			}
+		}
+		return null;
+	}
 }

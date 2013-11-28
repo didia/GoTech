@@ -188,8 +188,11 @@ public class Simulateur implements MouseInputListener {
 			}
 		}
 	}
-
-	public String reqPositionDescription(int posX, int posY) {
+	
+	public String reqPositionDescription(int posX, int posY){
+		return m_etat.reqPositionDescription(posX, posY);
+	}
+	public String reqPositionString(int posX, int posY) {
 		Position position = m_grille
 				.reqPositionEnMetre(new Position(posX, posY));
 		int positionX = Math.round(position.reqPositionX());
@@ -201,6 +204,36 @@ public class Simulateur implements MouseInputListener {
 		}
 		return "<html>Abscisse : " + positionX + "m<br/> Ordonnï¿½e : "
 				+ positionY + "m</html>";
+	}
+	public String reqNoeudDescription(int posX, int posY){
+		Noeud noeud = this.reqNoeud(posX, posY);
+		String statut;
+		int tempsAttente;
+		Urgence urgence;
+		if( noeud == null){
+			return null;
+		}
+		
+		if(noeud.isEnAttente()){
+			urgence = this.m_gestionnaireUrgence.reqUrgenceNonTraiteeAssocieA(noeud);
+			statut = "En Attente de traitement";
+			tempsAttente = Math.round(urgence.reqtempsAttente());
+		}
+		else if (noeud.isEnTraitement()){
+			urgence = this.m_gestionnaireUrgence.reqUrgenceTraiteeAssocieA(noeud);
+			statut = "En traitement";
+			tempsAttente = Math.round(urgence.reqtempsAttente());
+		}
+		else if (noeud.isTraitee()){
+			urgence = this.m_gestionnaireUrgence.reqUrgenceNonTraiteeAssocieA(noeud);
+			statut = "TraitŽe rŽcemment";
+			tempsAttente = Math.round(urgence.reqtempsAttente());
+		}
+		else{
+			return this.reqPositionString(posX, posY);
+		}
+		return "<html>Statut : <b>" + statut + "</b><br/> Temps d'attente : <b>"
+		+ tempsAttente + "</b></html>";
 	}
 
 	public Grille reqGrille() {

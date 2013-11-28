@@ -149,7 +149,7 @@ public class Vehicule {
 	}
 	private void initialiseNouvelleUrgence(Noeud destination){
 		this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
-		if(!this.m_itineraireActuel.isEmpty() && this.m_itineraireActuel!=null)
+		if(this.m_itineraireActuel!=null && !this.m_itineraireActuel.isEmpty())
 		{
 			this.declencherMission();
 		}
@@ -246,12 +246,6 @@ public class Vehicule {
 			if(this.isNoeudActuelEnUrgence()){
 				this.entreEnTraitement();
 				this.m_gestionnaireUrgence.traiterUrgenceActuelle();
-				
-					
-					 m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
-					 m_statistiques.afficherResultat(m_vehicule.reqVistess());
-
-
 				
 			}
 			else{
