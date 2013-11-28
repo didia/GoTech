@@ -1,9 +1,6 @@
 package domainePartie1;
 
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Timer;
 
 import javax.swing.event.MouseInputListener;
 
@@ -17,7 +14,7 @@ public class Simulateur implements MouseInputListener {
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
 	private Parametres m_parametres = new Parametres();
 
-	private Resultats m_statistiques;
+	
 	int tempattente ;
 
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
