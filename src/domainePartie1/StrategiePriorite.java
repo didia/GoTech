@@ -7,9 +7,9 @@ import javax.xml.ws.LogicalMessage;
 public class StrategiePriorite extends StrategieGestion
 {
 
-	public StrategiePriorite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee)
+	public StrategiePriorite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee,ArrayList<Urgence> listeUrgenceNonAccessible)
 	{
-		super(listeUrgence, listeUrgenceTraitee);
+		super(listeUrgence, listeUrgenceTraitee,listeUrgenceNonAccessible);
 		this.trierListeUrgence();
 	}
 
@@ -65,33 +65,15 @@ public class StrategiePriorite extends StrategieGestion
 	// en ajoutant, on ordonne la liste selon la strategie priorit�
 	public void ajouterUrgence(Urgence urgenceAajouter) 
 	{
-		
 		ArrayList<Urgence> listTemp = this.reqListeUrgence();
-		if(listTemp.isEmpty()){
-			listTemp.add(urgenceAajouter);
-			
-		}
-		else{
-			int priorite = urgenceAajouter.reqPriorite();
-			int debut = 0;
-			int size = listTemp.size();
-			int fin = size - 1;
-			int middle = size/2;
-			while(debut != fin){
-				if(priorite <= listTemp.get(middle).reqPriorite()){
-					fin = middle;
-					middle = (debut + fin)/2;
-				}
-				else{
-					debut = middle;
-					middle = (debut + fin)/2;
-				}
-			}
-			listTemp.add(debut, urgenceAajouter);
+		
+		listTemp.add(urgenceAajouter);
+		if (listTemp.size() > 1) 
+		{
+			this.trierListeUrgence();
 		}
 		
+		this.asgListUrgence(listTemp);
 	}
-	
-
 
 }

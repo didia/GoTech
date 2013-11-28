@@ -65,6 +65,11 @@ public class EtatEnSimulation implements Etat{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public String reqPositionDescription(int posX, int posY) {
+		
+		return m_simulateur.reqNoeudDescription(posX, posY);
+	}
 	
 
 }

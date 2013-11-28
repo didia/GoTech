@@ -23,7 +23,7 @@ class EtatDEdition implements Etat {
 		}
 		
 	}
-
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -72,6 +72,12 @@ class EtatDEdition implements Etat {
 	}
 	public void asgArcSelectione(Arc arc){
 		arc_selectione = arc;
+	}
+
+	@Override
+	public String reqPositionDescription(int posX, int posY) {
+		
+		return m_simulateur.reqPositionString(posX, posY);
 	}
 	
 

@@ -1,8 +1,6 @@
 package domainePartie1;
 
 
-import java.util.ArrayList;
-
 import javax.swing.SwingUtilities;
 
 import presentation.InterfaceGraphique;
@@ -22,7 +20,7 @@ public class Main {
 	      }
 		 });
 		
-		
+
 	}
 
 }

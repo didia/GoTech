@@ -70,15 +70,7 @@ public class Vehicule {
 		m_gestionnaireUrgence = gps;
 	}
 
-	public void AllerVers(Noeud p_noeudDestination) {
-		// le Noeud actuel devien le noeud de destination
-		this.asgNoeudActuel(p_noeudDestination);
-	}
 
-	public void allerPortAttache() {
-		// le Noeud actuel devien le noeudAttache
-		this.asgNoeudActuel(this.m_portAttache);
-	}
 	public Position reqPosition()
 	{
 		if(this.m_noeudActuel != null){
@@ -88,6 +80,7 @@ public class Vehicule {
 		}
 		return this.m_position;
 	}
+	
 	public double reqDirection(){
 		return angle;
 	}
@@ -125,52 +118,68 @@ public class Vehicule {
 		// ne tiens pas encore compte du chemin
 
 		if(this.isEnTraitement()){
-			
-			compteurTempsTraitement += duree;
-
-			if(compteurTempsTraitement == this.m_tempsTraitementUrgence * 1000){
-				this.finirTraitement();
-				
-			}
-			
+			this.continuerTraitement(duree);	
 		}
+		
 		else{
 			
-		
-			if(this.m_itineraireActuel != null && !this.m_itineraireActuel.isEmpty()){
+			if(this.isEnChemin()){
 				this.poursuisChemin(duree);
 			}
 			else{
-				compteurTempsTraitement += duree;
 				
 				m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite();
 				
 				if(m_noeudDestination != null){
-					this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
-					if(!this.m_itineraireActuel.isEmpty())
-					{
-						this.declencherMission();
-						this.poursuisChemin(duree);
-						tempsAttente = (int) (distanceparcourue / m_vitesse)+(compteurTempsTraitement/1000);
-		
-					}
-				
+					this.initialiseNouvelleUrgence(m_noeudDestination);
 				}
 				else{
-					if(m_retourPointAttache && !isNoeudActuelPortAttache()){
-						m_noeudDestination = m_portAttache;
-						this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
-						if(!this.m_itineraireActuel.isEmpty()){
-							this.declencherMission();
-							this.poursuisChemin(duree);
-						}
-					}
+					this.resteEnEtatDAttente();
 				}
 
 			}
 		}
+		
+		this.m_gestionnaireUrgence.incrementerTempsAttenteUrgence(duree);
 
 	}
+	
+	private boolean isEnChemin(){
+		return this.m_itineraireActuel != null && !this.m_itineraireActuel.isEmpty();
+	}
+	private void initialiseNouvelleUrgence(Noeud destination){
+		this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
+		if(this.m_itineraireActuel!=null && !this.m_itineraireActuel.isEmpty())
+		{
+			this.declencherMission();
+		}
+		else {
+			this.m_gestionnaireUrgence.setUrgenceActuelleNonAccessible();
+		}
+	}
+	private void resteEnEtatDAttente(){
+		// ici le vehicule vérifie d'abord si sa stratégie est de retourner au port d'attache.
+		// Si c'est le cas, il vérifie s'il est au port d'attache, si oui, il ne fait rien
+		// Sinon il rentre au port.
+		// Si jamais sa stratégie n'est pas de retourné au port d'attache, il reste sur place
+		if(m_retourPointAttache && !isNoeudActuelPortAttache()){
+			m_noeudDestination = m_portAttache;
+			this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, m_noeudDestination);
+			if(!this.m_itineraireActuel.isEmpty() && this.m_itineraireActuel != null){
+				this.declencherMission();
+				
+			}
+		}
+	}
+	private void continuerTraitement(int duree){
+		compteurTempsTraitement += duree;
+
+		if(compteurTempsTraitement == this.m_tempsTraitementUrgence * 1000){
+			this.finirTraitement();
+	}
+	
+	}
+	
 	private void declencherMission(){
 		Noeud noeud = this.m_itineraireActuel.get(0);
 		Arc arc = new Arc(m_noeudActuel, noeud);
@@ -237,12 +246,6 @@ public class Vehicule {
 			if(this.isNoeudActuelEnUrgence()){
 				this.entreEnTraitement();
 				this.m_gestionnaireUrgence.traiterUrgenceActuelle();
-				
-					
-					 m_statistiques = new Resultats(m_vehicule.reqTempAttente(),m_vehicule.reqNombreUrgence(),m_vehicule.reqDistanceparcouru());
-					 m_statistiques.afficherResultat(m_vehicule.reqVistess());
-
-
 				
 			}
 			else{
@@ -323,5 +326,7 @@ public class Vehicule {
 		this.compteurTempsTraitement = 0;
 		
 	}
+	
+
 
 }

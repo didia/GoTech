@@ -18,20 +18,25 @@ package domainePartie1;
 public class Resultats 
 {
 	private  int tempsDattente;
-	private int nombreUrgence;
+	private int nombreUrgenceTraitee = 0;
+	private int nombreUrgenceNonTraitee = 0;
+	private int nombreUrgenceNonAccessible = 0;
 	private float distanceParcourue;
+	
 
-	public Resultats(int p_tempsDattente, int p_nbUrgences, float p_distanceParcourue )
-	{
+	public Resultats(int p_tempsDattente, float p_distanceParcourue, 
+			int nombreUrgenceTraitee, int nombreUrgenceNonTraitee, int nombreUrgenceNonAccessible){
 		this.tempsDattente = p_tempsDattente;
-		this.nombreUrgence = p_nbUrgences;
+		this.nombreUrgenceTraitee = nombreUrgenceTraitee;
 		this.distanceParcourue = p_distanceParcourue;
+		this.nombreUrgenceNonTraitee = nombreUrgenceNonTraitee;
+		this.nombreUrgenceNonAccessible = nombreUrgenceNonAccessible;
 	}
 	
 	public Resultats ()
 	{
 		this.tempsDattente = 0;
-		this.nombreUrgence = 0;
+		
 		this.distanceParcourue = 0;
 	}
 		
@@ -49,7 +54,7 @@ public class Resultats
 	
 	public int getNombreUrgence()
 	{
-		return this.nombreUrgence;
+		return this.nombreUrgenceNonAccessible + this.nombreUrgenceNonTraitee + this.nombreUrgenceTraitee;
 	}
 	
 	public float getDistanceParcourue()
@@ -61,7 +66,7 @@ public class Resultats
 	{
 		System.out.println("Vistess du vehicule"+vitessVehicule);
 		System.out.println("temps d'Attente"+tempsDattente);
-		System.out.println("nombre d'urgence"+nombreUrgence);
+		
 		System.out.println("distance Parcourue"+distanceParcourue);
 	}
 

@@ -18,6 +18,7 @@ public class GestionnaireUrgence
 {
 	private ArrayList<Urgence> m_urgencesNonTraitee;
 	private ArrayList<Urgence> m_urgencesTraitee;
+	private ArrayList<Urgence> m_urgencesNonAccessible;
 	private StrategieGestion m_strategie = null;
 	
 	
@@ -25,6 +26,7 @@ public class GestionnaireUrgence
 	{
 		m_urgencesNonTraitee = new ArrayList<Urgence>();
 		m_urgencesTraitee = new ArrayList<Urgence>();
+		m_urgencesNonAccessible = new ArrayList<Urgence>();
 	}
 	
 	/**
@@ -37,20 +39,20 @@ public class GestionnaireUrgence
 	{
 		if (strategie.equals(Default.STRATEGIE_PROX))
 		{
-			m_strategie = new StrategieProximite(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategieProximite(m_urgencesNonTraitee, m_urgencesTraitee, m_urgencesNonAccessible);
 		}
 		else if (strategie.equals(Default.STRATEGIE_MIN))
 		{
-			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
 
 		}
 		else if (strategie.equals(Default.STRATEGIE_PRIORITE))
 		{
-			m_strategie = new StrategiePriorite(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategiePriorite(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
 		}
 		else
 		{
-	m_strategie = new StrategieAnciennete(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategieAnciennete(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
 
 		}	
 	}
@@ -64,12 +66,12 @@ public class GestionnaireUrgence
     */
 	public void ajouterUrgence(Noeud noeud)
 	{
-		if(m_strategie == null){
+		//if(m_strategie == null){
 			m_urgencesNonTraitee.add(new Urgence(noeud));
-		}
-		else{
-			m_strategie.ajouterUrgence(new Urgence(noeud));
-		}
+		//}
+		//else{
+			//m_strategie.ajouterUrgence(new Urgence(noeud));
+		//}
 		
 		
 	}
@@ -119,8 +121,103 @@ public class GestionnaireUrgence
 
 	public void reset(){
 		this.m_urgencesNonTraitee.clear();
-		this.m_urgencesNonTraitee.clear();
+		//TODO this.m_urgencesNonTraitee.clear();
 		this.m_strategie = null;
 	}
-
+	
+	/**
+	 * Envoie un signal que l'urgence actuelle n'est pas accessible
+	 */
+	
+	public void setUrgenceActuelleNonAccessible(){
+		m_strategie.setUrgenceActuelleNonAccessible();
+	}
+	
+	/**
+	 * 
+	 */
+	public ArrayList<Urgence> reqUrgencesNonTraitee()
+	{
+		return this.m_urgencesNonTraitee;
+	}
+	/**
+	 * 
+	 */
+	public void incrementerTempsAttenteUrgence(int duree){
+		for(Urgence urgence: m_urgencesNonTraitee){
+			urgence.incrementeTempsAttente(duree);
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	 
+	public int reqTempsAttenteMoyen(){
+		int tempsTotal = 0;
+		int nombreUrgence = m_urgencesNonTraitee.size() + m_urgencesTraitee.size();
+		for(Urgence urgence : m_urgencesNonTraitee)
+		{
+			tempsTotal += urgence.reqtempsAttente();
+		}
+		for(Urgence urgence : m_urgencesTraitee){
+			tempsTotal += urgence.reqtempsAttente();
+		}
+	
+		return Math.round(tempsTotal/nombreUrgence);
+	}
+	
+	public int reqNombreUrgenceNonTraitee(){
+		return this.m_urgencesNonTraitee.size();
+		
+	}
+	public int reqNombreUrgenceTraitee(){
+		return this.m_urgencesTraitee.size();
+	}
+	public int reqNombreUrgenceNonAccessible(){
+		return this.m_urgencesTraitee.size();
+	}
+	
+	public Urgence reqUrgenceAssocieA(Noeud noeud){
+		Urgence urgence;
+		urgence = this.reqUrgenceNonTraiteeAssocieA(noeud);
+		if(urgence != null){
+			return urgence;
+		}
+		urgence = this.reqUrgenceTraiteeAssocieA(noeud);
+		if(urgence != null){
+			return urgence;
+		}
+		urgence = this.reqUrgenceNonAccessibleAssocieA(noeud);
+		return urgence;
+		
+		
+	}
+	
+	public Urgence reqUrgenceNonTraiteeAssocieA(Noeud noeud){
+		for (Urgence urgence:this.m_urgencesNonTraitee){
+			if (urgence.reqNoeudCible().equals(noeud)){
+				return urgence;
+			}
+		}
+		return null;
+	}
+	
+	public Urgence reqUrgenceTraiteeAssocieA(Noeud noeud){
+		for (Urgence urgence:this.m_urgencesTraitee){
+			if (urgence.reqNoeudCible().equals(noeud)){
+				return urgence;
+			}
+		}
+		return null;
+	}
+	
+	public Urgence reqUrgenceNonAccessibleAssocieA(Noeud noeud){
+		for (Urgence urgence:this.m_urgencesNonAccessible){
+			if (urgence.reqNoeudCible().equals(noeud)){
+				return urgence;
+			}
+		}
+		return null;
+	}
 }
