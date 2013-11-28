@@ -22,6 +22,8 @@ public class Urgence
 	private int m_duree = 0;
 	private Noeud m_noeudCible;
 	private int m_priorite = 0; // de 0 a 5
+	
+	private Resultats m_resultat = new Resultats();
 
 	
 	public Urgence(Noeud p_NoeudCible)
@@ -55,4 +57,8 @@ public class Urgence
 		return this.m_noeudCible;
 	}
 	
+	public Resultats reqresultats()
+	{
+		return this.m_resultat;
+	}	
 }
