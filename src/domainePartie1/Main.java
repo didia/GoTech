@@ -38,7 +38,7 @@ public class Main {
 		stra.ajouterUrgence(unrgenc5);
 		
 		for (int i = 0 ; i< stra.reqListeUrgence().size(); ++i)
-			System.out.println(liste.get(i));
+			System.out.println(liste.get(i).reqPriorite());
 	}
 	
 
