@@ -21,10 +21,5 @@ public class Main {
 	    	  new InterfaceGraphique(new Simulateur(), new Afficheur());
 	      }
 		 });
-		
-		
-
-	}
-	
-
+}
 }
