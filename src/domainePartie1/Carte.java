@@ -366,14 +366,24 @@ public class Carte
 	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2) 
 	{// gestion d'erreur
 		
+		
 		this._initialisationDijkstra(noeud1);
+		if (noeud2.reqCout()==0)
+		{
+			System.out.println("okay!!");
+			ArrayList<Noeud> res = new ArrayList<Noeud>();
+			res.add(noeud2);
+			return res;
+		}
 		//int a = this.m_listeDeNoeuds.indexOf(noeud1);
 
 		ArrayList<Noeud> tabPasParcourus = new ArrayList<Noeud>(this.m_listeDeNoeuds);
 		
 		int cpt = 0;
-		while (!tabPasParcourus.isEmpty() || cpt < (this.m_listeDeNoeuds.size()+6))
+		while (!tabPasParcourus.isEmpty() && cpt <= this.m_listeDeNoeuds.size())
 		{
+			cpt = cpt+1;
+			System.out.println(cpt);
 			Noeud n1 = new Noeud(new Position(0,0));
 			n1.setCout(INFINI);
 			
@@ -395,12 +405,14 @@ public class Carte
 					n2.setPredecesseur(n1);
 				}
 			}
-			cpt++;
+			
 		}
 		
-		if (!tabPasParcourus.isEmpty())
+		if (!tabPasParcourus.isEmpty() && tabPasParcourus.contains(noeud2))
 		{
+			System.out.println("et merde");
 			return null;
+			
 		}
 		
 		else
