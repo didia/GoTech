@@ -371,8 +371,8 @@ public class Carte
 
 		ArrayList<Noeud> tabPasParcourus = new ArrayList<Noeud>(this.m_listeDeNoeuds);
 		
-		
-		while (!tabPasParcourus.isEmpty())
+		int cpt = 0;
+		while (!tabPasParcourus.isEmpty() || cpt < (this.m_listeDeNoeuds.size()+6))
 		{
 			Noeud n1 = new Noeud(new Position(0,0));
 			n1.setCout(INFINI);
@@ -395,19 +395,30 @@ public class Carte
 					n2.setPredecesseur(n1);
 				}
 			}
+			cpt++;
 		}
 		
-		ArrayList<Noeud> chemin = new ArrayList<Noeud>();
-		Noeud fin = noeud2;
-		Noeud debut = noeud1;
-		
-		while (fin!=debut)
+		if (!tabPasParcourus.isEmpty())
 		{
-			chemin.add(0, fin);
-			fin = fin.reqPredecesseur();
+			return null;
 		}
 		
-		return chemin;
+		else
+		{
+			ArrayList<Noeud> chemin = new ArrayList<Noeud>();
+			Noeud fin = noeud2;
+			Noeud debut = noeud1;
+			
+			while (fin!=debut)
+			{
+				chemin.add(0, fin);
+				fin = fin.reqPredecesseur();
+			}
+			
+			return chemin;
+		}
+		
+		
 	}
 	
 	/**
