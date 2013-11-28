@@ -16,6 +16,7 @@ public class Simulateur implements MouseInputListener {
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
 
+
 	int tempattente ;
 
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();

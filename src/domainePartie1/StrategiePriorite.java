@@ -2,7 +2,7 @@ package domainePartie1;
 
 import java.util.ArrayList;
 
-import javax.xml.ws.LogicalMessage;
+
 
 public class StrategiePriorite extends StrategieGestion
 {

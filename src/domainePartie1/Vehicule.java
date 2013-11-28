@@ -11,14 +11,14 @@ public class Vehicule {
 	private boolean m_retourPointAttache;
 	private Position m_position = null;
 	private Noeud m_noeudActuel = null;
-	private Arc m_arcActuel = null;
+	
 	private GestionnaireUrgence m_gestionnaireUrgence;
 	private Noeud m_noeudDestination = null;
 	private Carte m_gps;
 	private ArrayList<Noeud> m_itineraireActuel = null;
 	private float m_kilometrage = 0;
 
-	private Resultats m_statistiques;
+	
 	private float distanceDuProchainNoeud;
 
 	private float distanceparcourue = 0;
@@ -99,11 +99,7 @@ public class Vehicule {
 		return m_noeudActuel;
 	}
 
-	// TODO
-	public Arc arcActuel() {
-		return m_arcActuel = new Arc(m_noeudActuel, m_noeudDestination);
-	}
-
+	
 	public void asgNoeudActuel(Noeud noeud) {
 		this.m_noeudActuel = noeud;
 		this.m_position = noeud.reqPosition();

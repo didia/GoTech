@@ -13,10 +13,9 @@
 
 package domainePartie1;
 
-import java.util.List;
+
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.LinkedList;
+
 
 public class StrategieGestion 
 {
