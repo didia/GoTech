@@ -18,6 +18,7 @@ public class GestionnaireUrgence
 {
 	private ArrayList<Urgence> m_urgencesNonTraitee;
 	private ArrayList<Urgence> m_urgencesTraitee;
+	private ArrayList<Urgence> m_urgencesNonAccessible;
 	private StrategieGestion m_strategie = null;
 	
 	
@@ -25,6 +26,7 @@ public class GestionnaireUrgence
 	{
 		m_urgencesNonTraitee = new ArrayList<Urgence>();
 		m_urgencesTraitee = new ArrayList<Urgence>();
+		m_urgencesNonAccessible = new ArrayList<Urgence>();
 	}
 	
 	/**
@@ -37,20 +39,20 @@ public class GestionnaireUrgence
 	{
 		if (strategie.equals(Default.STRATEGIE_PROX))
 		{
-			m_strategie = new StrategieProximite(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategieProximite(m_urgencesNonTraitee, m_urgencesTraitee, m_urgencesNonAccessible);
 		}
 		else if (strategie.equals(Default.STRATEGIE_MIN))
 		{
-			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
 
 		}
 		else if (strategie.equals(Default.STRATEGIE_PRIORITE))
 		{
-			m_strategie = new StrategiePriorite(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategiePriorite(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
 		}
 		else
 		{
-	m_strategie = new StrategieAnciennete(m_urgencesNonTraitee, m_urgencesTraitee);
+			m_strategie = new StrategieAnciennete(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
 
 		}	
 	}
@@ -64,12 +66,12 @@ public class GestionnaireUrgence
     */
 	public void ajouterUrgence(Noeud noeud)
 	{
-		if(m_strategie == null){
+		//if(m_strategie == null){
 			m_urgencesNonTraitee.add(new Urgence(noeud));
-		}
-		else{
-			m_strategie.ajouterUrgence(new Urgence(noeud));
-		}
+		//}
+		//else{
+			//m_strategie.ajouterUrgence(new Urgence(noeud));
+		//}
 		
 		
 	}
@@ -122,5 +124,22 @@ public class GestionnaireUrgence
 		this.m_urgencesNonTraitee.clear();
 		this.m_strategie = null;
 	}
-
+	
+	/**
+	 * Envoie un signal que l'urgence actuelle n'est pas accessible
+	 */
+	
+	public void setUrgenceActuelleNonAccessible(){
+		m_strategie.setUrgenceActuelleNonAccessible();
+	}
+	
+	/**
+	 * 
+	 */
+	public void incrementerTempsAttenteUrgence(int duree){
+		for(Urgence urgence: m_urgencesNonTraitee){
+			urgence.incrementeTempsAttente(duree);
+		}
+	}
+	 
 }

@@ -19,7 +19,7 @@ package domainePartie1;
 public class Urgence
 {
 	private int m_heuredebut; 
-	private int m_duree = 0;
+	private int m_tempsAttente = 0;
 	private Noeud m_noeudCible;
 	private int m_priorite = 0; // de 0 a 5
 
@@ -37,7 +37,7 @@ public class Urgence
 
 	public int reqDuree()
 	{
-		return this.m_duree;
+		return this.m_tempsAttente;
 	}
 	
 	public int reqHeureDebut()
@@ -49,7 +49,9 @@ public class Urgence
 	{
 		return this.m_priorite;
 	}
-	
+	public void incrementeTempsAttente(int duree){
+		this.m_tempsAttente += duree;
+	}
 	public Noeud reqNoeudCible()
 	{
 		return this.m_noeudCible;

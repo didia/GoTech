@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class StrategieProximite extends StrategieGestion 
 {
 
-	public StrategieProximite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee)
+	public StrategieProximite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee,ArrayList<Urgence> listeUrgenceNonAccessible)
 	{
-		super(listeUrgence, listeUrgenceTraitee);
+		super(listeUrgence, listeUrgenceTraitee,listeUrgenceNonAccessible);
 	}
 	
 	/**

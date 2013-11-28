@@ -37,6 +37,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	
 	private Timer m_timer;
 	
+	
 	private static Simulateur m_simulateur;
     private CarteGraphique m_carteGraphique;
     private ArrayList<JButton> m_listeEditButtons;

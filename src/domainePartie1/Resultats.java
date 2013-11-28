@@ -17,20 +17,20 @@ package domainePartie1;
 
 public class Resultats 
 {
-	private  int tempsTotal;
+	private  int tempsDattente;
 	private int nombreUrgence;
 	private float distanceParcourue;
 
-	public Resultats(int p_tempstotale, int p_nbUrgences, float p_distanceParcourue )
+	public Resultats(int p_tempsDattente, int p_nbUrgences, float p_distanceParcourue )
 	{
-		this.tempsTotal = p_tempstotale;
+		this.tempsDattente = p_tempsDattente;
 		this.nombreUrgence = p_nbUrgences;
 		this.distanceParcourue = p_distanceParcourue;
 	}
 	
 	public Resultats ()
 	{
-		this.tempsTotal = 0;
+		this.tempsDattente = 0;
 		this.nombreUrgence = 0;
 		this.distanceParcourue = 0;
 	}
@@ -42,9 +42,9 @@ public class Resultats
 	* Differents accesseurs pour la classe resultats
 	* 
 	*/
-	public int getTempsTotal()
+	public int gettempsDattente()
 	{
-		return this.tempsTotal;
+		return this.tempsDattente;
 	}
 	
 	public int getNombreUrgence()
@@ -60,7 +60,7 @@ public class Resultats
 	public void afficherResultat( float vitessVehicule)
 	{
 		System.out.println("Vistess du vehicule"+vitessVehicule);
-		System.out.println("temps d'Attente"+tempsTotal);
+		System.out.println("temps d'Attente"+tempsDattente);
 		System.out.println("nombre d'urgence"+nombreUrgence);
 		System.out.println("distance Parcourue"+distanceParcourue);
 	}

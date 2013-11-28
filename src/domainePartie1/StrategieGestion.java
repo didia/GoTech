@@ -21,16 +21,19 @@ import java.util.LinkedList;
 public class StrategieGestion 
 {
 	private ArrayList<Urgence> m_listeUrgence;
-	private Urgence m_prochaineUrgence;
 	private ArrayList<Urgence> m_listeUrgenceTraitee;
+	private ArrayList<Urgence> m_listeUrgenceNonAccessible;
+	private Urgence m_prochaineUrgence;
+	
 	private Itineraire m_itineraire;
 
 	
-	public StrategieGestion(ArrayList<Urgence> listUrgence, ArrayList<Urgence> listUrgenceTraitee) 
+	public StrategieGestion(ArrayList<Urgence> listUrgence, ArrayList<Urgence> listUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAcessible) 
 	{
 		this.m_listeUrgence = listUrgence;
 		this.m_prochaineUrgence =null;
 		this.m_listeUrgenceTraitee = listUrgenceTraitee;
+		this.m_listeUrgenceNonAccessible = listeUrgenceNonAcessible;
 	}
 	
 	public Urgence reqProchaineUrgence() 
@@ -97,5 +100,11 @@ public class StrategieGestion
 	}
 	public void ajouterUrgence(Urgence urgence){
 		
+	}
+	public void setUrgenceActuelleNonAccessible(){
+		this.m_listeUrgenceNonAccessible.add(m_prochaineUrgence);
+		this.m_listeUrgence.remove(m_prochaineUrgence);
+		this.m_prochaineUrgence = null;
+		this.m_prochaineUrgence = this.reqProchaineUrgence();
 	}
 }
