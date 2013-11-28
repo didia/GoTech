@@ -16,6 +16,7 @@ public class Simulateur implements MouseInputListener {
 	private static Echelle m_echelle = new Echelle();
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
 	private Parametres m_parametres = new Parametres();
+	private GestionnaireResultat m_gestionnaireResultat;
 
 	private Resultats m_statistiques;
 	int tempattente ;
@@ -25,7 +26,7 @@ public class Simulateur implements MouseInputListener {
 	private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
 	public Simulateur() {
-
+		m_gestionnaireResultat = new GestionnaireResultat(m_vehicule, m_gestionnaireUrgence);
 	}
 
 	public void setEtatAjouterNoeud() {
@@ -235,7 +236,11 @@ public class Simulateur implements MouseInputListener {
 		return "<html>Statut : <b>" + statut + "</b><br/> Temps d'attente : <b>"
 		+ tempsAttente + "</b></html>";
 	}
-
+	public String reqResults (){
+		Resultats results = this.m_gestionnaireResultat.reqResultats();
+		return "Temps De Traitement Moyen : " + results.gettempsDattente() + " secondes\n" +
+		       "Distance Totale parcourue : " + results.getDistanceParcourue() + " mètres";
+	}
 	public Grille reqGrille() {
 		return m_grille;
 	}
