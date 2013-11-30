@@ -1,7 +1,10 @@
-package domainePartie1;
+package domaine.simulateur.etat;
+
 import java.awt.event.MouseEvent;
 
-
+import domaine.reseau.Arc;
+import domaine.reseau.Noeud;
+import domaine.simulateur.Simulateur;
 
 
 

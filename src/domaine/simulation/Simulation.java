@@ -1,8 +1,10 @@
-package domainePartie1;
+package domaine.simulation;
+
+import domaine.simulateur.Simulateur;
 
 public class Simulation  implements Runnable {
 
-	private static Simulateur simulateur;
+	private Simulateur simulateur;
 	
 	
 	@Override

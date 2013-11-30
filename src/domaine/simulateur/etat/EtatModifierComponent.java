@@ -1,6 +1,7 @@
-package domainePartie1;
-import java.awt.event.MouseEvent;
+package domaine.simulateur.etat;
 
+import java.awt.event.MouseEvent;
+import domaine.simulateur.Simulateur;
 
 
 

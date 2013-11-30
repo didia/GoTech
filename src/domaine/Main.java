@@ -1,10 +1,11 @@
-package domainePartie1;
+package domaine;
 
 
 import javax.swing.SwingUtilities;
 
 import presentation.InterfaceGraphique;
 import presentation.Afficheur;
+import domaine.simulateur.Simulateur;
 
 public class Main {
 

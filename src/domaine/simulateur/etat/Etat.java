@@ -1,6 +1,7 @@
-package domainePartie1;
+package domaine.simulateur.etat;
 
-
+import domaine.reseau.Arc;
+import domaine.reseau.Noeud;
 import javax.swing.event.MouseInputListener;
 
 public interface Etat extends MouseInputListener {

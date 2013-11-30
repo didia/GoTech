@@ -1,9 +1,15 @@
-package domainePartie1;
+package domaine.simulateur;
 
 import java.awt.event.MouseEvent;
 
 
 import javax.swing.event.MouseInputListener;
+
+import domaine.reseau.Carte;
+import domaine.simulateur.etat.*;
+import domaine.reseau.*;
+import domaine.simulation.resultat.*;
+import domaine.simulation.urgence.*;
 
 public class Simulateur implements MouseInputListener {
 
