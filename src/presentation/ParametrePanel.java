@@ -6,9 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 
 
-import domainePartie1.Default;
-import domainePartie1.Simulateur;
-import domainePartie1.Parametres;
+import domaine.simulateur.Default;
+import domaine.simulateur.Simulateur;
+
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
@@ -17,10 +17,14 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.text.NumberFormat;
-import javax.swing.JTextField;
+
 
 public class ParametrePanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7963141367854789316L;
 	private static Simulateur m_simulateur;
 	private JRadioButton rdbtnAncien;
 	private JRadioButton rdbtnParProximit;

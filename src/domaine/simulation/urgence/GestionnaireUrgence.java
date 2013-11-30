@@ -10,9 +10,13 @@
 *
 */
 
-package domainePartie1;
+package domaine.simulation.urgence;
 
 import java.util.ArrayList;
+
+import domaine.reseau.Noeud;
+import domaine.simulateur.Default;
+import domaine.simulation.strategie.*;
 
 public class GestionnaireUrgence
 {
@@ -43,7 +47,7 @@ public class GestionnaireUrgence
 		}
 		else if (strategie.equals(Default.STRATEGIE_MIN))
 		{
-			m_strategie = new StrategieMinchemin(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
+			m_strategie = new StrategieMinChemin(m_urgencesNonTraitee, m_urgencesTraitee,m_urgencesNonAccessible);
 
 		}
 		else if (strategie.equals(Default.STRATEGIE_PRIORITE))

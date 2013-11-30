@@ -1,24 +1,20 @@
 package presentation;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
-import javax.swing.ButtonGroup;
+
+
 import javax.swing.JButton;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
+
 import javax.swing.border.EmptyBorder;
 
-import domainePartie1.Simulateur;
+import domaine.simulateur.Simulateur;
 import javax.swing.ImageIcon;
 
 import java.awt.Image;
@@ -26,6 +22,10 @@ import javax.swing.SwingConstants;
 
 public class EditPanel extends JPanel implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4595462897728679260L;
 	public static  String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	public static  String ADD_ARC_STRING = "Ajouter Arc";
 	public static  String PUT_VEHICULE = "Placer Vehicule";

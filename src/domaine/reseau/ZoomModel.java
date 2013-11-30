@@ -1,4 +1,6 @@
-package domainePartie1;
+package domaine.reseau;
+
+import domaine.simulateur.Default;
 
 public class ZoomModel {
 	private float m_zoom = Default.ZOOM;

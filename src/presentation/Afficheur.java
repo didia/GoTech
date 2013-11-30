@@ -19,13 +19,10 @@ import java.util.*;
 import javax.imageio.ImageIO;
 
 
-import domainePartie1.Carte;
-import domainePartie1.Grille;
-import domainePartie1.Noeud;
-import domainePartie1.Position;
-import domainePartie1.Arc;
-import domainePartie1.Simulateur;
-import domainePartie1.Default;
+import domaine.reseau.*;
+
+import domaine.simulateur.Simulateur;
+import domaine.simulateur.Default;
 
 public class Afficheur
 {

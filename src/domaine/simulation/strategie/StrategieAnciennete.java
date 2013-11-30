@@ -13,9 +13,12 @@
 *
 */
 
-package domainePartie1;
+package domaine.simulation.strategie;
 
 import java.util.ArrayList;
+
+import domaine.simulateur.Default;
+import domaine.simulation.urgence.Urgence;
 
 public class StrategieAnciennete extends StrategieGestion 
 {

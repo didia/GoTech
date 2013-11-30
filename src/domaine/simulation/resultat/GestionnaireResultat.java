@@ -1,4 +1,7 @@
-package domainePartie1;
+package domaine.simulation.resultat;
+
+import domaine.simulateur.Vehicule;
+import domaine.simulation.urgence.GestionnaireUrgence;
 
 public class GestionnaireResultat {
 	

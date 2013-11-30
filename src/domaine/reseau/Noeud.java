@@ -11,7 +11,7 @@
 */
 
 
-package domainePartie1;
+package domaine.reseau;
 
 
 

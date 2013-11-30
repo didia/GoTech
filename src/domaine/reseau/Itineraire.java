@@ -13,7 +13,7 @@
 */
 
 
-package domainePartie1;
+package domaine.reseau;
 
 import java.util.ArrayList;
 

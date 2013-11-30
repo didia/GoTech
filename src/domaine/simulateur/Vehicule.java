@@ -1,7 +1,12 @@
-package domainePartie1;
+package domaine.simulateur;
 
 import java.util.ArrayList;
 
+import domaine.reseau.Arc;
+import domaine.reseau.Carte;
+import domaine.reseau.Noeud;
+import domaine.reseau.Position;
+import domaine.simulation.urgence.*;
 
 public class Vehicule {
 
@@ -16,8 +21,6 @@ public class Vehicule {
 	private Noeud m_noeudDestination = null;
 	private Carte m_gps;
 	private ArrayList<Noeud> m_itineraireActuel = null;
-	private float m_kilometrage = 0;
-
 	
 	private float distanceDuProchainNoeud;
 
@@ -26,7 +29,7 @@ public class Vehicule {
 	private boolean en_traitement = false;
 	private int m_tempsTraitementUrgence = 10;
 	private int compteurTempsTraitement = 0;
-	private int 	 tempsAttente;
+	private int tempsAttente;
 	private float directionX;
 	private float directionY;
 	private double angle = 0;
@@ -178,9 +181,8 @@ public class Vehicule {
 	
 	private void declencherMission(){
 		Noeud noeud = this.m_itineraireActuel.get(0);
-		Arc arc = new Arc(m_noeudActuel, noeud);
+		Arc arc = new Arc(m_noeudActuel, noeud); // Pour des raisons de calcul, on crée un nouvel arc
 		distanceDuProchainNoeud = arc.reqLongueur();
-		this.m_kilometrage += distanceDuProchainNoeud;
 		float y2 = m_itineraireActuel.get(0).reqPosition().reqPositionY();
 		float x2 = m_itineraireActuel.get(0).reqPosition().reqPositionX();
 		float x1 = this.m_position.reqPositionX();
@@ -211,15 +213,16 @@ public class Vehicule {
 		Position position = null;
 		float distance = this.m_vitesse * duree/1000;
 		
-		distanceparcourue +=distance;
+		
 
 		
-			if(distanceDuProchainNoeud < distance){
+		if(distanceDuProchainNoeud < distance){
+			distanceparcourue += distanceDuProchainNoeud;
 			this.arriverAuProchainNoeud();
 		
-		}
+			}
 		else{
-			
+			distanceparcourue +=distance;
 			float x1 = this.m_position.reqPositionX();
 			float y1 = this.m_position.reqPositionY();
 			float newPositionX  = x1 + distance*directionX;
@@ -315,7 +318,7 @@ public class Vehicule {
 
 	public void reset(){
 		this.asgNoeudActuel(m_portAttache);
-		this.m_kilometrage = 0;
+		this.distanceparcourue = 0;
 		this.en_traitement = false;
 		this.angle = 0;
 		this.m_itineraireActuel = null;

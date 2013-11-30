@@ -1,10 +1,13 @@
-package domainePartie1;
+package domaine.simulation.strategie;
 
 import java.util.ArrayList;
 
-public class StrategieMinchemin extends StrategieGestion
+import domaine.simulateur.Default;
+import domaine.simulation.urgence.Urgence;
+
+public class StrategieMinChemin extends StrategieGestion
 {
-	public StrategieMinchemin(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAccessible)
+	public StrategieMinChemin(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAccessible)
 	{
 		super(listeUrgence, listeUrgenceTraitee,listeUrgenceNonAccessible);
 	}

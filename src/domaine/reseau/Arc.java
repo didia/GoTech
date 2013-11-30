@@ -12,7 +12,7 @@
 *
 */
 
-package domaine;
+package domaine.reseau;
 
 public class Arc
 {

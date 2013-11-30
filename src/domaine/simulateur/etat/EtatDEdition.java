@@ -8,11 +8,12 @@ import domaine.simulateur.Simulateur;
 
 
 
-class EtatDEdition implements Etat {
+public class EtatDEdition implements Etat {
 	
 	protected static Noeud noeud_selectione = null;
 	protected static Arc arc_selectione = null;
 	protected static Simulateur m_simulateur;
+	
 	public EtatDEdition(Simulateur simulateur){
 		m_simulateur = simulateur;
 	}

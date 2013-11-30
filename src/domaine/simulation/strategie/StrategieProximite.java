@@ -12,9 +12,14 @@
 *
 */
 
-package domainePartie1;
+package domaine.simulation.strategie;
 
 import java.util.ArrayList;
+
+import domaine.reseau.Carte;
+import domaine.reseau.Noeud;
+import domaine.simulateur.Default;
+import domaine.simulation.urgence.Urgence;
 
 public class StrategieProximite extends StrategieGestion 
 {

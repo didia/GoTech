@@ -12,7 +12,7 @@
 *
 */
 
-package domainePartie1;
+package domaine.simulateur;
 
 public class Parametres 
 {

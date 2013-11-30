@@ -18,14 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-
-import domainePartie1.Default;
-import domainePartie1.Simulateur;
-
-
-
-import domainePartie1.Default;
-import domainePartie1.Simulateur;
+import domaine.simulateur.Default;
+import domaine.simulateur.Simulateur;
 
 import java.util.ArrayList;
 

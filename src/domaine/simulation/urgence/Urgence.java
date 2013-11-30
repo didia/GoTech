@@ -15,7 +15,11 @@
 */
 
 
-package domainePartie1;
+package domaine.simulation.urgence;
+
+import domaine.reseau.Noeud;
+import domaine.simulation.resultat.Resultats;
+
 public class Urgence
 {
 	private int m_heuredebut; 

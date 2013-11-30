@@ -11,10 +11,13 @@
 
 
 
-package domainePartie1;
+package domaine.simulation.strategie;
 
 
 import java.util.ArrayList;
+
+import domaine.reseau.Itineraire;
+import domaine.simulation.urgence.Urgence;
 
 
 public class StrategieGestion 

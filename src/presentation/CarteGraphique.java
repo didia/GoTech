@@ -3,42 +3,39 @@ package presentation;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.imageio.ImageIO;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
+
 import javax.swing.ToolTipManager;
-import javax.swing.border.EmptyBorder;
+
 import javax.swing.event.MouseInputListener;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 
-import domainePartie1.Default;
-import domainePartie1.Position;
-import domainePartie1.Simulateur;
+import domaine.simulateur.Default;
+
+import domaine.simulateur.Simulateur;
 import presentation.Afficheur;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
-import javax.swing.JOptionPane;
-import javax.swing.JDialog;
+
 
 
 public class CarteGraphique extends JPanel implements MouseInputListener
 {
-	private static Afficheur m_afficheur;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8252994439567196555L;
+	private final Afficheur m_afficheur;
 	private static  Simulateur m_simulateur;
 	private JScrollPane viewport;
     private static final String SUPPRIMER_NOEUD = "Supprimer";
@@ -47,7 +44,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	//Constructeur
 	public CarteGraphique(Afficheur afficheurGraphique, Simulateur p_simulateur) 
 	{
-		this.m_simulateur = p_simulateur;
+		m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
 		final CarteGraphique mycarte = this;
 		setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
@@ -147,6 +144,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	
 	private static void addPopup(Component component, final JPopupMenu popup) 
 	{
+		
 		component.addMouseListener(new MouseAdapter() 
 		{
 			public void mousePressed(MouseEvent e) 

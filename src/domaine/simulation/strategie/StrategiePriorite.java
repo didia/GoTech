@@ -1,6 +1,8 @@
-package domainePartie1;
+package domaine.simulation.strategie;
 
 import java.util.ArrayList;
+
+import domaine.simulation.urgence.Urgence;
 
 
 

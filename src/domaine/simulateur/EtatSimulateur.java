@@ -1,4 +1,4 @@
-package domainePartie1;
+package domaine.simulateur;
 
 import java.util.LinkedList;
 import java.util.Queue;

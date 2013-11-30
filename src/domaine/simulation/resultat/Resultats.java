@@ -13,7 +13,7 @@
 *
 */
 
-package domainePartie1;
+package domaine.simulation.resultat;
 
 import java.text.DecimalFormat;
 

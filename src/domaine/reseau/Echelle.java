@@ -10,7 +10,9 @@
 */
 
 
-package domainePartie1;
+package domaine.reseau;
+
+import domaine.simulateur.Default;
 
 public class Echelle 
 {
