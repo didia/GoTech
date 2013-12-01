@@ -126,10 +126,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 
 		textZoom = new JTextField("100%");
 
-		//textZoom.setPreferredSize(new Dimension(10,10));
+		textZoom.setPreferredSize(new Dimension(50,10));
+		textZoom.setMinimumSize(new Dimension(50,10));
 		textZoom.setEditable(false);
-		//textZoom.setColumns(3);
-	
+		
 		JButton btnSave = new JButton(iconSave);
 		btnSave.setToolTipText("Enregistrer travail en cours");
 		btnSave.setActionCommand(SAVE);
@@ -227,8 +227,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		toolbar.add(btnZoomMoins);
 		toolbar.add(textZoom);
 		toolbar.add(btnZoomPlus);
-		toolbar.add(Box.createRigidArea(new Dimension(500,0)));
-		toolbar.add(showOutils);
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		//toolbar.add(Box.createRigidArea(new Dimension(500,0)));
+		toolbar.add(showOutils,BorderLayout.EAST);
 		toolbar.add(Box.createRigidArea(new Dimension(50,0)));
 		
 		
@@ -452,6 +453,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 				m_simulateur.asgMetreParStep(m_parametrePanel.reqMetreParStep());
 				m_simulateur.asgVitesseVehicule(m_parametrePanel.reqVitesseVehicule());
 				m_simulateur.asgTempsTraitement(m_parametrePanel.reqTempsTraitement());
+				m_simulateur.asgEchelleTemps(m_parametrePanel.reqEchelleTemps());
 			}
 		}
 		else if (command.equals(Default.ZOOMPLUS)) 
@@ -488,7 +490,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			
 			m_simulateur.lancerSimulation();	
 		}
-		else if (command.equals(RESUME)){
+		else if (command.equals(RESUME))
+		{
 			m_timer.start();
 			this.playBouton.setIcon(iconPAUSE);
 			this.playBouton.setPressedIcon(iconPLAYS);
