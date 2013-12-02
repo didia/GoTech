@@ -18,6 +18,7 @@ public class Main {
 	      @Override
 	      public void run() {
 	    	  new InterfaceGraphique(new Simulateur(), new Afficheur());
+	    	  
 	      }
 		 });
 		
