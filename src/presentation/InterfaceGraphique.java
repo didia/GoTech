@@ -3,6 +3,8 @@ package presentation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,10 +13,13 @@ import java.awt.Color;
 
 import java.awt.Dimension;
 import java.awt.Font;
+
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 
 
@@ -24,7 +29,7 @@ import domaine.simulateur.Simulateur;
 
 import java.util.ArrayList;
 
-public class InterfaceGraphique extends JFrame implements ActionListener 
+public class InterfaceGraphique extends JFrame implements ActionListener,ChangeListener 
 {
 	/**
 	 * 
@@ -37,6 +42,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	
 	private static Simulateur m_simulateur;
     private CarteGraphique m_carteGraphique;
+    private Afficheur m_afficheur;
     private ArrayList<JButton> m_listeEditButtons;
 	
 	private JPanel m_panneauEdition;
@@ -48,6 +54,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
     private JButton playBouton;
     private JButton iconPlaySim;
     private JButton iconStopSim;
+    private JSlider vitesseSim;
+    final JFileChooser fc = new JFileChooser();
 
 
 
@@ -88,7 +96,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 	{
 		//Initialisation
 		super("Intervensim");
-        Afficheur m_afficheur = p_afficheurGraphique;
+		Toolkit tk = Toolkit.getDefaultToolkit();  
+		int xSize = ((int) tk.getScreenSize().getWidth());  
+		int ySize = ((int) tk.getScreenSize().getHeight()); 
+		this.setSize(xSize, ySize);
+		
+	
+        m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
 
 		ImageIcon iconSave = reqResizedIcon(reqIcon(Default.SAVE_ICON_PATH), 20,20);
@@ -165,19 +179,19 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		m_listeEditButtons.add(iconAjoutArc);
 		
 		JButton iconSelect = new JButton(reqResizedIcon(iconSouris, 20, 20));
-		iconSelect.setToolTipText("Modifier et DÔøΩplacer des noeuds et des arcs");
+		iconSelect.setToolTipText("Modifier et Déplacer des noeuds et des arcs");
 		iconSelect.setActionCommand(SELECTEUR_SOURIS);
 		iconSelect.addActionListener(this);
 		m_listeEditButtons.add(iconSelect);
 		
 		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule, 20, 20));
-		iconAjoutVehicule.setToolTipText("Placer VÔøΩhicule d'urgence sur un port d'attache");
+		iconAjoutVehicule.setToolTipText("Placer Véhicule d'urgence sur un port d'attache");
 		iconAjoutVehicule.setActionCommand(PUT_VEHICULE);
 		iconAjoutVehicule.addActionListener(this);
 		m_listeEditButtons.add(iconAjoutVehicule);		
 		
 		JButton iconAddSettings = new JButton(reqResizedIcon(iconSettings, 20, 20));
-		iconAddSettings.setToolTipText("Modifier les paramÔøΩtres de la simulation");
+		iconAddSettings.setToolTipText("Modifier les paramètres de la simulation");
 		iconAddSettings.setActionCommand(ADD_PARAMETRES);
 		iconAddSettings.addActionListener(this);
 		m_listeEditButtons.add(iconAddSettings);
@@ -201,10 +215,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		iconStopSim.setActionCommand(TERMINER);
 		iconStopSim.addActionListener(this);
 		
+		
 		JButton iconAjoutUrgence = new JButton(reqResizedIcon(iconUrgence, 20, 20));
 		iconAjoutUrgence.setToolTipText("Ajouter des urgences");
 		iconAjoutUrgence.setActionCommand(ADD_URGENCE);
 		iconAjoutUrgence.addActionListener(this);
+		
+		vitesseSim = new JSlider(JSlider.HORIZONTAL,1,4,1);
+		vitesseSim.addChangeListener(this);
+		
 		
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolbar.add(btnSave);
@@ -227,6 +246,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolbar.add(iconPlaySim);
 		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
+		toolbar.add(vitesseSim);
+		toolbar.add(Box.createRigidArea(new Dimension(5,0)));
 		toolbar.add(iconStopSim);
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolbar.add(btnZoomMoins);
@@ -235,7 +256,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		//toolbar.add(Box.createRigidArea(new Dimension(500,0)));
 		toolbar.add(showOutils,BorderLayout.EAST);
-		toolbar.add(Box.createRigidArea(new Dimension(50,0)));
+		toolbar.add(Box.createRigidArea(new Dimension(100,0)));
 		
 		
 		getContentPane().add(toolbar, BorderLayout.NORTH);
@@ -369,7 +390,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		getContentPane().add(scroller);
 
 		// Ajout du menu et de la barre des buttons
-        Menu menu = new Menu();
+        Menu menu = new Menu(this);
 		this.setJMenuBar(menu);
 
 
@@ -546,6 +567,21 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 			
 			
 		}
+		else if (command.equals(Default.IMPORTER_IMAGE)){
+			int returnVal = fc.showOpenDialog(this);
+
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fc.getSelectedFile();
+	            m_afficheur.asgImageDeFond(file);
+	            m_carteGraphique.repaint();
+	     
+	        } else {
+	            
+	        }
+		}
+		else if (command.equals(Default.QUIT)){
+			this.dispose();
+		}
 	}
 	
 	public void buttonToPlay(){
@@ -564,6 +600,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener
 		this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		
 		this.iconPlaySim.setActionCommand(RESUME);
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		JSlider source = (JSlider)e.getSource();
+		m_simulateur.ajusteVitesseSimulation((int)source.getValue());
+		
 	}
 	
 

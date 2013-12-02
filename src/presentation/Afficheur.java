@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import java.awt.Image;
 
@@ -30,7 +31,7 @@ public class Afficheur
 	private static final String VEHICULE_IMAGE_PATH = "src/"+ Default.VEHICULE_IMAGE_PATH;
 	private static final String URGENCE_IMAGE_PATH = "src/"+ Default.URGENCE_IMAGE_PATH;
 	
-	// TODO private Image m_imageDeFond;
+	private Image m_imageDeFond = null;
 	private Image m_ImageDeVehicule;
 	private Image m_ImageUrgence;
 	private int WIDTH_NOEUD = Default.WIDTH_NOEUD;
@@ -57,15 +58,23 @@ public class Afficheur
 		}
 	}
 
-	
+	public void asgImageDeFond(File fichierImage){
+		try
+		{
+			m_imageDeFond = ImageIO.read(fichierImage);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public void afficherReseau(Graphics g, Simulateur simulateur, CarteGraphique carteGraphique) 
 	{
 		Carte carte = simulateur.reqCarte();
-		//StrategieGestion strategie = simulateur.reqStrategieAnciennetee();
+	
 		m_grille = simulateur.reqGrille();
 		ArrayList<Noeud> listeDeNoeuds = carte.reqListeNoeuds();
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
-		//ArrayList<Urgence> listUrgence = strategie.reqListeUrgence(); 
 		m_zoom = simulateur.reqZoom(); 
 		WIDTH_NOEUD = Math.round(Default.WIDTH_NOEUD * m_zoom);
 		
@@ -89,6 +98,45 @@ public class Afficheur
 
 	private void afficherCarte(Graphics g, CarteGraphique carteGraphique) 
 	{
+		
+		if(m_imageDeFond != null)
+		{
+			
+			afficherAvecImageDeFond(g, carteGraphique);
+		}
+		else
+		{
+			afficherSansImageDeFond(g, carteGraphique);
+		}
+		
+		carteGraphique.revalidate();
+	}
+
+	private void afficherAvecImageDeFond(Graphics g, CarteGraphique carte){
+		Graphics2D g2 = (Graphics2D) g;
+	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+	            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+	    BufferedImage img = (BufferedImage)m_imageDeFond;
+	    float scale; 
+	    if(m_zoom >= 1)
+	    {
+	    	scale = m_zoom;
+	    }
+	    else
+	    {
+	    	scale = 1;
+	    }
+	   
+	    double imageWidth = scale * img.getWidth();
+	    double imageHeight = scale * img.getHeight();
+	    carte.setPreferredSize(new Dimension((int)Math.round(imageWidth),(int)Math.round(imageHeight)));
+	    double x = (carte.getWidth() - imageWidth) / 2;
+	    double y = (carte.getHeight() - imageHeight) / 2;
+	    AffineTransform at = AffineTransform.getTranslateInstance(x, y);
+	    at.scale(scale, scale);
+	    g2.drawRenderedImage(img, at);
+	}
+	private void afficherSansImageDeFond(Graphics g, CarteGraphique carte){
 		int newWidth;
 		int newHeight;
 		
@@ -115,11 +163,8 @@ public class Afficheur
 		maxWidth = Default.CARTE_WIDTH;
 		maxHeight = Default.CARTE_HEIGHT;
 
-		carteGraphique.setPreferredSize(new Dimension(newWidth, newHeight));
-		carteGraphique.revalidate();
+		carte.setPreferredSize(new Dimension(newWidth, newHeight));
 	}
-
-	
 	private void afficherGrille(Graphics g, CarteGraphique carteGraphique) 
 	{
 		Graphics2D g2d = (Graphics2D) g;
