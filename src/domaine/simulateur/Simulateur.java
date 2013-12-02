@@ -3,6 +3,7 @@ package domaine.simulateur;
 import java.awt.event.MouseEvent;
 
 
+
 import javax.swing.event.MouseInputListener;
 
 import domaine.reseau.Carte;
@@ -205,9 +206,9 @@ public class Simulateur implements MouseInputListener {
 
 		if (positionX / 1000 > 1 || positionY / 1000 > 1) {
 			return "<html>Abscisse : " + positionX / 1000
-					+ "Km<br/> Ordonn�e : " + positionY / 1000 + "Km</html>";
+					+ "Km<br/> Ordonnï¿½e : " + positionY / 1000 + "Km</html>";
 		}
-		return "<html>Abscisse : " + positionX + "m<br/> Ordonn�e : "
+		return "<html>Abscisse : " + positionX + "m<br/> Ordonnï¿½e : "
 				+ positionY + "m</html>";
 	}
 	public String reqNoeudDescription(int posX, int posY){
@@ -231,7 +232,7 @@ public class Simulateur implements MouseInputListener {
 		}
 		else if (noeud.isTraitee()){
 			urgence = this.m_gestionnaireUrgence.reqUrgenceNonTraiteeAssocieA(noeud);
-			statut = "Trait�e r�cemment";
+			statut = "TraitŽe rŽcemment";
 			tempsAttente = Math.round(urgence.reqtempsAttente());
 		}
 		else{
@@ -243,7 +244,7 @@ public class Simulateur implements MouseInputListener {
 	public String reqResults(){
 		Resultats results = this.m_gestionnaireResultat.reqResultats();
 		return "Temps De Traitement Moyen : " + results.gettempsDattente() + " secondes\n" +
-		       "Distance Totale parcourue : " + results.getDistanceParcourue() + " m�tres";
+		       "Distance Totale parcourue : " + results.getDistanceParcourue() + " m�tres";
 	}
 	public Resultats reqResultats(){
 		Resultats results = this.m_gestionnaireResultat.reqResultats();
@@ -307,16 +308,15 @@ public class Simulateur implements MouseInputListener {
 
 	public void SauvegarderEtatActuel() {
 		if (m_etatsimu.reqListeEtatSimu().contains(this))
-			System.out.println("cette simulation a eté dejas enregistré");
+			System.out.println("cette simulation a etÃ© dejas enregistrÃ©");
 		else
 			m_etatsimu.ajouterEtatSimu(this);
 	}
 
 	public void annuler() {
 		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu()
-					.peek());
-			// TODO this = m_etatsimu.reqListeEtatSimu().peek();
+			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu().peek());
+			//this = m_etatsimu.reqListeEtatSimu().peek();
 			m_etatsimu.reqListeEtatSimu().poll();
 		}
 
@@ -325,8 +325,7 @@ public class Simulateur implements MouseInputListener {
 	public void retablir() {
 
 		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu()
-					.peek());
+			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu().peek());
 			// TODO this = m_etatsimu.reqListeEtatsuivantSimu().peek();
 			m_etatsimu.reqListeEtatsuivantSimu().poll();
 		}
@@ -365,6 +364,16 @@ public class Simulateur implements MouseInputListener {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		m_etat.mouseMoved(e);
+	}
+
+	public void asgEchelleTemps(int reqEchelleTemps) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int reqEchelleTemps() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
