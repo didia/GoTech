@@ -77,7 +77,8 @@ public class Afficheur
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
 		m_zoom = simulateur.reqZoom(); 
 		WIDTH_NOEUD = Math.round(Default.WIDTH_NOEUD * m_zoom);
-		
+		this.afficherCarte(g, carteGraphique);
+		this.afficherGrille(g, carteGraphique);
 		this.afficherNoeuds(g, listeDeNoeuds);
 		this.afficherArcs(g, listeDeArcs);
 		
@@ -92,8 +93,7 @@ public class Afficheur
 			this.afficherProchaineUrgence(g, simulateur.reqPositionProchaineUrgence());
 		}
 		
-		this.afficherCarte(g, carteGraphique);
-		this.afficherGrille(g, carteGraphique);
+		
 	}
 
 	private void afficherCarte(Graphics g, CarteGraphique carteGraphique) 
