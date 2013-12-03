@@ -12,7 +12,6 @@ import java.awt.Color;
 
 
 import java.awt.Dimension;
-
 import java.awt.Font;
 
 import java.awt.GridLayout;
@@ -23,6 +22,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 
+
+import domaine.reseau.Carte;
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
 
@@ -154,12 +155,16 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 		btnUndo.setActionCommand(UNDO);
 		btnUndo.addActionListener(this);
 		m_listeEditButtons.add(btnUndo);
+		 btnUndo.setEnabled(false);
+		    
 		
 		JButton btnRedo = new JButton(iconRedo);
 		btnRedo.setToolTipText("Recommencer");
 		btnRedo.setActionCommand(REDO);
 		btnRedo.addActionListener(this);
 		m_listeEditButtons.add(btnRedo);
+		btnRedo.setEnabled(false);
+
 		
 		JButton iconAjoutNoeud = new JButton(reqResizedIcon(iconNoeud, 20, 20));
 		iconAjoutNoeud.setToolTipText("Placer des noeuds");
@@ -441,9 +446,21 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 	public void actionPerformed(ActionEvent e) 
 	{
 		String command = e.getActionCommand();
-		if (command.equals(ADD_NOEUD_STRING)) 
+		
+		if(command.equals(UNDO))
+		{
+			m_simulateur.annuler();
+			m_carteGraphique.repaint();
+		}
+		if(command.equals(REDO))
+		{
+			m_simulateur.retablir();
+			m_carteGraphique.repaint();
+		}
+		else if (command.equals(ADD_NOEUD_STRING)) 
 		{
 			m_simulateur.setEtatAjouterNoeud();	
+			
 		} 
 		else if (command.equals(ADD_ARC_STRING)) 
 		{

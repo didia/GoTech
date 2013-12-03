@@ -1,13 +1,18 @@
-package domaine.simulateur;
+package domaine.simulateur.etat;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
+import domaine.simulateur.Simulateur;
+
 public class EtatSimulateur {
+	
+	
 
 	private  Queue<Simulateur> listeEtatSimu = new LinkedList<Simulateur>();
 	
 	private  Queue<Simulateur> listeEtatsuivantSimu = new LinkedList<Simulateur>();
+	
 	
 	public Queue<Simulateur> reqListeEtatSimu()
 	{
@@ -27,6 +32,7 @@ public class EtatSimulateur {
 	{
 		return this.listeEtatsuivantSimu;
 	}
+	
 	public void ajouterEtatsuivantSimu (Simulateur simu)
 	{
 		this.listeEtatsuivantSimu.add(simu);
