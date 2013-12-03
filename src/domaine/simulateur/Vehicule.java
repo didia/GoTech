@@ -25,7 +25,7 @@ public class Vehicule {
 	private float distanceDuProchainNoeud;
 
 	private float distanceparcourue = 0;
-
+	private int coefficientVitesse = 1;
 	private boolean en_traitement = false;
 	private int m_tempsTraitementUrgence = 10;
 	private int compteurTempsTraitement = 0;
@@ -33,6 +33,7 @@ public class Vehicule {
 	private float directionX;
 	private float directionY;
 	private double angle = 0;
+	private float m_echelleTemps;
 	
 	
 	
@@ -54,13 +55,14 @@ public class Vehicule {
 	}
 
 	
-	public void lancerMission(GestionnaireUrgence gestionnaire, Carte gps, float vitesse, float tempsTraitement, boolean retour){
+	public void lancerMission(GestionnaireUrgence gestionnaire, Carte gps, float vitesse, float tempsTraitement, boolean retour, float echelleTemps){
 		this.asgNoeudActuel(m_portAttache);
 		m_gestionnaireUrgence = gestionnaire;
 		m_vitesse = (vitesse * 1000)/3600;
 		m_gps = gps;
 		m_tempsTraitementUrgence = Math.round(tempsTraitement*60);
 		m_retourPointAttache =retour;
+		m_echelleTemps = 3600/echelleTemps;
 	}
 
 	public void asgPointAttache(Noeud noeud) {
@@ -73,7 +75,9 @@ public class Vehicule {
 		m_gestionnaireUrgence = gps;
 	}
 
-
+	public void ajusteVitesseVehicule(int coefficient){
+		this.coefficientVitesse = coefficient;
+	}
 	public Position reqPosition()
 	{
 		if(this.m_noeudActuel != null){
@@ -115,7 +119,8 @@ public class Vehicule {
 
 	public void avance(int duree) {
 		// ne tiens pas encore compte du chemin
-
+		
+		duree = Math.round(duree*this.m_echelleTemps*this.coefficientVitesse);
 		if(this.isEnTraitement()){
 			this.continuerTraitement(duree);	
 		}
@@ -170,12 +175,15 @@ public class Vehicule {
 			}
 		}
 	}
-	private void continuerTraitement(int duree){
+	private void continuerTraitement(int duree)
+	{
+		
 		compteurTempsTraitement += duree;
 
-		if(compteurTempsTraitement == this.m_tempsTraitementUrgence * 1000){
+		if(compteurTempsTraitement >= this.m_tempsTraitementUrgence * 1000)
+		{
 			this.finirTraitement();
-	}
+		}
 	
 	}
 	

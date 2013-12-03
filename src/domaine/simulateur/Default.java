@@ -22,11 +22,13 @@ public class Default {
 
 	public static final String ZOOMMOINS = "-";
 	public static final String ZOOMPLUS = "+";
-	public static final String STRATEGIE_PROX = "Stratégie de proximité";
-	public static final String STRATEGIE_PRIORITE = "Stratégie de priorité";
-	public static final String STRATEGIE_ANC = "Stratégie d'ancienneté";
-	public static final String STRATEGIE_MIN = "Stratégie de chemin minimal";
+	public static final String STRATEGIE_PROX = "StratŽgie de proximitŽ";
+	public static final String STRATEGIE_PRIORITE = "StratŽgie de prioritŽ";
+	public static final String STRATEGIE_ANC = "StratŽgie d'anciennetŽ";
+	public static final String STRATEGIE_MIN = "StratŽgie de chemin minimal";
 	public static final String STRATEGIE_GESTION = STRATEGIE_ANC;
+	public static final String QUIT = "Quit";
+	public static final String IMPORTER_IMAGE = "Importer image de fond";
 	 
 	
 	public static final int WIDTH_NOEUD = 20;
@@ -35,10 +37,11 @@ public class Default {
 	public static final int HEIGHT_ICON = 40;
 	public static final int BORDER_SIZE = 20;
 	public static final int METRE_PAR_STEP = 10;
-	public static final int CARTE_WIDTH = 800;
-	public static final int CARTE_HEIGHT =600;
+	public static final int CARTE_WIDTH = 900;
+	public static final int CARTE_HEIGHT =640;
 	
 	public static final float VITESSE_VEHICULE = 100;
+	public static final int ECHELLE_TEMPS = 3600;
 	public static final float TEMPS_TRAITEMENT = 0.1f;
 	public static final float ZOOM = 1f;
 	

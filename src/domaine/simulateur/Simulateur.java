@@ -29,95 +29,126 @@ public class Simulateur implements MouseInputListener {
 
 	private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
-	public Simulateur() {
+	public Simulateur() 
+	{
 		m_gestionnaireResultat = new GestionnaireResultat(m_vehicule, m_gestionnaireUrgence);
 	}
 
-	public void setEtatAjouterNoeud() {
+	public void setEtatAjouterNoeud() 
+	{
 		m_etat = new EtatAjouterNoeud(this);
 	}
 
-	public void setEtatAjouterArc() {
+	public void setEtatAjouterArc() 
+	{
 		m_etat = new EtatAjouterArc(this);
 	}
 
-	public void setEtatSelectioneur() {
+	public void setEtatSelectioneur() 
+	{
 		m_etat = new EtatModifierComponent(this);
 	}
 
-	public void setEtatPlacerVehicule() {
+	public void setEtatPlacerVehicule() 
+	{
 		m_etat = new EtatPlacerVehicule(this);
 	}
 
-	public void setEtatAjouterUregence() {
+	public void setEtatAjouterUregence() 
+	{
 		m_etat = new EtatAjouterUrgence(this);
 	}
 
-	public void lancerSimulation() {
+	public void lancerSimulation() 
+	{
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
 		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte,
 				m_parametres.reqVitesseVehicule(),
 				m_parametres.reqTempsTraitement(),
-				m_parametres.reqRetourPointAttache());
+				m_parametres.reqRetourPointAttache(), m_parametres.reqEchelleTemps());
 	
 	}
 
-	public void terminerSimulation() {
+	public void terminerSimulation() 
+	{
 		m_carte.resetEtatNoeud();
 		this.m_gestionnaireUrgence.reset();
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
 	}
 
-	public boolean isStrategieCourante(String strategie) {
+	public boolean isStrategieCourante(String strategie) 
+	{
 		return m_parametres.reqStrategie().equals(strategie);
 	}
 
-	public String reqStrategieCourante() {
+	public String reqStrategieCourante() 
+	{
 		return m_parametres.reqStrategie();
 	}
 
-	public void asgStrategie(String strategie) {
+	public void asgStrategie(String strategie) 
+	{
 		m_parametres.asgStrategie(strategie);
 	}
 
-	public float reqVitesseVehicule() {
+	public float reqVitesseVehicule() 
+	{
 		return m_parametres.reqVitesseVehicule();
 	}
 
-	public void asgVitesseVehicule(float vitesse) {
-		if (vitesse > 0) {
+	public void asgVitesseVehicule(float vitesse) 
+	{
+		if (vitesse > 0) 
+		{
 			m_parametres.asgVitesseVehicule(vitesse);
 		}
 	}
 
-	public boolean isretourPointAttache() {
+	public boolean isretourPointAttache() 
+	{
 		return m_parametres.reqRetourPointAttache();
 	}
 
-	public void asgRetourPointAttache(boolean flag) {
+	public void asgRetourPointAttache(boolean flag) 
+	{
 		m_parametres.asgRetourPointAttache(flag);
 	}
 
-	public int reqMetreParStep() {
+	public int reqMetreParStep() 
+	{
 		return m_echelle.reqMetreParStep();
 	}
 
-	public void asgMetreParStep(int value) {
-		if (value > 0) {
+	public void asgMetreParStep(int value) 
+	{
+		if (value > 0) 
+		{
 			m_echelle.setMetreParStep(value);
 			updaterCarte();
 		}
 	}
 
-	public float reqTempsTraitement() {
+	public float reqTempsTraitement() 
+	{
 		return m_parametres.reqTempsTraitement();
 	}
 
-	public void asgTempsTraitement(float m_tempsTraitement) {
-		m_parametres.asgTempsTraitement(m_tempsTraitement);
+	public void asgTempsTraitement(float tempsTraitement) 
+	{
+		m_parametres.asgTempsTraitement(tempsTraitement);
+	}
+	
+	public int reqEchelleTemps()
+	{
+		return m_parametres.reqEchelleTemps();
+	}
+	
+	public void asgEchelleTemps(int echelleTemps)
+	{
+		m_parametres.asgEchelleTemps(echelleTemps);
 	}
 
 	public Carte reqCarte() {
@@ -125,10 +156,12 @@ public class Simulateur implements MouseInputListener {
 	}
 
 	
-	public void ajouterNoeud(int positionX, int positionY) {
+	public void ajouterNoeud(int positionX, int positionY) 
+	{
 		Position position = new Position((float) positionX, (float) positionY);
 		position = m_grille.reqPositionEnMetre(position);
-		if (m_carte.reqNoeud(position) == null) {
+		if (m_carte.reqNoeud(position) == null) 
+		{
 			m_carte.ajouterNoeud(position);
 		}
 
@@ -143,58 +176,71 @@ public class Simulateur implements MouseInputListener {
 				(float) positionX, (float) positionY)));
 	}
 
-	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) {
+	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) 
+	{
 		Position nouvellePosition = new Position((float) positionX,
 				(float) positionY);
 		nouvellePosition = m_grille.reqPositionEnMetre(nouvellePosition);
 
 		if (nouvellePosition.reqPositionX() >= 0
-				&& nouvellePosition.reqPositionY() >= 0) {
+				&& nouvellePosition.reqPositionY() >= 0) 
+		{
 			m_carte.deplacerNoeud(noeud, nouvellePosition);
 		}
 	}
 
-	public void updaterCarte() {
-		for (Noeud noeud : m_carte.reqListeNoeuds()) {
+	public void updaterCarte() 
+	{
+		for (Noeud noeud : m_carte.reqListeNoeuds()) 
+		{
 			m_carte.deplacerNoeud(noeud,
 					m_grille.reqUpdatedPosition(noeud.reqPosition()));
 		}
 	}
 
-	public Arc reqArc(int positionX, int positionY) {
+	public Arc reqArc(int positionX, int positionY) 
+	{
 		return m_carte.reqArc(m_grille.reqPositionEnMetre(new Position(
 				(float) positionX, (float) positionY)));
 	}
 
-	public boolean existeComponent(int positionX, int positionY) {
+	public boolean existeComponent(int positionX, int positionY) 
+	{
 		if (this.reqNoeud(positionX, positionY) != null
-				|| this.reqArc(positionX, positionY) != null) {
+				|| this.reqArc(positionX, positionY) != null) 
+		{
 			return true;
 		}
 
-		else {
+		else 
+		{
 			return false;
 		}
 	}
 
-	public void supprimer_component() {
+	public void supprimer_component() 
+	{
 		Noeud noeud = m_etat.reqNoeudSelectione();
 		System.out.println("Entrain de supprimer un noeud");
-		if (noeud != null) {
+		if (noeud != null) 
+		{
 			System.out.println("Entrain de supprimer un noeud");
 			m_carte.enleverNoeud(noeud);
 		}
 
-		else {
+		else 
+		{
 			Arc arc = m_etat.reqArcSelectione();
-			if (arc != null) {
+			if (arc != null) 
+			{
 				System.out.println("Entrain de supprimer un arc");
 				m_carte.enleverArc(arc);
 			}
 		}
 	}
 	
-	public String reqPositionDescription(int posX, int posY){
+	public String reqPositionDescription(int posX, int posY)
+	{
 		return m_etat.reqPositionDescription(posX, posY);
 	}
 	public String reqPositionString(int posX, int posY) {
@@ -205,9 +251,9 @@ public class Simulateur implements MouseInputListener {
 
 		if (positionX / 1000 > 1 || positionY / 1000 > 1) {
 			return "<html>Abscisse : " + positionX / 1000
-					+ "Km<br/> Ordonnï¿½e : " + positionY / 1000 + "Km</html>";
+					+ "Km<br/> OrdonnŽe : " + positionY / 1000 + "Km</html>";
 		}
-		return "<html>Abscisse : " + positionX + "m<br/> Ordonnï¿½e : "
+		return "<html>Abscisse : " + positionX + "m<br/> OrdonnŽe : "
 				+ positionY + "m</html>";
 	}
 	public String reqNoeudDescription(int posX, int posY){
@@ -230,7 +276,7 @@ public class Simulateur implements MouseInputListener {
 			tempsAttente = Math.round(urgence.reqtempsAttente());
 		}
 		else if (noeud.isTraitee()){
-			urgence = this.m_gestionnaireUrgence.reqUrgenceNonTraiteeAssocieA(noeud);
+			urgence = this.m_gestionnaireUrgence.reqUrgenceTraiteeAssocieA(noeud);
 			statut = "TraitŽe rŽcemment";
 			tempsAttente = Math.round(urgence.reqtempsAttente());
 		}
@@ -263,6 +309,10 @@ public class Simulateur implements MouseInputListener {
 
 	public double reqDirectionVehicule() {
 		return m_vehicule.reqDirection();
+	}
+	
+	public void ajusteVitesseSimulation(int coefficient){
+		m_vehicule.ajusteVitesseVehicule(coefficient);
 	}
 
 	public float reqZoom() {

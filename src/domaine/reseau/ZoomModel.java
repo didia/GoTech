@@ -11,10 +11,7 @@ public class ZoomModel {
     }
  
     public float augmenteZoom(){
-            if(m_zoom<1){
-                    m_zoom += 0.25;
-            }
-            else if(m_zoom <4){
+           if(m_zoom <4){
                     m_zoom += 0.25;
             }
                     
@@ -23,15 +20,10 @@ public class ZoomModel {
     }
     
     public float diminueZoom(){
-            if(m_zoom <= 0.5){
-                    
-            }
-            else if (m_zoom <= 1){
+            if(m_zoom > 0.25){
                     m_zoom -= 0.25;
             }
-            else{
-                    m_zoom -= 1;
-            }
+           
             return m_zoom;
     }
 

@@ -20,6 +20,7 @@ public class Parametres
 	private  String m_strategie;
 	private  boolean m_retourPointAttache ;
 	private  float m_tempsTraitement; 
+	private int m_echelleTemps;
 	
 	public Parametres()
 	{
@@ -27,6 +28,7 @@ public class Parametres
 		m_strategie = Default.STRATEGIE_GESTION;
 		m_retourPointAttache = Default.RETOUR_POINT_ATTACHE;
 		m_tempsTraitement = Default.TEMPS_TRAITEMENT;
+		m_echelleTemps = Default.ECHELLE_TEMPS;
 	}
 	
 
@@ -69,5 +71,14 @@ public class Parametres
 	public void asgTempsTraitement(float m_tempsTraitement) 
 	{
 		this.m_tempsTraitement = m_tempsTraitement;
-	}	
+	}
+	
+	public int reqEchelleTemps()
+	{
+		return this.m_echelleTemps;
+	}
+	public void asgEchelleTemps(int echelleTemps)
+	{
+		this.m_echelleTemps = echelleTemps;
+	}
 }
