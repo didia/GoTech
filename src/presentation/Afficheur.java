@@ -110,6 +110,7 @@ public class Afficheur
 		}
 		
 		carteGraphique.revalidate();
+		
 	}
 
 	private void afficherAvecImageDeFond(Graphics g, CarteGraphique carte){

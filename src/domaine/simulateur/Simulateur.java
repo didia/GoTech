@@ -155,7 +155,6 @@ public class Simulateur implements MouseInputListener {
 	public Carte reqCarte() {
 		return m_carte;
 	}
-
 	
 	public void ajouterNoeud(int positionX, int positionY) 
 	{
@@ -253,9 +252,9 @@ public class Simulateur implements MouseInputListener {
 		if (positionX / 1000 > 1 || positionY / 1000 > 1) {
 			return "<html>Abscisse : " + positionX / 1000
 
-					+ "Km<br/> OrdonnŽe : " + positionY / 1000 + "Km</html>";
+					+ "Km<br/> Ordonnï¿½e : " + positionY / 1000 + "Km</html>";
 		}
-		return "<html>Abscisse : " + positionX + "m<br/> OrdonnŽe : "
+		return "<html>Abscisse : " + positionX + "m<br/> Ordonnï¿½e : "
 
 				+ positionY + "m</html>";
 	}
@@ -281,7 +280,7 @@ public class Simulateur implements MouseInputListener {
 		else if (noeud.isTraitee()){
 
 			urgence = this.m_gestionnaireUrgence.reqUrgenceTraiteeAssocieA(noeud);
-			statut = "TraitŽe rŽcemment";
+			statut = "Traitï¿½e rï¿½cemment";
 
 			tempsAttente = Math.round(urgence.reqtempsAttente());
 		}
@@ -365,24 +364,6 @@ public class Simulateur implements MouseInputListener {
 			System.out.println("cette simulation a etÃƒÂ© dejas enregistrÃƒÂ©");
 		else
 			m_etatsimu.ajouterEtatSimu(this);
-	}
-
-	public void annuler() {
-		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu().peek());
-			//this = m_etatsimu.reqListeEtatSimu().peek();
-			m_etatsimu.reqListeEtatSimu().poll();
-		}
-
-	}
-
-	public void retablir() {
-
-		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu().peek());
-			// TODO this = m_etatsimu.reqListeEtatsuivantSimu().peek();
-			m_etatsimu.reqListeEtatsuivantSimu().poll();
-		}
 	}
 
 	@Override
