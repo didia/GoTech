@@ -1,10 +1,8 @@
 package domaine.simulateur;
 
 import java.awt.event.MouseEvent;
-
-
-
 import javax.swing.event.MouseInputListener;
+import java.io.*;
 
 import domaine.reseau.Carte;
 import domaine.simulateur.etat.*;
@@ -12,7 +10,11 @@ import domaine.reseau.*;
 import domaine.simulation.resultat.*;
 import domaine.simulation.urgence.*;
 
-public class Simulateur implements MouseInputListener {
+
+
+public class Simulateur implements MouseInputListener, Serializable 
+{
+	private static final long serialVersionUID = 42L;
 
 	private static Carte m_carte = new Carte();
 	private static Vehicule m_vehicule = Vehicule.getInstance();
@@ -24,11 +26,11 @@ public class Simulateur implements MouseInputListener {
 	private GestionnaireResultat m_gestionnaireResultat;
 
 
-	int tempattente ;
+	int tempattsente ;
 
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
 
-	private EtatSimulateur m_etatsimu = new EtatSimulateur();
+	transient private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
 	public Simulateur() 
 	{

@@ -1,6 +1,7 @@
 package domaine.simulateur.etat;
 
 import java.awt.event.MouseEvent;
+import java.io.*;
 
 import domaine.reseau.Arc;
 import domaine.reseau.Noeud;
@@ -8,7 +9,8 @@ import domaine.simulateur.Simulateur;
 
 
 
-public class EtatDEdition implements Etat {
+public class EtatDEdition implements Etat, Serializable {
+	
 	
 	protected static Noeud noeud_selectione = null;
 	protected static Arc arc_selectione = null;
@@ -23,7 +25,7 @@ public class EtatDEdition implements Etat {
 		noeud_selectione = m_simulateur.reqNoeud(e.getX(), e.getY());
 		if (noeud_selectione == null){
 			arc_selectione = m_simulateur.reqArc(e.getX(), e.getY());
-			System.out.println("Un arc selectionŽ "+ (arc_selectione != null));
+			System.out.println("Un arc selectionï¿½ "+ (arc_selectione != null));
 		}
 		
 	}

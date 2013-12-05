@@ -1,5 +1,7 @@
 package presentation;
 
+import java.io.*;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
@@ -609,21 +611,116 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			m_simulateur.terminerSimulation();
 			m_carteGraphique.repaint();
 
-		} else if (command.equals(Default.IMPORTER_IMAGE)) {
+		} 
+		else if (command.equals(Default.IMPORTER_IMAGE))
+		{
 			int returnVal = fc.showOpenDialog(this);
 
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
+			if (returnVal == JFileChooser.APPROVE_OPTION)
+			{
 				File file = fc.getSelectedFile();
 				m_afficheur.asgImageDeFond(file);
 				m_carteGraphique.repaint();
+			} 
 
-			} else {
-
-			}
-		} else if (command.equals(Default.QUIT)) {
-			this.dispose();
+			else if (command.equals(Default.QUIT)) 
+			{
+				this.dispose();
+			}	
 		}
-	}
+		
+		//Enregistrer Sous
+		else if (command.equals(Default.ENREGISTRER_SOUS))
+		{
+			int returnVal = fc.showSaveDialog(this);
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				File file = fc.getSelectedFile();
+				
+				System.out.println("Ouverture du fichier" + " " + file.getPath());
+				
+				try
+				{
+					FileOutputStream fos = new FileOutputStream(file.getPath());
+					ObjectOutputStream oos= new ObjectOutputStream(fos);
+					
+					try 
+					{
+						// sérialisation : écriture de l'objet dans le flux de sortie
+						oos.writeObject(m_simulateur); 
+						// on vide le tampon
+						oos.flush();
+					} 
+					finally
+					{
+						//fermeture des flux
+						try 
+						{
+							oos.close();
+						}
+						finally 
+						{
+							fos.close();
+						}
+					}	
+				}
+				catch(IOException io)
+				{
+					io.getStackTrace();
+				}				
+			}
+		}
+		
+		//Ouvrir
+		else if (command.equals(Default.OUVRIR))
+		{
+			int returnVal = fc.showOpenDialog(this);
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				File file = fc.getSelectedFile();
+				
+				System.out.println("Ouverture du fichier" + " " + file.getPath());
+				
+				try
+				{
+					FileInputStream fis = new FileInputStream(file.getPath());
+					ObjectInputStream ois = new ObjectInputStream(fis);
+					
+					try
+					{	
+						// désérialisation : lecture de l'objet depuis le flux d'entrée
+						m_simulateur = (Simulateur)ois.readObject(); 
+					} finally
+					{
+						// on ferme les flux
+						try 
+						{
+							ois.close();
+						} 
+						finally 
+						{
+							fis.close();
+						}
+					}
+				} catch (IOException ioe) 
+				{
+					ioe.printStackTrace();
+				} catch (ClassNotFoundException cnfe)
+				{
+					cnfe.printStackTrace();
+				}
+				if (m_simulateur != null)
+				{
+					System.out.println(" a ete deserialise");
+				}		
+			}
+			
+			m_carteGraphique.repaint();
+		}
+
+}
 
 	public void buttonToPlay() {
 		this.playBouton.setIcon(iconPAUSE);
