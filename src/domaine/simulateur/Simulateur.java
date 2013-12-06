@@ -17,8 +17,8 @@ public class Simulateur implements MouseInputListener, Serializable
 {
 	private static final long serialVersionUID = 42L;
 
-	private static Carte m_carte = new Carte();
-	private static Vehicule m_vehicule = Vehicule.getInstance();
+	
+	private Vehicule m_vehicule = Vehicule.getInstance();
 	private Etat m_etat = new EtatDEdition(this);
 
 	private Parametres m_parametres = new Parametres();
@@ -70,7 +70,7 @@ public class Simulateur implements MouseInputListener, Serializable
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
-		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte,
+		m_vehicule.lancerMission(m_gestionnaireUrgence, m_gestionnaireReseau.reqCarte(),
 				m_parametres.reqVitesseVehicule(),
 				m_parametres.reqTempsTraitement(),
 				m_parametres.reqRetourPointAttache(), m_parametres.reqEchelleTemps());
@@ -334,6 +334,17 @@ public class Simulateur implements MouseInputListener, Serializable
 			 
 		}
 
+	}
+	
+	public void declencherUrgence(float tempsDeclenchement)
+	{
+		Noeud noeud = m_etat.reqNoeudSelectione();
+		
+		if(noeud != null && noeud.isFree())
+		{
+			this.m_gestionnaireUrgence.ajouterUrgence(noeud, Math.round(tempsDeclenchement*60));
+		}
+		
 	}
 
 	public Position reqPositionProchaineUrgence() {

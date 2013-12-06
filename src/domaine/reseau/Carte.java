@@ -342,7 +342,7 @@ public class Carte
 	{
 		for (int i = 0; i < this.m_listeDeNoeuds.size(); i++) 
 		{
-			if (this.m_listeDeNoeuds.get(i) == a) 
+			if (this.m_listeDeNoeuds.get(i)==a) 
 			{
 				this.m_listeDeNoeuds.get(i).setCout(0);
 			} 
@@ -372,12 +372,13 @@ public class Carte
 		
 		
 		this._initialisationDijkstra(noeud1);
-		if (noeud2.reqCout()==0)
+		if (noeud1.equals(noeud2))
 		{
-			
+			System.out.println(noeud1.equals(noeud2));
 			ArrayList<Noeud> res = new ArrayList<Noeud>();
 			res.add(noeud2);
 			return res;
+			
 		}
 		//int a = this.m_listeDeNoeuds.indexOf(noeud1);
 
