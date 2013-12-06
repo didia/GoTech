@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import domaine.reseau.Carte;
+import domaine.reseau.Carte;
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
 import presentation.Afficheur;
@@ -25,6 +26,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.Vector;
 
 public class CarteGraphique extends JPanel implements MouseInputListener {
 	/**
@@ -35,12 +37,10 @@ public class CarteGraphique extends JPanel implements MouseInputListener {
 	private static Simulateur m_simulateur;
 	private JScrollPane viewport;
 	private static final String SUPPRIMER_NOEUD = "Supprimer";
-	private static Vector<Carte> listeInstanceCarte;
-	
+		
 	// Constructeur
 	public CarteGraphique(Afficheur afficheurGraphique,
-			Simulateur p_simulateur, Vector<Carte> vect) {
-		listeInstanceCarte = vect;
+			Simulateur p_simulateur) {
 		m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
 		final CarteGraphique mycarte = this;
@@ -70,10 +70,6 @@ public class CarteGraphique extends JPanel implements MouseInputListener {
 		ToolTipManager.sharedInstance().registerComponent(this);
 	}
 
-	public static Vector<Carte> reqlisteCarte() {
-		return listeInstanceCarte;
-	}
-
 	@Override
 	public String getToolTipText(MouseEvent event) {
 		return m_simulateur.reqPositionDescription(event.getX(), event.getY());
@@ -82,10 +78,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		// for(int i=0;i<points.size();i++){
-		// Point point = (Point) points.get(i);
-		// g.drawRect(point.x, point.y, width, height);
-		// }
+		
 		m_afficheur.afficherReseau(g, m_simulateur, this);
 	}
 

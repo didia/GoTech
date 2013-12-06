@@ -25,16 +25,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
-
 import domaine.reseau.Carte;
-
+import domaine.reseau.Carte;
+import domaine.reseau.Noeud;
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Vector;
-import java.util.Vector;
+import java.util.Stack;
+
+;
 
 public class InterfaceGraphique extends JFrame implements ActionListener,
 		ChangeListener {
@@ -47,7 +48,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private Timer result_timer;
 
 	private static Simulateur m_simulateur;
-	private Carte carteTemp;
+	private static Carte carteTemp;
 	private CarteGraphique m_carteGraphique;// m_carteGraphique
 	private Afficheur m_afficheur;
 	private ArrayList<JButton> m_listeEditButtons;
@@ -76,9 +77,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	// TODO
 	ImageIcon iconUndo = reqResizedIcon(reqIcon(Default.UNDO_ICON_PATH), 20, 20);
 	ImageIcon iconRedo = reqResizedIcon(reqIcon(Default.REDO_ICON_PATH), 20, 20);
-	protected Vector<Carte> listeInstanceCarte = new Vector<Carte>();
+	protected static Stack<Carte> listeInstanceCarte = new Stack<Carte>();
 
-	protected static UndoManager undoManager = new UndoManager();
+	protected UndoManager undoManager = new UndoManager();
 	protected JButton btnUndo = new JButton(iconUndo);
 
 	protected JButton btnRedo = new JButton(iconRedo);
@@ -118,8 +119,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
-		carteTemp = m_simulateur.reqCarte();
+		carteTemp = new Carte(m_simulateur.reqCarte());
+		listeInstanceCarte.add(carteTemp);
 
+		//
+		// System.out.println(m_simulateur.reqCarte()
+		// .reqListeNoeuds().size());
+		// System.out.println(listeInstanceCarte.element().reqListeNoeuds().size());
+		//
+		//
 		ImageIcon iconSave = reqResizedIcon(reqIcon(Default.SAVE_ICON_PATH),
 				20, 20);
 		ImageIcon iconUndo = reqResizedIcon(reqIcon(Default.UNDO_ICON_PATH),
@@ -396,8 +404,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		// Ajout de la carte graphique au centre
 
-		m_carteGraphique = new CarteGraphique(m_afficheur, m_simulateur,
-				listeInstanceCarte);
+		m_carteGraphique = new CarteGraphique(m_afficheur, m_simulateur);
 
 		JScrollPane scroller = new JScrollPane(m_carteGraphique);
 
@@ -405,32 +412,31 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		// Default.CARTE_HEIGHT));
 
 		getContentPane().add(scroller);
-		// TODO MOI
+		
 		m_carteGraphique.addMouseListener(new MouseAdapter() {// TODO
 					public void mousePressed(MouseEvent e) {
-							listeInstanceCarte.add(carteTemp);
-						
-							undoManager
-									.undoableEditHappened(new UndoableEditEvent(
-											m_carteGraphique,
-											new UndoableAffiche(m_simulateur
-													.reqCarte(),
-													listeInstanceCarte)));
-						
-						btnRedo.setText(undoManager.getUndoPresentationName());
-						btnRedo.setText(undoManager.getRedoPresentationName());
+						carteTemp = new Carte(m_simulateur.reqCarte());
+						listeInstanceCarte.add(carteTemp);
+
+						undoManager.undoableEditHappened(new UndoableEditEvent(
+								m_carteGraphique, new UndoableAffiche(
+										m_simulateur.reqCarte(),
+										listeInstanceCarte)));
+
 						btnUndo.setEnabled(undoManager.canUndo());
 						btnRedo.setEnabled(undoManager.canRedo());
-						m_carteGraphique.repaint();
+
 					}
 
 				});
 
-		
-		btnRedo.addActionListener(new ActionListener() {
+		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+
 					undoManager.undo();
+					m_simulateur.asgCarte(listeInstanceCarte.peek());
+
 				} catch (CannotRedoException cre) {
 					cre.printStackTrace();
 				}
@@ -440,11 +446,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			}
 		});
 
-		// TODO
+		//action du bouton anuler
 		btnRedo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					undoManager.redo();
+					m_simulateur.asgCarte(listeInstanceCarte.peek());
+					
+					
+
 				} catch (CannotRedoException cre) {
 					cre.printStackTrace();
 				}
@@ -467,8 +477,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 			}
 		});
+
 		
-		//FIN MOI
 		result_timer = new Timer(2000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -505,30 +515,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
-
-		if (command.equals(UNDO)) {
-			try {
-				undoManager.undo();
-			} catch (CannotRedoException cre) {
-				cre.printStackTrace();
-			}
-			m_carteGraphique.repaint();
-			System.out.println(listeInstanceCarte.size());
-			btnUndo.setEnabled(undoManager.canUndo());
-			btnRedo.setEnabled(undoManager.canRedo());
-		}
-		if (command.equals(REDO)) {
-			try {
-				undoManager.redo();
-			} catch (CannotRedoException cre) {
-				cre.printStackTrace();
-			}
-			m_carteGraphique.repaint();
-			System.out.println(listeInstanceCarte.size());
-			btnRedo.setEnabled(undoManager.canUndo());
-			btnRedo.setEnabled(undoManager.canRedo());
-		} else if (command.equals(ADD_NOEUD_STRING)) {
+		String command = e.getActionCommand(); 
+		if (command.equals(ADD_NOEUD_STRING)) {
 			m_simulateur.setEtatAjouterNoeud();
 
 		} else if (command.equals(ADD_ARC_STRING)) {
@@ -537,8 +525,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			m_simulateur.setEtatSelectioneur();
 		} else if (command.equals(PUT_VEHICULE)) {
 			m_simulateur.setEtatPlacerVehicule();
+			btnUndo.setEnabled(false);
+			btnRedo.setEnabled(false);
 		} else if (command.equals(ADD_URGENCE)) {
 			m_simulateur.setEtatAjouterUregence();
+			btnUndo.setEnabled(false);
+			btnRedo.setEnabled(false);
 		} else if (command.equals(ADD_PARAMETRES)) {
 			int option = JOptionPane.showOptionDialog(this, m_parametrePanel,
 					ADD_PARAMETRES, JOptionPane.OK_CANCEL_OPTION,
@@ -593,6 +585,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		} else if (command.equals(TERMINER)) {
 			m_timer.stop();
 			result_timer.stop();
+			
 			for (JButton button : this.m_listeEditButtons) {
 				button.setEnabled(true);
 			}
@@ -603,6 +596,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconPlaySim.setActionCommand(PLAY);
 			this.iconStopSim.setEnabled(false);
+			this.btnRedo.setEnabled(false);
+			this.btnUndo.setEnabled(false);
+			
 			JOptionPane.showOptionDialog(this, m_resultPanel,
 					"Resultats de la Simulation", JOptionPane.OK_OPTION,
 					JOptionPane.PLAIN_MESSAGE, null, null, null);

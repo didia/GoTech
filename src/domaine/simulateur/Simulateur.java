@@ -4,9 +4,11 @@ import java.awt.event.MouseEvent;
 
 
 
+
 import javax.swing.event.MouseInputListener;
 
 import domaine.reseau.Carte;
+
 import domaine.simulateur.etat.*;
 import domaine.reseau.*;
 import domaine.simulation.resultat.*;
@@ -22,8 +24,7 @@ public class Simulateur implements MouseInputListener {
 	private static Grille m_grille = new Grille(m_echelle, m_zoom);
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
-
-
+	
 	int tempattente ;
 
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
@@ -155,6 +156,23 @@ public class Simulateur implements MouseInputListener {
 	public Carte reqCarte() {
 		return m_carte;
 	}
+	
+	public void asgCarte( Carte carte) {
+		m_carte = carte;
+	}
+	
+	
+	
+//	public void metreAjourCarte(){
+//		this.reqCarte().asgListeArcs(this.reqCarteTemp().reqListeArcs());
+//		this.reqCarte().asgListeNoeuds(this.reqCarteTemp().reqListeNoeuds());
+//
+//	}
+//	public void retablirMiseAjourCarte(){
+//		this.reqCarteTemp().asgListeArcs(this.reqCarte().reqListeArcs());
+//		this.reqCarteTemp().asgListeNoeuds(this.reqCarte().reqListeNoeuds());
+//		
+//	}
 	
 	public void ajouterNoeud(int positionX, int positionY) 
 	{
@@ -365,7 +383,11 @@ public class Simulateur implements MouseInputListener {
 		else
 			m_etatsimu.ajouterEtatSimu(this);
 	}
+	
+	
+	
 
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		m_etat.mouseClicked(e);
