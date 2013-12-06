@@ -20,7 +20,6 @@ class UndoableAffiche extends AbstractUndoableEdit {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Simulateur m_simulateur;
 	private  Carte m_carteTemp;
 	
 	protected  Stack<Carte> listeInstanceCarte; 

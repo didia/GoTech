@@ -227,4 +227,9 @@ public class GestionnaireUrgence
 		}
 		return null;
 	}
+
+	public void enleverUrgenceAuNoeud(Noeud noeud) {
+		// TODO Auto-generated method stub
+		
+	}
 }

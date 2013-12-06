@@ -141,7 +141,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		carteTemp = new Carte(m_simulateur.reqCarte());
 		listeInstanceCarte.add(carteTemp);
 
-		carteTemp = m_simulateur.reqCarte();
+		//carteTemp = m_simulateur.reqCarte();
 
 
 
@@ -448,7 +448,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 						btnUndo.setEnabled(undoManager.canUndo());
 						btnRedo.setEnabled(undoManager.canRedo());
-
+						m_carteGraphique.repaint();
 					}
 
 				});
