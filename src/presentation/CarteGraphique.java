@@ -45,13 +45,15 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
     private static final String MODIFIER_POSITION = "Modifier";
     private static final String DECLENCHER_URGENCE = "Declencher Urgence";
   
-	private static Vector<Carte> listeInstanceCarte;
+
+
 
 	
+
 	// Constructeur
 	public CarteGraphique(Afficheur afficheurGraphique,
-			Simulateur p_simulateur, Vector<Carte> vect) {
-		listeInstanceCarte = vect;
+			Simulateur p_simulateur) {
+		
 		m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
 
@@ -87,10 +89,6 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		ToolTipManager.sharedInstance().registerComponent(this);
 	}
 
-	public static Vector<Carte> reqlisteCarte() {
-		return listeInstanceCarte;
-	}
-
 	@Override
 	public String getToolTipText(MouseEvent event) {
 		return m_simulateur.reqPositionDescription(event.getX(), event.getY());
@@ -99,10 +97,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		// for(int i=0;i<points.size();i++){
-		// Point point = (Point) points.get(i);
-		// g.drawRect(point.x, point.y, width, height);
-		// }
+		
 		m_afficheur.afficherReseau(g, m_simulateur, this);
 	}
 
@@ -194,9 +189,11 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 			m_simulateur.supprimer_component();
 			 this.repaint();
 		}
+
 		
-		else if(command.equals(MODIFIER_POSITION))
-		{
+	
+		else if(command.equals(MODIFIER_POSITION)){
+
 			AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
 			int option = JOptionPane.showOptionDialog(this, mapPanel, "SpŽcifier longueur et la largeur du", 
 					JOptionPane.OK_CANCEL_OPTION,
@@ -213,7 +210,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		else if (command.equals(DECLENCHER_URGENCE))
 		{
 			String temps = JOptionPane.showInputDialog(this, "Dans combien de temps dŽclencher l'urgence (En minutes)");
-			System.out.println("Le beau gar de Waterloo");
+			
 			if(temps != null)
 			{
 				m_simulateur.declencherUrgence(Float.parseFloat(temps));

@@ -1,11 +1,16 @@
 package domaine.simulateur;
 
 import java.awt.event.MouseEvent;
+
+
 import javax.swing.event.MouseInputListener;
 import java.io.*;
 
 import domaine.reseau.Carte;
+
+
 import domaine.reseau.Noeud;
+
 import domaine.simulateur.etat.*;
 import domaine.reseau.*;
 import domaine.simulation.resultat.*;
@@ -17,14 +22,22 @@ public class Simulateur implements MouseInputListener, Serializable
 {
 	private static final long serialVersionUID = 42L;
 
-	
+
 	private Vehicule m_vehicule = Vehicule.getInstance();
+
 	private Etat m_etat = new EtatDEdition(this);
 
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
-	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
+	
 
+
+	private static GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
+	private   static Carte m_carte  = m_gestionnaireReseau.reqCarte();
+
+
+
+	int tempattente ;
 
 
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
@@ -160,6 +173,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	public Carte reqCarte() {
 		return this.m_gestionnaireReseau.reqCarte();
 	}
+	
+	 public void asgCarte( Carte carte) {
+		     this.m_gestionnaireReseau.asgCarte(carte);
+ }
 
 
 	public void toggleGrille()
@@ -167,11 +184,12 @@ public class Simulateur implements MouseInputListener, Serializable
 		this.m_gestionnaireReseau.toggleGrille();
 	}
 	
+
 	public boolean isGrilleActive(){
 		return this.m_gestionnaireReseau.isGrilleActive();
 	}
 
-	
+
 	public void ajouterNoeud(int positionX, int positionY) 
 	{
 		this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);

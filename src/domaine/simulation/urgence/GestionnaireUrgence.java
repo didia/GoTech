@@ -235,6 +235,7 @@ public class GestionnaireUrgence
 		}
 		return null;
 	}
+
 	public void enleverUrgenceAuNoeud(Noeud noeud){
 		
 		for(Urgence urgence: this.m_urgencesNonTraitee)
@@ -261,5 +262,6 @@ public class GestionnaireUrgence
 			this.m_urgencesEnAttente.remove(urgence);
 			urgence.reqNoeudCible().setEnAttente();
 		}
-	}
+
+}
 }

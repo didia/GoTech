@@ -78,6 +78,7 @@ public class Afficheur
 		m_zoom = simulateur.reqZoom(); 
 		WIDTH_NOEUD = Math.round(Default.WIDTH_NOEUD * m_zoom);
 		this.afficherCarte(g, carteGraphique);
+	
 		
 		if(simulateur.isGrilleActive())
 		{
