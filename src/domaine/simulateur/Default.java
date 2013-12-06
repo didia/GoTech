@@ -14,6 +14,7 @@ public class Default {
 	public static final String REDO_ICON_PATH = "/images/Redo-icon.png";
 	public static final String PLUS_ICON_PATH = "/images/ZoomPlus.png";
 	public static final String MOINS_ICON_PATH = "/images/ZoomMoins.png";
+	public static final String GRILLE_ICON_PATH = "/images/grille.png";
 
 	public static final String PLAYS_IMAGE_PATH = "/images/play.png";
 	public static final String PAUSE_IMAGE_PATH = "/images/pause.png";
@@ -29,7 +30,8 @@ public class Default {
 	public static final String STRATEGIE_GESTION = STRATEGIE_ANC;
 	public static final String QUIT = "Quit";
 	public static final String IMPORTER_IMAGE = "Importer image de fond";
-	 
+	public static final String OUVRIR = "Ouvrir Simulation";
+	public static final String ENREGISTRER_SOUS = "Enregistrer Sous";
 	
 	public static final int WIDTH_NOEUD = 20;
     public static final int HEIGHT_NOEUD = 20;
@@ -46,6 +48,8 @@ public class Default {
 	public static final float ZOOM = 1f;
 	
 	public static final boolean RETOUR_POINT_ATTACHE = true;
+	
+
 	
 	
 	

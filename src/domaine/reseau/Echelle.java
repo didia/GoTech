@@ -18,10 +18,13 @@ public class Echelle
 {
 	private int prevMetreParStep;
 	private int m_metreParStep = Default.METRE_PAR_STEP;
-	
-	public Echelle()
+	public static ZoomModel m_zoom;
+	private boolean existeMap = false;
+	private float longueurMap = 0;
+	private float largeurMap = 0;
+	public Echelle(ZoomModel zoom)
 	{
-		
+		m_zoom = zoom;
 	}
 	
 	
@@ -30,10 +33,34 @@ public class Echelle
 		return m_metreParStep;
 	}
 	
+	public int reqPixelParStep()
+	{
+		return Math.round(Default.WIDTH_NOEUD / 2 * 3 * m_zoom.reqZoom());
+	}
+	
 	public void setMetreParStep(int metreParStep)
 	{
 		prevMetreParStep = m_metreParStep;
 		m_metreParStep = metreParStep;
+	}
+	
+	/**
+	* Convertie une position en metres en pixels
+	*
+	* @param positionEnMetre, la Position en metre
+	*
+	* @return la position en metre
+	*
+    */
+	public Position reqPositionEnPixel(Position positionEnMetre)
+	{
+		Position positionEnStep =reqPositionEnStep(positionEnMetre);
+		
+		int pixelParStep = reqPixelParStep();
+		int posX = Math.round((positionEnStep.reqPositionX() + 1) * pixelParStep);
+		int posY = Math.round((positionEnStep.reqPositionY() + 1) * pixelParStep);
+		
+		return new Position(posX, posY);
 	}
 	
 	
@@ -45,7 +72,7 @@ public class Echelle
 	* @return la position en metre
 	*
     */
-	public Position reqPositionEnMetre(Position positionEnStep)
+	public Position reqPositionDeStepEnMetre(Position positionEnStep)
 	{	
 		float posX = positionEnStep.reqPositionX() * m_metreParStep;
 		float posY = positionEnStep.reqPositionY() * m_metreParStep;
@@ -71,6 +98,11 @@ public class Echelle
 		return new Position(posX, posY);
 	}
 	
+	public Position reqPositionEnMetre(Position positionEnPixel){
+		float posX = positionEnPixel.reqPositionX()/reqPixelParStep();
+		float posY = positionEnPixel.reqPositionY()/reqPixelParStep();
+		return reqPositionDeStepEnMetre(new Position(posX, posY));
+	}
 	
 	private Position reqPositionEnOldStep(Position positionEnMetre)
 	{
@@ -80,9 +112,16 @@ public class Echelle
 		return new Position(posX, posY);
 	}
 	
+	
+	
 	public Position reqUpdatedPosition(Position position)
 	{
-		return reqPositionEnMetre(reqPositionEnOldStep(position));
+		return reqPositionDeStepEnMetre(reqPositionEnOldStep(position));
+	}
+	public void initialiseMap(float largeur,float longueur){
+		this.existeMap = true;
+		this.longueurMap = longueur;
+		this.largeurMap = largeur;
 	}
 	
 }

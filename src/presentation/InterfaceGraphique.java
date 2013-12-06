@@ -1,5 +1,7 @@
 package presentation;
 
+import java.io.*;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
@@ -58,19 +60,27 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private StatPanel m_resultPanel;
 	private ParametrePanel m_parametrePanel;
 
-	private JTextField textZoom;
-	private JButton playBouton;
-	private JButton iconPlaySim;
-	private JButton iconStopSim;
-	private JSlider vitesseSim;
-	final JFileChooser fc = new JFileChooser();
+	
+    private JTextField textZoom;
+    private JButton playBouton;
+    private JButton iconPlaySim;
+    private JButton iconStopSim;
+    private JSlider vitesseSim;
+
+    
+    final JFileChooser fc = new JFileChooser();
+
+
+
+
 
 	private static String ADD_PARAMETRES = "Param�tres de Simulation";
 	private static String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	private static String ADD_ARC_STRING = "Ajouter Arc";
 	private static String PUT_VEHICULE = "Placer Vehicule";
 	private static String SELECTEUR_SOURIS = "Selectionner/D�placer";
-	public static String SHOW_OUTILS = "Outils";
+	private static String SHOW_OUTILS = "Outils";
+	private static String SHOW_GRILLE = "Grille";
 	public static String LANCER_SIMULATION = "Lancer simulation";
 	private static String SAVE = "SAVE";
 
@@ -117,27 +127,24 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		int ySize = ((int) tk.getScreenSize().getHeight());
 		this.setSize(xSize, ySize);
 
+
+		ImageIcon iconSave = reqResizedIcon(reqIcon(Default.SAVE_ICON_PATH), 20,20);
+		ImageIcon iconUndo = reqResizedIcon(reqIcon(Default.UNDO_ICON_PATH), 20, 20);
+		ImageIcon iconRedo = reqResizedIcon(reqIcon(Default.REDO_ICON_PATH), 20, 20);
+		ImageIcon iconPlus = reqResizedIcon(reqIcon(Default.PLUS_ICON_PATH), 20, 20);
+		ImageIcon iconMoins = reqResizedIcon(reqIcon(Default.MOINS_ICON_PATH), 20, 20);
+		ImageIcon iconGrille = reqResizedIcon(reqIcon(Default.GRILLE_ICON_PATH),20,20);
+
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
+
 		carteTemp = new Carte(m_simulateur.reqCarte());
 		listeInstanceCarte.add(carteTemp);
 
-		//
-		// System.out.println(m_simulateur.reqCarte()
-		// .reqListeNoeuds().size());
-		// System.out.println(listeInstanceCarte.element().reqListeNoeuds().size());
-		//
-		//
-		ImageIcon iconSave = reqResizedIcon(reqIcon(Default.SAVE_ICON_PATH),
-				20, 20);
-		ImageIcon iconUndo = reqResizedIcon(reqIcon(Default.UNDO_ICON_PATH),
-				20, 20);
-		ImageIcon iconRedo = reqResizedIcon(reqIcon(Default.REDO_ICON_PATH),
-				20, 20);
-		ImageIcon iconPlus = reqResizedIcon(reqIcon(Default.PLUS_ICON_PATH),
-				20, 20);
-		ImageIcon iconMoins = reqResizedIcon(reqIcon(Default.MOINS_ICON_PATH),
-				20, 20);
+		carteTemp = m_simulateur.reqCarte();
+
+
+
 		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
 		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
 		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
@@ -231,6 +238,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		showOutils.setActionCommand(SHOW_OUTILS);
 		showOutils.addActionListener(this);
 
+		
+		JToggleButton showGrille = new JToggleButton(iconGrille);
+		showGrille.setToolTipText("Afficher la grille");
+		showGrille.setActionCommand(SHOW_GRILLE);
+		showGrille.addActionListener(this);
+
 		iconPlaySim = new JButton(reqResizedIcon(iconPLAYS, 20, 20));
 		iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		iconPlaySim.setToolTipText("Lancer la simulation");
@@ -282,6 +295,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		toolbar.add(textZoom);
 		toolbar.add(btnZoomPlus);
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+
+		toolbar.add(showGrille);
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		//toolbar.add(Box.createRigidArea(new Dimension(500,0)));
+		toolbar.add(showOutils,BorderLayout.EAST);
+		toolbar.add(Box.createRigidArea(new Dimension(100,0)));
+		
+		
+
 		// toolbar.add(Box.createRigidArea(new Dimension(500,0)));
 		toolbar.add(showOutils, BorderLayout.EAST);
 		toolbar.add(Box.createRigidArea(new Dimension(100, 0)));
@@ -401,6 +423,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		m_panneauEdition.add(playBouton);
 
 		m_outilPanel.add(m_panneauEdition, BorderLayout.CENTER);
+
 
 		// Ajout de la carte graphique au centre
 
@@ -557,7 +580,16 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			m_carteGraphique.repaint();
 		} else if (command.equals(SHOW_OUTILS)) {
 			m_outilPanel.setVisible(!m_outilPanel.isVisible());
-		} else if (command.equals("SHOW")) {
+
+		}
+		else if (command.equals(SHOW_GRILLE))
+		{
+			m_simulateur.toggleGrille();
+			m_carteGraphique.repaint();
+		}
+		else if (command.equals("SHOW"))
+		{
+
 			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
 		} else if (command.equals(PLAY)) {
 			m_timer.start();
@@ -605,21 +637,134 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			m_simulateur.terminerSimulation();
 			m_carteGraphique.repaint();
 
-		} else if (command.equals(Default.IMPORTER_IMAGE)) {
+		} 
+		else if (command.equals(Default.IMPORTER_IMAGE))
+		{
 			int returnVal = fc.showOpenDialog(this);
 
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File file = fc.getSelectedFile();
-				m_afficheur.asgImageDeFond(file);
-				m_carteGraphique.repaint();
 
-			} else {
+	        if (returnVal == JFileChooser.APPROVE_OPTION) 
+	        {
+	        	
+	        	AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
+	        	
+	        	
+	        	int option = JOptionPane.showOptionDialog(this, mapPanel, "Sp�cifier longueur et la largeur de la carte", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE, 
+						null, null, null);
+	        	if (option == JOptionPane.OK_OPTION) {
+	        		
+	        		File file = fc.getSelectedFile();
+		            m_afficheur.asgImageDeFond(file);
+		            m_simulateur.initialiseMap(mapPanel.reqLargeurMap(), mapPanel.reqLongueurMap());
+		            m_carteGraphique.repaint();
+	        	}
+	            
+	        	
+	     
+	        } 
 
-			}
-		} else if (command.equals(Default.QUIT)) {
-			this.dispose();
+
 		}
-	}
+		else if (command.equals(Default.QUIT)) 
+		{
+				this.dispose();
+		}	
+
+		
+		//Enregistrer Sous
+		else if (command.equals(Default.ENREGISTRER_SOUS))
+		{
+			int returnVal = fc.showSaveDialog(this);
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				File file = fc.getSelectedFile();
+				
+				System.out.println("Ouverture du fichier" + " " + file.getPath());
+				
+				try
+				{
+					FileOutputStream fos = new FileOutputStream(file.getPath());
+					ObjectOutputStream oos= new ObjectOutputStream(fos);
+					
+					try 
+					{
+						// sérialisation : écriture de l'objet dans le flux de sortie
+						oos.writeObject(m_simulateur); 
+						// on vide le tampon
+						oos.flush();
+					} 
+					finally
+					{
+						//fermeture des flux
+						try 
+						{
+							oos.close();
+						}
+						finally 
+						{
+							fos.close();
+						}
+					}	
+				}
+				catch(IOException io)
+				{
+					io.getStackTrace();
+				}				
+			}
+		}
+		
+		//Ouvrir
+		else if (command.equals(Default.OUVRIR))
+		{
+			int returnVal = fc.showOpenDialog(this);
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				File file = fc.getSelectedFile();
+				
+				System.out.println("Ouverture du fichier" + " " + file.getPath());
+				
+				try
+				{
+					FileInputStream fis = new FileInputStream(file.getPath());
+					ObjectInputStream ois = new ObjectInputStream(fis);
+					
+					try
+					{	
+						// désérialisation : lecture de l'objet depuis le flux d'entrée
+						m_simulateur = (Simulateur)ois.readObject(); 
+					} finally
+					{
+						// on ferme les flux
+						try 
+						{
+							ois.close();
+						} 
+						finally 
+						{
+							fis.close();
+						}
+					}
+				} catch (IOException ioe) 
+				{
+					ioe.printStackTrace();
+				} catch (ClassNotFoundException cnfe)
+				{
+					cnfe.printStackTrace();
+				}
+				if (m_simulateur != null)
+				{
+					System.out.println(" a ete deserialise");
+				}		
+			}
+			
+			m_carteGraphique.repaint();
+		}
+
+}
 
 	public void buttonToPlay() {
 		this.playBouton.setIcon(iconPAUSE);
