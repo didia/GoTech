@@ -129,20 +129,25 @@ public class Carte
 		{
 			Position noeud_position = noeud.reqPosition();
 			/*
-			float x = position.reqPositionX();
-			float y = position.reqPositionY();
-			float c1 = noeud_position.reqPositionX();
-			float c2 = noeud_position.reqPositionY();
-			float circle = (x - c1) * (x - c1) + (y - c2) * (y - c2);
-
-			if (circle <= 10 * 10) {
-				return noeud;
-			}
+			
 			*/
 			
 			if (noeud_position.reqPositionX() == position.reqPositionX() && noeud_position.reqPositionY() == position.reqPositionY())
 			{
 				return noeud;
+			}
+			else
+			{
+				float x = position.reqPositionX();
+				float y = position.reqPositionY();
+				float c1 = noeud_position.reqPositionX();
+				float c2 = noeud_position.reqPositionY();
+				float circle = (x - c1) * (x - c1) + (y - c2) * (y - c2);
+
+				if (circle <= 10 * 10) {
+					return noeud;
+				}
+				
 			}
 		}
 

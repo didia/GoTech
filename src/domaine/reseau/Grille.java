@@ -16,24 +16,19 @@
 
 package domaine.reseau;
 
-import domaine.simulateur.Default;
 
 public class Grille 
 {
-	public static ZoomModel m_zoom;
+
 	public static Echelle m_echelle;
 	
-	public Grille(Echelle echelle, ZoomModel zoom)
+	public Grille(Echelle echelle)
 	{
 		m_echelle = echelle;
-		m_zoom = zoom;
 	}
 	
 	
-	public int reqPixelParStep()
-	{
-		return Math.round(Default.WIDTH_NOEUD / 2 * 3 * m_zoom.reqZoom());
-	}
+	
 	
 	/**
 	* Convertie une position en metres en pixels
@@ -45,13 +40,7 @@ public class Grille
     */
 	public Position reqPositionEnPixel(Position positionEnMetre)
 	{
-		Position positionEnStep = m_echelle.reqPositionEnStep(positionEnMetre);
-		
-		int pixelParStep = reqPixelParStep();
-		int posX = Math.round((positionEnStep.reqPositionX() + 1) * pixelParStep);
-		int posY = Math.round((positionEnStep.reqPositionY() + 1) * pixelParStep);
-		
-		return new Position(posX, posY);
+		return m_echelle.reqPositionEnPixel(positionEnMetre);
 	}
 	
 	
@@ -67,7 +56,7 @@ public class Grille
 	{	
 		Position positionEnStep = reqPrecisePositionEnStep(positionEnPixel);
 		
-		return m_echelle.reqPositionEnMetre(new Position(positionEnStep.reqPositionX() - 1, positionEnStep.reqPositionY()-1));
+		return m_echelle.reqPositionDeStepEnMetre(new Position(positionEnStep.reqPositionX() - 1, positionEnStep.reqPositionY()-1));
 	}
 	
 	
@@ -86,7 +75,7 @@ public class Grille
     */
 	public Position reqPrecisePositionEnStep(Position positionEnPixel)
 	{
-		int pixelParStep = reqPixelParStep();
+		int pixelParStep = m_echelle.reqPixelParStep();
 		int posX = Math.round(positionEnPixel.reqPositionX());
 		int posY = Math.round(positionEnPixel.reqPositionY());
 		

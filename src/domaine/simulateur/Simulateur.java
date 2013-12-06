@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
 import domaine.reseau.Carte;
+import domaine.reseau.Noeud;
 import domaine.simulateur.etat.*;
 import domaine.reseau.*;
 import domaine.simulation.resultat.*;
@@ -17,14 +18,11 @@ public class Simulateur implements MouseInputListener {
 	private static Carte m_carte = new Carte();
 	private static Vehicule m_vehicule = Vehicule.getInstance();
 	private Etat m_etat = new EtatDEdition(this);
-	private static ZoomModel m_zoom = new ZoomModel();
-	private static Echelle m_echelle = new Echelle();
-	private static Grille m_grille = new Grille(m_echelle, m_zoom);
+
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
+	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
 
-
-	int tempattente ;
 
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
 
@@ -34,6 +32,7 @@ public class Simulateur implements MouseInputListener {
 	{
 		m_gestionnaireResultat = new GestionnaireResultat(m_vehicule, m_gestionnaireUrgence);
 	}
+	
 
 	public void setEtatAjouterNoeud() 
 	{
@@ -59,7 +58,10 @@ public class Simulateur implements MouseInputListener {
 	{
 		m_etat = new EtatAjouterUrgence(this);
 	}
-
+	
+	public void initialiseMap(float largeurMap,float longueurMap){
+		m_gestionnaireReseau.initialiseMap(largeurMap, longueurMap);
+	}
 	public void lancerSimulation() 
 	{
 
@@ -74,7 +76,7 @@ public class Simulateur implements MouseInputListener {
 
 	public void terminerSimulation() 
 	{
-		m_carte.resetEtatNoeud();
+		this.m_gestionnaireReseau.resetReseau();
 		this.m_gestionnaireUrgence.reset();
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
@@ -120,14 +122,14 @@ public class Simulateur implements MouseInputListener {
 
 	public int reqMetreParStep() 
 	{
-		return m_echelle.reqMetreParStep();
+		return this.m_gestionnaireReseau.reqMetreParStep();
 	}
 
 	public void asgMetreParStep(int value) 
 	{
 		if (value > 0) 
 		{
-			m_echelle.setMetreParStep(value);
+			this.m_gestionnaireReseau.asgMetreParStep(value);
 			updaterCarte();
 		}
 	}
@@ -153,80 +155,70 @@ public class Simulateur implements MouseInputListener {
 	}
 
 	public Carte reqCarte() {
-		return m_carte;
+		return this.m_gestionnaireReseau.reqCarte();
 	}
 
+	public void toggleGrille()
+	{
+		this.m_gestionnaireReseau.toggleGrille();
+	}
+	
+	public boolean isGrilleActive(){
+		return this.m_gestionnaireReseau.isGrilleActive();
+	}
 	
 	public void ajouterNoeud(int positionX, int positionY) 
 	{
-		Position position = new Position((float) positionX, (float) positionY);
-		position = m_grille.reqPositionEnMetre(position);
-		if (m_carte.reqNoeud(position) == null) 
-		{
-			m_carte.ajouterNoeud(position);
-		}
-
+		this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);
 	}
 
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		m_carte.ajouterArc(noeudSource, noeudDest);
+		this.m_gestionnaireReseau.ajouterArc(noeudSource, noeudDest);
 	}
 
 	public Noeud reqNoeud(int positionX, int positionY) {
-		return m_carte.reqNoeud(m_grille.reqPositionEnMetre(new Position(
-				(float) positionX, (float) positionY)));
+		return this.m_gestionnaireReseau.reqNoeud(positionX, positionY);
 	}
 
 	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) 
 	{
-		Position nouvellePosition = new Position((float) positionX,
-				(float) positionY);
-		nouvellePosition = m_grille.reqPositionEnMetre(nouvellePosition);
-
-		if (nouvellePosition.reqPositionX() >= 0
-				&& nouvellePosition.reqPositionY() >= 0) 
+		this.m_gestionnaireReseau.deplacerNoeud(noeud, positionX, positionY);
+	}
+	
+	public void modifierPositionPreciseNoeud(float positionX, float positionY){
+		Noeud noeud = m_etat.reqNoeudSelectione();
+		if(noeud != null)
 		{
-			m_carte.deplacerNoeud(noeud, nouvellePosition);
+			this.m_gestionnaireReseau.modifierPositionPreciseNoeud(noeud, positionX, positionY);
 		}
 	}
-
+	
 	public void updaterCarte() 
 	{
-		for (Noeud noeud : m_carte.reqListeNoeuds()) 
-		{
-			m_carte.deplacerNoeud(noeud,
-					m_grille.reqUpdatedPosition(noeud.reqPosition()));
-		}
+		this.m_gestionnaireReseau.updaterCarte();
 	}
 
 	public Arc reqArc(int positionX, int positionY) 
 	{
-		return m_carte.reqArc(m_grille.reqPositionEnMetre(new Position(
-				(float) positionX, (float) positionY)));
+		return this.m_gestionnaireReseau.reqArc(positionX, positionY);
 	}
 
 	public boolean existeComponent(int positionX, int positionY) 
 	{
-		if (this.reqNoeud(positionX, positionY) != null
-				|| this.reqArc(positionX, positionY) != null) 
-		{
-			return true;
-		}
-
-		else 
-		{
-			return false;
-		}
+		return this.m_gestionnaireReseau.existeComponent(positionX, positionY);
 	}
 
 	public void supprimer_component() 
 	{
 		Noeud noeud = m_etat.reqNoeudSelectione();
-		System.out.println("Entrain de supprimer un noeud");
+		
 		if (noeud != null) 
 		{
-			System.out.println("Entrain de supprimer un noeud");
-			m_carte.enleverNoeud(noeud);
+			if (noeud.isEnAttente())
+			{
+				this.m_gestionnaireUrgence.enleverUrgenceAuNoeud(noeud);
+			}
+			this.m_gestionnaireReseau.enleverNoeud(noeud);			
 		}
 
 		else 
@@ -234,8 +226,8 @@ public class Simulateur implements MouseInputListener {
 			Arc arc = m_etat.reqArcSelectione();
 			if (arc != null) 
 			{
-				System.out.println("Entrain de supprimer un arc");
-				m_carte.enleverArc(arc);
+				
+				this.m_gestionnaireReseau.enleverArc(arc);
 			}
 		}
 	}
@@ -245,19 +237,7 @@ public class Simulateur implements MouseInputListener {
 		return m_etat.reqPositionDescription(posX, posY);
 	}
 	public String reqPositionString(int posX, int posY) {
-		Position position = m_grille
-				.reqPositionEnMetre(new Position(posX, posY));
-		int positionX = Math.round(position.reqPositionX());
-		int positionY = Math.round(position.reqPositionY());
-
-		if (positionX / 1000 > 1 || positionY / 1000 > 1) {
-			return "<html>Abscisse : " + positionX / 1000
-
-					+ "Km<br/> Ordonnée : " + positionY / 1000 + "Km</html>";
-		}
-		return "<html>Abscisse : " + positionX + "m<br/> Ordonnée : "
-
-				+ positionY + "m</html>";
+		return this.m_gestionnaireReseau.reqPositionString(posX, posY);
 	}
 	public String reqNoeudDescription(int posX, int posY){
 		Noeud noeud = this.reqNoeud(posX, posY);
@@ -300,8 +280,8 @@ public class Simulateur implements MouseInputListener {
 		Resultats results = this.m_gestionnaireResultat.reqResultats();
 		return results;
 	}
-	public Grille reqGrille() {
-		return m_grille;
+	public GestionnaireReseau reqGestionnaireReseau() {
+		return this.m_gestionnaireReseau;
 	}
 
 	public void asgVehiculeUrgence(Noeud noeud) {
@@ -321,15 +301,15 @@ public class Simulateur implements MouseInputListener {
 	}
 
 	public float reqZoom() {
-		return m_zoom.reqZoom();
+		return this.m_gestionnaireReseau.reqZoom();
 	}
 
 	public String augmenteZoom() {
-		return (int) (m_zoom.augmenteZoom() * 100) + "%";
+		return this.m_gestionnaireReseau.augmenteZoom();
 	}
 
 	public String diminueZoom() {
-		return (int) (m_zoom.diminueZoom() * 100) + "%";
+		return this.m_gestionnaireReseau.diminueZoom();
 	}
 
 	public void supprimerUrgence(Urgence uneUrgence) {

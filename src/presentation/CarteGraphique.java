@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -29,7 +30,7 @@ import java.awt.Dimension;
 
 
 
-public class CarteGraphique extends JPanel implements MouseInputListener
+public class CarteGraphique extends JPanel implements MouseInputListener, ActionListener
 {
 	/**
 	 * 
@@ -39,6 +40,8 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	private static  Simulateur m_simulateur;
 	private JScrollPane viewport;
     private static final String SUPPRIMER_NOEUD = "Supprimer";
+    private static final String MODIFIER_POSITION = "Modifier";
+  
 
 	
 	//Constructeur
@@ -46,7 +49,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	{
 		m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
-		final CarteGraphique mycarte = this;
+		
 		setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
 		//setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
 		setBackground(Color.WHITE);
@@ -56,18 +59,15 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 		
 		this.viewport = (JScrollPane)getParent();
         JPopupMenu noeudPopup = new JPopupMenu();
-		JMenuItem menuItem = new JMenuItem("Supprimer");
-		menuItem.setActionCommand(SUPPRIMER_NOEUD);
-		menuItem.addActionListener(new ActionListener()
-		{
-			  public void actionPerformed(ActionEvent e)
-			  {
-				  m_simulateur.supprimer_component();
-				  mycarte.repaint();
-			  }  
-		});
-	
-		noeudPopup.add(menuItem);
+		JMenuItem supprimerItem = new JMenuItem("Supprimer");
+		JMenuItem modifierPosItem = new JMenuItem("Modifier Position");
+		supprimerItem.setActionCommand(SUPPRIMER_NOEUD);
+		modifierPosItem.setActionCommand(MODIFIER_POSITION);
+		modifierPosItem.addActionListener(this);
+		supprimerItem.addActionListener(this);
+		
+		noeudPopup.add(modifierPosItem);
+		noeudPopup.add(supprimerItem);
 		addPopup(this, noeudPopup);
 		ToolTipManager.sharedInstance().registerComponent(this);		
 	}
@@ -177,6 +177,32 @@ public class CarteGraphique extends JPanel implements MouseInputListener
 	{
 		// TODO Auto-generated method stub
 		return this.viewport;
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String command = e.getActionCommand();
+		if(command.equals(SUPPRIMER_NOEUD))
+		{
+			m_simulateur.supprimer_component();
+			 this.repaint();
+		}
+		if(command.equals(MODIFIER_POSITION)){
+			AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
+			int option = JOptionPane.showOptionDialog(this, mapPanel, "Spécifier longueur et la largeur du", 
+					JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.PLAIN_MESSAGE, 
+					null, null, null);
+			if (option == JOptionPane.OK_OPTION) {
+        		
+        		
+	            m_simulateur.modifierPositionPreciseNoeud(mapPanel.reqLargeurMap(), mapPanel.reqLongueurMap());
+	            this.repaint();
+        	}
+		}
+		
+		
 	}
 	
 		

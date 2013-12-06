@@ -36,7 +36,7 @@ public class Afficheur
 	private Image m_ImageUrgence;
 	private int WIDTH_NOEUD = Default.WIDTH_NOEUD;
 
-	private static Grille m_grille;
+	private static GestionnaireReseau m_gestionnaireReseau;
 	private static float m_zoom;
 	private int maxWidth = 0;
 	private int maxHeight = 0;
@@ -72,19 +72,24 @@ public class Afficheur
 	{
 		Carte carte = simulateur.reqCarte();
 	
-		m_grille = simulateur.reqGrille();
+		m_gestionnaireReseau = simulateur.reqGestionnaireReseau();
 		ArrayList<Noeud> listeDeNoeuds = carte.reqListeNoeuds();
 		ArrayList<Arc> listeDeArcs = carte.reqListeArcs();
 		m_zoom = simulateur.reqZoom(); 
 		WIDTH_NOEUD = Math.round(Default.WIDTH_NOEUD * m_zoom);
 		this.afficherCarte(g, carteGraphique);
-		this.afficherGrille(g, carteGraphique);
+		
+		if(simulateur.isGrilleActive())
+		{
+			this.afficherGrille(g, carteGraphique);
+		}
+		
 		this.afficherNoeuds(g, listeDeNoeuds);
 		this.afficherArcs(g, listeDeArcs);
 		
 		if (simulateur.reqPositionVehicule() != null)
 		{
-			this.afficherVehicule(g, m_grille.reqPositionEnPixel(simulateur.reqPositionVehicule()), simulateur.reqDirectionVehicule());
+			this.afficherVehicule(g, m_gestionnaireReseau.reqPositionEnPixel(simulateur.reqPositionVehicule()), simulateur.reqDirectionVehicule());
 		}
 		
 		if (simulateur.reqPositionProchaineUrgence() != null)
@@ -172,9 +177,9 @@ public class Afficheur
 		int height = carteGraphique.getHeight();
 	
 		
-		for (int i = m_grille.reqPixelParStep(); i < width; i += m_grille.reqPixelParStep())
+		for (int i = m_gestionnaireReseau.reqPixelParStep(); i < width; i += m_gestionnaireReseau.reqPixelParStep())
 		{
-			for (int j = m_grille.reqPixelParStep(); j < height; j += m_grille.reqPixelParStep())
+			for (int j = m_gestionnaireReseau.reqPixelParStep(); j < height; j += m_gestionnaireReseau.reqPixelParStep())
 			{
 				g2d.setStroke(new BasicStroke(m_zoom));
 				g2d.draw(new Line2D.Double(i, j, i, j));
@@ -189,17 +194,17 @@ public class Afficheur
 		
 		for (Noeud noeud: listeDeNoeuds)
 		{
-			Position position = m_grille.reqPositionEnPixel(noeud.reqPosition());
+			Position position = m_gestionnaireReseau.reqPositionEnPixel(noeud.reqPosition());
 
-            if (position.reqPositionX() + m_grille.reqPixelParStep()> maxWidth)
+            if (position.reqPositionX() + m_gestionnaireReseau.reqPixelParStep()> maxWidth)
             {
 
-            	maxWidth = (int)position.reqPositionX() + 3*m_grille.reqPixelParStep();
+            	maxWidth = (int)position.reqPositionX() + 3*m_gestionnaireReseau.reqPixelParStep();
             }
             
-            if (position.reqPositionY() + m_grille.reqPixelParStep() > maxHeight)
+            if (position.reqPositionY() + m_gestionnaireReseau.reqPixelParStep() > maxHeight)
             {
-            	maxHeight = (int)position.reqPositionY() + 3*m_grille.reqPixelParStep();
+            	maxHeight = (int)position.reqPositionY() + 3*m_gestionnaireReseau.reqPixelParStep();
             }
             
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;
@@ -232,7 +237,7 @@ public class Afficheur
 	
 	private void afficherProchaineUrgence(Graphics g, Position position) 
 	{
-		position = m_grille.reqPositionEnPixel(position);
+		position = m_gestionnaireReseau.reqPositionEnPixel(position);
 		if (position != null && toggleUrgence) 
 		{
 			Graphics2D g2d = (Graphics2D) g;
@@ -251,8 +256,8 @@ public class Afficheur
 		
 		for (Arc arc : listeArcs) 
 		{
-			Position source = m_grille.reqPositionEnPixel(arc.reqNoeudSource().reqPosition());
-			Position destination = m_grille.reqPositionEnPixel(arc.reqNoeudDest().reqPosition());
+			Position source = m_gestionnaireReseau.reqPositionEnPixel(arc.reqNoeudSource().reqPosition());
+			Position destination = m_gestionnaireReseau.reqPositionEnPixel(arc.reqNoeudDest().reqPosition());
 			g2d.setColor(Color.BLACK);
 			g2d.setStroke(new BasicStroke(2 * m_zoom));
 			g2d.draw(new Line2D.Double(source.reqPositionX(), source.reqPositionY(), destination.reqPositionX(), destination.reqPositionY()));
@@ -264,7 +269,7 @@ public class Afficheur
 	{
 		if (position != null) 
 		{
-			//position = m_grille.reqPositionEnPixel(position);
+			//position = m_gestionnaireReseau.reqPositionEnPixel(position);
 			Graphics2D g2d = (Graphics2D) g;
 			
 			//Image img = m_ImageDeVehicule.;

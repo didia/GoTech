@@ -55,6 +55,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
     private JButton iconPlaySim;
     private JButton iconStopSim;
     private JSlider vitesseSim;
+
+    
     final JFileChooser fc = new JFileChooser();
 
 
@@ -66,7 +68,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 	private static  String ADD_ARC_STRING = "Ajouter Arc";
 	private static  String PUT_VEHICULE = "Placer Vehicule";
 	private static String SELECTEUR_SOURIS = "Selectionner/Dï¿½placer";
-	public static String SHOW_OUTILS = "Outils";
+	private static String SHOW_OUTILS = "Outils";
+	private static String SHOW_GRILLE = "Grille";
 	public static String LANCER_SIMULATION = "Lancer simulation";
 	private static String SAVE = "SAVE";
 	private static String UNDO = "UNDO";
@@ -110,6 +113,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 		ImageIcon iconRedo = reqResizedIcon(reqIcon(Default.REDO_ICON_PATH), 20, 20);
 		ImageIcon iconPlus = reqResizedIcon(reqIcon(Default.PLUS_ICON_PATH), 20, 20);
 		ImageIcon iconMoins = reqResizedIcon(reqIcon(Default.MOINS_ICON_PATH), 20, 20);
+		ImageIcon iconGrille = reqResizedIcon(reqIcon(Default.GRILLE_ICON_PATH),20,20);
 		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
 		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
 		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
@@ -202,6 +206,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 		showOutils.setActionCommand(SHOW_OUTILS);
 		showOutils.addActionListener(this);
 		
+		JToggleButton showGrille = new JToggleButton(iconGrille);
+		showGrille.setToolTipText("Afficher la grille");
+		showGrille.setActionCommand(SHOW_GRILLE);
+		showGrille.addActionListener(this);
+		
 		iconPlaySim = new JButton(reqResizedIcon(iconPLAYS, 20, 20));
 		iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		iconPlaySim.setToolTipText("Lancer la simulation");
@@ -253,6 +262,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 		toolbar.add(btnZoomMoins);
 		toolbar.add(textZoom);
 		toolbar.add(btnZoomPlus);
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
+		toolbar.add(showGrille);
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		//toolbar.add(Box.createRigidArea(new Dimension(500,0)));
 		toolbar.add(showOutils,BorderLayout.EAST);
@@ -374,10 +385,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 
 		m_outilPanel.add(m_panneauEdition, BorderLayout.CENTER);
 		
-		// TODO
-
-
-		// TODO
+		//
 
 
 		// Ajout de la carte graphique au centre
@@ -509,6 +517,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 		{
 			m_outilPanel.setVisible(!m_outilPanel.isVisible());
 		}
+		else if (command.equals(SHOW_GRILLE))
+		{
+			m_simulateur.toggleGrille();
+			m_carteGraphique.repaint();
+		}
 		else if (command.equals("SHOW"))
 		{
 			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
@@ -571,9 +584,23 @@ public class InterfaceGraphique extends JFrame implements ActionListener,ChangeL
 			int returnVal = fc.showOpenDialog(this);
 
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            File file = fc.getSelectedFile();
-	            m_afficheur.asgImageDeFond(file);
-	            m_carteGraphique.repaint();
+	        	
+	        	AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
+	        	
+	        	
+	        	int option = JOptionPane.showOptionDialog(this, mapPanel, "SpŽcifier longueur et la largeur de la carte", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE, 
+						null, null, null);
+	        	if (option == JOptionPane.OK_OPTION) {
+	        		
+	        		File file = fc.getSelectedFile();
+		            m_afficheur.asgImageDeFond(file);
+		            m_simulateur.initialiseMap(mapPanel.reqLargeurMap(), mapPanel.reqLongueurMap());
+		            m_carteGraphique.repaint();
+	        	}
+	            
+	        	
 	     
 	        } else {
 	            

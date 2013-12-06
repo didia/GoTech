@@ -14,6 +14,7 @@ public class Default {
 	public static final String REDO_ICON_PATH = "/images/Redo-icon.png";
 	public static final String PLUS_ICON_PATH = "/images/ZoomPlus.png";
 	public static final String MOINS_ICON_PATH = "/images/ZoomMoins.png";
+	public static final String GRILLE_ICON_PATH = "/images/grille.png";
 
 	public static final String PLAYS_IMAGE_PATH = "/images/play.png";
 	public static final String PAUSE_IMAGE_PATH = "/images/pause.png";
