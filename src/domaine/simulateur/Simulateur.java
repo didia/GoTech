@@ -1,10 +1,8 @@
 package domaine.simulateur;
 
 import java.awt.event.MouseEvent;
-
-
-
 import javax.swing.event.MouseInputListener;
+import java.io.*;
 
 import domaine.reseau.Carte;
 import domaine.reseau.Noeud;
@@ -13,7 +11,11 @@ import domaine.reseau.*;
 import domaine.simulation.resultat.*;
 import domaine.simulation.urgence.*;
 
-public class Simulateur implements MouseInputListener {
+
+
+public class Simulateur implements MouseInputListener, Serializable 
+{
+	private static final long serialVersionUID = 42L;
 
 	private static Carte m_carte = new Carte();
 	private static Vehicule m_vehicule = Vehicule.getInstance();
@@ -24,9 +26,10 @@ public class Simulateur implements MouseInputListener {
 	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
 
 
+
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
 
-	private EtatSimulateur m_etatsimu = new EtatSimulateur();
+	transient private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
 	public Simulateur() 
 	{
@@ -158,6 +161,7 @@ public class Simulateur implements MouseInputListener {
 		return this.m_gestionnaireReseau.reqCarte();
 	}
 
+
 	public void toggleGrille()
 	{
 		this.m_gestionnaireReseau.toggleGrille();
@@ -166,6 +170,7 @@ public class Simulateur implements MouseInputListener {
 	public boolean isGrilleActive(){
 		return this.m_gestionnaireReseau.isGrilleActive();
 	}
+
 	
 	public void ajouterNoeud(int positionX, int positionY) 
 	{
@@ -237,6 +242,7 @@ public class Simulateur implements MouseInputListener {
 		return m_etat.reqPositionDescription(posX, posY);
 	}
 	public String reqPositionString(int posX, int posY) {
+
 		return this.m_gestionnaireReseau.reqPositionString(posX, posY);
 	}
 	public String reqNoeudDescription(int posX, int posY){
@@ -261,7 +267,7 @@ public class Simulateur implements MouseInputListener {
 		else if (noeud.isTraitee()){
 
 			urgence = this.m_gestionnaireUrgence.reqUrgenceTraiteeAssocieA(noeud);
-			statut = "Trait�e r�cemment";
+			statut = "Trait�e r�cemment";
 
 			tempsAttente = Math.round(urgence.reqtempsAttente());
 		}
@@ -345,24 +351,6 @@ public class Simulateur implements MouseInputListener {
 			System.out.println("cette simulation a etÃ© dejas enregistrÃ©");
 		else
 			m_etatsimu.ajouterEtatSimu(this);
-	}
-
-	public void annuler() {
-		if (!m_etatsimu.reqListeEtatSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatsuivantSimu(m_etatsimu.reqListeEtatSimu().peek());
-			//this = m_etatsimu.reqListeEtatSimu().peek();
-			m_etatsimu.reqListeEtatSimu().poll();
-		}
-
-	}
-
-	public void retablir() {
-
-		if (!m_etatsimu.reqListeEtatsuivantSimu().isEmpty()) {
-			m_etatsimu.ajouterEtatSimu(m_etatsimu.reqListeEtatsuivantSimu().peek());
-			// TODO this = m_etatsimu.reqListeEtatsuivantSimu().peek();
-			m_etatsimu.reqListeEtatsuivantSimu().poll();
-		}
 	}
 
 	@Override
