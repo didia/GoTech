@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import domaine.reseau.Carte;
-import domaine.reseau.Carte;
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
 import presentation.Afficheur;
@@ -26,7 +25,6 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.Vector;
 
 
@@ -43,15 +41,14 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 	private static Simulateur m_simulateur;
 	private JScrollPane viewport;
 
-
-    private static final String SUPPRIMER_NOEUD = "Supprimer";
-    private static final String MODIFIER_POSITION = "Modifier";
-  
-	private static Vector<Carte> listeInstanceCarte;
+	private static final String SUPPRIMER_NOEUD = "Supprimer";
+	private static final String MODIFIER_POSITION = "modifier";
+	
 
 	// Constructeur
 	public CarteGraphique(Afficheur afficheurGraphique,
 			Simulateur p_simulateur) {
+		
 		m_simulateur = p_simulateur;
 		this.m_afficheur = afficheurGraphique;
 
@@ -184,6 +181,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 			m_simulateur.supprimer_component();
 			 this.repaint();
 		}
+		//TODO
 		if(command.equals(MODIFIER_POSITION)){
 			AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
 			int option = JOptionPane.showOptionDialog(this, mapPanel, "Spécifier longueur et la largeur du", 

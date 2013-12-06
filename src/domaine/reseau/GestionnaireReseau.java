@@ -1,7 +1,7 @@
 package domaine.reseau;
 
 public class GestionnaireReseau {
-	private Carte m_carte = new Carte();
+	private static Carte m_carte = new Carte();
 	private ZoomModel m_zoom = new ZoomModel();
 	private Echelle m_echelle = new Echelle(m_zoom);
 	private Grille m_grille = new Grille(m_echelle);
@@ -37,6 +37,10 @@ public class GestionnaireReseau {
 	
 	public Carte reqCarte() {
 		return m_carte;
+	}
+	public void asgCarte(Carte carte)
+	{
+		m_carte = carte;
 	}
 	
 	public void ajouterNoeud(int positionX, int positionY) 

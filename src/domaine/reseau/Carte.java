@@ -136,6 +136,7 @@ public class Carte {
 		for (Noeud noeud : m_listeDeNoeuds) {
 			Position noeud_position = noeud.reqPosition();
 
+			
 			if (noeud_position.reqPositionX() == position.reqPositionX() && noeud_position.reqPositionY() == position.reqPositionY())
 			{
 
