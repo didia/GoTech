@@ -31,8 +31,8 @@ public class Simulateur implements MouseInputListener, Serializable
 	
 
 
-	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
-	private  Carte m_carte  = m_gestionnaireReseau.reqCarte();
+	private static GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
+	private   static Carte m_carte  = m_gestionnaireReseau.reqCarte();
 
 
 
