@@ -49,9 +49,10 @@ public class Carte {
 	 * 
 	 * 
 	 */
-	public void ajouterNoeud(Position position) {
+	public Noeud ajouterNoeud(Position position) {
 		Noeud nouveauNoeud = new Noeud(position);
 		this.m_listeDeNoeuds.add(nouveauNoeud);
+		return nouveauNoeud;
 	}
 
 	/**

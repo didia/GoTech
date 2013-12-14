@@ -32,8 +32,8 @@ public class Simulateur implements MouseInputListener, Serializable
 	
 
 
-	private static GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
-	private   static Carte m_carte  = m_gestionnaireReseau.reqCarte();
+	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
+
 
 
 
@@ -59,7 +59,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	{
 		m_etat = new EtatAjouterArc(this);
 	}
-
+	public void setEtatEditionRapide()
+	{
+		m_etat = new EtatEditionRapide(this);
+	}
 	public void setEtatSelectioneur() 
 	{
 		m_etat = new EtatModifierComponent(this);
@@ -190,9 +193,9 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 
 
-	public void ajouterNoeud(int positionX, int positionY) 
+	public Noeud ajouterNoeud(int positionX, int positionY) 
 	{
-		this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);
+		return this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);
 	}
 
 	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {

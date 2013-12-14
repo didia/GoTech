@@ -4,6 +4,7 @@ package domaine.simulateur;
 public class Default {
 	
 	public static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.png";
+	public static final String ERAPIDE_IMAGE_PATH = "/images/e_rapide.png";
 	public static final String ARC_IMAGE_PATH = "/images/arc.png";
 	public static final String VEHICULE_IMAGE_PATH = "/images/Vehicule1.png";
 	public static final String SETTINGS_ICON_PATH = "/images/settings.png";

@@ -43,14 +43,20 @@ public class GestionnaireReseau {
 		m_carte = carte;
 	}
 	
-	public void ajouterNoeud(int positionX, int positionY) 
+	public Noeud ajouterNoeud(int positionX, int positionY) 
 	{
 		Position position = new Position((float) positionX, (float) positionY);
 		position = this.reqPositionEnMetre(position);
-		if (m_carte.reqNoeud(position) == null) 
+		Noeud noeudALaPosition = m_carte.reqNoeud(position);
+		if (noeudALaPosition == null) 
 		{
-			m_carte.ajouterNoeud(position);
+			return m_carte.ajouterNoeud(position);
 		}
+		else
+		{
+			return noeudALaPosition;
+		}
+		
 
 	}
 	
