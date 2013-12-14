@@ -13,6 +13,11 @@ public class EtatModifierComponent extends EtatDEdition {
 
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5027314231182483676L;
+
 	public EtatModifierComponent(Simulateur simulateur){
 		super(simulateur);
 	}

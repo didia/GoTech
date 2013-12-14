@@ -8,6 +8,11 @@ import domaine.reseau.Noeud;
 public class EtatAjouterUrgence extends EtatDEdition{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 717799009258404096L;
+
 	public EtatAjouterUrgence(Simulateur simulateur){
 		super(simulateur);
 		

@@ -12,6 +12,11 @@ import domaine.simulateur.Simulateur;
 public class EtatAjouterNoeud extends EtatDEdition {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2498054043862854173L;
+
 	public EtatAjouterNoeud(Simulateur simulateur){
 		super(simulateur);
 		
@@ -22,10 +27,14 @@ public class EtatAjouterNoeud extends EtatDEdition {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		if(SwingUtilities.isLeftMouseButton(e)){
+		if(SwingUtilities.isLeftMouseButton(e) && !e.isControlDown())
+		{
+			
 			m_simulateur.ajouterNoeud(e.getX(), e.getY());
 		}
-		else{
+		else
+		{
+			
 			super.mouseClicked(e);
 		}
 	}
