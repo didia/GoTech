@@ -13,14 +13,17 @@
 *
 */
 
-package domaine.simulation.strategie;
+package domaine.simulation.strategie.anciennete;
 
 import java.util.ArrayList;
 
+import domaine.reseau.Noeud;
 import domaine.simulateur.Default;
+import domaine.simulation.strategie.AbstractStrategie;
+
 import domaine.simulation.urgence.Urgence;
 
-public class StrategieAnciennete extends StrategieGestion 
+public class StrategieAnciennete extends AbstractStrategie
 {
 
 	public StrategieAnciennete(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAccessible) 
@@ -35,7 +38,7 @@ public class StrategieAnciennete extends StrategieGestion
 	* @return retourne l'urgence la plus anciennce 
 	* 
 	*/
-	public Urgence reqProchaineUrgence()
+	public Urgence reqProchaineUrgence(Noeud m_noeudActuel)
 	{
 		if (super.reqProchaineUrgence() == null && !this.reqListeUrgence().isEmpty())
 		{
@@ -44,6 +47,7 @@ public class StrategieAnciennete extends StrategieGestion
 		
 		return super.reqProchaineUrgence();
 	}
+	
 
 	public String toString()
 	{

@@ -1,11 +1,13 @@
-package domaine.simulation.strategie;
+package domaine.simulation.strategie.minchemin;
 
 import java.util.ArrayList;
 
 import domaine.simulateur.Default;
+import domaine.simulation.strategie.AbstractStrategie;
+
 import domaine.simulation.urgence.Urgence;
 
-public class StrategieMinChemin extends StrategieGestion
+public class StrategieMinChemin extends AbstractStrategie
 {
 	public StrategieMinChemin(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAccessible)
 	{
@@ -21,4 +23,6 @@ public class StrategieMinChemin extends StrategieGestion
 	{
 		return Default.STRATEGIE_MIN;
 	}
+	
+	
 }
