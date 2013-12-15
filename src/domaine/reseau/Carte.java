@@ -244,19 +244,19 @@ public class Carte {
 	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds) 
 	{
 		
-		float res = INFINI;
-		Noeud plusProchae = null;
-		if (this.m_listeDeNoeuds.contains(noeudSrc)) {
-			for (Noeud noeud: listNoeuds){
-				trouverItineraire(noeudSrc, listNoeuds.get(i));
-				if (listNoeuds.get(i).reqCout() < res) {
-					res = listNoeuds.get(i).reqCout();
-					noeudDest = listNoeuds.get(i);
-				}
-			}
-		}
+//		float res = INFINI;
+//		Noeud plusProchae = null;
+//		if (this.m_listeDeNoeuds.contains(noeudSrc)) {
+//			for (Noeud noeud: listNoeuds){
+//				trouverItineraire(noeudSrc, listNoeuds.get(i));
+//				if (listNoeuds.get(i).reqCout() < res) {
+//					res = listNoeuds.get(i).reqCout();
+//					noeudDest = listNoeuds.get(i);
+//				}
+//			}
+//		}
 
-		return noeudDest;
+		return null;
 	}
 
 	/**
