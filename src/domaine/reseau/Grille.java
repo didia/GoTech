@@ -21,6 +21,7 @@ public class Grille
 {
 
 	public static Echelle m_echelle;
+	private boolean isActive = true;
 	
 	public Grille(Echelle echelle)
 	{
@@ -75,34 +76,48 @@ public class Grille
     */
 	public Position reqPrecisePositionEnStep(Position positionEnPixel)
 	{
-		int pixelParStep = m_echelle.reqPixelParStep();
-		int posX = Math.round(positionEnPixel.reqPositionX());
-		int posY = Math.round(positionEnPixel.reqPositionY());
+		float pixelParStep = m_echelle.reqPixelParStep();
+		float posX = positionEnPixel.reqPositionX();
+		float posY = positionEnPixel.reqPositionY();
 		
 		if ((posX % pixelParStep) != 0 || (posY % pixelParStep) == 0)
 		{	
-			if (posX % pixelParStep <= pixelParStep / 2)
+			if(this.isActive)
 			{
-				posX -= posX%pixelParStep;
-			}
-			else
-			{
-				posX += pixelParStep - posX % pixelParStep;
-			}
+				
 			
-			if (posY % pixelParStep <= pixelParStep / 2)
-			{
+				if (posX % pixelParStep <= pixelParStep / 2)
+				{
+				posX -= posX%pixelParStep;
+				}
+				else
+				{
+				posX += pixelParStep - posX % pixelParStep;
+				}
+			
+				if (posY % pixelParStep <= pixelParStep / 2)
+				{
 				posY -= posY % pixelParStep;
-			}
-			else
-			{
+				}
+				else
+				{
 				posY += pixelParStep - posY % pixelParStep;
-			}	
+				}
+			}
 		}
 		
 		posX /= pixelParStep;
 		posY /= pixelParStep;
 		
 		return new Position(posX, posY);
+	}
+	
+	public boolean isActive()
+	{
+		return this.isActive;
+	}
+	public void toggle()
+	{
+		this.isActive = !this.isActive;
 	}
 }

@@ -151,7 +151,7 @@ public class Carte {
 				float c2 = noeud_position.reqPositionY();
 				float circle = (x - c1) * (x - c1) + (y - c2) * (y - c2);
 
-				if (circle <= 10 * 10) {
+				if (circle <= 5 * 5) {
 					return noeud;
 				}
 				

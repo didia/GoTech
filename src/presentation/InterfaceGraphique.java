@@ -70,6 +70,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
         private static String ADD_PARAMETRES = "Param�tres de Simulation";
         private static String ADD_NOEUD_STRING = "Ajouter Noeuds";
         private static String ADD_ARC_STRING = "Ajouter Arc";
+        private static String RAPID_EDIT_STRING = "Editer rapidement";
         private static String PUT_VEHICULE = "Placer Vehicule";
         private static String SELECTEUR_SOURIS = "Selectionner/D�placer";
         public static String SHOW_OUTILS = "Outils";
@@ -139,6 +140,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
                 ImageIcon iconMoins = reqResizedIcon(reqIcon(Default.MOINS_ICON_PATH),
                                 20, 20);
                 ImageIcon iconGrille = reqResizedIcon(reqIcon(Default.GRILLE_ICON_PATH), 20, 20);
+                ImageIcon iconRapide = reqResizedIcon(reqIcon(Default.ERAPIDE_IMAGE_PATH), 20, 20);
                 iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
                 iconArc = reqIcon(Default.ARC_IMAGE_PATH);
                 iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
@@ -202,6 +204,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
                 iconAjoutArc.setActionCommand(ADD_ARC_STRING);
                 iconAjoutArc.addActionListener(this);
                 m_listeEditButtons.add(iconAjoutArc);
+                
+                JButton iconERapid = new JButton(iconRapide);
+                iconERapid.setToolTipText("Edition rapide");
+                iconERapid.setActionCommand(RAPID_EDIT_STRING);
+                iconERapid.addActionListener(this);
+                m_listeEditButtons.add(iconERapid);
 
                 JButton iconSelect = new JButton(reqResizedIcon(iconSouris, 20, 20));
                 iconSelect
@@ -236,7 +244,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
                 showGrille.setToolTipText("Afficher la grille");
                 showGrille.setActionCommand(SHOW_GRILLE);
                 showGrille.addActionListener(this);
-
+                showGrille.setSelected(true);
                 iconPlaySim = new JButton(reqResizedIcon(iconPLAYS, 20, 20));
                 iconPlaySim.setPressedIcon(reqResizedIcon(iconPAUSE, 20, 20));
                 iconPlaySim.setToolTipText("Lancer la simulation");
@@ -271,6 +279,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
                 toolbar.add(iconAjoutNoeud);
                 toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
                 toolbar.add(iconAjoutArc);
+                toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
+                toolbar.add(iconERapid);
                 toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
                 toolbar.add(iconAjoutUrgence);
                 toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -529,7 +539,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
                 } else if (command.equals(ADD_ARC_STRING)) {
                         m_simulateur.setEtatAjouterArc();
-                } else if (command.equals(SELECTEUR_SOURIS)) {
+                } 
+                else if(command.equals(RAPID_EDIT_STRING)){
+                	m_simulateur.setEtatEditionRapide();
+                }else if (command.equals(SELECTEUR_SOURIS)) {
                         m_simulateur.setEtatSelectioneur();
                 } else if (command.equals(PUT_VEHICULE)) {
                         m_simulateur.setEtatPlacerVehicule();
