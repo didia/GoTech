@@ -14,9 +14,13 @@ package domaine.simulation.urgence;
 
 import java.util.ArrayList;
 
+import domaine.reseau.Carte;
 import domaine.reseau.Noeud;
 import domaine.simulateur.Default;
 import domaine.simulation.strategie.*;
+import domaine.simulation.strategie.anciennete.StrategieAnciennete;
+import domaine.simulation.strategie.minchemin.StrategieMinChemin;
+import domaine.simulation.strategie.proximite.StrategieProximite;
 
 public class GestionnaireUrgence
 {
@@ -24,15 +28,17 @@ public class GestionnaireUrgence
 	private ArrayList<Urgence> m_urgencesTraitee;
 	private ArrayList<Urgence> m_urgencesNonAccessible;
 	private ArrayList<Urgence> m_urgencesEnAttente;
-	private StrategieGestion m_strategie = null;
+	private AbstractStrategie m_strategie = null;
+	private static Carte m_gps;
 	
 	
-	public GestionnaireUrgence()
+	public GestionnaireUrgence(Carte gps)
 	{
 		m_urgencesNonTraitee = new ArrayList<Urgence>();
 		m_urgencesTraitee = new ArrayList<Urgence>();
 		m_urgencesNonAccessible = new ArrayList<Urgence>();
 		m_urgencesEnAttente = new ArrayList<Urgence>();
+		m_gps = gps;
 	}
 	
 	/**
@@ -45,7 +51,7 @@ public class GestionnaireUrgence
 	{
 		if (strategie.equals(Default.STRATEGIE_PROX))
 		{
-			m_strategie = new StrategieProximite(m_urgencesNonTraitee, m_urgencesTraitee, m_urgencesNonAccessible);
+			m_strategie = new StrategieProximite(m_urgencesNonTraitee, m_urgencesTraitee, m_urgencesNonAccessible, m_gps);
 		}
 		else if (strategie.equals(Default.STRATEGIE_MIN))
 		{
@@ -97,6 +103,15 @@ public class GestionnaireUrgence
 		m_urgencesNonTraitee.remove(urgence);
 	}
 	
+	public Urgence reqProchaineUrgence(Noeud noeudActuel)
+	{		
+		if (m_strategie != null)
+		{	
+			return m_strategie.reqProchaineUrgence(noeudActuel);
+		}
+		
+		return null;
+	}
 	public Urgence reqProchaineUrgence()
 	{		
 		if (m_strategie != null)
@@ -107,12 +122,13 @@ public class GestionnaireUrgence
 		return null;
 	}
 	
-	public Noeud reqProchainNoeudATraite()
+	
+	public Noeud reqProchainNoeudATraite(Noeud noeudActuel)
 	{
-		if (reqProchaineUrgence() != null)
+		if (reqProchaineUrgence(noeudActuel) != null)
 		{
 			
-			return reqProchaineUrgence().reqNoeudCible();
+			return reqProchaineUrgence(noeudActuel).reqNoeudCible();
 		}
 		
 		return null;
