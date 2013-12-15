@@ -14,6 +14,7 @@ import javax.swing.undo.UndoManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -303,7 +304,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
                 // toolbar.add(Box.createRigidArea(new Dimension(500,0)));
                 toolbar.add(showOutils, BorderLayout.EAST);
                 toolbar.add(Box.createRigidArea(new Dimension(100, 0)));
-
+             
                 getContentPane().add(toolbar, BorderLayout.NORTH);
 
                 // GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
@@ -486,7 +487,20 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
                 this.setJMenuBar(menu);
 
                 m_parametrePanel = new ParametrePanel(m_simulateur);
+                
+                // REACTION TO ESCAPE KEY
+                getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+     		   .put(KeyStroke.getKeyStroke("ESCAPE"), "myAction");
+                getRootPane().getActionMap().put("myAction", new AbstractAction() {
 
+					private static final long serialVersionUID = 2539830789858791855L;
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						m_simulateur.cancelState();
+						m_carteGraphique.repaint();
+						
+					}});
                 // Ajout du Timer
                 m_timer = new Timer(50, new ActionListener() {
                         public void actionPerformed(ActionEvent e) {

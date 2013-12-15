@@ -60,14 +60,14 @@ public class GestionnaireReseau {
 
 	}
 	
-	private Position reqPositionEnMetre(Position position) {
+	public Position reqPositionEnMetre(Position positionEnPixel) {
 		
-			return m_grille.reqPositionEnMetre(position);
+			return m_grille.reqPositionEnMetre(positionEnPixel);
 		
 	}
 
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		m_carte.ajouterArc(noeudSource, noeudDest);
+	public Arc ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		return m_carte.ajouterArc(noeudSource, noeudDest);
 	}
 	
 	public Noeud reqNoeud(int positionX, int positionY) {

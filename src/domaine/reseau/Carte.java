@@ -65,12 +65,14 @@ public class Carte {
 	 *            , un Noeud destination contenu dans la carte
 	 * 
 	 */
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		if (this.m_listeDeNoeuds.contains(noeudSource)
-				&& this.m_listeDeNoeuds.contains(noeudDest)) {
+	public Arc ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		Arc arc = this.reqArc(noeudSource, noeudDest);
+		if ( arc == null) {
 			Arc nouvelArc = new Arc(noeudSource, noeudDest);
 			this.m_listeArcs.add(nouvelArc);
+			return nouvelArc;
 		}
+		return arc;
 
 	}
 
@@ -85,7 +87,7 @@ public class Carte {
 	 * 
 	 */
 	public void deplacerNoeud(Noeud noeud, Position nouvellePosition) {
-		if (m_listeDeNoeuds.contains(noeud)) {
+		if (noeud != null) {
 			noeud.setPosition(nouvellePosition);
 		}
 	}
@@ -174,6 +176,15 @@ public class Carte {
 	public Arc reqArc(Position position) {
 		for (Arc arc : m_listeArcs) {
 			if (arc.isPositionIn(position)) {
+				return arc;
+			}
+		}
+		return null;
+	}
+	
+	public Arc reqArc(Noeud source, Noeud dest){
+		for (Arc arc : m_listeArcs){
+			if(arc.reqNoeudSource().equals(source) && arc.reqNoeudDest().equals(dest)){
 				return arc;
 			}
 		}

@@ -78,6 +78,10 @@ public class Simulateur implements MouseInputListener, Serializable
 		m_etat = new EtatAjouterUrgence(this);
 	}
 	
+	public void cancelState(){
+		m_etat.cancel();
+	}
+	
 	public void initialiseMap(float largeurMap,float longueurMap){
 		m_gestionnaireReseau.initialiseMap(largeurMap, longueurMap);
 	}
@@ -198,8 +202,8 @@ public class Simulateur implements MouseInputListener, Serializable
 		return this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);
 	}
 
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		this.m_gestionnaireReseau.ajouterArc(noeudSource, noeudDest);
+	public Arc ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		return this.m_gestionnaireReseau.ajouterArc(noeudSource, noeudDest);
 	}
 
 	public Noeud reqNoeud(int positionX, int positionY) {
@@ -240,24 +244,35 @@ public class Simulateur implements MouseInputListener, Serializable
 		
 		if (noeud != null) 
 		{
+			this.supprimer_noeud(noeud);		
+		}
+
+		else 
+		{
+			Arc arc = m_etat.reqArcSelectione();
+			this.supprimer_arc(arc);
+		}
+	}
+	
+	public void supprimer_noeud(Noeud noeud)
+	{
+		if (noeud != null) 
+		{
 			if (noeud.isEnAttente())
 			{
 				this.m_gestionnaireUrgence.enleverUrgenceAuNoeud(noeud);
 			}
 			this.m_gestionnaireReseau.enleverNoeud(noeud);			
 		}
-
-		else 
+	}
+	public void supprimer_arc(Arc arc)
+	{
+		if (arc != null) 
 		{
-			Arc arc = m_etat.reqArcSelectione();
-			if (arc != null) 
-			{
-				
-				this.m_gestionnaireReseau.enleverArc(arc);
-			}
+			
+			this.m_gestionnaireReseau.enleverArc(arc);
 		}
 	}
-	
 	public String reqPositionDescription(int posX, int posY)
 	{
 		return m_etat.reqPositionDescription(posX, posY);
@@ -265,6 +280,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	public String reqPositionString(int posX, int posY) {
 
 		return this.m_gestionnaireReseau.reqPositionString(posX, posY);
+	}
+	public Position reqPositionEnMetre(int posX, int posY)
+	{
+		return this.m_gestionnaireReseau.reqPositionEnMetre(new Position(posX, posY));
 	}
 	public String reqNoeudDescription(int posX, int posY){
 		Noeud noeud = this.reqNoeud(posX, posY);
