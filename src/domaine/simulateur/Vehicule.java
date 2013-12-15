@@ -133,7 +133,7 @@ public class Vehicule {
 			}
 			else{
 				
-				m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite();
+				m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite(m_noeudActuel);
 				
 				if(m_noeudDestination != null){
 					this.initialiseNouvelleUrgence(m_noeudDestination);
@@ -273,10 +273,10 @@ public class Vehicule {
 		return this.m_noeudDestination.equals(m_noeudActuel);
 	}
 	private boolean isNoeudActuelEnUrgence(){
-		if(m_noeudActuel == null || m_gestionnaireUrgence.reqProchainNoeudATraite() == null){
+		if(m_noeudActuel == null || m_gestionnaireUrgence.reqProchainNoeudATraite(m_noeudActuel) == null){
 			return false;
 		}
-		return m_noeudActuel.equals(m_gestionnaireUrgence.reqProchainNoeudATraite());
+		return m_noeudActuel.equals(m_gestionnaireUrgence.reqProchainNoeudATraite(m_noeudActuel));
 	}
 	private void entreEnTraitement(){
 		this.compteurTempsTraitement = 0;

@@ -245,18 +245,23 @@ public class Carte {
 	{
 		
 		float res = INFINI;
-		Noeud plusProchae = null;
+		Noeud plusProche = null;
 		if (this.m_listeDeNoeuds.contains(noeudSrc)) {
-			for (Noeud noeud: listNoeuds){
-				trouverItineraire(noeudSrc, listNoeuds.get(i));
-				if (listNoeuds.get(i).reqCout() < res) {
-					res = listNoeuds.get(i).reqCout();
-					noeudDest = listNoeuds.get(i);
+			for (Noeud noeud: listNoeuds)
+			{
+				if(!noeudSrc.hasNoeudDansTable(noeud))
+				{
+					trouverItineraire(noeudSrc, noeud);
+				}
+				
+				if(res > noeudSrc.cout(noeud)){
+					plusProche = noeud;
+					res = noeudSrc.cout(noeud);
 				}
 			}
 		}
 
-		return noeudDest;
+		return plusProche;
 	}
 
 	/**
@@ -431,8 +436,11 @@ public class Carte {
 			tabPasParcourus.remove(n1);
 
 			for (Noeud n2 : trouverNoeudsAdjacents(n1)) {
-				if (n2.reqCout() > (n1.reqCout() + calculerDist(n1, n2))) {
-					n2.setCout(n1.reqCout() + calculerDist(n1, n2));
+				float dist = calculerDist(n1, n2);
+				n1.updateTableReseau(n2, n2, dist);
+				n2.updateTableReseau(n1, n1, dist);
+				if (n2.reqCout() > (n1.reqCout() + dist)) {
+					n2.setCout(n1.reqCout() + dist);
 					n2.setPredecesseur(n1);
 				}
 			}
@@ -451,6 +459,8 @@ public class Carte {
 			Noeud debut = noeud1;
 			float icout;
 			Noeud noeudi;
+			Noeud noeudj;
+			float jcout;
 			Noeud prochainNoeud;
 			while (fin != debut) {
 				chemin.add(0, fin);
@@ -462,7 +472,11 @@ public class Carte {
 				icout = noeudi.reqCout();
 				prochainNoeud = chemin.get(i+1);
 				for(int j=i+1; j <chemin.size(); j++){
-					noeudi.updateTableReseau(chemin.get(j), prochainNoeud, chemin.get(j).reqCout()-icout);
+					noeudj = chemin.get(j);
+					jcout = noeudj.reqCout();
+					noeudi.updateTableReseau(noeudj, prochainNoeud, jcout-icout);
+					noeudj.updateTableReseau(noeudi, chemin.get(j-1), jcout-icout);
+					
 				}
 			}
 			chemin.remove(0);
