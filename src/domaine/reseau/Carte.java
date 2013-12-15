@@ -241,11 +241,13 @@ public class Carte {
 	 * @return le plus proche noeud du noeud source
 	 * 
 	 */
-	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds) {
+	public Noeud plusProche(Noeud noeudSrc, ArrayList<Noeud> listNoeuds) 
+	{
+		
 		float res = INFINI;
-		Noeud noeudDest = new Noeud(new Position(0, 0));
+		Noeud plusProchae = null;
 		if (this.m_listeDeNoeuds.contains(noeudSrc)) {
-			for (int i = 0; i < listNoeuds.size(); i++) {
+			for (Noeud noeud: listNoeuds){
 				trouverItineraire(noeudSrc, listNoeuds.get(i));
 				if (listNoeuds.get(i).reqCout() < res) {
 					res = listNoeuds.get(i).reqCout();
@@ -363,7 +365,26 @@ public class Carte {
 		}
 
 	}
-
+	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2){
+		
+		if(noeud1.next(noeud2) == null){
+			System.out.println("Appel de Djikstra");
+			return trouverItineraireDjikstra(noeud1, noeud2);
+		}
+		else
+		{
+			System.out.println("Pas besoin de djikstra! Je connais mon prochain");
+			ArrayList <Noeud> chemin = new ArrayList<Noeud>();
+			Noeud next = noeud1.next(noeud2);
+			chemin.add(next);
+			while(next != noeud2)
+			{
+				next = next.next(noeud2);
+				chemin.add(next);
+			}
+			return chemin;
+		}
+	}
 	/**
 	 * Trouve le plus court itineraire pour se rendre d'un noeud source a un
 	 * noeud destination
@@ -377,7 +398,7 @@ public class Carte {
 	 * @return le plus proche noeud du noeud source
 	 * 
 	 */
-	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2) {// gestion
+	public ArrayList<Noeud> trouverItineraireDjikstra(Noeud noeud1, Noeud noeud2) {// gestion
 																			// d'erreur
 
 		this._initialisationDijkstra(noeud1);
@@ -428,15 +449,39 @@ public class Carte {
 			ArrayList<Noeud> chemin = new ArrayList<Noeud>();
 			Noeud fin = noeud2;
 			Noeud debut = noeud1;
-
+			float icout;
+			Noeud noeudi;
+			Noeud prochainNoeud;
 			while (fin != debut) {
 				chemin.add(0, fin);
 				fin = fin.reqPredecesseur();
 			}
-
+			chemin.add(0, debut);
+			for(int i=0; i<chemin.size()-1;i++){
+				noeudi = chemin.get(i);
+				icout = noeudi.reqCout();
+				prochainNoeud = chemin.get(i+1);
+				for(int j=i+1; j <chemin.size(); j++){
+					noeudi.updateTableReseau(chemin.get(j), prochainNoeud, chemin.get(j).reqCout()-icout);
+				}
+			}
+			chemin.remove(0);
 			return chemin;
+			
 		}
 
+	}
+	
+	public Noeud prochainNoeud(Noeud source, Noeud destination){
+		Noeud next = source.next(destination);
+		if(next == null)
+		{
+			
+			return this.trouverItineraire(source, destination).get(0);
+		}
+		
+		return next;
+		
 	}
 
 	/**

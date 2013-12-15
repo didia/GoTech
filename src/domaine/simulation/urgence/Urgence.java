@@ -24,7 +24,8 @@ public class Urgence
 {
 	private int m_heuredebut; 
 	private int m_tempsAttente = 0;
-	private Noeud m_noeudCible;
+	private long m_tempsDeclenchement=0;
+	private final Noeud m_noeudCible;
 	private int m_priorite = 0; // de 0 a 5
 	
 	private Resultats m_resultat = new Resultats();
@@ -35,10 +36,10 @@ public class Urgence
 		this.m_noeudCible = p_NoeudCible;
 	}
 	
-	public Urgence(Noeud p_NoeudCible, int p_priorite)
+	public Urgence(Noeud p_NoeudCible, long tempsDeclenchement)
 	{
 		this.m_noeudCible = p_NoeudCible;
-		this.m_priorite = p_priorite;	
+		this.m_tempsDeclenchement = tempsDeclenchement;	
 	}
 
 	public float reqtempsAttente()
@@ -66,5 +67,10 @@ public class Urgence
 	public Resultats reqresultats()
 	{
 		return this.m_resultat;
+	}
+
+	public long reqTempsDeclenchement() {
+		
+		return this.m_tempsDeclenchement;
 	}	
 }

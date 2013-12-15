@@ -195,7 +195,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		else if(command.equals(MODIFIER_POSITION)){
 
 			AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
-			int option = JOptionPane.showOptionDialog(this, mapPanel, "Spécifier longueur et la largeur du", 
+			int option = JOptionPane.showOptionDialog(this, mapPanel, "Spécifier longueur et la largeur du Noeud", 
 					JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.PLAIN_MESSAGE, 
 					null, null, null);

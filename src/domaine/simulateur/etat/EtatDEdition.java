@@ -16,8 +16,10 @@ public class EtatDEdition implements Etat, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4382112817494141737L;
-	protected static Noeud noeud_selectione = null;
-	protected static Arc arc_selectione = null;
+	protected Noeud noeud_selectione = null;
+	protected Noeud noeud_temporaire = null;
+	protected Arc arc_selectione = null;
+	protected Arc arc_temporaire = null;
 	protected static Simulateur m_simulateur;
 	
 	public EtatDEdition(Simulateur simulateur){
@@ -60,7 +62,10 @@ public class EtatDEdition implements Etat, Serializable {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(this.reqNoeudSelectione() != null)
+		{
+			m_simulateur.deplacerNoeud(this.reqNoeudSelectione(), e.getX(), e.getY());
+		}
 		
 	}
 
@@ -88,6 +93,16 @@ public class EtatDEdition implements Etat, Serializable {
 	public String reqPositionDescription(int posX, int posY) {
 		
 		return m_simulateur.reqPositionString(posX, posY);
+	}
+
+	@Override
+	public void cancel() {
+		noeud_selectione = null;
+		m_simulateur.supprimer_noeud(noeud_temporaire);
+		noeud_temporaire = null;
+		arc_selectione = null;
+		m_simulateur.supprimer_arc(arc_temporaire);
+		arc_temporaire = null;
 	}
 	
 

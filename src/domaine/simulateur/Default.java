@@ -42,6 +42,7 @@ public class Default {
 	public static final int METRE_PAR_STEP = 10;
 	public static final int CARTE_WIDTH = 900;
 	public static final int CARTE_HEIGHT =640;
+	public static final int INFINI = 999999999;
 	
 	public static final float VITESSE_VEHICULE = 100;
 	public static final int ECHELLE_TEMPS = 3600;
