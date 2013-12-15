@@ -88,7 +88,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		super.paintComponent(g); //effacer la zone de dessin
 		
 		m_afficheur.afficherReseau(g, m_simulateur, this);
 	}
