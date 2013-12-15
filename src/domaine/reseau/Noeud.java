@@ -13,6 +13,10 @@
 
 package domaine.reseau;
 
+import java.util.Hashtable;
+
+import domaine.simulateur.Default;
+
 
 
 
@@ -28,6 +32,7 @@ public class Noeud
 		private boolean en_attente;
 		private boolean en_traitement;
 		private boolean traitee;	
+		private Hashtable<Noeud, ProchainNoeudCout> tableReseau;
 		
 		
 		public Noeud(Position pos)
@@ -37,6 +42,7 @@ public class Noeud
 			this.en_attente = false;
 			this.en_traitement = false;
 			this.traitee = false;
+			this.tableReseau = new Hashtable<Noeud, ProchainNoeudCout>();
 		}
 		
 		
@@ -146,6 +152,23 @@ public class Noeud
 		{
 			this.m_predecesseur = n;
 		}
+		public boolean isNoeudDansTable(Noeud n){
+			return this.tableReseau.get(n) != null;
+		}
+		public Noeud next(Noeud destination)
+		{
+			if(this.tableReseau.get(destination) != null)
+				return this.tableReseau.get(destination).next;
+			return null;
+		}
+		public float cout(Noeud destination)
+		{
+			if(this.tableReseau.get(destination) != null)
+			{
+				return this.tableReseau.get(destination).cost;
+			}
+			return Default.INFINI;
+		}
 
 		/**
 		* Retourne le cout present du noeud
@@ -210,6 +233,24 @@ public class Noeud
 			this.en_attente = false;
 			this.en_traitement = false;
 			this.traitee = false;
+		}
+		
+		public void updateTableReseau(Noeud noeudDest, Noeud ProchainNoeud, float cout)
+		{
+			ProchainNoeudCout pnc = this.tableReseau.get(noeudDest);
+			if(pnc == null || pnc.cost > cout){
+				this.tableReseau.put(noeudDest, new ProchainNoeudCout(ProchainNoeud, cout));
+			}
+		}
+		
+		private class ProchainNoeudCout{
+			public final Noeud next;
+			public final float cost;
+			
+			ProchainNoeudCout(Noeud noeud, float cout){
+				next = noeud;
+				cost = cout;
+			}
 		}
 	}
 

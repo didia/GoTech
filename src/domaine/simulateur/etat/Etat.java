@@ -9,4 +9,5 @@ public interface Etat extends MouseInputListener {
 	public Arc reqArcSelectione();
 	public Noeud reqNoeudSelectione();
 	public String reqPositionDescription(int posX, int posY);
+	public void cancel();
 }

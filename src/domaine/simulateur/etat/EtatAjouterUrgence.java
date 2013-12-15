@@ -3,6 +3,8 @@ package domaine.simulateur.etat;
 
 import java.awt.event.MouseEvent;
 
+import javax.swing.SwingUtilities;
+
 import domaine.simulateur.Simulateur;
 import domaine.reseau.Noeud;
 public class EtatAjouterUrgence extends EtatDEdition{
@@ -22,10 +24,17 @@ public class EtatAjouterUrgence extends EtatDEdition{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		super.mouseClicked(e);
+		
+		if(SwingUtilities.isLeftMouseButton(e) && !e.isControlDown())
+		{
 		Noeud noeud = m_simulateur.reqNoeud(e.getX(), e.getY());
 		if(noeud != null){
 			m_simulateur.declencherUrgence(noeud);
+		}
+		}
+		else
+		{
+			super.mouseClicked(e);
 		}
 	}
 

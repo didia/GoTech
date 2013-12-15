@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 
 import domaine.simulateur.Simulateur;
 
+import domaine.reseau.Noeud;
 
 
 public class EtatAjouterNoeud extends EtatDEdition {
@@ -16,7 +17,7 @@ public class EtatAjouterNoeud extends EtatDEdition {
 	 * 
 	 */
 	private static final long serialVersionUID = 2498054043862854173L;
-
+	private Noeud dernierAjoute = null;
 	public EtatAjouterNoeud(Simulateur simulateur){
 		super(simulateur);
 		
@@ -30,49 +31,42 @@ public class EtatAjouterNoeud extends EtatDEdition {
 		if(SwingUtilities.isLeftMouseButton(e) && !e.isControlDown())
 		{
 			
-			m_simulateur.ajouterNoeud(e.getX(), e.getY());
+			//m_simulateur.ajouterNoeud(e.getX(), e.getY());
+			dernierAjoute = noeud_temporaire;
+			this.noeud_temporaire = null;
 		}
-		else
-		{
+		
 			
-			super.mouseClicked(e);
-		}
+		super.mouseClicked(e);
+		
 	}
-
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		this.noeud_temporaire = m_simulateur.ajouterNoeud(e.getX(), e.getY());
 		
 	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		mouseClicked(e);
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(this.noeud_temporaire != null){
+			m_simulateur.deplacerNoeud(this.noeud_temporaire, e.getX(), e.getY());
+		}
+		else{
+			
+			Noeud noeud = m_simulateur.ajouterNoeud(e.getX(), e.getY());
+			if(!noeud.equals(dernierAjoute)){
+				this.noeud_temporaire = noeud;
+			}
+		}
 		
 	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		m_simulateur.supprimer_noeud(this.noeud_temporaire);
+		
+	}
+	
 
 }

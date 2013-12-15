@@ -73,6 +73,11 @@ public class EtatEnSimulation implements Etat{
 		
 		return m_simulateur.reqNoeudDescription(posX, posY);
 	}
+	@Override
+	public void cancel() {
+		m_simulateur.terminerSimulation();
+		
+	}
 	
 
 }

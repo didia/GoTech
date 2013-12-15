@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 
 import domaine.reseau.Noeud;
+import domaine.reseau.Position;
 import domaine.simulateur.Simulateur;
 
 
@@ -34,13 +35,19 @@ public class EtatAjouterArc extends EtatDEdition{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(noeud_selectione != null){
+			
+	
+			this.noeud_temporaire = new Noeud(m_simulateur.reqPositionEnMetre(e.getX(), e.getY()));
 		
+			this.arc_temporaire = m_simulateur.ajouterArc(noeud_selectione, this.noeud_temporaire);
+	
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		m_simulateur.supprimer_arc(this.arc_temporaire);
 		
 	}
 
@@ -66,8 +73,10 @@ public class EtatAjouterArc extends EtatDEdition{
 					
 					
 					if(!noeud_selectione.equals(noeud)){
+						m_simulateur.supprimer_arc(this.arc_temporaire);
 						m_simulateur.ajouterArc(noeud_selectione, noeud);
 						noeud_selectione = null;
+						this.noeud_temporaire = null;
 					}
 					
 				}
@@ -89,7 +98,20 @@ public class EtatAjouterArc extends EtatDEdition{
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(this.noeud_temporaire != null){
+			m_simulateur.deplacerNoeud(this.noeud_temporaire, e.getX(), e.getY());
+		}
+		else if (noeud_selectione != null)
+		{
+			this.mouseEntered(e);
+		}
+		
+	}
+	
+	@Override
+	public void cancel() {
+		noeud_selectione = null;
+		super.cancel();
 		
 	}
 
