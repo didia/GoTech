@@ -22,6 +22,7 @@ class UndoableAffiche extends AbstractUndoableEdit {
 
 	private  Carte m_carteTemp;
 	
+	
 	protected  Stack<Carte> listeInstanceCarte; 
 	public UndoableAffiche(Carte carte, Stack<Carte> etatsCarte) {
 		listeInstanceCarte = etatsCarte;
@@ -34,13 +35,14 @@ class UndoableAffiche extends AbstractUndoableEdit {
 
 	public void undo() {
 		super.undo();
-		listeInstanceCarte.pop();
+//		listeInstanceCarte.pop();
 	}
 
 	public void redo() {
 
 		super.redo();
-		listeInstanceCarte.add(m_carteTemp);
+//		if(listeInstanceCarte.size()<=5)
+//		listeInstanceCarte.add(m_carteTemp);
 
 	}
 }
