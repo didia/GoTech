@@ -127,12 +127,14 @@ public class Vehicule {
 
 			if (this.isEnChemin()) {
 				this.poursuisChemin(duree);
-			} else {
 
-				m_noeudDestination = this.m_gestionnaireUrgence
-						.reqProchainNoeudATraite();
+			}
+			else{
+				
+				m_noeudDestination = this.m_gestionnaireUrgence.reqProchainNoeudATraite(m_noeudActuel);
+				
+				if(m_noeudDestination != null){
 
-				if (m_noeudDestination != null) {
 					this.initialiseNouvelleUrgence(m_noeudDestination);
 				} else {
 					this.resteEnEtatDAttente();
@@ -274,13 +276,12 @@ public class Vehicule {
 		return this.m_noeudDestination.equals(m_noeudActuel);
 	}
 
-	private boolean isNoeudActuelEnUrgence() {
-		if (m_noeudActuel == null
-				|| m_gestionnaireUrgence.reqProchainNoeudATraite() == null) {
+	private boolean isNoeudActuelEnUrgence(){
+		if(m_noeudActuel == null || m_gestionnaireUrgence.reqProchainNoeudATraite(m_noeudActuel) == null){
 			return false;
 		}
-		return m_noeudActuel.equals(m_gestionnaireUrgence
-				.reqProchainNoeudATraite());
+		return m_noeudActuel.equals(m_gestionnaireUrgence.reqProchainNoeudATraite(m_noeudActuel));
+
 	}
 
 	private void entreEnTraitement() {

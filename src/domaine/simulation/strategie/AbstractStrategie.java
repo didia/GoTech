@@ -17,10 +17,11 @@ package domaine.simulation.strategie;
 import java.util.ArrayList;
 
 import domaine.reseau.Itineraire;
+import domaine.reseau.Noeud;
 import domaine.simulation.urgence.Urgence;
 
 
-public class StrategieGestion 
+public class AbstractStrategie 
 {
 	private ArrayList<Urgence> m_listeUrgence;
 	private ArrayList<Urgence> m_listeUrgenceTraitee;
@@ -30,7 +31,7 @@ public class StrategieGestion
 	private Itineraire m_itineraire;
 
 	
-	public StrategieGestion(ArrayList<Urgence> listUrgence, ArrayList<Urgence> listUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAcessible) 
+	public AbstractStrategie(ArrayList<Urgence> listUrgence, ArrayList<Urgence> listUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAcessible) 
 	{
 		this.m_listeUrgence = listUrgence;
 		this.m_prochaineUrgence =null;
@@ -38,11 +39,17 @@ public class StrategieGestion
 		this.m_listeUrgenceNonAccessible = listeUrgenceNonAcessible;
 	}
 	
-	public Urgence reqProchaineUrgence() 
+	public Urgence reqProchaineUrgence(Noeud noeud_actuel) 
 	{
 	
 		return this.m_prochaineUrgence;
 	}
+	
+	public Urgence reqProchaineUrgence()
+	{
+		return this.m_prochaineUrgence;
+	}
+
 
 	public ArrayList<Urgence> reqListeUrgence()
 	{
@@ -93,7 +100,6 @@ public class StrategieGestion
 		this.m_listeUrgenceTraitee.add(m_prochaineUrgence);
 		this.m_listeUrgence.remove(m_prochaineUrgence);	
 		this.m_prochaineUrgence = null;
-		this.m_prochaineUrgence = this.reqProchaineUrgence();
 	}
 	
 	public void trierListeUrgence(){

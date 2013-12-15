@@ -6,7 +6,7 @@ import domaine.simulation.urgence.Urgence;
 
 
 
-public class StrategiePriorite extends StrategieGestion
+public class StrategiePriorite extends AbstractStrategie
 {
 
 	public StrategiePriorite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee,ArrayList<Urgence> listeUrgenceNonAccessible)

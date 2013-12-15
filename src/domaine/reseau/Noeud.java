@@ -152,7 +152,7 @@ public class Noeud
 		{
 			this.m_predecesseur = n;
 		}
-		public boolean isNoeudDansTable(Noeud n){
+		public boolean hasNoeudDansTable(Noeud n){
 			return this.tableReseau.get(n) != null;
 		}
 		public Noeud next(Noeud destination)
