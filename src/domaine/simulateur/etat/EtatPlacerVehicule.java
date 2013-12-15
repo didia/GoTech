@@ -11,6 +11,11 @@ import domaine.reseau.Noeud;
 public class EtatPlacerVehicule extends EtatDEdition {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3877021288187145749L;
+
 	public EtatPlacerVehicule(Simulateur simulateur){
 		super(simulateur);
 		

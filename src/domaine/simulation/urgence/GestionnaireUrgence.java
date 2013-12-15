@@ -23,6 +23,7 @@ public class GestionnaireUrgence
 	private ArrayList<Urgence> m_urgencesNonTraitee;
 	private ArrayList<Urgence> m_urgencesTraitee;
 	private ArrayList<Urgence> m_urgencesNonAccessible;
+	private ArrayList<Urgence> m_urgencesEnAttente;
 	private StrategieGestion m_strategie = null;
 	
 	
@@ -31,6 +32,7 @@ public class GestionnaireUrgence
 		m_urgencesNonTraitee = new ArrayList<Urgence>();
 		m_urgencesTraitee = new ArrayList<Urgence>();
 		m_urgencesNonAccessible = new ArrayList<Urgence>();
+		m_urgencesEnAttente = new ArrayList<Urgence>();
 	}
 	
 	/**
@@ -80,6 +82,9 @@ public class GestionnaireUrgence
 		
 	}
 	
+	public void ajouterUrgence(Noeud noeud, long tempsDeclenchement){
+		this.m_urgencesEnAttente.add(new Urgence(noeud, tempsDeclenchement));
+	}
 	/**
 	* Supprime une urgence
 	*
@@ -106,6 +111,7 @@ public class GestionnaireUrgence
 	{
 		if (reqProchaineUrgence() != null)
 		{
+			
 			return reqProchaineUrgence().reqNoeudCible();
 		}
 		
@@ -211,8 +217,10 @@ public class GestionnaireUrgence
 	}
 	
 	public Urgence reqUrgenceTraiteeAssocieA(Noeud noeud){
-		for (Urgence urgence:this.m_urgencesTraitee){
-			if (urgence.reqNoeudCible().equals(noeud)){
+		for (Urgence urgence:this.m_urgencesTraitee)
+		{
+			if (urgence.reqNoeudCible().equals(noeud))
+			{
 				return urgence;
 			}
 		}
@@ -228,8 +236,32 @@ public class GestionnaireUrgence
 		return null;
 	}
 
-	public void enleverUrgenceAuNoeud(Noeud noeud) {
-		// TODO Auto-generated method stub
+	public void enleverUrgenceAuNoeud(Noeud noeud){
 		
+		for(Urgence urgence: this.m_urgencesNonTraitee)
+		{
+			if(urgence.reqNoeudCible().equals(noeud)){
+				this.supprimerUrgence(urgence);
+				break;
+			}
+		}
 	}
+
+	public void declencherUrgenceEnAttente(long clock) {
+		ArrayList<Urgence> tempList = new ArrayList<Urgence>();
+		for(Urgence urgence: this.m_urgencesEnAttente){
+			if(urgence.reqTempsDeclenchement() <= Math.round(clock/1000))
+			{
+				tempList.add(urgence);	
+			
+			}
+		}
+		for (Urgence urgence:tempList)
+		{
+			this.m_urgencesNonTraitee.add(urgence);
+			this.m_urgencesEnAttente.remove(urgence);
+			urgence.reqNoeudCible().setEnAttente();
+		}
+
+}
 }

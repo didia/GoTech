@@ -22,8 +22,9 @@ public class Simulateur implements MouseInputListener, Serializable
 {
 	private static final long serialVersionUID = 42L;
 
-	
-	private static Vehicule m_vehicule = Vehicule.getInstance();
+
+	private Vehicule m_vehicule = Vehicule.getInstance();
+
 	private Etat m_etat = new EtatDEdition(this);
 
 	private Parametres m_parametres = new Parametres();
@@ -31,8 +32,8 @@ public class Simulateur implements MouseInputListener, Serializable
 	
 
 
-	private static GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
-	private   static Carte m_carte  = m_gestionnaireReseau.reqCarte();
+	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
+
 
 
 
@@ -58,7 +59,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	{
 		m_etat = new EtatAjouterArc(this);
 	}
-
+	public void setEtatEditionRapide()
+	{
+		m_etat = new EtatEditionRapide(this);
+	}
 	public void setEtatSelectioneur() 
 	{
 		m_etat = new EtatModifierComponent(this);
@@ -74,6 +78,10 @@ public class Simulateur implements MouseInputListener, Serializable
 		m_etat = new EtatAjouterUrgence(this);
 	}
 	
+	public void cancelState(){
+		m_etat.cancel();
+	}
+	
 	public void initialiseMap(float largeurMap,float longueurMap){
 		m_gestionnaireReseau.initialiseMap(largeurMap, longueurMap);
 	}
@@ -82,7 +90,7 @@ public class Simulateur implements MouseInputListener, Serializable
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
-		m_vehicule.lancerMission(m_gestionnaireUrgence, m_carte,
+		m_vehicule.lancerMission(m_gestionnaireUrgence, m_gestionnaireReseau.reqCarte(),
 				m_parametres.reqVitesseVehicule(),
 				m_parametres.reqTempsTraitement(),
 				m_parametres.reqRetourPointAttache(), m_parametres.reqEchelleTemps());
@@ -189,13 +197,13 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 
 
-	public void ajouterNoeud(int positionX, int positionY) 
+	public Noeud ajouterNoeud(int positionX, int positionY) 
 	{
-		this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);
+		return this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);
 	}
 
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		this.m_gestionnaireReseau.ajouterArc(noeudSource, noeudDest);
+	public Arc ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		return this.m_gestionnaireReseau.ajouterArc(noeudSource, noeudDest);
 	}
 
 	public Noeud reqNoeud(int positionX, int positionY) {
@@ -236,24 +244,35 @@ public class Simulateur implements MouseInputListener, Serializable
 		
 		if (noeud != null) 
 		{
+			this.supprimer_noeud(noeud);		
+		}
+
+		else 
+		{
+			Arc arc = m_etat.reqArcSelectione();
+			this.supprimer_arc(arc);
+		}
+	}
+	
+	public void supprimer_noeud(Noeud noeud)
+	{
+		if (noeud != null) 
+		{
 			if (noeud.isEnAttente())
 			{
 				this.m_gestionnaireUrgence.enleverUrgenceAuNoeud(noeud);
 			}
 			this.m_gestionnaireReseau.enleverNoeud(noeud);			
 		}
-
-		else 
+	}
+	public void supprimer_arc(Arc arc)
+	{
+		if (arc != null) 
 		{
-			Arc arc = m_etat.reqArcSelectione();
-			if (arc != null) 
-			{
-				
-				this.m_gestionnaireReseau.enleverArc(arc);
-			}
+			
+			this.m_gestionnaireReseau.enleverArc(arc);
 		}
 	}
-	
 	public String reqPositionDescription(int posX, int posY)
 	{
 		return m_etat.reqPositionDescription(posX, posY);
@@ -261,6 +280,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	public String reqPositionString(int posX, int posY) {
 
 		return this.m_gestionnaireReseau.reqPositionString(posX, posY);
+	}
+	public Position reqPositionEnMetre(int posX, int posY)
+	{
+		return this.m_gestionnaireReseau.reqPositionEnMetre(new Position(posX, posY));
 	}
 	public String reqNoeudDescription(int posX, int posY){
 		Noeud noeud = this.reqNoeud(posX, posY);
@@ -351,6 +374,17 @@ public class Simulateur implements MouseInputListener, Serializable
 			 
 		}
 
+	}
+	
+	public void declencherUrgence(float tempsDeclenchement)
+	{
+		Noeud noeud = m_etat.reqNoeudSelectione();
+		
+		if(noeud != null && noeud.isFree())
+		{
+			this.m_gestionnaireUrgence.ajouterUrgence(noeud, Math.round(tempsDeclenchement*60));
+		}
+		
 	}
 
 	public Position reqPositionProchaineUrgence() {

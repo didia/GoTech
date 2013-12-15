@@ -12,6 +12,10 @@ import domaine.simulateur.Simulateur;
 public class EtatDEdition implements Etat, Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4382112817494141737L;
 	protected static Noeud noeud_selectione = null;
 	protected static Arc arc_selectione = null;
 	protected static Simulateur m_simulateur;

@@ -177,11 +177,11 @@ public class Afficheur
 		Graphics2D g2d = (Graphics2D) g;
 		int width = carteGraphique.getWidth();
 		int height = carteGraphique.getHeight();
-	
+		int pixel_per_step = Math.round(m_gestionnaireReseau.reqPixelParStep());
 		
-		for (int i = m_gestionnaireReseau.reqPixelParStep(); i < width; i += m_gestionnaireReseau.reqPixelParStep())
+		for (int i = pixel_per_step; i < width; i += pixel_per_step)
 		{
-			for (int j = m_gestionnaireReseau.reqPixelParStep(); j < height; j += m_gestionnaireReseau.reqPixelParStep())
+			for (int j = pixel_per_step; j < height; j += pixel_per_step)
 			{
 				g2d.setStroke(new BasicStroke(m_zoom));
 				g2d.draw(new Line2D.Double(i, j, i, j));
@@ -201,12 +201,12 @@ public class Afficheur
             if (position.reqPositionX() + m_gestionnaireReseau.reqPixelParStep()> maxWidth)
             {
 
-            	maxWidth = (int)position.reqPositionX() + 3*m_gestionnaireReseau.reqPixelParStep();
+            	maxWidth = Math.round(position.reqPositionX() + 3*m_gestionnaireReseau.reqPixelParStep());
             }
             
             if (position.reqPositionY() + m_gestionnaireReseau.reqPixelParStep() > maxHeight)
             {
-            	maxHeight = (int)position.reqPositionY() + 3*m_gestionnaireReseau.reqPixelParStep();
+            	maxHeight = Math.round(position.reqPositionY() + 3*m_gestionnaireReseau.reqPixelParStep());
             }
             
 			double a = position.reqPositionX() - WIDTH_NOEUD/2;

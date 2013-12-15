@@ -17,6 +17,9 @@ public class Vehicule {
 	private Position m_position = null;
 	private Noeud m_noeudActuel = null;
 
+	private long clock = 0;
+	
+
 	private GestionnaireUrgence m_gestionnaireUrgence;
 	private Noeud m_noeudDestination = null;
 	private Carte m_gps;
@@ -139,6 +142,9 @@ public class Vehicule {
 		}
 
 		this.m_gestionnaireUrgence.incrementerTempsAttenteUrgence(duree);
+		this.clock += duree;
+		this.m_gestionnaireUrgence.declencherUrgenceEnAttente(this.clock);
+		
 
 	}
 
@@ -146,12 +152,19 @@ public class Vehicule {
 		return this.m_itineraireActuel != null
 				&& !this.m_itineraireActuel.isEmpty();
 	}
+//<<<<<<< HEAD
+//
+//	private void initialiseNouvelleUrgence(Noeud destination) {
+//		this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel,
+//				m_noeudDestination);
+//		if (this.m_itineraireActuel != null
+//				&& !this.m_itineraireActuel.isEmpty()) {
+//=======
+	private void initialiseNouvelleUrgence(Noeud destination){
+		this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, destination);
+		if(this.m_itineraireActuel!=null && !this.m_itineraireActuel.isEmpty())
+		{
 
-	private void initialiseNouvelleUrgence(Noeud destination) {
-		this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel,
-				m_noeudDestination);
-		if (this.m_itineraireActuel != null
-				&& !this.m_itineraireActuel.isEmpty()) {
 			this.declencherMission();
 		} else {
 			this.m_gestionnaireUrgence.setUrgenceActuelleNonAccessible();

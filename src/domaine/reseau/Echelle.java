@@ -33,9 +33,9 @@ public class Echelle
 		return m_metreParStep;
 	}
 	
-	public int reqPixelParStep()
+	public float reqPixelParStep()
 	{
-		return Math.round(Default.WIDTH_NOEUD / 2 * 3 * m_zoom.reqZoom());
+		return Default.WIDTH_NOEUD / 2 * 3 * m_zoom.reqZoom();
 	}
 	
 	public void setMetreParStep(int metreParStep)
@@ -56,7 +56,7 @@ public class Echelle
 	{
 		Position positionEnStep =reqPositionEnStep(positionEnMetre);
 		
-		int pixelParStep = reqPixelParStep();
+		float pixelParStep = reqPixelParStep();
 		int posX = Math.round((positionEnStep.reqPositionX() + 1) * pixelParStep);
 		int posY = Math.round((positionEnStep.reqPositionY() + 1) * pixelParStep);
 		

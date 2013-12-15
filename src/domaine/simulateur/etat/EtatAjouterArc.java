@@ -13,6 +13,10 @@ import domaine.simulateur.Simulateur;
 public class EtatAjouterArc extends EtatDEdition{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6904393767749519010L;	
 	private static Noeud noeud_selectione = null;
 	public EtatAjouterArc(Simulateur simulateur){
 		super(simulateur);

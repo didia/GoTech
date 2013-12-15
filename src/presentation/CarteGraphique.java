@@ -41,8 +41,13 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 	private static Simulateur m_simulateur;
 	private JScrollPane viewport;
 
-	private static final String SUPPRIMER_NOEUD = "Supprimer";
-	private static final String MODIFIER_POSITION = "modifier";
+    private static final String SUPPRIMER_NOEUD = "Supprimer";
+    private static final String MODIFIER_POSITION = "Modifier";
+    private static final String DECLENCHER_URGENCE = "Declencher Urgence";
+  
+
+
+
 	
 
 	// Constructeur
@@ -69,14 +74,17 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
         JPopupMenu noeudPopup = new JPopupMenu();
 		JMenuItem supprimerItem = new JMenuItem("Supprimer");
 		JMenuItem modifierPosItem = new JMenuItem("Modifier Position");
+		JMenuItem declencherUrgItem = new JMenuItem("Prévoir urgence en Avance");
 		supprimerItem.setActionCommand(SUPPRIMER_NOEUD);
 		modifierPosItem.setActionCommand(MODIFIER_POSITION);
+		declencherUrgItem.setActionCommand(DECLENCHER_URGENCE);
+		declencherUrgItem.addActionListener(this);
 		modifierPosItem.addActionListener(this);
 		supprimerItem.addActionListener(this);
 		
 		noeudPopup.add(modifierPosItem);
 		noeudPopup.add(supprimerItem);
-
+		noeudPopup.add(declencherUrgItem);
 		addPopup(this, noeudPopup);
 		ToolTipManager.sharedInstance().registerComponent(this);
 	}
@@ -181,8 +189,11 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 			m_simulateur.supprimer_component();
 			 this.repaint();
 		}
-		//TODO
-		if(command.equals(MODIFIER_POSITION)){
+
+		
+	
+		else if(command.equals(MODIFIER_POSITION)){
+
 			AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
 			int option = JOptionPane.showOptionDialog(this, mapPanel, "Spécifier longueur et la largeur du", 
 					JOptionPane.OK_CANCEL_OPTION,
@@ -194,6 +205,17 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 	            m_simulateur.modifierPositionPreciseNoeud(mapPanel.reqLargeurMap(), mapPanel.reqLongueurMap());
 	            this.repaint();
         	}
+		}
+		
+		else if (command.equals(DECLENCHER_URGENCE))
+		{
+			String temps = JOptionPane.showInputDialog(this, "Dans combien de temps déclencher l'urgence (En minutes)");
+			
+			if(temps != null)
+			{
+				m_simulateur.declencherUrgence(Float.parseFloat(temps));
+			}
+			
 		}
 		
 		

@@ -49,9 +49,10 @@ public class Carte {
 	 * 
 	 * 
 	 */
-	public void ajouterNoeud(Position position) {
+	public Noeud ajouterNoeud(Position position) {
 		Noeud nouveauNoeud = new Noeud(position);
 		this.m_listeDeNoeuds.add(nouveauNoeud);
+		return nouveauNoeud;
 	}
 
 	/**
@@ -64,12 +65,14 @@ public class Carte {
 	 *            , un Noeud destination contenu dans la carte
 	 * 
 	 */
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		if (this.m_listeDeNoeuds.contains(noeudSource)
-				&& this.m_listeDeNoeuds.contains(noeudDest)) {
+	public Arc ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		Arc arc = this.reqArc(noeudSource, noeudDest);
+		if ( arc == null) {
 			Arc nouvelArc = new Arc(noeudSource, noeudDest);
 			this.m_listeArcs.add(nouvelArc);
+			return nouvelArc;
 		}
+		return arc;
 
 	}
 
@@ -84,7 +87,7 @@ public class Carte {
 	 * 
 	 */
 	public void deplacerNoeud(Noeud noeud, Position nouvellePosition) {
-		if (m_listeDeNoeuds.contains(noeud)) {
+		if (noeud != null) {
 			noeud.setPosition(nouvellePosition);
 		}
 	}
@@ -150,7 +153,7 @@ public class Carte {
 				float c2 = noeud_position.reqPositionY();
 				float circle = (x - c1) * (x - c1) + (y - c2) * (y - c2);
 
-				if (circle <= 10 * 10) {
+				if (circle <= 5 * 5) {
 					return noeud;
 				}
 				
@@ -173,6 +176,15 @@ public class Carte {
 	public Arc reqArc(Position position) {
 		for (Arc arc : m_listeArcs) {
 			if (arc.isPositionIn(position)) {
+				return arc;
+			}
+		}
+		return null;
+	}
+	
+	public Arc reqArc(Noeud source, Noeud dest){
+		for (Arc arc : m_listeArcs){
+			if(arc.reqNoeudSource().equals(source) && arc.reqNoeudDest().equals(dest)){
 				return arc;
 			}
 		}
@@ -336,8 +348,12 @@ public class Carte {
 	private void _initialisationDijkstra(Noeud a)// noeud a doit appartenir
 													// ��� la carte
 	{
-		for (int i = 0; i < this.m_listeDeNoeuds.size(); i++) {
-			if (this.m_listeDeNoeuds.get(i) == a) {
+
+		for (int i = 0; i < this.m_listeDeNoeuds.size(); i++) 
+		{
+			if (this.m_listeDeNoeuds.get(i)==a) 
+			{
+
 				this.m_listeDeNoeuds.get(i).setCout(0);
 			} else {
 				this.m_listeDeNoeuds.get(i).setCout(INFINI);
@@ -365,11 +381,14 @@ public class Carte {
 																			// d'erreur
 
 		this._initialisationDijkstra(noeud1);
+
+
 		if (noeud2.reqCout() == 0) {
 
 			ArrayList<Noeud> res = new ArrayList<Noeud>();
 			res.add(noeud2);
 			return res;
+			
 		}
 		// int a = this.m_listeDeNoeuds.indexOf(noeud1);
 

@@ -43,25 +43,31 @@ public class GestionnaireReseau {
 		m_carte = carte;
 	}
 	
-	public void ajouterNoeud(int positionX, int positionY) 
+	public Noeud ajouterNoeud(int positionX, int positionY) 
 	{
 		Position position = new Position((float) positionX, (float) positionY);
 		position = this.reqPositionEnMetre(position);
-		if (m_carte.reqNoeud(position) == null) 
+		Noeud noeudALaPosition = m_carte.reqNoeud(position);
+		if (noeudALaPosition == null) 
 		{
-			m_carte.ajouterNoeud(position);
+			return m_carte.ajouterNoeud(position);
 		}
+		else
+		{
+			return noeudALaPosition;
+		}
+		
 
 	}
 	
-	private Position reqPositionEnMetre(Position position) {
+	public Position reqPositionEnMetre(Position positionEnPixel) {
 		
-			return m_grille.reqPositionEnMetre(position);
+			return m_grille.reqPositionEnMetre(positionEnPixel);
 		
 	}
 
-	public void ajouterArc(Noeud noeudSource, Noeud noeudDest) {
-		m_carte.ajouterArc(noeudSource, noeudDest);
+	public Arc ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		return m_carte.ajouterArc(noeudSource, noeudDest);
 	}
 	
 	public Noeud reqNoeud(int positionX, int positionY) {
@@ -83,7 +89,7 @@ public class GestionnaireReseau {
 	}
 	
 	public void enleverNoeud(Noeud noeud){
-		this.m_carte.enleverNoeud(noeud);
+		m_carte.enleverNoeud(noeud);
 	}
 	public void modifierPositionPreciseNoeud(Noeud noeud,float positionX, float positionY){
 		
@@ -106,7 +112,7 @@ public class GestionnaireReseau {
 	
 	public Arc reqArc(int positionX, int positionY) 
 	{
-		for(Arc arc: this.m_carte.reqListeArcs()){
+		for(Arc arc: m_carte.reqListeArcs()){
 			float x1 = this.reqPositionEnPixel(arc.reqNoeudSource().reqPosition()).reqPositionX();
 			float x2 = this.reqPositionEnPixel(arc.reqNoeudDest().reqPosition()).reqPositionX();
 			float y1 = this.reqPositionEnPixel(arc.reqNoeudSource().reqPosition()).reqPositionY();
@@ -146,7 +152,7 @@ public class GestionnaireReseau {
 	
 	public void enleverArc(Arc arc)
 	{
-		this.m_carte.enleverArc(arc);
+		m_carte.enleverArc(arc);
 	}
 	
 	public boolean existeComponent(int positionX, int positionY) 
@@ -203,12 +209,12 @@ public class GestionnaireReseau {
 	
 	public void toggleGrille()
 	{
-		this.isActiveGrille = !this.isActiveGrille;
+		m_grille.toggle();
 	}
 	
 	public boolean isGrilleActive()
 	{
-		return this.isActiveGrille;
+		return m_grille.isActive();
 	}
 
 	public Position reqPositionEnPixel(Position positionEnMetre) {
@@ -216,7 +222,7 @@ public class GestionnaireReseau {
 
 	}
 
-	public int reqPixelParStep() {
+	public float reqPixelParStep() {
 		
 		return m_echelle.reqPixelParStep();
 	}
