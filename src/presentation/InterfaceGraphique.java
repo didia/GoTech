@@ -482,6 +482,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 					
 				try {
 					undoManager.redo();
+					
 						m_simulateur.asgCarte(listeInstanceCarteanterieur
 								.peek());
 
