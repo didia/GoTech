@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import domaine.reseau.Noeud;
 import domaine.simulateur.Default;
 import domaine.simulation.strategie.*;
+import domaine.simulation.strategie.anciennete.StrategieAnciennete;
+import domaine.simulation.strategie.minchemin.StrategieMinChemin;
+import domaine.simulation.strategie.proximite.StrategieProximite;
 
 public class GestionnaireUrgence
 {
@@ -24,7 +27,7 @@ public class GestionnaireUrgence
 	private ArrayList<Urgence> m_urgencesTraitee;
 	private ArrayList<Urgence> m_urgencesNonAccessible;
 	private ArrayList<Urgence> m_urgencesEnAttente;
-	private StrategieGestion m_strategie = null;
+	private AbstractStrategie m_strategie = null;
 	
 	
 	public GestionnaireUrgence()
