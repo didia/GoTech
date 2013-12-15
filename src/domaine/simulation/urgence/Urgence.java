@@ -72,5 +72,10 @@ public class Urgence
 	public long reqTempsDeclenchement() {
 		
 		return this.m_tempsDeclenchement;
-	}	
+	}
+	
+	public float reqCout(Urgence urgence)
+	{
+		return this.m_noeudCible.cout(urgence.reqNoeudCible());
+	}
 }
