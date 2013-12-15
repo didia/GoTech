@@ -40,7 +40,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	int tempattente ;
 
 
-	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence();
+	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence(m_gestionnaireReseau.reqCarte());
 
 	transient private EtatSimulateur m_etatsimu = new EtatSimulateur();
 
