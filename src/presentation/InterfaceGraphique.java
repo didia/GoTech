@@ -454,32 +454,42 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-
+				
+				if (!listeInstanceCarte.isEmpty())
+				{
+					try {
+					
 					undoManager.undo();
+
 					if(listeInstanceCarteanterieur.size()<=5)
 					listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
          
 					m_simulateur.asgCarte(listeInstanceCarte.pop());
 					m_simulateur.cancelState();
 
+
 				} catch (CannotRedoException cre) {
 					cre.printStackTrace();
 				}
 				m_carteGraphique.repaint();
 				btnUndo.setEnabled(undoManager.canUndo());
 				btnRedo.setEnabled(undoManager.canRedo());
+				}
 			}
 		});
 
 		// action du bouton anuler
 		btnRedo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!listeInstanceCarteanterieur.isEmpty()) {
+					
 				try {
 					undoManager.redo();
+
 					m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
 					listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
 					m_simulateur.cancelState();
+
 
 				} catch (CannotRedoException cre) {
 					cre.printStackTrace();
@@ -487,7 +497,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				m_carteGraphique.repaint();
 				btnUndo.setEnabled(undoManager.canUndo());
 				btnRedo.setEnabled(undoManager.canRedo());
-			}
+			}}
 		});
 		// Ajout du menu et de la barre des buttons
 		Menu menu = new Menu(this);

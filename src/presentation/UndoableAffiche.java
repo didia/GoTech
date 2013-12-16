@@ -41,8 +41,6 @@ class UndoableAffiche extends AbstractUndoableEdit {
 	public void redo() {
 
 		super.redo();
-//		if(listeInstanceCarte.size()<=5)
-//		listeInstanceCarte.add(m_carteTemp);
 
 	}
 }

@@ -29,7 +29,9 @@ public class GestionnaireUrgence
 	private ArrayList<Urgence> m_urgencesNonAccessible;
 	private ArrayList<Urgence> m_urgencesEnAttente;
 	private AbstractStrategie m_strategie = null;
+
 	private static Carte m_gps;
+
 	
 	
 	public GestionnaireUrgence(Carte gps)
