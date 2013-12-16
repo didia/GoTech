@@ -374,12 +374,12 @@ public class Carte {
 	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2){
 		
 		if(noeud1.next(noeud2) == null){
-			System.out.println("Appel de Djikstra");
+			
 			return trouverItineraireDjikstra(noeud1, noeud2);
 		}
 		else
 		{
-			System.out.println("Pas besoin de djikstra! Je connais mon prochain");
+			
 			ArrayList <Noeud> chemin = new ArrayList<Noeud>();
 			Noeud next = noeud1.next(noeud2);
 			chemin.add(next);

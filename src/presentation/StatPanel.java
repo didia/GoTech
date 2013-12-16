@@ -33,6 +33,8 @@ public class StatPanel extends JPanel {
 		
 		public void afficherResultat(){
 			Resultats resultats = this.m_simulateur.reqResultats();
+			if(resultats != null){
+		
 			String statistiques = "<html><body style=\"padding:10px;\">" +
 					"<center><u><h3> Statistiques de Simulation </h3></center></u>"+
 				
@@ -45,6 +47,7 @@ public class StatPanel extends JPanel {
 					"</table>" +
 					"<body></html>";
 			this.updateTextField(statistiques);
+			}
 			
 			
 		}

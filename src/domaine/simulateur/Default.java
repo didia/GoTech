@@ -19,6 +19,7 @@ public class Default {
 
 	public static final String PLAYS_IMAGE_PATH = "/images/play.png";
 	public static final String PAUSE_IMAGE_PATH = "/images/pause.png";
+	public static final String RESET_IMAGE_PATH = "/images/reset.png";
 	public static final String TERMINER_IMAGE_PATH = "/images/terminer.png";
 	public static final String URGENCE_IMAGE_PATH = "/images/urgence.png";
 

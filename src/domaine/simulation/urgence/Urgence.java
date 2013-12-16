@@ -86,6 +86,10 @@ public class Urgence
 	{
 		return this.m_noeudCible.cout(urgence.reqNoeudCible());
 	}
+	public void resetTempsAttente()
+	{
+		this.m_tempsAttente = 0;
+	}
 	
 	
 }

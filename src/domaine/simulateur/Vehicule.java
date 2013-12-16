@@ -2,7 +2,6 @@ package domaine.simulateur;
 
 import java.util.ArrayList;
 
-import domaine.reseau.Arc;
 import domaine.reseau.Carte;
 import domaine.reseau.Noeud;
 import domaine.reseau.Position;
@@ -16,7 +15,7 @@ public class Vehicule {
 	private boolean m_retourPointAttache;
 	private Position m_position = null;
 	private Noeud m_noeudActuel = null;
-
+	private Noeud m_lastNoeud = null;
 
 	
 
@@ -37,6 +36,7 @@ public class Vehicule {
 	private float directionY;
 	private double angle = 0;
 	private float m_echelleTemps;
+	
 
 	// constructeur privï¿½e vehicule
 
@@ -198,9 +198,8 @@ public class Vehicule {
 
 	private void declencherMission() {
 		Noeud noeud = this.m_itineraireActuel.get(0);
-		Arc arc = new Arc(m_noeudActuel, noeud); // Pour des raisons de calcul,
-													// on crŽe un nouvel arc
-		distanceDuProchainNoeud = arc.reqLongueur();
+	
+		distanceDuProchainNoeud = this.m_noeudActuel.cout(noeud);
 		float y2 = m_itineraireActuel.get(0).reqPosition().reqPositionY();
 		float x2 = m_itineraireActuel.get(0).reqPosition().reqPositionX();
 		float x1 = this.m_position.reqPositionX();
@@ -212,6 +211,7 @@ public class Vehicule {
 		}
 		this.directionX = (float) Math.cos(Math.atan2(y2 - y1, x2 - x1));
 		this.directionY = (float) Math.sin(Math.atan2(y2 - y1, x2 - x1));
+		this.m_lastNoeud = this.m_noeudActuel;
 		this.m_noeudActuel = null;
 
 	}
@@ -228,11 +228,11 @@ public class Vehicule {
 		float distance = this.m_vitesse * duree / 1000;
 
 		if (distanceDuProchainNoeud < distance) {
-			distanceparcourue += distanceDuProchainNoeud;
+			
 			this.arriverAuProchainNoeud();
 
 		} else {
-			distanceparcourue += distance;
+			
 			float x1 = this.m_position.reqPositionX();
 			float y1 = this.m_position.reqPositionY();
 			float newPositionX = x1 + distance * directionX;
@@ -246,6 +246,7 @@ public class Vehicule {
 
 	private void arriverAuProchainNoeud() {
 		Noeud noeud = this.m_itineraireActuel.get(0);
+		this.distanceparcourue += this.m_lastNoeud.cout(noeud);
 		this.asgNoeudActuel(noeud);
 		this.m_itineraireActuel.remove(noeud);
 		distanceDuProchainNoeud = 0;

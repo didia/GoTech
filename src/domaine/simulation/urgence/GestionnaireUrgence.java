@@ -13,6 +13,7 @@
 package domaine.simulation.urgence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import domaine.reseau.Carte;
 import domaine.reseau.Noeud;
@@ -156,18 +157,23 @@ public class GestionnaireUrgence
 	public void restart()
 	{
 		this.m_strategie = null;
-		
+		Collections.reverse(this.m_urgencesTraitee);
 		for(Urgence urgence: this.m_urgencesTraitee)
 		{
 			if(urgence.reqTempsDebut() == 0 && urgence.reqTempsDeclenchement() == 0){
-				this.m_urgencesNonTraitee.add(urgence);
+				this.m_urgencesNonTraitee.add(0, urgence);
 				urgence.reqNoeudCible().setEnAttente();
 			}
 			else
 			{
 				urgence.reset();
 				this.m_urgencesEnAttente.add(urgence);
+				urgence.reqNoeudCible().reset();
 			}
+		}
+		for(Urgence urgence:this.m_urgencesNonTraitee)
+		{
+			urgence.resetTempsAttente();
 		}
 		this.m_urgencesTraitee.clear();
 	}
