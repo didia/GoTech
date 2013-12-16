@@ -24,6 +24,7 @@ public class Resultats
 	private int nombreUrgenceNonTraitee = 0;
 	private int nombreUrgenceNonAccessible = 0;
 	private float distanceParcourue;
+	private String strategie;
 	
 
 	public Resultats(int p_tempsDattente, float p_distanceParcourue, 
@@ -89,6 +90,11 @@ public class Resultats
 		System.out.println("temps d'Attente"+tempsDattente);
 		
 		System.out.println("distance Parcourue"+distanceParcourue);
+	}
+	
+	public void setStrategie(String strategie)
+	{
+		this.strategie = strategie;
 	}
 
 }

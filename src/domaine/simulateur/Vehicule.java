@@ -17,7 +17,7 @@ public class Vehicule {
 	private Position m_position = null;
 	private Noeud m_noeudActuel = null;
 
-	private long clock = 0;
+
 	
 
 	private GestionnaireUrgence m_gestionnaireUrgence;
@@ -144,8 +144,8 @@ public class Vehicule {
 		}
 
 		this.m_gestionnaireUrgence.incrementerTempsAttenteUrgence(duree);
-		this.clock += duree;
-		this.m_gestionnaireUrgence.declencherUrgenceEnAttente(this.clock);
+		Clock.update(duree);
+		this.m_gestionnaireUrgence.declencherUrgenceEnAttente(Clock.getTime());
 		
 
 	}
@@ -253,7 +253,7 @@ public class Vehicule {
 		if (this.isDestinationAtteinte()) {
 			if (this.isNoeudActuelEnUrgence()) {
 				this.entreEnTraitement();
-				this.m_gestionnaireUrgence.traiterUrgenceActuelle();
+				this.m_gestionnaireUrgence.traiterUrgenceActuelle(m_noeudActuel);
 
 			} else {
 				this.idle();
@@ -334,6 +334,7 @@ public class Vehicule {
 		this.angle = 0;
 		this.m_itineraireActuel = null;
 		this.compteurTempsTraitement = 0;
+		Clock.reset();
 
 	}
 

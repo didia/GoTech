@@ -54,6 +54,10 @@ import domaine.simulation.urgence.Urgence;
 	    public void removeUrgence(int tourPosition){
 	    	tour.remove(0);
 	    }
+	    public boolean isEmpty()
+	    {
+	    	return tour.isEmpty();
+	    }
 	    // Sets a city in a certain position within a tour
 	    public void setUrgence(int tourPosition, Urgence Urgence) {
 	        tour.set(tourPosition, Urgence);
@@ -70,10 +74,21 @@ import domaine.simulation.urgence.Urgence;
 	        return fitness;
 	    }
 	    
+	    public double getFitness(float additionalDistance)
+	    {
+	    	if(fitness == 0)
+	    	{
+	    		fitness = 1/(double)(getDistance() + additionalDistance);
+	    	}
+	    	
+	    	return fitness;
+	    	
+	    }
+	    
 	    // Gets the total distance of the tour
 	    public float getDistance(){
 	        if (distance == 0) {
-	            int tourDistance = 0;
+	            float tourDistance = 0;
 	            // Loop through our tour's cities
 	            for (int cityIndex=0; cityIndex < tourSize(); cityIndex++) {
 	                // Get city we're travelling from

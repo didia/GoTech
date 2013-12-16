@@ -148,9 +148,28 @@ public class GestionnaireUrgence
 	*
 	*
     */
-	public void traiterUrgenceActuelle()
+	public void traiterUrgenceActuelle(Noeud noeudActuel)
 	{
-		m_strategie.traiterUrgenceAtuelle();
+		m_strategie.traiterUrgenceAtuelle(noeudActuel);
+	}
+	
+	public void restart()
+	{
+		this.m_strategie = null;
+		
+		for(Urgence urgence: this.m_urgencesTraitee)
+		{
+			if(urgence.reqTempsDebut() == 0 && urgence.reqTempsDeclenchement() == 0){
+				this.m_urgencesNonTraitee.add(urgence);
+				urgence.reqNoeudCible().setEnAttente();
+			}
+			else
+			{
+				urgence.reset();
+				this.m_urgencesEnAttente.add(urgence);
+			}
+		}
+		this.m_urgencesTraitee.clear();
 	}
 
 	public void reset(){
@@ -274,7 +293,7 @@ public class GestionnaireUrgence
 	public void declencherUrgenceEnAttente(long clock) {
 		ArrayList<Urgence> tempList = new ArrayList<Urgence>();
 		for(Urgence urgence: this.m_urgencesEnAttente){
-			if(urgence.reqTempsDeclenchement() <= Math.round(clock/1000))
+			if(urgence.reqTempsDeclenchement() <= clock)
 			{
 				tempList.add(urgence);	
 			

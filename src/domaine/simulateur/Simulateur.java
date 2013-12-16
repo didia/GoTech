@@ -100,7 +100,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	public void terminerSimulation() 
 	{
 		this.m_gestionnaireReseau.resetReseau();
-		this.m_gestionnaireUrgence.reset();
+		this.m_gestionnaireUrgence.restart();
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
 	}
@@ -382,7 +382,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		
 		if(noeud != null && noeud.isFree())
 		{
-			this.m_gestionnaireUrgence.ajouterUrgence(noeud, Math.round(tempsDeclenchement*60));
+			this.m_gestionnaireUrgence.ajouterUrgence(noeud, Math.round(tempsDeclenchement*60*1000));
 		}
 		
 	}

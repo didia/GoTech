@@ -652,6 +652,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.iconStopSim.setEnabled(false);
 			this.btnRedo.setEnabled(false);
 			this.btnUndo.setEnabled(false);
+			
 
 			JOptionPane.showOptionDialog(this, m_resultPanel,
 					"Resultats de la Simulation", JOptionPane.OK_OPTION,

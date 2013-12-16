@@ -7,10 +7,13 @@ public class GestionnaireResultat {
 	
 	private final Vehicule m_vehicule;
 	private final GestionnaireUrgence m_gestionnaireUrgence;
+	private  Resultats[] latestResultats;
+	private  Resultats currentResultat;
 	
 	public GestionnaireResultat(Vehicule vehicule, GestionnaireUrgence gestionnaireUrgence){
 		m_vehicule = vehicule;
 		m_gestionnaireUrgence = gestionnaireUrgence;
+		latestResultats = new Resultats[3];
 	}
 	
 	public Resultats reqResultats(){
