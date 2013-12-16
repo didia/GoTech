@@ -10,45 +10,53 @@ package domaine.simulation.strategie.minchemin;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import domaine.reseau.Noeud;
+import domaine.simulation.urgence.Urgence;
+
+
 
 	public class Tour{
 
 	    // Holds our tour of cities
-	    private ArrayList<Noeud> tour = new ArrayList<Noeud>();
+	    private ArrayList<Urgence> tour = new ArrayList<Urgence>();
+	    
 	    // Cache
 	    private double fitness = 0;
-	    private int distance = 0;
+	    private float distance = 0;
 	    
 	    // Constructs a blank tour
-	    public Tour(int nombreDesNoeuds){
-	        for (int i = 0; i < nombreDesNoeuds; i++) {
+	    public Tour(int nombreDesUrgences){
+	        for (int i = 0; i < nombreDesUrgences; i++) {
 	            tour.add(null);
+	            
 	        }
 	    }
 	    
-	    public Tour(ArrayList<Noeud> tour){
+	    public Tour(ArrayList<Urgence> tour){
 	        this.tour = tour;
 	    }
 
 	    // Creates a random individual
-	    public void generateIndividual(ArrayList<Noeud> listeDesNoeuds) {
+	    public void generateIndividual(ArrayList<Urgence> listeDesUrgences) {
 	        // Loop through all our destination cities and add them to our tour
-	        for (int cityIndex = 0; cityIndex < listeDesNoeuds.size(); cityIndex++) {
-	          setNoeud(cityIndex, listeDesNoeuds.get(cityIndex));
+	        for (int cityIndex = 0; cityIndex < listeDesUrgences.size(); cityIndex++) {
+	          setUrgence(cityIndex, listeDesUrgences.get(cityIndex));
 	        }
 	        // Randomly reorder the tour
 	        Collections.shuffle(tour);
 	    }
 
 	    // Gets a city from the tour
-	    public Noeud getNoeud(int tourPosition) {
+	    public Urgence getUrgence(int tourPosition) {
 	        return tour.get(tourPosition);
 	    }
-
+	    
+	    // Removes a city from the tour
+	    public void removeUrgence(int tourPosition){
+	    	tour.remove(0);
+	    }
 	    // Sets a city in a certain position within a tour
-	    public void setNoeud(int tourPosition, Noeud noeud) {
-	        tour.set(tourPosition, noeud);
+	    public void setUrgence(int tourPosition, Urgence Urgence) {
+	        tour.set(tourPosition, Urgence);
 	        // If the tours been altered we need to reset the fitness and distance
 	        fitness = 0;
 	        distance = 0;
@@ -63,25 +71,25 @@ import domaine.reseau.Noeud;
 	    }
 	    
 	    // Gets the total distance of the tour
-	    public int getDistance(){
+	    public float getDistance(){
 	        if (distance == 0) {
 	            int tourDistance = 0;
 	            // Loop through our tour's cities
 	            for (int cityIndex=0; cityIndex < tourSize(); cityIndex++) {
 	                // Get city we're travelling from
-	                Noeud fromCity = getNoeud(cityIndex);
+	                Urgence fromCity = getUrgence(cityIndex);
 	                // City we're travelling to
-	                Noeud destinationCity;
+	                Urgence destinationCity;
 	                // Check we're not on our tour's last city, if we are set our 
 	                // tour's final destination city to our starting city
 	                if(cityIndex+1 < tourSize()){
-	                    destinationCity = getNoeud(cityIndex+1);
+	                    destinationCity = getUrgence(cityIndex+1);
 	                }
 	                else{
-	                    destinationCity = getNoeud(0);
+	                    destinationCity = getUrgence(0);
 	                }
 	                // Get the distance between the two cities
-	                tourDistance += fromCity.cout(destinationCity);
+	                tourDistance += GA.reqGps().trouverCout(fromCity.reqNoeudCible(), destinationCity.reqNoeudCible());
 	            }
 	            distance = tourDistance;
 	        }
@@ -94,7 +102,7 @@ import domaine.reseau.Noeud;
 	    }
 	    
 	    // Check if the tour contains a city
-	    public boolean containsCity(Noeud city){
+	    public boolean containsCity(Urgence city){
 	        return tour.contains(city);
 	    }
 	    
@@ -102,7 +110,7 @@ import domaine.reseau.Noeud;
 	    public String toString() {
 	        String geneString = "|";
 	        for (int i = 0; i < tourSize(); i++) {
-	            geneString += getNoeud(i)+"|";
+	            geneString += getUrgence(i)+"|";
 	        }
 	        return geneString;
 	    }

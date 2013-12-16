@@ -498,6 +498,16 @@ public class Carte {
 		return next;
 		
 	}
+	
+	public float trouverCout(Noeud source, Noeud destination)
+	{
+		Noeud next = source.next(destination);
+		if(next == null)
+		{
+			this.trouverItineraire(source, destination);
+		}
+		return source.cout(destination);
+	}
 
 	/**
 	 * Remet les noeuds ˆ l'Žtat initial

@@ -74,7 +74,7 @@ public class Urgence
 		return this.m_tempsDeclenchement;
 	}
 	
-	public float reqCout(Urgence urgence)
+	public float cout(Urgence urgence)
 	{
 		return this.m_noeudCible.cout(urgence.reqNoeudCible());
 	}

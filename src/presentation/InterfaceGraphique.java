@@ -459,8 +459,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 					undoManager.undo();
 					if(listeInstanceCarteanterieur.size()<=5)
 					listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
-                    
+         
 					m_simulateur.asgCarte(listeInstanceCarte.pop());
+					m_simulateur.cancelState();
 
 				} catch (CannotRedoException cre) {
 					cre.printStackTrace();
@@ -478,6 +479,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 					undoManager.redo();
 					m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
 					listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
+					m_simulateur.cancelState();
 
 				} catch (CannotRedoException cre) {
 					cre.printStackTrace();

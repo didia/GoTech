@@ -106,8 +106,8 @@ public class AbstractStrategie
 		// DO NOTHING,
 		// TO BE IMPLEMENTED IN CHILDREN
 	}
-	public void ajouterUrgence(Urgence urgence){
-		
+	public void informeNouvelleUrgenceAjoutee(){
+		// TO BE IMPLEMENTED BY CHILDREN
 	}
 	public void setUrgenceActuelleNonAccessible(){
 		this.m_listeUrgenceNonAccessible.add(m_prochaineUrgence);

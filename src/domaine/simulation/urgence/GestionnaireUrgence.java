@@ -69,6 +69,11 @@ public class GestionnaireUrgence
 		}	
 	}
 	
+	public static Carte reqCarte()
+	{
+		return m_gps;
+	}
+	
 	/**
 	* Ajoute une urgence a la liste des urgences non traitees
 	* 
@@ -90,6 +95,7 @@ public class GestionnaireUrgence
 	
 	public void ajouterUrgence(Noeud noeud, long tempsDeclenchement){
 		this.m_urgencesEnAttente.add(new Urgence(noeud, tempsDeclenchement));
+		this.m_strategie.informeNouvelleUrgenceAjoutee();
 	}
 	/**
 	* Supprime une urgence

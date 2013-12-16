@@ -8,7 +8,9 @@ package domaine.simulation.strategie.minchemin;
 
 
 import java.util.ArrayList;
-import domaine.reseau.Noeud;
+
+import domaine.simulation.urgence.Urgence;
+
 
 public class Population {
 	// Holds population of tours
@@ -20,13 +22,13 @@ public class Population {
     	tours = new Tour[populationSize];
     }
   
-    public Population(int populationSize, ArrayList<Noeud> listeDesNoeuds) {
+    public Population(int populationSize, ArrayList<Urgence> listeDesUrgences) {
     	
     		tours = new Tour[populationSize];
             // Loop and create individuals
             for (int i = 0; i < populationSize(); i++) {
-                Tour newTour = new Tour(listeDesNoeuds.size());
-                newTour.generateIndividual(listeDesNoeuds);
+                Tour newTour = new Tour(listeDesUrgences.size());
+                newTour.generateIndividual(listeDesUrgences);
                 saveTour(i, newTour);
             }
         

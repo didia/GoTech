@@ -2,7 +2,11 @@ package domaine.simulation.strategie.minchemin;
 
 import java.util.ArrayList;
 
-import domaine.reseau.Noeud;
+import domaine.reseau.Carte;
+import domaine.simulation.urgence.GestionnaireUrgence;
+import domaine.simulation.urgence.Urgence;
+
+
 
 public class GA {
 	
@@ -10,13 +14,27 @@ public class GA {
     private static final double mutationRate = 0.015;
     private static final int tournamentSize = 5;
     private static final boolean elitism = true;
-    private static Population pop;
+
+    private static Carte m_gps = GestionnaireUrgence.reqCarte() ;
     
-    public GA(ArrayList<Noeud> listeDesNoeuds){
-    	pop = new Population(50, listeDesNoeuds);
+   
+    
+    public static Carte reqGps()
+    {
+    	return m_gps;
+    }
+    public static Tour getNextTour(ArrayList<Urgence> listeDesUrgences){
+    	Population pop = new Population(50, listeDesUrgences);
+    	System.out.println("Initial distance: " + pop.getFittest().getDistance());
+    	pop = GA.evolvePopulation(pop, listeDesUrgences.size());
+        for (int i = 0; i < 500; i++) {
+            pop = GA.evolvePopulation(pop, listeDesUrgences.size());
+        }
+        System.out.println("Final distance: " + pop.getFittest().getDistance());
+        return pop.getFittest();
     }
     // Evolves a population over one generation
-    public static void evolvePopulation() {
+    public static Population evolvePopulation(Population pop, int sizechild) {
         Population newPopulation = new Population(pop.populationSize());
 
         // Keep our best individual if elitism is enabled
@@ -34,7 +52,7 @@ public class GA {
             Tour parent1 = tournamentSelection(pop);
             Tour parent2 = tournamentSelection(pop);
             // Crossover parents
-            Tour child = crossover(parent1, parent2);
+            Tour child = crossover(parent1, parent2, sizechild);
             // Add child to new population
             newPopulation.saveTour(i, child);
         }
@@ -44,13 +62,13 @@ public class GA {
             mutate(newPopulation.getTour(i));
         }
 
-        pop = newPopulation;
+        return newPopulation;
     }
 
     // Applies crossover to a set of parents and creates offspring
-    public static Tour crossover(Tour parent1, Tour parent2) {
+    public static Tour crossover(Tour parent1, Tour parent2, int sizechild) {
         // Create new child tour
-        Tour child = new Tour(parent1.tourSize());
+        Tour child = new Tour(sizechild);
 
         // Get start and end sub tour positions for parent1's tour
         int startPos = (int) (Math.random() * parent1.tourSize());
@@ -60,11 +78,11 @@ public class GA {
         for (int i = 0; i < child.tourSize(); i++) {
             // If our start position is less than the end position
             if (startPos < endPos && i > startPos && i < endPos) {
-                child.setNoeud(i, parent1.getNoeud(i));
+                child.setUrgence(i, parent1.getUrgence(i));
             } // If our start position is larger
             else if (startPos > endPos) {
                 if (!(i < startPos && i > endPos)) {
-                    child.setNoeud(i, parent1.getNoeud(i));
+                    child.setUrgence(i, parent1.getUrgence(i));
                 }
             }
         }
@@ -72,12 +90,12 @@ public class GA {
         // Loop through parent2's city tour
         for (int i = 0; i < parent2.tourSize(); i++) {
             // If child doesn't have the city add it
-            if (!child.containsCity(parent2.getNoeud(i))) {
+            if (!child.containsCity(parent2.getUrgence(i))) {
                 // Loop to find a spare position in the child's tour
                 for (int ii = 0; ii < child.tourSize(); ii++) {
                     // Spare position found, add city
-                    if (child.getNoeud(ii) == null) {
-                        child.setNoeud(ii, parent2.getNoeud(i));
+                    if (child.getUrgence(ii) == null) {
+                        child.setUrgence(ii, parent2.getUrgence(i));
                         break;
                     }
                 }
@@ -96,12 +114,12 @@ public class GA {
                 int tourPos2 = (int) (tour.tourSize() * Math.random());
 
                 // Get the cities at target position in tour
-                Noeud city1 = tour.getNoeud(tourPos1);
-                Noeud city2 = tour.getNoeud(tourPos2);
+                Urgence city1 = tour.getUrgence(tourPos1);
+                Urgence city2 = tour.getUrgence(tourPos2);
 
                 // Swap them around
-                tour.setNoeud(tourPos2, city1);
-                tour.setNoeud(tourPos1, city2);
+                tour.setUrgence(tourPos2, city1);
+                tour.setUrgence(tourPos1, city2);
             }
         }
     }
