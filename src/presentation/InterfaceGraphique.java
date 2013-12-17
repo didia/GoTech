@@ -11,10 +11,10 @@ import javax.swing.undo.UndoManager;
 
 //import changeable.UndoManagerDemo.UndoablePaintSquare;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -119,11 +119,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		int xSize = ((int) tk.getScreenSize().getWidth());
 		int ySize = ((int) tk.getScreenSize().getHeight());
 		this.setSize(xSize, ySize);
-
+//TODO
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
 		carteTemp = new Carte(m_simulateur.reqCarte());
-		listeInstanceCarte.add(carteTemp);
+		
+
 
 		//
 		// System.out.println(m_simulateur.reqCarte()
@@ -437,7 +438,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		m_carteGraphique.addMouseListener(new MouseAdapter() {// TODO
 					public void mousePressed(MouseEvent e) {
-						carteTemp = new Carte(m_simulateur.reqCarte());
+						//carteTemp = new Carte(m_simulateur.reqCarte());
+						if(!carteTemp.equals(m_simulateur.reqCarte()))
+						{
+							System.out.println("la carte est identique a la precendante");
 						listeInstanceCarte.add(carteTemp);
 
 						undoManager.undoableEditHappened(new UndoableEditEvent(
@@ -447,7 +451,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 						btnUndo.setEnabled(undoManager.canUndo());
 						btnRedo.setEnabled(undoManager.canRedo());
-
+						carteTemp = new Carte(m_simulateur.reqCarte());
+						}
 					}
 
 				});
@@ -667,12 +672,56 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				m_afficheur.asgImageDeFond(file);
 				m_carteGraphique.repaint();
 
-			} else {
-
 			}
-		} else if (command.equals(Default.QUIT)) {
+		} 
+		else if(command.equals(Default.ANNULER))
+		{
+
+			if (!listeInstanceCarte.isEmpty())
+			{
+				try {
+				
+				undoManager.undo();
+
+				if(listeInstanceCarteanterieur.size()<=5)
+				listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
+     
+				m_simulateur.asgCarte(listeInstanceCarte.pop());
+				m_simulateur.cancelState();
+
+
+			} catch (CannotRedoException cre) {
+				cre.printStackTrace();
+			}
+			m_carteGraphique.repaint();
+			btnUndo.setEnabled(undoManager.canUndo());
+			btnRedo.setEnabled(undoManager.canRedo());
+			}
+		}
+		else if(command.equals(Default.RESTAURER))
+		{
+			if (!listeInstanceCarteanterieur.isEmpty()) {
+				
+				try {
+					undoManager.redo();
+
+					m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
+					listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
+					m_simulateur.cancelState();
+
+
+				} catch (CannotRedoException cre) {
+					cre.printStackTrace();
+				}
+				m_carteGraphique.repaint();
+				btnUndo.setEnabled(undoManager.canUndo());
+				btnRedo.setEnabled(undoManager.canRedo());
+			}
+		}
+		else if (command.equals(Default.QUIT)) {
 			this.dispose();
 		}
+		
 	}
 
 	public void buttonToPlay() {

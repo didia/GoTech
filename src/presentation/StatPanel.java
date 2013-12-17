@@ -3,6 +3,9 @@ package presentation;
 
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
@@ -17,7 +20,7 @@ public class StatPanel extends JPanel {
 	private static final long serialVersionUID = 4389804890212885041L;
 		private JEditorPane textField;
 		private Simulateur m_simulateur;
-
+//		private  Queue<Simulateur> listeEtatSimu = m_simulateur.reqEtatSimu().reqListeEtatSimu();
 		
 		public StatPanel(Simulateur simulateur){
 			this.m_simulateur = simulateur;
@@ -38,7 +41,13 @@ public class StatPanel extends JPanel {
 				
 					"<table>" +
 					"<tr>" +
-					"<td><b>Distance Totale parcourue</b><td>: <td>"+resultats.getDistanceParcourue() +"</td>" +
+					"<td><b>Strategie:</b><td>: <td>"+m_simulateur.reqStrategieCourante() +"</td>" +
+					"</tr>" +
+					"<tr>" +
+					"<td><b>Nombre d'urgences traitées:</b><td>: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceTraitee() +"</td>" +
+					"</tr>" +
+					"<tr>" +
+					"<td><b>Distance Totale parcourue:</b><td>: <td>"+resultats.getDistanceParcourue() +"</td>" +
 					"</tr>" +
 					"<tr><td><b>Temps moyen d'attente</b></td>: <td>" + resultats.gettempsDattente() +"</td>" +
 					"</tr> <br/>" +

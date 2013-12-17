@@ -3,14 +3,16 @@ package domaine.simulateur;
 import java.awt.event.MouseEvent;
 
 
+
 import javax.swing.event.MouseInputListener;
+
 import java.io.*;
+import java.util.ArrayList;
 
 import domaine.reseau.Carte;
 
 
 import domaine.reseau.Noeud;
-
 import domaine.simulateur.etat.*;
 import domaine.reseau.*;
 import domaine.simulation.resultat.*;
@@ -30,8 +32,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
 	
-
-
+	
 	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
 
 
@@ -50,6 +51,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 	
 
+	
 	public void setEtatAjouterNoeud() 
 	{
 		m_etat = new EtatAjouterNoeud(this);
@@ -109,6 +111,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	{
 		return m_parametres.reqStrategie().equals(strategie);
 	}
+	
 
 	public String reqStrategieCourante() 
 	{
@@ -326,6 +329,11 @@ public class Simulateur implements MouseInputListener, Serializable
 		Resultats results = this.m_gestionnaireResultat.reqResultats();
 		return results;
 	}
+	
+	public GestionnaireUrgence reqGestionnaireUrgence()
+	{
+		return this.m_gestionnaireUrgence;
+	}
 	public GestionnaireReseau reqGestionnaireReseau() {
 		return this.m_gestionnaireReseau;
 	}
@@ -397,11 +405,15 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	}
 
-	public void SauvegarderEtatActuel() {
-		if (m_etatsimu.reqListeEtatSimu().contains(this))
-			System.out.println("cette simulation a etÃ© dejas enregistrÃ©");
-		else
-			m_etatsimu.ajouterEtatSimu(this);
+//	public void SauvegarderEtatActuel() {
+//		if (m_etatsimu.reqListeEtatSimu().contains(this))
+//			System.out.println("cette simulation a etÃ© dejas enregistrÃ©");
+//		else
+//			m_etatsimu.ajouterEtatSimu(this);
+//	}
+	public  EtatSimulateur reqEtatSimu()
+	{
+		return this.m_etatsimu;
 	}
 
 	@Override

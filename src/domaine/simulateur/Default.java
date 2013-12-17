@@ -30,6 +30,8 @@ public class Default {
 	public static final String STRATEGIE_MIN = "Stratégie de chemin minimal";
 	public static final String STRATEGIE_GESTION = STRATEGIE_ANC;
 	public static final String QUIT = "Quit";
+	public static final String ANNULER = "Annuler";
+	public static final String RESTAURER = "Restaurer";
 	public static final String IMPORTER_IMAGE = "Importer image de fond";
 	public static final String OUVRIR = "Ouvrir Simulation";
 	public static final String ENREGISTRER_SOUS = "Enregistrer Sous";
