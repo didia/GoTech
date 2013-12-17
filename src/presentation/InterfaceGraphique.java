@@ -77,6 +77,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private static String RAPID_EDIT_STRING = "Editer rapidement";
 	private static String PUT_VEHICULE = "Placer Vehicule";
 	private static String CLEAR_ALL = "Effacer le R�seau";
+	private static String CLEAR_ALL_URGENCE = "Effacer Toutes les urgences";
 	private static String SELECTEUR_SOURIS = "Selectionner/D�placer";
 	private static String SHOW_OUTILS = "Outils";
 	private static String SHOW_GRILLE = "Grille";
@@ -153,6 +154,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		ImageIcon iconRESET = reqResizedIcon(
 				reqIcon(Default.RESET_IMAGE_PATH), 20, 20);
 		ImageIcon iconCLEAR = reqResizedIcon(reqIcon(Default.CLEAR_ICON_PATH), 20, 20);
+		ImageIcon iconCLEAR_URGENCE = reqResizedIcon(reqIcon(Default.CLEAR_URGENCE_ICON_PATH), 20, 20);
 		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
 		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
 		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
@@ -236,6 +238,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconClear.setActionCommand(CLEAR_ALL);
 		iconClear.addActionListener(this);
 		m_listeEditButtons.add(iconClear);
+		
+		JButton iconClearUrgence = new JButton(iconCLEAR_URGENCE);
+		iconClearUrgence.setToolTipText("Effacer Toutes les urgences");
+		iconClearUrgence.setActionCommand(CLEAR_ALL_URGENCE);
+		iconClearUrgence.addActionListener(this);
+		m_listeEditButtons.add(iconClearUrgence);
 
 		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule,
 				20, 20));
@@ -312,6 +320,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolbar.add(iconAjoutUrgence);
+		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
+		toolbar.add(iconClearUrgence);
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
 		toolbar.add(iconAjoutVehicule);
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -618,6 +628,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			if(option == JOptionPane.YES_OPTION)
 			{
 				m_simulateur.effacerToutReseau();
+				m_carteGraphique.repaint();
+			}
+		}else if (command.equals(CLEAR_ALL_URGENCE)){
+			int option = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment effacer toutes les urgences?");
+			if(option == JOptionPane.YES_OPTION)
+			{
+				m_simulateur.effacerToutesLesUrgences();
 				m_carteGraphique.repaint();
 			}
 		}else if (command.equals(ADD_PARAMETRES)) {

@@ -17,6 +17,7 @@ public class Default {
 	public static final String MOINS_ICON_PATH = "/images/ZoomMoins.png";
 	public static final String GRILLE_ICON_PATH = "/images/grille.png";
 	public static final String CLEAR_ICON_PATH = "/images/clear.png";
+	public static final String CLEAR_URGENCE_ICON_PATH = "/images/clear_urgence.png";
 
 	public static final String PLAYS_IMAGE_PATH = "/images/play.png";
 	public static final String PAUSE_IMAGE_PATH = "/images/pause.png";

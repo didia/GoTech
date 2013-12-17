@@ -218,6 +218,11 @@ public class Simulateur implements MouseInputListener, Serializable
 		this.m_changeHappened = true;
 		m_vehicule.asgPointAttache(null);
 	}
+	public void effacerToutesLesUrgences()
+	{
+		this.m_gestionnaireUrgence.reset();
+		this.m_gestionnaireReseau.resetReseau();
+	}
 	public Noeud ajouterNoeud(int positionX, int positionY) 
 	{
 		this.m_changeHappened = true;
