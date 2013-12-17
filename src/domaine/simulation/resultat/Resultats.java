@@ -19,23 +19,29 @@ import java.text.DecimalFormat;
 
 public class Resultats 
 {
-	private  int tempsDattente;
+	private  int tempsDattente = 0;
 	private int nombreUrgenceTraitee = 0;
 	private int nombreUrgenceNonTraitee = 0;
 	private int nombreUrgenceNonAccessible = 0;
-	private float distanceParcourue;
+	private float distanceParcourue = 0;
+	private String strategie;
+	private boolean retournePointAttache;
 	
+	public Resultats(String strategie, boolean retournePointAttache)
+	{
+		this.strategie = strategie;
+		this.retournePointAttache = retournePointAttache;
+	}
 
-	public Resultats(int p_tempsDattente, float p_distanceParcourue, 
-			int nombreUrgenceTraitee, int nombreUrgenceNonTraitee, int nombreUrgenceNonAccessible){
-		
+	public void update(int p_tempsDattente, float p_distanceParcourue, 
+			int nombreUrgenceTraitee, int nombreUrgenceNonTraitee, int nombreUrgenceNonAccessible)
+	{
 		this.tempsDattente = p_tempsDattente;
 		this.nombreUrgenceTraitee = nombreUrgenceTraitee;
 		this.distanceParcourue = p_distanceParcourue;
 		this.nombreUrgenceNonTraitee = nombreUrgenceNonTraitee;
 		this.nombreUrgenceNonAccessible = nombreUrgenceNonAccessible;
 	}
-	
 	public Resultats ()
 	{
 		this.tempsDattente = 0;
@@ -89,6 +95,11 @@ public class Resultats
 		System.out.println("temps d'Attente"+tempsDattente);
 		
 		System.out.println("distance Parcourue"+distanceParcourue);
+	}
+	
+	public void setStrategie(String strategie)
+	{
+		this.strategie = strategie;
 	}
 
 }

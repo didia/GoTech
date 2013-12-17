@@ -39,7 +39,12 @@ public class Carte {
 			this.m_listeArcs.add(noeud);
 
 	}
-
+	
+	public void effacerTout()
+	{
+		m_listeDeNoeuds.clear();
+		m_listeArcs.clear();
+	}
 	/**
 	 * Ajoute un noeud a la carte
 	 * 
@@ -365,15 +370,17 @@ public class Carte {
 
 	}
 
-	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2) {
-
-		if (noeud1.next(noeud2) == null) {
-			System.out.println("Appel de Djikstra");
+	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2){
+		
+		if(noeud1.next(noeud2) == null){
+			
 			return trouverItineraireDjikstra(noeud1, noeud2);
-		} else {
-			System.out
-					.println("Pas besoin de djikstra! Je connais mon prochain");
-			ArrayList<Noeud> chemin = new ArrayList<Noeud>();
+		}
+		else
+		{
+			
+			ArrayList <Noeud> chemin = new ArrayList<Noeud>();
+
 			Noeud next = noeud1.next(noeud2);
 			chemin.add(next);
 			while (next != noeud2) {

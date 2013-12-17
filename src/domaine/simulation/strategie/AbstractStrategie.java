@@ -95,11 +95,12 @@ public class AbstractStrategie
 		return existeUrgenceNonTraitee;
 	}
 
-	public void traiterUrgenceAtuelle() 
+	public void traiterUrgenceAtuelle(Noeud noeudActuel) 
 	{
 		this.m_listeUrgenceTraitee.add(m_prochaineUrgence);
 		this.m_listeUrgence.remove(m_prochaineUrgence);	
 		this.m_prochaineUrgence = null;
+		this.reqProchaineUrgence(noeudActuel);
 	}
 	
 	public void trierListeUrgence(){

@@ -59,11 +59,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private JPanel m_outilPanel;
 	private StatPanel m_resultPanel;
 	private ParametrePanel m_parametrePanel;
+	private Menu m_menu;
 
 	private JTextField textZoom;
 	private JButton playBouton;
 	private JButton iconPlaySim;
 	private JButton iconStopSim;
+	private JButton iconResetSim;
 	protected JButton btnUndo;
 	protected JButton btnRedo;
 	private JSlider vitesseSim;
@@ -74,10 +76,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private static String ADD_ARC_STRING = "Ajouter Arc";
 	private static String RAPID_EDIT_STRING = "Editer rapidement";
 	private static String PUT_VEHICULE = "Placer Vehicule";
+	private static String CLEAR_ALL = "Effacer le R�seau";
 	private static String SELECTEUR_SOURIS = "Selectionner/D�placer";
-	public static String SHOW_OUTILS = "Outils";
+	private static String SHOW_OUTILS = "Outils";
 	private static String SHOW_GRILLE = "Grille";
-	public static String LANCER_SIMULATION = "Lancer simulation";
+
 	private static String SAVE = "SAVE";
 
 	ImageIcon iconUndo = reqResizedIcon(reqIcon(Default.UNDO_ICON_PATH), 20, 20);
@@ -95,6 +98,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private static String RESUME = "Reprendre Simulation";
 	private static String PAUSE = " Pause";
 	private static String TERMINER = "Terminer";
+	private static String RECOMMENCER = "Recommencer Simulation";
 
 	// Taille boutons
 	private static int WIDTH_ICON = 40;
@@ -146,6 +150,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				reqIcon(Default.GRILLE_ICON_PATH), 20, 20);
 		ImageIcon iconRapide = reqResizedIcon(
 				reqIcon(Default.ERAPIDE_IMAGE_PATH), 20, 20);
+		ImageIcon iconRESET = reqResizedIcon(
+				reqIcon(Default.RESET_IMAGE_PATH), 20, 20);
+		ImageIcon iconCLEAR = reqResizedIcon(reqIcon(Default.CLEAR_ICON_PATH), 20, 20);
 		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
 		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
 		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
@@ -209,6 +216,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconAjoutArc.setActionCommand(ADD_ARC_STRING);
 		iconAjoutArc.addActionListener(this);
 		m_listeEditButtons.add(iconAjoutArc);
+		
 
 		JButton iconERapid = new JButton(iconRapide);
 		iconERapid.setToolTipText("Edition rapide");
@@ -222,6 +230,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconSelect.setActionCommand(SELECTEUR_SOURIS);
 		iconSelect.addActionListener(this);
 		m_listeEditButtons.add(iconSelect);
+		
+		JButton iconClear = new JButton(iconCLEAR);
+		iconClear.setToolTipText("Effacer Tout");
+		iconClear.setActionCommand(CLEAR_ALL);
+		iconClear.addActionListener(this);
+		m_listeEditButtons.add(iconClear);
 
 		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule,
 				20, 20));
@@ -255,7 +269,14 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconPlaySim.setToolTipText("Lancer la simulation");
 		iconPlaySim.setActionCommand(PLAY);
 		iconPlaySim.addActionListener(this);
-
+		
+		iconResetSim = new JButton(reqResizedIcon(iconRESET, 20, 20));
+		iconResetSim.setPressedIcon(reqResizedIcon(iconRESET, 20, 20));
+		iconResetSim.setEnabled(false);
+		iconResetSim.setToolTipText("Recommencer la simulation");
+		iconResetSim.setActionCommand(RECOMMENCER);
+		iconResetSim.addActionListener(this);
+		
 		iconStopSim = new JButton(reqResizedIcon(iconTERMINER, 20, 20));
 		iconStopSim.setPressedIcon(reqResizedIcon(iconTERMINER, 20, 20));
 		iconStopSim.setEnabled(false);
@@ -287,6 +308,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
 		toolbar.add(iconERapid);
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
+		toolbar.add(iconClear);
+		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
+		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolbar.add(iconAjoutUrgence);
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
 		toolbar.add(iconAjoutVehicule);
@@ -296,6 +320,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		toolbar.add(iconPlaySim);
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
 		toolbar.add(vitesseSim);
+		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
+		toolbar.add(iconResetSim);
 		toolbar.add(Box.createRigidArea(new Dimension(5, 0)));
 		toolbar.add(iconStopSim);
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));
@@ -438,10 +464,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		m_carteGraphique.addMouseListener(new MouseAdapter() {// TODO
 					public void mousePressed(MouseEvent e) {
-						//carteTemp = new Carte(m_simulateur.reqCarte());
 						if(!carteTemp.equals(m_simulateur.reqCarte()))
 						{
 							System.out.println("la carte est identique a la precendante");
+
 						listeInstanceCarte.add(carteTemp);
 
 						undoManager.undoableEditHappened(new UndoableEditEvent(
@@ -505,8 +531,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			}}
 		});
 		// Ajout du menu et de la barre des buttons
-		Menu menu = new Menu(this);
-		this.setJMenuBar(menu);
+		m_menu = new Menu(this);
+		this.setJMenuBar(m_menu);
 
 		m_parametrePanel = new ParametrePanel(m_simulateur);
 
@@ -587,7 +613,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			m_simulateur.setEtatAjouterUregence();
 			btnUndo.setEnabled(false);
 			btnRedo.setEnabled(false);
-		} else if (command.equals(ADD_PARAMETRES)) {
+		} else if (command.equals(CLEAR_ALL)){
+			int option = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment tout effacer?");
+			if(option == JOptionPane.YES_OPTION)
+			{
+				m_simulateur.effacerToutReseau();
+				m_carteGraphique.repaint();
+			}
+		}else if (command.equals(ADD_PARAMETRES)) {
+		
 			int option = JOptionPane.showOptionDialog(this, m_parametrePanel,
 					ADD_PARAMETRES, JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.PLAIN_MESSAGE, iconSettings, null, null);
@@ -625,9 +659,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			for (JButton button : this.m_listeEditButtons) {
 				button.setEnabled(false);
 			}
-
+			m_menu.deActivateEditsMenus();
 			this.buttonToPlay();
 			this.iconStopSim.setEnabled(true);
+			this.iconResetSim.setEnabled(true);
 
 			m_simulateur.lancerSimulation();
 		} else if (command.equals(RESUME)) {
@@ -641,13 +676,17 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		} else if (command.equals(PAUSE)) {
 			m_timer.stop();
 			this.buttonToPause();
-		} else if (command.equals(TERMINER)) {
+		}else if(command.equals(RECOMMENCER)){
+			m_simulateur.resetSimulation();
+		}else if (command.equals(TERMINER)) {
+		
 			m_timer.stop();
 			result_timer.stop();
 
 			for (JButton button : this.m_listeEditButtons) {
 				button.setEnabled(true);
 			}
+			m_menu.activateEditsMenus();
 			this.playBouton.setPressedIcon(iconPAUSE);
 			this.playBouton.setIcon(iconPLAYS);
 			this.playBouton.setActionCommand(PLAY);
@@ -655,8 +694,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.iconPlaySim.setIcon(reqResizedIcon(iconPLAYS, 20, 20));
 			this.iconPlaySim.setActionCommand(PLAY);
 			this.iconStopSim.setEnabled(false);
+			this.iconResetSim.setEnabled(false);
 			this.btnRedo.setEnabled(false);
 			this.btnUndo.setEnabled(false);
+			
 
 			JOptionPane.showOptionDialog(this, m_resultPanel,
 					"Resultats de la Simulation", JOptionPane.OK_OPTION,
@@ -731,6 +772,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
 		this.iconPlaySim.setActionCommand(PAUSE);
+		
 	}
 
 	public void buttonToPause() {

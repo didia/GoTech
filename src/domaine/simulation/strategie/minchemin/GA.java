@@ -3,6 +3,7 @@ package domaine.simulation.strategie.minchemin;
 import java.util.ArrayList;
 
 import domaine.reseau.Carte;
+import domaine.reseau.Noeud;
 import domaine.simulation.urgence.GestionnaireUrgence;
 import domaine.simulation.urgence.Urgence;
 
@@ -23,24 +24,24 @@ public class GA {
     {
     	return m_gps;
     }
-    public static Tour getNextTour(ArrayList<Urgence> listeDesUrgences){
+    public static Tour getNextTour(ArrayList<Urgence> listeDesUrgences, Noeud noeudActuel){
     	Population pop = new Population(50, listeDesUrgences);
-    	System.out.println("Initial distance: " + pop.getFittest().getDistance());
-    	pop = GA.evolvePopulation(pop, listeDesUrgences.size());
-        for (int i = 0; i < 500; i++) {
-            pop = GA.evolvePopulation(pop, listeDesUrgences.size());
+    	
+    	pop = GA.evolvePopulation(pop, listeDesUrgences.size(), noeudActuel);
+        for (int i = 0; i < 1000; i++) {
+            pop = GA.evolvePopulation(pop, listeDesUrgences.size(), noeudActuel);
         }
-        System.out.println("Final distance: " + pop.getFittest().getDistance());
-        return pop.getFittest();
+        
+        return pop.getFittest(noeudActuel);
     }
     // Evolves a population over one generation
-    public static Population evolvePopulation(Population pop, int sizechild) {
+    public static Population evolvePopulation(Population pop, int sizechild, Noeud noeudActuel) {
         Population newPopulation = new Population(pop.populationSize());
 
         // Keep our best individual if elitism is enabled
         int elitismOffset = 0;
         if (elitism) {
-            newPopulation.saveTour(0, pop.getFittest());
+            newPopulation.saveTour(0, pop.getFittest(noeudActuel));
             elitismOffset = 1;
         }
 
@@ -49,8 +50,8 @@ public class GA {
         // Current population
         for (int i = elitismOffset; i < newPopulation.populationSize(); i++) {
             // Select parents
-            Tour parent1 = tournamentSelection(pop);
-            Tour parent2 = tournamentSelection(pop);
+            Tour parent1 = tournamentSelection(pop, noeudActuel);
+            Tour parent2 = tournamentSelection(pop, noeudActuel);
             // Crossover parents
             Tour child = crossover(parent1, parent2, sizechild);
             // Add child to new population
@@ -125,7 +126,7 @@ public class GA {
     }
 
     // Selects candidate tour for crossover
-    private static Tour tournamentSelection(Population pop) {
+    private static Tour tournamentSelection(Population pop, Noeud noeudActuel) {
         // Create a tournament population
         Population tournament = new Population(tournamentSize);
         // For each place in the tournament get a random candidate tour and
@@ -135,7 +136,7 @@ public class GA {
             tournament.saveTour(i, pop.getTour(randomId));
         }
         // Get the fittest tour
-        Tour fittest = tournament.getFittest();
+        Tour fittest = tournament.getFittest(noeudActuel);
         return fittest;
     }
 }

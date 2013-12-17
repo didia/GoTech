@@ -13,6 +13,7 @@
 package domaine.simulation.urgence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import domaine.reseau.Carte;
 import domaine.reseau.Noeud;
@@ -148,14 +149,40 @@ public class GestionnaireUrgence
 	*
 	*
     */
-	public void traiterUrgenceActuelle()
+	public void traiterUrgenceActuelle(Noeud noeudActuel)
 	{
-		m_strategie.traiterUrgenceAtuelle();
+		m_strategie.traiterUrgenceAtuelle(noeudActuel);
+	}
+	
+	public void restart()
+	{
+		this.m_strategie = null;
+		Collections.reverse(this.m_urgencesTraitee);
+		for(Urgence urgence: this.m_urgencesTraitee)
+		{
+			if(urgence.reqTempsDebut() == 0 && urgence.reqTempsDeclenchement() == 0){
+				this.m_urgencesNonTraitee.add(0, urgence);
+				urgence.reqNoeudCible().setEnAttente();
+			}
+			else
+			{
+				urgence.reset();
+				this.m_urgencesEnAttente.add(urgence);
+				urgence.reqNoeudCible().reset();
+			}
+		}
+		for(Urgence urgence:this.m_urgencesNonTraitee)
+		{
+			urgence.resetTempsAttente();
+		}
+		this.m_urgencesTraitee.clear();
 	}
 
 	public void reset(){
 		this.m_urgencesNonTraitee.clear();
-		//TODO this.m_urgencesNonTraitee.clear();
+		this.m_urgencesEnAttente.clear();
+		this.m_urgencesNonAccessible.clear();
+		this.m_urgencesTraitee.clear();
 		this.m_strategie = null;
 	}
 	
@@ -274,7 +301,7 @@ public class GestionnaireUrgence
 	public void declencherUrgenceEnAttente(long clock) {
 		ArrayList<Urgence> tempList = new ArrayList<Urgence>();
 		for(Urgence urgence: this.m_urgencesEnAttente){
-			if(urgence.reqTempsDeclenchement() <= Math.round(clock/1000))
+			if(urgence.reqTempsDeclenchement() <= clock)
 			{
 				tempList.add(urgence);	
 			

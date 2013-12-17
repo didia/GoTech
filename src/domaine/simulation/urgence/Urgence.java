@@ -18,11 +18,12 @@
 package domaine.simulation.urgence;
 
 import domaine.reseau.Noeud;
+import domaine.simulateur.Clock;
 import domaine.simulation.resultat.Resultats;
 
 public class Urgence
 {
-	private int m_heuredebut; 
+	private long m_tempsDebut; 
 	private int m_tempsAttente = 0;
 	private long m_tempsDeclenchement=0;
 	private final Noeud m_noeudCible;
@@ -34,12 +35,14 @@ public class Urgence
 	public Urgence(Noeud p_NoeudCible)
 	{
 		this.m_noeudCible = p_NoeudCible;
+		this.m_tempsDebut = Clock.getTime();
 	}
 	
 	public Urgence(Noeud p_NoeudCible, long tempsDeclenchement)
 	{
 		this.m_noeudCible = p_NoeudCible;
-		this.m_tempsDeclenchement = tempsDeclenchement;	
+		this.m_tempsDeclenchement = tempsDeclenchement;
+		this.m_tempsDebut = Clock.getTime();
 	}
 
 	public float reqtempsAttente()
@@ -47,9 +50,9 @@ public class Urgence
 		return this.m_tempsAttente/1000;
 	}
 	
-	public int reqHeureDebut()
+	public long reqTempsDebut()
 	{
-		return this.m_heuredebut;
+		return this.m_tempsDebut;
 	}
 	
 	public int reqPriorite()
@@ -73,9 +76,20 @@ public class Urgence
 		
 		return this.m_tempsDeclenchement;
 	}
-	
+	public void reset()
+	{
+		this.m_tempsDeclenchement = this.m_tempsDeclenchement + this.m_tempsDebut;
+		this.m_tempsDebut = 0;
+		this.m_tempsAttente = 0;
+	}
 	public float cout(Urgence urgence)
 	{
 		return this.m_noeudCible.cout(urgence.reqNoeudCible());
 	}
+	public void resetTempsAttente()
+	{
+		this.m_tempsAttente = 0;
+	}
+	
+	
 }

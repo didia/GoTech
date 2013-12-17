@@ -31,16 +31,16 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
+<<<<<<< HEAD
 	
 	
+=======
+
+>>>>>>> 06788a2b7ffac58eba991a8208ba0424b20c8c60
 	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
-
-
-
-
-	int tempattente ;
-
-
+	
+	private boolean m_changeHappened = false;
+	private boolean enSimulation = false;
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence(m_gestionnaireReseau.reqCarte());
 
 	transient private EtatSimulateur m_etatsimu = new EtatSimulateur();
@@ -89,24 +89,42 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 	public void lancerSimulation() 
 	{
+		if(this.m_changeHappened)
+		{
+			this.m_gestionnaireResultat.reset();
+		}
+		this.m_changeHappened = false;
 
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
 		m_vehicule.lancerMission(m_gestionnaireUrgence, m_gestionnaireReseau.reqCarte(),
-				m_parametres.reqVitesseVehicule(),
-				m_parametres.reqTempsTraitement(),
-				m_parametres.reqRetourPointAttache(), m_parametres.reqEchelleTemps());
+		m_parametres.reqVitesseVehicule(),
+		m_parametres.reqTempsTraitement(),
+		m_parametres.reqRetourPointAttache(), m_parametres.reqEchelleTemps());
+		this.m_gestionnaireResultat.generateResultats(m_parametres.reqStrategie(), m_parametres.reqRetourPointAttache());
+		this.enSimulation = true;
 	
 	}
-
+	
+	public void resetSimulation ()
+	{
+		this.m_gestionnaireUrgence.restart();
+		m_vehicule.reset();
+		Clock.reset();
+		this.lancerSimulation();
+	}
 	public void terminerSimulation() 
 	{
 		this.m_gestionnaireReseau.resetReseau();
-		this.m_gestionnaireUrgence.reset();
+		this.m_gestionnaireUrgence.restart();
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
+		this.enSimulation = false;
 	}
-
+	public boolean isEnSimulation()
+	{
+		return this.enSimulation;
+	}
 	public boolean isStrategieCourante(String strategie) 
 	{
 		return m_parametres.reqStrategie().equals(strategie);
@@ -154,10 +172,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	public void asgMetreParStep(int value) 
 	{
 		if (value > 0) 
-		{
-			this.m_gestionnaireReseau.asgMetreParStep(value);
+		{		this.m_gestionnaireReseau.asgMetreParStep(value);
 			updaterCarte();
 		}
+		this.m_changeHappened = true;
 	}
 
 	public float reqTempsTraitement() 
@@ -198,32 +216,47 @@ public class Simulateur implements MouseInputListener, Serializable
 	public boolean isGrilleActive(){
 		return this.m_gestionnaireReseau.isGrilleActive();
 	}
-
-
+	
+	public void effacerToutReseau(){
+		this.m_gestionnaireReseau.effacerTout();
+		this.m_gestionnaireUrgence.reset();
+		this.m_etat.cancel();
+		this.m_changeHappened = true;
+		m_vehicule.asgPointAttache(null);
+	}
 	public Noeud ajouterNoeud(int positionX, int positionY) 
 	{
+		this.m_changeHappened = true;
 		return this.m_gestionnaireReseau.ajouterNoeud(positionX, positionY);
 	}
 
 	public Arc ajouterArc(Noeud noeudSource, Noeud noeudDest) {
+		this.m_changeHappened = true;
 		return this.m_gestionnaireReseau.ajouterArc(noeudSource, noeudDest);
 	}
 
 	public Noeud reqNoeud(int positionX, int positionY) {
 		return this.m_gestionnaireReseau.reqNoeud(positionX, positionY);
 	}
+	public Noeud reqNoeudSelectionne()
+	{
+		return m_etat.reqNoeudSelectione();
+	}
 
 	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) 
 	{
+		this.m_changeHappened = true;
 		this.m_gestionnaireReseau.deplacerNoeud(noeud, positionX, positionY);
 	}
 	
 	public void modifierPositionPreciseNoeud(float positionX, float positionY){
+		
 		Noeud noeud = m_etat.reqNoeudSelectione();
 		if(noeud != null)
 		{
 			this.m_gestionnaireReseau.modifierPositionPreciseNoeud(noeud, positionX, positionY);
 		}
+		this.m_changeHappened = true;
 	}
 	
 	public void updaterCarte() 
@@ -247,13 +280,15 @@ public class Simulateur implements MouseInputListener, Serializable
 		
 		if (noeud != null) 
 		{
-			this.supprimer_noeud(noeud);		
+			this.supprimer_noeud(noeud);
+			
 		}
 
 		else 
 		{
 			Arc arc = m_etat.reqArcSelectione();
 			this.supprimer_arc(arc);
+			
 		}
 	}
 	
@@ -265,7 +300,8 @@ public class Simulateur implements MouseInputListener, Serializable
 			{
 				this.m_gestionnaireUrgence.enleverUrgenceAuNoeud(noeud);
 			}
-			this.m_gestionnaireReseau.enleverNoeud(noeud);			
+			this.m_gestionnaireReseau.enleverNoeud(noeud);	
+			this.m_changeHappened = true;
 		}
 	}
 	public void supprimer_arc(Arc arc)
@@ -274,6 +310,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		{
 			
 			this.m_gestionnaireReseau.enleverArc(arc);
+			this.m_changeHappened = true;
 		}
 	}
 	public String reqPositionDescription(int posX, int posY)
@@ -390,7 +427,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		
 		if(noeud != null && noeud.isFree())
 		{
-			this.m_gestionnaireUrgence.ajouterUrgence(noeud, Math.round(tempsDeclenchement*60));
+			this.m_gestionnaireUrgence.ajouterUrgence(noeud, Math.round(tempsDeclenchement*60*1000));
 		}
 		
 	}

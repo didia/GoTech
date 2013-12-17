@@ -25,11 +25,17 @@ public class StrategieMinChemin extends AbstractStrategie
 		{
 			if(tour == null)
 			{
-				tour = GA.getNextTour(this.reqListeUrgence());
+				tour = GA.getNextTour(this.reqListeUrgence(),m_noeudActuel);
 			}
-				
-			this.asgProchaineUrgence(tour.getUrgence(0));
-			tour.removeUrgence(0);
+			if(tour != null && !tour.isEmpty())
+			{
+				this.asgProchaineUrgence(tour.getUrgence(0));
+				tour.removeUrgence(0);
+			}
+			else 
+			{
+				tour = null;
+			}
 		}
 		return this.reqProchaineUrgence();
 	}

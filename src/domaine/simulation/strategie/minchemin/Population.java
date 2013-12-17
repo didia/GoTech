@@ -9,6 +9,8 @@ package domaine.simulation.strategie.minchemin;
 
 import java.util.ArrayList;
 
+import domaine.reseau.Noeud;
+import domaine.simulation.urgence.GestionnaireUrgence;
 import domaine.simulation.urgence.Urgence;
 
 
@@ -47,11 +49,12 @@ public class Population {
     }
 
     // Gets the best tour in the population
-    public Tour getFittest() {
+    public Tour getFittest(Noeud noeudActuel) {
         Tour fittest = tours[0];
         // Loop through individuals to find fittest
         for (int i = 1; i < populationSize(); i++) {
-            if (fittest.getFitness() <= getTour(i).getFitness()) {
+        	float distanceNoeudActuel = GestionnaireUrgence.reqCarte().trouverCout(noeudActuel, getTour(i).getUrgence(0).reqNoeudCible());
+            if (fittest.getFitness(distanceNoeudActuel) <= getTour(i).getFitness(distanceNoeudActuel)) {
                 fittest = getTour(i);
             }
         }
