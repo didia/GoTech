@@ -22,11 +22,13 @@ public class AddMapPanel extends JPanel {
 	private JFormattedTextField longueurMap;
 	private Simulateur m_simulateur;
 	
-	public AddMapPanel(Simulateur simulateur){
+	public AddMapPanel(Simulateur simulateur, boolean isMap){
 		setLayout(null);
 		setMinimumSize(new Dimension(200, 180));
 		setPreferredSize(new Dimension(300, 180));
-		JLabel lblDimensionMap = new JLabel("Dimension de la carte");
+		JLabel lblDimensionMap = new JLabel();
+		
+		
 		lblDimensionMap.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 17));
 		lblDimensionMap.setBounds(35, 6, 193, 21);
 		add(lblDimensionMap);
@@ -55,8 +57,29 @@ public class AddMapPanel extends JPanel {
 		
 		JLabel lblQuelleDimension = new JLabel("<html><body>Quelles sont les dimensions réelles de votre carte?</body></html>");
 		lblQuelleDimension.setBounds(6, 39, 288, 32);
+		
+		if(isMap){
+			lblDimensionMap.setText("Dimension de la carte");
+			lblVitesseDuVhicule.setText("Largeur (Km) : ");
+			lblLongueurkm.setText("Longueur (Km) : ");
+			lblQuelleDimension.setText("<html><body>Quelles sont les dimensions réelles de votre carte?</body></html>");
+		}
+		else
+		{
+			lblDimensionMap.setText("Nouvelle position");
+			lblVitesseDuVhicule.setText("Position X (m):");
+			lblLongueurkm.setText("Position Y (m):");
+			lblQuelleDimension.setText("<html><body>Quelles sont les nouvelles positions du noeud?</body></html>");
+		}
 		add(lblQuelleDimension);
 	}	
+	public AddMapPanel(Simulateur simulateur, boolean isMap, float positionX, float positionY)
+	{
+		this(simulateur, isMap);
+		longueurMap.setText(Float.toString(positionY));
+		largeurMap.setText(Float.toString(positionX));
+		
+	}
 	public float reqLongueurMap()
 	{
 		return Float.parseFloat(longueurMap.getText());

@@ -6,6 +6,7 @@ import domaine.simulateur.Default;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 
 public class Menu extends JMenuBar 
@@ -31,6 +32,7 @@ public class Menu extends JMenuBar
 	private JMenuItem itemOuvrirProjet = new JMenuItem("Ouvrir Projet");
 	private JMenuItem itemGlossaire = new JMenuItem("Glossaire");
 	private JMenuItem itemImporterImage = new JMenuItem("Importer Image");
+	private ArrayList<JMenuItem> editMenus = new ArrayList<JMenuItem>();
 	
 
 	//Constructeur
@@ -46,6 +48,7 @@ public class Menu extends JMenuBar
 		itemQuitter.setActionCommand(Default.QUIT);
 		itemQuitter.addActionListener(this.interfacePrincipale);
 		itemImporterImage.setActionCommand(Default.IMPORTER_IMAGE);
+		itemImporterImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 		itemImporterImage.addActionListener(this.interfacePrincipale);
 		//Set Mnemonics
 		menuFichier.setMnemonic('F');
@@ -74,5 +77,22 @@ public class Menu extends JMenuBar
 		this.add(menuFichier);
 		this.add(menuEdition);
 		this.add(menuAide);
+		
+		//Ajouter les sous menus d'Ždition
+		editMenus.add(itemImporterImage);
+		
+	}
+	public void activateEditsMenus(){
+		for(JMenuItem item: editMenus)
+		{
+			item.setEnabled(true);
+		}
+	}
+	public void deActivateEditsMenus()
+	{
+		for(JMenuItem item: editMenus)
+		{
+			item.setEnabled(false);
+		}
 	}
 }

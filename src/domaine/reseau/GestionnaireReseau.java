@@ -16,6 +16,10 @@ public class GestionnaireReseau {
 		this.isBackgroundActive = true;
 	}
 	
+	public void effacerTout()
+	{
+		m_carte.effacerTout();
+	}
 	public void resetReseau()
 	{
 		m_carte.resetEtatNoeud();

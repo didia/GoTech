@@ -180,7 +180,9 @@ public class GestionnaireUrgence
 
 	public void reset(){
 		this.m_urgencesNonTraitee.clear();
-		//TODO this.m_urgencesNonTraitee.clear();
+		this.m_urgencesEnAttente.clear();
+		this.m_urgencesNonAccessible.clear();
+		this.m_urgencesTraitee.clear();
 		this.m_strategie = null;
 	}
 	

@@ -45,7 +45,9 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
     private static final String MODIFIER_POSITION = "Modifier";
     private static final String DECLENCHER_URGENCE = "Declencher Urgence";
   
-
+    private ArrayList<JMenuItem> nodeMenus= new ArrayList<JMenuItem>();
+    private ArrayList<JMenuItem> arcMenus = new ArrayList<JMenuItem> ();
+    private ArrayList<JMenuItem> editMenus = new ArrayList<JMenuItem> ();
 
 
 	
@@ -73,8 +75,13 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		this.viewport = (JScrollPane)getParent();
         JPopupMenu noeudPopup = new JPopupMenu();
 		JMenuItem supprimerItem = new JMenuItem("Supprimer");
+		editMenus.add(supprimerItem);
 		JMenuItem modifierPosItem = new JMenuItem("Modifier Position");
+		nodeMenus.add(modifierPosItem);
+		editMenus.add(modifierPosItem);
 		JMenuItem declencherUrgItem = new JMenuItem("Prévoir urgence en Avance");
+		nodeMenus.add(declencherUrgItem);
+		
 		supprimerItem.setActionCommand(SUPPRIMER_NOEUD);
 		modifierPosItem.setActionCommand(MODIFIER_POSITION);
 		declencherUrgItem.setActionCommand(DECLENCHER_URGENCE);
@@ -144,8 +151,24 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		this.repaint();
 	}
 
+	private void enableNodeMenus(boolean flag)
+	{
+		for(JMenuItem item: nodeMenus){
+			item.setVisible(flag);
+		}
+		for(JMenuItem item: arcMenus){
+			item.setVisible(!flag);
+		}
+	}
+	private void enableEditNodes(boolean flag)
+	{
+		for(JMenuItem item: editMenus)
+		{
+			item.setEnabled(flag);
+		}
+	}
 	
-	private static void addPopup(final Component component, final JPopupMenu popup) {
+	private static void addPopup(final CarteGraphique component, final JPopupMenu popup) {
 
 	component.addMouseListener(new MouseAdapter() {
 	public void mousePressed(MouseEvent e) {     
@@ -166,9 +189,17 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 			}
 
 			private void showMenu(MouseEvent e) {
-				if (m_simulateur.existeComponent(e.getX(), e.getY()) == true) {
+				
+				if (m_simulateur.reqNoeud(e.getX(), e.getY()) != null) {
+					component.enableNodeMenus(true);
+					component.enableEditNodes(!m_simulateur.isEnSimulation());
 					popup.show(e.getComponent(), e.getX(), e.getY());
 					
+				}
+				else if (m_simulateur.reqArc(e.getX(), e.getY()) != null) {
+					component.enableNodeMenus(false);
+					component.enableEditNodes(!m_simulateur.isEnSimulation());
+					popup.show(e.getComponent(), e.getX(), e.getY());
 				}
 				
 			}
@@ -193,18 +224,22 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		
 	
 		else if(command.equals(MODIFIER_POSITION)){
-
-			AddMapPanel mapPanel = new AddMapPanel(m_simulateur);
-			int option = JOptionPane.showOptionDialog(this, mapPanel, "Spécifier longueur et la largeur du Noeud", 
+			if(m_simulateur.reqNoeudSelectionne() != null)
+			{
+				
+				AddMapPanel mapPanel = new AddMapPanel(m_simulateur, false, 
+						m_simulateur.reqNoeudSelectionne().reqPosition().reqPositionX(),
+						m_simulateur.reqNoeudSelectionne().reqPosition().reqPositionY());
+				int option = JOptionPane.showOptionDialog(this, mapPanel, "Spécifier longueur et la largeur du Noeud", 
 					JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.PLAIN_MESSAGE, 
 					null, null, null);
-			if (option == JOptionPane.OK_OPTION) {
-        		
-        		
-	            m_simulateur.modifierPositionPreciseNoeud(mapPanel.reqLargeurMap(), mapPanel.reqLongueurMap());
-	            this.repaint();
-        	}
+				if (option == JOptionPane.OK_OPTION) 
+				{
+					m_simulateur.modifierPositionPreciseNoeud(mapPanel.reqLargeurMap(), mapPanel.reqLongueurMap());
+					this.repaint();
+				}
+			}
 		}
 		
 		else if (command.equals(DECLENCHER_URGENCE))

@@ -29,14 +29,11 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
-	
-
 
 	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
 	
 	private boolean m_changeHappened = false;
-
-
+	private boolean enSimulation = false;
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence(m_gestionnaireReseau.reqCarte());
 
 	transient private EtatSimulateur m_etatsimu = new EtatSimulateur();
@@ -97,6 +94,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		m_parametres.reqTempsTraitement(),
 		m_parametres.reqRetourPointAttache(), m_parametres.reqEchelleTemps());
 		this.m_gestionnaireResultat.generateResultats(m_parametres.reqStrategie(), m_parametres.reqRetourPointAttache());
+		this.enSimulation = true;
 	
 	}
 	
@@ -113,8 +111,12 @@ public class Simulateur implements MouseInputListener, Serializable
 		this.m_gestionnaireUrgence.restart();
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
+		this.enSimulation = false;
 	}
-
+	public boolean isEnSimulation()
+	{
+		return this.enSimulation;
+	}
 	public boolean isStrategieCourante(String strategie) 
 	{
 		return m_parametres.reqStrategie().equals(strategie);
@@ -205,8 +207,14 @@ public class Simulateur implements MouseInputListener, Serializable
 	public boolean isGrilleActive(){
 		return this.m_gestionnaireReseau.isGrilleActive();
 	}
-
-
+	
+	public void effacerToutReseau(){
+		this.m_gestionnaireReseau.effacerTout();
+		this.m_gestionnaireUrgence.reset();
+		this.m_etat.cancel();
+		this.m_changeHappened = true;
+		m_vehicule.asgPointAttache(null);
+	}
 	public Noeud ajouterNoeud(int positionX, int positionY) 
 	{
 		this.m_changeHappened = true;
@@ -220,6 +228,10 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	public Noeud reqNoeud(int positionX, int positionY) {
 		return this.m_gestionnaireReseau.reqNoeud(positionX, positionY);
+	}
+	public Noeud reqNoeudSelectionne()
+	{
+		return m_etat.reqNoeudSelectione();
 	}
 
 	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) 

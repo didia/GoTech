@@ -39,7 +39,12 @@ public class Carte {
 			this.m_listeArcs.add(noeud);
 
 	}
-
+	
+	public void effacerTout()
+	{
+		m_listeDeNoeuds.clear();
+		m_listeArcs.clear();
+	}
 	/**
 	 * Ajoute un noeud a la carte
 	 * 

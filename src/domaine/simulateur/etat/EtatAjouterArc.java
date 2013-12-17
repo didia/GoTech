@@ -84,6 +84,8 @@ public class EtatAjouterArc extends EtatDEdition{
 			}
 			else{
 				noeud_selectione = null;
+				m_simulateur.supprimer_arc(this.arc_temporaire);
+				this.noeud_temporaire = null;
 				
 			}
 			}

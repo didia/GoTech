@@ -66,8 +66,7 @@ public class Vehicule {
 
 	public void asgPointAttache(Noeud noeud) {
 		m_portAttache = noeud;
-		m_noeudActuel = m_portAttache;
-		m_position = m_portAttache.reqPosition();
+		this.asgNoeudActuel(m_portAttache);
 	}
 
 	public void asgGestionnaireUrgence(GestionnaireUrgence gps) {
@@ -106,6 +105,10 @@ public class Vehicule {
 
 	public void asgNoeudActuel(Noeud noeud) {
 		this.m_noeudActuel = noeud;
+		if(noeud== null)
+		{
+			this.m_position = null;
+		}
 		this.m_position = noeud.reqPosition();
 	}
 
