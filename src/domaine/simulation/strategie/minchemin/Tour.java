@@ -90,19 +90,17 @@ import domaine.simulation.urgence.Urgence;
 	        if (distance == 0) {
 	            float tourDistance = 0;
 	            // Loop through our tour's cities
-	            for (int cityIndex=0; cityIndex < tourSize(); cityIndex++) {
+	            for (int cityIndex=0; cityIndex < tourSize()-1; cityIndex++) {
 	                // Get city we're travelling from
 	                Urgence fromCity = getUrgence(cityIndex);
 	                // City we're travelling to
 	                Urgence destinationCity;
 	                // Check we're not on our tour's last city, if we are set our 
 	                // tour's final destination city to our starting city
-	                if(cityIndex+1 < tourSize()){
+	             
 	                    destinationCity = getUrgence(cityIndex+1);
-	                }
-	                else{
-	                    destinationCity = getUrgence(0);
-	                }
+	                
+	               
 	                // Get the distance between the two cities
 	                tourDistance += GA.reqGps().trouverCout(fromCity.reqNoeudCible(), destinationCity.reqNoeudCible());
 	            }

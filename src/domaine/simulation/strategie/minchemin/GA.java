@@ -12,7 +12,7 @@ import domaine.simulation.urgence.Urgence;
 public class GA {
 	
 	/* GA parameters */
-    private static final double mutationRate = 0.015;
+    private static final double mutationRate = 0.10;
     private static final int tournamentSize = 5;
     private static final boolean elitism = true;
 
@@ -25,13 +25,14 @@ public class GA {
     	return m_gps;
     }
     public static Tour getNextTour(ArrayList<Urgence> listeDesUrgences, Noeud noeudActuel){
-    	Population pop = new Population(50, listeDesUrgences);
+    	Population pop = new Population(500, listeDesUrgences);
     	
     	pop = GA.evolvePopulation(pop, listeDesUrgences.size(), noeudActuel);
-        for (int i = 0; i < 1000; i++) {
+    	System.out.println("Initial distance: " + pop.getFittest(noeudActuel).getDistance());
+        for (int i = 0; i < 500; i++) {
             pop = GA.evolvePopulation(pop, listeDesUrgences.size(), noeudActuel);
         }
-        
+        System.out.println("Final distance: " + pop.getFittest(noeudActuel).getDistance());
         return pop.getFittest(noeudActuel);
     }
     // Evolves a population over one generation

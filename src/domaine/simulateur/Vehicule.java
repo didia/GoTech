@@ -109,7 +109,10 @@ public class Vehicule {
 		{
 			this.m_position = null;
 		}
+		else
+		{
 		this.m_position = noeud.reqPosition();
+		}
 	}
 
 	public void asgPosition(Position unePosition) {
@@ -158,7 +161,8 @@ public class Vehicule {
 				&& !this.m_itineraireActuel.isEmpty();
 	}
 
-	private void initialiseNouvelleUrgence(Noeud destination){
+	private void initialiseNouvelleUrgence(Noeud destination)
+	{
 		this.m_itineraireActuel = this.m_gps.trouverItineraire(m_noeudActuel, destination);
 		if(this.m_itineraireActuel!=null && !this.m_itineraireActuel.isEmpty())
 		{
