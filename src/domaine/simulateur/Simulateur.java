@@ -31,12 +31,6 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
-<<<<<<< HEAD
-	
-	
-=======
-
->>>>>>> 06788a2b7ffac58eba991a8208ba0424b20c8c60
 	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
 	
 	private boolean m_changeHappened = false;
@@ -442,12 +436,12 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	}
 
-//	public void SauvegarderEtatActuel() {
-//		if (m_etatsimu.reqListeEtatSimu().contains(this))
-//			System.out.println("cette simulation a etÃ© dejas enregistrÃ©");
-//		else
-//			m_etatsimu.ajouterEtatSimu(this);
-//	}
+	public void SauvegarderEtatActuel() {
+		if (m_etatsimu.reqListeEtatSimu().contains(this))
+			System.out.println("cette simulation a etÃ© dejas enregistrÃ©");
+		else
+			m_etatsimu.ajouterEtatSimu(this);
+	}
 	public  EtatSimulateur reqEtatSimu()
 	{
 		return this.m_etatsimu;
