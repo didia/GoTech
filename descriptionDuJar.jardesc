@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="C:/Users/Erco/Documents/Patrice/Cours Ulaval/automne 2013/génie Logiciel Orienté Objet/applicationGotech/Gotech-tp3.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/GoTech/descriptionDuJar.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=GoTech/src&lt;domaine{Main.java[Main" manifestLocation="/GoTech/MANIFEST.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/GoTech/GoTech.iml"/>
+        <file path="/GoTech/README.md"/>
+        <file path="/GoTech/CADState.out"/>
+        <file path="/GoTech/.project"/>
+        <file path="/GoTech/.gitignore"/>
+        <javaElement handleIdentifier="=GoTech/src"/>
+        <file path="/GoTech/.gitattributes"/>
+        <file path="/GoTech/MANIFEST.MF"/>
+        <file path="/GoTech/.classpath"/>
+    </selectedElements>
+</jardesc>
