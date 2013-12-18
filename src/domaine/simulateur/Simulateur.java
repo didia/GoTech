@@ -6,20 +6,16 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
 import javax.imageio.ImageIO;
-import javax.swing.event.MouseInputListener;
 
 
 import java.io.*;
-import java.util.ArrayList;
 
 import domaine.reseau.Carte;
 
 
 import domaine.reseau.Noeud;
 import domaine.simulateur.etat.*;
-import domaine.simulateur.serialization.Deserializer;
 import domaine.simulateur.serialization.Enregistreur;
-import domaine.simulateur.serialization.Serializer;
 import domaine.reseau.*;
 import domaine.simulation.resultat.*;
 import domaine.simulation.urgence.*;
@@ -534,7 +530,7 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	
 
-	
+
 	public void resetAll()
 	{
 		effacerToutesLesUrgences();

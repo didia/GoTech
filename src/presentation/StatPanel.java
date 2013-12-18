@@ -4,8 +4,7 @@ package presentation;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+
 
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;

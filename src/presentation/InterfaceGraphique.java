@@ -7,7 +7,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
 import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.UndoManager;
+
 
 //import changeable.UndoManagerDemo.UndoablePaintSquare;
 
@@ -16,7 +16,7 @@ import javax.swing.undo.UndoManager;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -29,26 +29,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 
 import domaine.reseau.Carte;
-import domaine.reseau.Carte;
-import domaine.reseau.Noeud;
+
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
-import domaine.simulateur.serialization.Deserializer;
-import domaine.simulateur.serialization.Serializer;
 
-import java.rmi.RemoteException;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 import java.util.Stack;
 
 ;
@@ -104,9 +93,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 	protected UndoManager undoManager = new UndoManager();
 
-	// TODO fin
-	private static String UNDO = "UNDO";
-	private static String REDO = "REDO";
+
+	
 	private static String ADD_URGENCE = "Ajouter Urgence";
 	private static String PLAY = "Lancer simulation";
 	private static String RESUME = "Reprendre Simulation";

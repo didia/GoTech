@@ -2,7 +2,7 @@ package domaine.simulation.strategie.minchemin;
 
 import java.util.ArrayList;
 
-import domaine.reseau.Carte;
+
 import domaine.reseau.Noeud;
 import domaine.simulateur.Default;
 import domaine.simulation.strategie.AbstractStrategie;
@@ -12,6 +12,10 @@ import domaine.simulation.urgence.Urgence;
 public class StrategieMinChemin extends AbstractStrategie
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Tour tour = null;
 	public StrategieMinChemin(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAccessible)
 	{

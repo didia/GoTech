@@ -17,7 +17,7 @@ package domaine.simulation.resultat;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+
 
 public class Resultats  implements Serializable
 {
@@ -25,14 +25,19 @@ public class Resultats  implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("unused")
+	private String strategie;
+	
+	@SuppressWarnings("unused")
+	private boolean retournePointAttache;
+	
+	
 	private  int tempsDattente = 0;
 	private int nombreUrgenceTraitee = 0;
 	private int nombreUrgenceNonTraitee = 0;
 	private int nombreUrgenceNonAccessible = 0;
 	private float distanceParcourue = 0;
-	private String strategie;
-	
-	private boolean retournePointAttache;
 	
 	public Resultats(String strategie, boolean retournePointAttache)
 	{

@@ -24,6 +24,10 @@ import domaine.simulation.urgence.Urgence;
 
 public class StrategieProximite extends AbstractStrategie
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static Carte m_gps;
 	public StrategieProximite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee, 
 			ArrayList<Urgence> listeUrgenceNonAccessible, Carte gps)

@@ -1,17 +1,14 @@
 package presentation;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Stack;
+
 
 
 import javax.swing.undo.AbstractUndoableEdit;
 
 import domaine.reseau.Carte;
 
-import domaine.simulateur.Simulateur;
+
 
 class UndoableAffiche extends AbstractUndoableEdit {
 
@@ -20,6 +17,7 @@ class UndoableAffiche extends AbstractUndoableEdit {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unused")
 	private  Carte m_carteTemp;
 	
 	

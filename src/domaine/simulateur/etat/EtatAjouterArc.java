@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 
 import domaine.reseau.Noeud;
-import domaine.reseau.Position;
 import domaine.simulateur.Simulateur;
 
 
