@@ -72,7 +72,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		
 		this.viewport = (JScrollPane)getParent();
         JPopupMenu noeudPopup = new JPopupMenu();
-		JMenuItem supprimerItem = new JMenuItem("Supprimer Noeud");
+		JMenuItem supprimerItem = new JMenuItem("Supprimer");
 		editMenus.add(supprimerItem);
 		JMenuItem modifierPosItem = new JMenuItem("Modifier Position");
 		nodeMenus.add(modifierPosItem);
@@ -80,7 +80,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		declencherUrgItem = new JMenuItem("Prévoir urgence en Avance");
 		nodeMenus.add(declencherUrgItem);
 		supprimerUrgence = new JMenuItem("Supprimer Urgence");
-		
+		nodeMenus.add(supprimerUrgence);
 		supprimerItem.setActionCommand(SUPPRIMER_NOEUD);
 		modifierPosItem.setActionCommand(MODIFIER_POSITION);
 		declencherUrgItem.setActionCommand(DECLENCHER_URGENCE);

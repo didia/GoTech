@@ -26,10 +26,12 @@ import domaine.simulation.strategie.proximite.StrategieProximite;
 
 public class GestionnaireUrgence implements Serializable
 {
+	
+	private static final long serialVersionUID = -7157277977894671720L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	private ArrayList<Urgence> m_urgencesNonTraitee;
 	private ArrayList<Urgence> m_urgencesTraitee;
 	private ArrayList<Urgence> m_urgencesNonAccessible;
@@ -333,4 +335,9 @@ public class GestionnaireUrgence implements Serializable
 		}
 
 }
+
+	public void updateReseauReference(Carte carte) {
+		m_gps = carte;
+	
+	}
 }

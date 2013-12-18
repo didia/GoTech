@@ -47,7 +47,8 @@ public class GestionnaireReseau  implements Serializable{
 	
 	public void asgMetreParStep(int value) 
 	{
-		if (value > 0) 
+		
+		if (value > 0 && m_echelle.reqMetreParStep() != value) 
 		{
 			m_echelle.setMetreParStep(value);
 			updaterCarte();

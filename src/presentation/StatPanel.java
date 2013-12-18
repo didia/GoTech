@@ -137,7 +137,7 @@ public class StatPanel extends JPanel {
 			String comparedResults = "<html><body style=\" background-color:transparent;\">";
 			
 			comparedResults += "<center><u><h1> Comparaison des statistiques </h1></u></center>"+
-					"<table>" +
+					"<table border=\"1\" cellpadding=\"10\">" +
 					"<th>";
 					for(int i =0; i<listeResultats.size(); i++)
 					{

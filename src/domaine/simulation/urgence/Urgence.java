@@ -25,10 +25,11 @@ import domaine.simulateur.Clock;
 
 public class Urgence implements Serializable
 {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -207516221370122974L;
 	private long m_tempsDebut; 
 	private int m_tempsAttente = 0;
 	private long m_tempsDeclenchement=0;
@@ -70,7 +71,6 @@ public class Urgence implements Serializable
 	{
 		return this.m_noeudCible;
 	}
-	
 	
 
 	public long reqTempsDeclenchement() {

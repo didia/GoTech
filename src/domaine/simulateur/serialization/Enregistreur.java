@@ -69,14 +69,14 @@ public class Enregistreur {
 		
 		public Enregistrable(Simulateur simulateur) 
 		{
-			this.enSimulation = simulateur.isEnSimulation();
-			this.m_changeHappened = simulateur.hasChangeHappened();
-			this.gestionnaireResultat = simulateur.reqGestionnaireResultats();
-			this.gestionnaireUrgence = simulateur.reqGestionnaireUrgence();
-			this.parametres = simulateur.reqParametres();
-			this.etat = simulateur.reqEtat();
-			this.gestionnaireReseau = simulateur.reqGestionnaireReseau();
-			this.vehicule = simulateur.reqVehicule();
+			enSimulation = simulateur.isEnSimulation();
+			m_changeHappened = simulateur.hasChangeHappened();
+			gestionnaireResultat = simulateur.reqGestionnaireResultats();
+			gestionnaireUrgence = simulateur.reqGestionnaireUrgence();
+			parametres = simulateur.reqParametres();
+			etat = simulateur.reqEtat();
+			gestionnaireReseau = simulateur.reqGestionnaireReseau();
+			vehicule = simulateur.reqVehicule();
 		}
 		
 	}

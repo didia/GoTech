@@ -24,10 +24,11 @@ import domaine.simulation.urgence.Urgence;
 
 public class StrategieProximite extends AbstractStrategie
 {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6274768479338324663L;
 	private static Carte m_gps;
 	public StrategieProximite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee, 
 			ArrayList<Urgence> listeUrgenceNonAccessible, Carte gps)
@@ -44,11 +45,12 @@ public class StrategieProximite extends AbstractStrategie
 	*/
 	public Urgence reqProchaineUrgence(Noeud noeudActuel)
 	{	
+		
 		if (super.reqProchaineUrgence() == null && !this.reqListeUrgence().isEmpty())
 		{
 			ArrayList<Noeud> listeDesNoeuds = listeDesNoeudAyantUneUrgence();
 			Noeud noeudPlusProche = m_gps.plusProche(noeudActuel, listeDesNoeuds);
-		
+
 			this.asgProchaineUrgence(this.reqListeUrgence().get(listeDesNoeuds.indexOf(noeudPlusProche)));
 		}
 		return super.reqProchaineUrgence();

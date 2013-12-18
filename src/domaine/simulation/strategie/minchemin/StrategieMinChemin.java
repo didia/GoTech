@@ -12,10 +12,11 @@ import domaine.simulation.urgence.Urgence;
 public class StrategieMinChemin extends AbstractStrategie
 {
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3288311987171249057L;
 	private Tour tour = null;
 	public StrategieMinChemin(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAccessible)
 	{

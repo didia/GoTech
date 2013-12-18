@@ -353,4 +353,8 @@ public class Vehicule  implements Serializable{
 
 	}
 
+	public void updateReseauReference(Carte carte) {
+		this.m_gps = carte;
+	}
+
 }

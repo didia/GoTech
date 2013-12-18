@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 public class Carte implements Serializable {
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6471422503023242917L;
 	final private int INFINI = 999999999;
 	private ArrayList<Noeud> m_listeDeNoeuds = new ArrayList<Noeud>();;
 	private ArrayList<Arc> m_listeArcs = new ArrayList<Arc>();
@@ -262,7 +263,8 @@ public class Carte implements Serializable {
 
 		float res = INFINI;
 		Noeud plusProche = null;
-		if (this.m_listeDeNoeuds.contains(noeudSrc)) {
+		
+			
 			for (Noeud noeud : listNoeuds) {
 				if (!noeudSrc.hasNoeudDansTable(noeud)) {
 					trouverItineraire(noeudSrc, noeud);
@@ -273,7 +275,7 @@ public class Carte implements Serializable {
 					res = noeudSrc.cout(noeud);
 				}
 			}
-		}
+	
 
 		return plusProche;
 
@@ -372,7 +374,7 @@ public class Carte implements Serializable {
 	{
 
 		for (int i = 0; i < this.m_listeDeNoeuds.size(); i++) {
-			if (this.m_listeDeNoeuds.get(i) == a) {
+			if (this.m_listeDeNoeuds.get(i).equals(a)){
 
 				this.m_listeDeNoeuds.get(i).setCout(0);
 			} else {
@@ -385,7 +387,10 @@ public class Carte implements Serializable {
 	}
 
 	public ArrayList<Noeud> trouverItineraire(Noeud noeud1, Noeud noeud2){
-		
+		if(noeud2 == null)
+		{
+			System.out.println("Erreur awa nde");
+		}
 		if(noeud1.next(noeud2) == null){
 			
 			return trouverItineraireDjikstra(noeud1, noeud2);
@@ -476,7 +481,10 @@ public class Carte implements Serializable {
 			Noeud noeudj;
 			float jcout;
 			Noeud prochainNoeud;
-			while (fin != debut) {
+			
+			while(!fin.equals(debut)) {
+				System.out.println(fin.reqPosition().reqPositionX());
+				System.out.println(debut.reqPosition().reqPositionX());
 				chemin.add(0, fin);
 				fin = fin.reqPredecesseur();
 			}

@@ -26,10 +26,13 @@ import domaine.simulation.urgence.Urgence;
 public class StrategieAnciennete extends AbstractStrategie
 {
 
+	
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1711243417314457789L;
 
 
 	public StrategieAnciennete(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listUrgenceTraitee, ArrayList<Urgence> listeUrgenceNonAccessible) 
