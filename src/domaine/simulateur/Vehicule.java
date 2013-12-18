@@ -79,7 +79,7 @@ public class Vehicule  implements Serializable{
 	}
 
 	public void ajusteVitesseVehicule(int coefficient) {
-		this.coefficientVitesse = coefficient;
+		this.coefficientVitesse = coefficient*2;
 	}
 
 	public Position reqPosition() {
@@ -212,6 +212,7 @@ public class Vehicule  implements Serializable{
 		Noeud noeud = this.m_itineraireActuel.get(0);
 	
 		distanceDuProchainNoeud = this.m_noeudActuel.cout(noeud);
+		
 		float y2 = m_itineraireActuel.get(0).reqPosition().reqPositionY();
 		float x2 = m_itineraireActuel.get(0).reqPosition().reqPositionX();
 		float x1 = this.m_position.reqPositionX();

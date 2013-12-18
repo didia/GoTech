@@ -162,16 +162,25 @@ public class Noeud implements Serializable
 		}
 		public Noeud next(Noeud destination)
 		{
+			if(this.equals(destination))
+			{
+				return destination;
+			}
 			if(this.tableReseau.get(destination) != null)
 				return this.tableReseau.get(destination).next;
 			return null;
 		}
 		public float cout(Noeud destination)
 		{
+			if(this.equals(destination))
+			{
+				return 0;
+			}
 			if(this.tableReseau.get(destination) != null)
 			{
 				return this.tableReseau.get(destination).cost;
 			}
+			
 			return Default.INFINI;
 		}
 
