@@ -18,30 +18,41 @@ import domaine.simulateur.Default;
 
 public class Echelle implements Serializable
 {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int prevMetreParStep;
 	private int m_metreParStep = Default.METRE_PAR_STEP;
+
 	public static ZoomModel m_zoom;
 	private boolean existeMap = false;
-	private float longueurMap = 0;
-	private float largeurMap = 0;
+	private float echelleMap = 0;
+	
 	public Echelle(ZoomModel zoom)
 	{
 		m_zoom = zoom;
 	}
 	
 	
-	public int reqMetreParStep()
+	public float reqMetreParStep()
 	{
-		return m_metreParStep;
+		if(existeMap)
+		{
+			return this.echelleMap * reqPixelParStep();
+		}
+		else{
+			return m_metreParStep;
+		}
+		
 	}
 	
 	public float reqPixelParStep()
 	{
-		return Default.WIDTH_NOEUD / 2 * 3 * m_zoom.reqZoom();
+		
+			return Default.WIDTH_NOEUD / 2 * 3 * m_zoom.reqZoom();
+		
 	}
 	
 	public void setMetreParStep(int metreParStep)
@@ -80,8 +91,8 @@ public class Echelle implements Serializable
     */
 	public Position reqPositionDeStepEnMetre(Position positionEnStep)
 	{	
-		float posX = positionEnStep.reqPositionX() * m_metreParStep;
-		float posY = positionEnStep.reqPositionY() * m_metreParStep;
+		float posX = positionEnStep.reqPositionX() * this.reqMetreParStep();
+		float posY = positionEnStep.reqPositionY() * this.reqMetreParStep();
 		
 		return new Position(posX, posY);
 	}
@@ -98,8 +109,8 @@ public class Echelle implements Serializable
 	public Position reqPositionEnStep(Position positionEnMetre)
 	{
 		
-		float posX = positionEnMetre.reqPositionX()/m_metreParStep;
-		float posY = positionEnMetre.reqPositionY()/m_metreParStep;
+		float posX = positionEnMetre.reqPositionX()/this.reqMetreParStep();
+		float posY = positionEnMetre.reqPositionY()/this.reqMetreParStep();
 		
 		return new Position(posX, posY);
 	}
@@ -124,10 +135,11 @@ public class Echelle implements Serializable
 	{
 		return reqPositionDeStepEnMetre(reqPositionEnOldStep(position));
 	}
-	public void initialiseMap(float largeur,float longueur){
+	public void initialiseMap(float echelleMap){
 		this.existeMap = true;
-		this.longueurMap = longueur;
-		this.largeurMap = largeur;
+		this.echelleMap = echelleMap;
+		this.prevMetreParStep = m_metreParStep;
+		
 	}
 	
 }

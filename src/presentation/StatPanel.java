@@ -42,7 +42,7 @@ public class StatPanel extends JPanel {
 			{
 			if(resultats != null){
 		
-			String statistiques = "<html><body style=\"padding:10px;\">" +
+			String statistiques = "<html><body style=\"padding:10px; background-color:transparent;\">" +
 					"<center><u><h3> Statistiques de Simulation </h3></center></u>"+
 				
 					"<table>" +

@@ -1,21 +1,34 @@
 package domaine.reseau;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public class GestionnaireReseau  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	private Carte m_carte = new Carte();
+
+
 	private ZoomModel m_zoom = new ZoomModel();
 	private Echelle m_echelle = new Echelle(m_zoom);
 	private Grille m_grille = new Grille(m_echelle);
-	private boolean isActiveGrille = true;
-	private boolean isBackgroundActive = false;
+	private Image m_imageDeFond = null;
+
 	
-	
-	
-	public void initialiseMap(float largeurMap,float longueurMap)
+	public void initialiseMap(Image imageDeFond, float dimReel)
 	{
-		m_echelle.initialiseMap(largeurMap, longueurMap);
-		this.isBackgroundActive = true;
+		m_imageDeFond = imageDeFond;
+		BufferedImage img = (BufferedImage)m_imageDeFond;
+		
+		int max = Math.max(img.getWidth(), img.getHeight());
+		m_echelle.initialiseMap(dimReel/max);
+		this.updaterCarte();
+		
 	}
 	
 	public void effacerTout()
@@ -27,7 +40,7 @@ public class GestionnaireReseau  implements Serializable{
 		m_carte.resetEtatNoeud();
 	}
 	
-	public int reqMetreParStep() 
+	public float reqMetreParStep() 
 	{
 		return m_echelle.reqMetreParStep();
 	}
@@ -231,5 +244,9 @@ public class GestionnaireReseau  implements Serializable{
 	public float reqPixelParStep() {
 		
 		return m_echelle.reqPixelParStep();
+	}
+	
+	public Image reqImageDeFond() {
+		return this.m_imageDeFond;
 	}
 }

@@ -199,7 +199,7 @@ public class ParametrePanel extends JPanel {
 		PlainDocument eDoc = (PlainDocument) echelle.getDocument();
 		eDoc.setDocumentFilter(filtreEntier);
 		echelle.setHorizontalAlignment(SwingConstants.CENTER);
-		echelle.setText(Integer.toString(m_simulateur.reqMetreParStep()));
+		echelle.setText(Integer.toString(Math.round(m_simulateur.reqMetreParStep())));
 		lblDistanceEntreDeux.setLabelFor(echelle);
 		echelle.setBounds(351, 327, 56, 19);
 		add(echelle);
