@@ -1,9 +1,11 @@
 package domaine.simulateur;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 
 
 
+import javax.imageio.ImageIO;
 import javax.swing.event.MouseInputListener;
 
 import java.io.*;
@@ -78,8 +80,18 @@ public class Simulateur implements MouseInputListener, Serializable
 		m_etat.cancel();
 	}
 	
-	public void initialiseMap(float largeurMap,float longueurMap){
-		m_gestionnaireReseau.initialiseMap(largeurMap, longueurMap);
+	public void initialiseMap(File image, float dimReel){
+		Image imageDeFond;
+		try
+		{
+			 imageDeFond = ImageIO.read(image);
+			 m_gestionnaireReseau.initialiseMap(imageDeFond, dimReel);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 	public void lancerSimulation() 
 	{
@@ -158,7 +170,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		m_parametres.asgRetourPointAttache(flag);
 	}
 
-	public int reqMetreParStep() 
+	public float reqMetreParStep() 
 	{
 		return this.m_gestionnaireReseau.reqMetreParStep();
 	}

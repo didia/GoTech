@@ -38,7 +38,7 @@ public class StatPanel extends JPanel {
 			Resultats resultats = this.m_simulateur.reqResultats();
 			if(resultats != null){
 		
-			String statistiques = "<html><body style=\"padding:10px;\">" +
+			String statistiques = "<html><body style=\"padding:10px; background-color:transparent;\">" +
 					"<center><u><h3> Statistiques de Simulation </h3></center></u>"+
 				
 					"<table>" +

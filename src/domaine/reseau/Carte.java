@@ -13,6 +13,7 @@
 
 package domaine.reseau;
 
+import java.awt.Image;
 import java.util.ArrayList;
 
 public class Carte {
@@ -20,7 +21,7 @@ public class Carte {
 	final private int INFINI = 999999999;
 	private ArrayList<Noeud> m_listeDeNoeuds = new ArrayList<Noeud>();;
 	private ArrayList<Arc> m_listeArcs = new ArrayList<Arc>();
-
+	
 	/**
 	 * Constructeur d'une carte vide
 	 * 

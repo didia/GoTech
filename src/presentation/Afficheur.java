@@ -58,16 +58,7 @@ public class Afficheur
 		}
 	}
 
-	public void asgImageDeFond(File fichierImage){
-		try
-		{
-			m_imageDeFond = ImageIO.read(fichierImage);
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+
 	public void afficherReseau(Graphics g, Simulateur simulateur, CarteGraphique carteGraphique) 
 	{
 		Carte carte = simulateur.reqCarte();
@@ -104,8 +95,8 @@ public class Afficheur
 
 	private void afficherCarte(Graphics g, CarteGraphique carteGraphique) 
 	{
-		
-		if(m_imageDeFond != null)
+		this.m_imageDeFond = m_gestionnaireReseau.reqImageDeFond();
+		if(this.m_imageDeFond != null)
 		{
 			
 			afficherAvecImageDeFond(g, carteGraphique);
@@ -143,6 +134,7 @@ public class Afficheur
 	    at.scale(scale, scale);
 	    g2.drawRenderedImage(img, at);
 	}
+	
 	private void afficherSansImageDeFond(Graphics g, CarteGraphique carte){
 		int newWidth;
 		int newHeight;

@@ -726,9 +726,16 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			int returnVal = fc.showOpenDialog(this);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File file = fc.getSelectedFile();
-				m_afficheur.asgImageDeFond(file);
-				m_carteGraphique.repaint();
+				String km = JOptionPane.showInputDialog(this, "À combien de Km correspond le plus long coté de votre carte dans la vie réelle?");
+				if(km != null)
+				{
+					
+				
+					File file = fc.getSelectedFile();
+					m_simulateur.initialiseMap(file, Float.parseFloat(km));
+					
+					m_carteGraphique.repaint();
+				}
 
 			}
 		} 
