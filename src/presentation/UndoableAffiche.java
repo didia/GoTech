@@ -8,8 +8,6 @@ import javax.swing.undo.AbstractUndoableEdit;
 
 import domaine.reseau.Carte;
 
-
-
 class UndoableAffiche extends AbstractUndoableEdit {
 
 	/**

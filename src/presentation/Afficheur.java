@@ -129,9 +129,10 @@ public class Afficheur {
 		} else {
 			newWidth = Default.CARTE_WIDTH;
 		}
+		
+		if (maxHeight > Default.CARTE_HEIGHT) 
+		{
 
-		if (maxHeight > Default.CARTE_HEIGHT) {
-			System.out.println("MaxHeight plus grand");
 
 			newHeight = maxHeight;
 		} else {

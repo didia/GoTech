@@ -117,6 +117,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		this.m_gestionnaireUrgence.restart();
 		m_vehicule.reset();
 		Clock.reset();
+		this.m_gestionnaireResultat.clearLatest();
 		this.lancerSimulation();
 	}
 	public void terminerSimulation() 
@@ -428,6 +429,11 @@ public class Simulateur implements MouseInputListener, Serializable
 
 		m_gestionnaireUrgence.supprimerUrgence(uneUrgence);
 	}
+	public void supprimerUrgence() {
+		
+		this.m_gestionnaireUrgence.enleverUrgenceAuNoeud(m_etat.reqNoeudSelectione());
+	}
+
 
 	public void deplacerVehiculeUrgence(int duree) {
 		m_vehicule.avance(duree);
@@ -541,14 +547,14 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 
 	public Parametres reqParametres() {
-		// TODO Auto-generated method stub
+		
 		return m_parametres;
 	}
 
 
 
 	public Etat reqEtat() {
-		// TODO Auto-generated method stub
+		
 		return m_etat;
 	}
 
@@ -560,11 +566,11 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 
 
-
 	public boolean existeFile() {
 		
 		return m_currentFile != null;
 	}
+
 
 
 

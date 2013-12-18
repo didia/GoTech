@@ -26,7 +26,7 @@ public class GestionnaireResultat  implements Serializable{
 	public void generateResultats(String strategie, boolean retournePointAttache)
 	{
 		currentResultat = new Resultats(strategie, retournePointAttache);
-		
+		latestResultats.add(currentResultat);
 	}
 	
 	public void EnregistrerDernierResulats()
@@ -53,5 +53,11 @@ public class GestionnaireResultat  implements Serializable{
 	public ArrayList<Resultats> reqLatestResultats()
 	{
 		return this.latestResultats;
+	}
+
+	public void clearLatest() {
+		latestResultats.remove(currentResultat);
+		currentResultat = null;
+		
 	}
 }

@@ -41,7 +41,7 @@ public class StrategieMinChemin extends AbstractStrategie
 				tour = null;
 			}
 		}
-		return this.reqProchaineUrgence();
+		return super.reqProchaineUrgence();
 	}
 	
 	public String toString()

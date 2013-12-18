@@ -91,19 +91,21 @@ public class GestionnaireUrgence implements Serializable
     */
 	public void ajouterUrgence(Noeud noeud)
 	{
-		//if(m_strategie == null){
-			m_urgencesNonTraitee.add(new Urgence(noeud));
-		//}
-		//else{
-			//m_strategie.ajouterUrgence(new Urgence(noeud));
-		//}
+		
+		m_urgencesNonTraitee.add(new Urgence(noeud));
+		if(m_strategie != null){
+			this.m_strategie.informeNouvelleUrgenceAjoutee();
+		}
 		
 		
 	}
 	
 	public void ajouterUrgence(Noeud noeud, long tempsDeclenchement){
 		this.m_urgencesEnAttente.add(new Urgence(noeud, tempsDeclenchement));
-		this.m_strategie.informeNouvelleUrgenceAjoutee();
+		if(m_strategie != null)
+		{
+			this.m_strategie.informeNouvelleUrgenceAjoutee();
+		}
 	}
 	/**
 	* Supprime une urgence
@@ -114,6 +116,7 @@ public class GestionnaireUrgence implements Serializable
     */
 	public void supprimerUrgence(Urgence urgence)
 	{
+		urgence.reqNoeudCible().reset();
 		m_urgencesNonTraitee.remove(urgence);
 	}
 	
@@ -179,6 +182,7 @@ public class GestionnaireUrgence implements Serializable
 		for(Urgence urgence:this.m_urgencesNonTraitee)
 		{
 			urgence.resetTempsAttente();
+			urgence.reqNoeudCible().setEnAttente();
 		}
 		this.m_urgencesTraitee.clear();
 	}
@@ -294,11 +298,19 @@ public class GestionnaireUrgence implements Serializable
 
 	public void enleverUrgenceAuNoeud(Noeud noeud){
 		
+		if(noeud == null)
+		{
+			return;
+		}
+		
 		for(Urgence urgence: this.m_urgencesNonTraitee)
 		{
 			if(urgence.reqNoeudCible().equals(noeud)){
-				this.supprimerUrgence(urgence);
-				break;
+				if(urgence != reqProchaineUrgence())
+				{
+					this.supprimerUrgence(urgence);
+					break;
+				}
 			}
 		}
 	}
@@ -317,6 +329,7 @@ public class GestionnaireUrgence implements Serializable
 			this.m_urgencesNonTraitee.add(urgence);
 			this.m_urgencesEnAttente.remove(urgence);
 			urgence.reqNoeudCible().setEnAttente();
+			this.m_strategie.informeNouvelleUrgenceAjoutee();
 		}
 
 }

@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
 import presentation.Afficheur;
@@ -40,15 +39,17 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 	private final Afficheur m_afficheur;
 	private static Simulateur m_simulateur;
 	private JScrollPane viewport;
-
+	
     private static final String SUPPRIMER_NOEUD = "Supprimer";
     private static final String MODIFIER_POSITION = "Modifier";
     private static final String DECLENCHER_URGENCE = "Declencher Urgence";
+	private static final String DELETE_URGENCE = "Effacer Urgence";
   
     private ArrayList<JMenuItem> nodeMenus= new ArrayList<JMenuItem>();
     private ArrayList<JMenuItem> arcMenus = new ArrayList<JMenuItem> ();
     private ArrayList<JMenuItem> editMenus = new ArrayList<JMenuItem> ();
-
+    private JMenuItem declencherUrgItem;
+    private JMenuItem supprimerUrgence;
 
 	
 
@@ -60,10 +61,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		this.m_afficheur = afficheurGraphique;
 
 		setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
-		//setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
-
-		// setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE,
-		// Default.BORDER_SIZE, Default.BORDER_SIZE) );
+		
 
 		setBackground(Color.WHITE);
 		setVisible(true);
@@ -74,23 +72,27 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		
 		this.viewport = (JScrollPane)getParent();
         JPopupMenu noeudPopup = new JPopupMenu();
-		JMenuItem supprimerItem = new JMenuItem("Supprimer");
+		JMenuItem supprimerItem = new JMenuItem("Supprimer Noeud");
 		editMenus.add(supprimerItem);
 		JMenuItem modifierPosItem = new JMenuItem("Modifier Position");
 		nodeMenus.add(modifierPosItem);
 		editMenus.add(modifierPosItem);
-		JMenuItem declencherUrgItem = new JMenuItem("Prévoir urgence en Avance");
+		declencherUrgItem = new JMenuItem("Prévoir urgence en Avance");
 		nodeMenus.add(declencherUrgItem);
+		supprimerUrgence = new JMenuItem("Supprimer Urgence");
 		
 		supprimerItem.setActionCommand(SUPPRIMER_NOEUD);
 		modifierPosItem.setActionCommand(MODIFIER_POSITION);
 		declencherUrgItem.setActionCommand(DECLENCHER_URGENCE);
+		supprimerUrgence.setActionCommand(DELETE_URGENCE);
 		declencherUrgItem.addActionListener(this);
 		modifierPosItem.addActionListener(this);
 		supprimerItem.addActionListener(this);
+		supprimerUrgence.addActionListener(this);
 		
 		noeudPopup.add(modifierPosItem);
 		noeudPopup.add(supprimerItem);
+		noeudPopup.add(supprimerUrgence);
 		noeudPopup.add(declencherUrgItem);
 		addPopup(this, noeudPopup);
 		ToolTipManager.sharedInstance().registerComponent(this);
@@ -171,7 +173,11 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 			item.setEnabled(flag);
 		}
 	}
-	
+	public void canDeleteUrgence(boolean flag)
+	{
+		this.declencherUrgItem.setVisible(!flag);
+		this.supprimerUrgence.setVisible(flag);
+	}
 	private static void addPopup(final CarteGraphique component, final JPopupMenu popup) {
 
 	component.addMouseListener(new MouseAdapter() {
@@ -198,6 +204,8 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 					component.enableNodeMenus(true);
 					component.enableEditNodes(!m_simulateur.isEnSimulation());
 					popup.show(e.getComponent(), e.getX(), e.getY());
+					component.canDeleteUrgence(m_simulateur.reqNoeud(e.getX(), e.getY()).isEnAttente());
+					
 					
 				}
 				else if (m_simulateur.reqArc(e.getX(), e.getY()) != null) {
@@ -254,9 +262,15 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 			{
 				m_simulateur.declencherUrgence(Float.parseFloat(temps));
 			}
+			this.repaint();
 			
 		}
 		
+		else if (command.equals(DELETE_URGENCE))
+		{
+			m_simulateur.supprimerUrgence();
+			this.repaint();
+		}
 		
 	}
 	

@@ -29,12 +29,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-
 import domaine.reseau.Carte;
 
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
-
 
 import java.util.ArrayList;
 
@@ -51,7 +49,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private static final long serialVersionUID = 1L;
 
 	private Timer m_timer;
-	private Timer result_timer;
+	
 
 	private static Simulateur m_simulateur;
 	private static Carte carteTemp;
@@ -93,8 +91,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 	protected UndoManager undoManager = new UndoManager();
 
-
-	
 	private static String ADD_URGENCE = "Ajouter Urgence";
 	private static String PLAY = "Lancer simulation";
 	private static String RESUME = "Reprendre Simulation";
@@ -347,14 +343,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		getContentPane().add(toolbar, BorderLayout.NORTH);
 
-		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
-		m_resultPanel = new StatPanel(m_simulateur);
-		// m_outilPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
-		m_resultPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0,
-				Color.BLACK));
-		getContentPane().add(m_resultPanel, BorderLayout.WEST);
-		m_resultPanel.setVisible(false);
-
+		
 		// DROITE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
 		m_outilPanel = new JPanel();
 		// m_outilPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
@@ -362,8 +351,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				Color.BLACK));
 		getContentPane().add(m_outilPanel, BorderLayout.EAST);
 		m_outilPanel.setVisible(false);
-		m_panneauEdition = new JPanel(new GridLayout(5, 1, 0, 5));
-		m_panneauEdition.setBorder(new EmptyBorder(50, 0, 0, 0));
+		
 		// buttons d'�dition
 
 		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
@@ -461,6 +449,15 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		m_outilPanel.add(m_panneauEdition, BorderLayout.CENTER);
 
+		// GAUCHE DE L'INTERFACE GRAPHIQUE, BUTTONS D'EDITION
+		m_resultPanel = new StatPanel(m_simulateur);
+		// m_outilPanel.setBorder(new EmptyBorder(100, 10, 10, 10));
+		m_resultPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0,
+						Color.BLACK));
+		getContentPane().add(m_resultPanel, BorderLayout.WEST);
+		m_resultPanel.setVisible(true);
+
+		
 		// Ajout de la carte graphique au centre
 
 		m_carteGraphique = new CarteGraphique(m_afficheur, m_simulateur);
@@ -520,17 +517,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			public void actionPerformed(ActionEvent e) {
 				m_simulateur.deplacerVehiculeUrgence(50);
 				m_carteGraphique.repaint();
+				m_resultPanel.updateParametres();
 
 			}
 		});
 
-		result_timer = new Timer(2000, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				m_resultPanel.afficherResultat();
-
-			}
-		});
+		
 
 		pack();
 		
@@ -609,6 +601,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 						.reqTempsTraitement());
 				m_simulateur
 						.asgEchelleTemps(m_parametrePanel.reqEchelleTemps());
+				m_resultPanel.updateParametres();
 			}
 		} else if (command.equals(Default.ZOOMPLUS)) {
 			textZoom.setText(m_simulateur.augmenteZoom());
@@ -626,7 +619,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
 		} else if (command.equals(PLAY)) {
 			m_timer.start();
-			result_timer.start();
+			
 			m_resultPanel.setVisible(true);
 			for (JButton button : this.m_listeEditButtons) {
 				button.setEnabled(false);
@@ -653,7 +646,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		}else if (command.equals(TERMINER)) {
 		
 			m_timer.stop();
-			result_timer.stop();
+			
 
 			for (JButton button : this.m_listeEditButtons) {
 				button.setEnabled(true);
@@ -669,11 +662,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.iconResetSim.setEnabled(false);
 			this.btnRedo.setEnabled(false);
 			this.btnUndo.setEnabled(false);
-			
+			JOptionPane.showMessageDialog(this, m_resultPanel.updateParametres());
 			m_simulateur.terminerSimulation();
-			JOptionPane.showOptionDialog(this, m_resultPanel,
-					"Resultats de la Simulation", JOptionPane.OK_OPTION,
-					JOptionPane.PLAIN_MESSAGE, null, null, null);
+			
 			
 			m_carteGraphique.repaint();
 
