@@ -85,7 +85,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		try
 		{
 			 imageDeFond = ImageIO.read(image);
-			 m_gestionnaireReseau.initialiseMap(imageDeFond, dimReel);
+			 m_gestionnaireReseau.initialiseMap(imageDeFond, dimReel*1000);
 		}
 		catch(IOException e)
 		{
@@ -95,12 +95,13 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 	public void lancerSimulation() 
 	{
+		System.out.println(m_changeHappened);
 		if(this.m_changeHappened)
 		{
 			this.m_gestionnaireResultat.reset();
 		}
 		this.m_changeHappened = false;
-
+		
 		m_etat = new EtatEnSimulation(this);
 		m_gestionnaireUrgence.asgStrategie(m_parametres.reqStrategie());
 		m_vehicule.lancerMission(m_gestionnaireUrgence, m_gestionnaireReseau.reqCarte(),
@@ -125,7 +126,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		
 		this.m_gestionnaireReseau.resetReseau();
 		this.m_gestionnaireUrgence.restart();
-		this.m_gestionnaireResultat.EnregistrerDernierResulats();
+		
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
 		this.enSimulation = false;
@@ -569,6 +570,12 @@ public class Simulateur implements MouseInputListener, Serializable
 	public boolean existeFile() {
 		
 		return m_currentFile != null;
+	}
+
+
+
+	public boolean canCompareResultat() {
+		return this.m_gestionnaireResultat.reqLatestResultats().size() >= 2;
 	}
 
 
