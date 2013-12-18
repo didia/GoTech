@@ -692,24 +692,9 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		else if(command.equals(Default.NOUVEAU))
 		{
 				
-				  if(m_simulateur.hasChangeHappened())
-				  {
-					  int option = JOptionPane.showConfirmDialog(this, "Voulez-vous enregistrere les modifications?");
-						if(option == JOptionPane.YES_OPTION)
-						{
-							
-							if(m_simulateur.existeFile()){
-								  m_simulateur.enregistrer();
-							  }
-							  else
-							  {
-								  enregistrerSous();
-							  }
-						}
-				  }
-					  
-				  m_simulateur.resetAll();;
-				  
+			verificationAvantChangement();
+			
+			 m_simulateur.resetAll();
 				  if(m_simulateur.isEnSimulation())
 				  {
 					  m_resultPanel.setVisible(true);
@@ -727,9 +712,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		  {
 			  enregistrerSous();
 		  }
-		 
+		 //TODO
 		else if(command.equals(Default.OUVRIR))
 				{
+			
+			verificationAvantChangement();
+			
 			  JFileChooser fileChooser = new JFileChooser();
 			  int returnVal = fileChooser.showOpenDialog(this);
 
@@ -784,6 +772,27 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		}
 	}
 
+	public void verificationAvantChangement()
+	{
+
+		  if(m_simulateur.hasChangeHappened())
+		  {
+			  int option = JOptionPane.showConfirmDialog(this, "Voulez-vous enregistrere les modifications?");
+				if(option == JOptionPane.YES_OPTION)
+				{
+					
+					if(m_simulateur.existeFile()){
+						  m_simulateur.enregistrer();
+					  }
+					  else
+					  {
+						  enregistrerSous();
+					  }
+				}
+		  }
+			  
+		 
+	}
 	public void buttonToPlay() {
 		this.playBouton.setIcon(iconPAUSE);
 		this.playBouton.setPressedIcon(iconPLAYS);
