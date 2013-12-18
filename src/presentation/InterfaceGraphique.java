@@ -14,7 +14,6 @@ import javax.swing.undo.UndoManager;
 
 
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -27,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,8 +53,8 @@ import java.util.Stack;
 
 ;
 
-public class InterfaceGraphique extends JFrame implements ActionListener, 
-		ChangeListener {
+public class InterfaceGraphique extends JFrame implements ActionListener,
+		ChangeListener, WindowListener {
 
 	/**
          * 
@@ -136,12 +137,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		int xSize = ((int) tk.getScreenSize().getWidth());
 		int ySize = ((int) tk.getScreenSize().getHeight());
 		this.setSize(xSize, ySize);
-//TODO
+		// TODO
 		m_afficheur = p_afficheurGraphique;
 		m_simulateur = p_simulateur;
 		carteTemp = new Carte(m_simulateur.reqCarte());
-		
-
 
 		//
 		// System.out.println(m_simulateur.reqCarte()
@@ -163,10 +162,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				reqIcon(Default.GRILLE_ICON_PATH), 20, 20);
 		ImageIcon iconRapide = reqResizedIcon(
 				reqIcon(Default.ERAPIDE_IMAGE_PATH), 20, 20);
-		ImageIcon iconRESET = reqResizedIcon(
-				reqIcon(Default.RESET_IMAGE_PATH), 20, 20);
-		ImageIcon iconCLEAR = reqResizedIcon(reqIcon(Default.CLEAR_ICON_PATH), 20, 20);
-		ImageIcon iconCLEAR_URGENCE = reqResizedIcon(reqIcon(Default.CLEAR_URGENCE_ICON_PATH), 20, 20);
+		ImageIcon iconRESET = reqResizedIcon(reqIcon(Default.RESET_IMAGE_PATH),
+				20, 20);
+		ImageIcon iconCLEAR = reqResizedIcon(reqIcon(Default.CLEAR_ICON_PATH),
+				20, 20);
+		ImageIcon iconCLEAR_URGENCE = reqResizedIcon(
+				reqIcon(Default.CLEAR_URGENCE_ICON_PATH), 20, 20);
 		iconNoeud = reqIcon(Default.NOEUD_IMAGE_PATH);
 		iconArc = reqIcon(Default.ARC_IMAGE_PATH);
 		iconVehicule = reqIcon(Default.VEHICULE_IMAGE_PATH);
@@ -230,7 +231,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconAjoutArc.setActionCommand(ADD_ARC_STRING);
 		iconAjoutArc.addActionListener(this);
 		m_listeEditButtons.add(iconAjoutArc);
-		
 
 		JButton iconERapid = new JButton(iconRapide);
 		iconERapid.setToolTipText("Edition rapide");
@@ -244,13 +244,13 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconSelect.setActionCommand(SELECTEUR_SOURIS);
 		iconSelect.addActionListener(this);
 		m_listeEditButtons.add(iconSelect);
-		
+
 		JButton iconClear = new JButton(iconCLEAR);
 		iconClear.setToolTipText("Effacer Tout");
 		iconClear.setActionCommand(CLEAR_ALL);
 		iconClear.addActionListener(this);
 		m_listeEditButtons.add(iconClear);
-		
+
 		JButton iconClearUrgence = new JButton(iconCLEAR_URGENCE);
 		iconClearUrgence.setToolTipText("Effacer Toutes les urgences");
 		iconClearUrgence.setActionCommand(CLEAR_ALL_URGENCE);
@@ -289,14 +289,14 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconPlaySim.setToolTipText("Lancer la simulation");
 		iconPlaySim.setActionCommand(PLAY);
 		iconPlaySim.addActionListener(this);
-		
+
 		iconResetSim = new JButton(reqResizedIcon(iconRESET, 20, 20));
 		iconResetSim.setPressedIcon(reqResizedIcon(iconRESET, 20, 20));
 		iconResetSim.setEnabled(false);
 		iconResetSim.setToolTipText("Recommencer la simulation");
 		iconResetSim.setActionCommand(RECOMMENCER);
 		iconResetSim.addActionListener(this);
-		
+
 		iconStopSim = new JButton(reqResizedIcon(iconTERMINER, 20, 20));
 		iconStopSim.setPressedIcon(reqResizedIcon(iconTERMINER, 20, 20));
 		iconStopSim.setEnabled(false);
@@ -486,26 +486,27 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		m_carteGraphique.addMouseListener(new MouseAdapter() {// TODO
 					public void mousePressed(MouseEvent e) {
-						if(!carteTemp.equals(m_simulateur.reqCarte()))
-						{
-							System.out.println("la carte est identique a la precendante");
+						if (!carteTemp.equals(m_simulateur.reqCarte())) {
+							System.out
+									.println("la carte est identique a la precendante");
 
-						listeInstanceCarte.add(carteTemp);
+							listeInstanceCarte.add(carteTemp);
 
-						undoManager.undoableEditHappened(new UndoableEditEvent(
-								m_carteGraphique, new UndoableAffiche(
-										m_simulateur.reqCarte(),
-										listeInstanceCarte)));
+							undoManager
+									.undoableEditHappened(new UndoableEditEvent(
+											m_carteGraphique,
+											new UndoableAffiche(m_simulateur
+													.reqCarte(),
+													listeInstanceCarte)));
 
-						btnUndo.setEnabled(undoManager.canUndo());
-						btnRedo.setEnabled(undoManager.canRedo());
-						carteTemp = new Carte(m_simulateur.reqCarte());
+							btnUndo.setEnabled(undoManager.canUndo());
+							btnRedo.setEnabled(undoManager.canRedo());
+							carteTemp = new Carte(m_simulateur.reqCarte());
 						}
 					}
 
 				});
 
-		
 		// Ajout du menu et de la barre des buttons
 		m_menu = new Menu(this);
 		this.setJMenuBar(m_menu);
@@ -544,7 +545,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		});
 
 		pack();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setVisible(true);
 	}
 
@@ -697,7 +698,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			  }
 			  else
 			  {
-				  ToSave();
+				  enregistrerSous();
 			  }
 		  }
 		else if(command.equals(Default.NOUVEAU))
@@ -714,7 +715,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 							  }
 							  else
 							  {
-								  ToSave();
+								  enregistrerSous();
 							  }
 						}
 				  }
@@ -736,7 +737,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				  m_carteGraphique.repaint();
 		  }else if(command.equals(Default.ENREGISTRER_SOUS))
 		  {
-			  ToSave();
+			  enregistrerSous();
 		  }
 		 
 		else if(command.equals(Default.OUVRIR))
@@ -788,11 +789,12 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		{
 			restaurer();
 		}
-		else if (command.equals(Default.QUIT)) {
-			this.dispose();
-		}
+		else if (command.equals(Default.QUIT)) 
+		{
+			quitter();
 		
 		}
+	}
 
 	public void buttonToPlay() {
 		this.playBouton.setIcon(iconPAUSE);
@@ -801,11 +803,10 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		this.iconPlaySim.setIcon(reqResizedIcon(iconPAUSE, 20, 20));
 		this.iconPlaySim.setPressedIcon(reqResizedIcon(iconPLAYS, 20, 20));
 		this.iconPlaySim.setActionCommand(PAUSE);
-		
+
 	}
-	
-	public void ToSave()
-	{
+
+	public void enregistrerSous() {
 		JFileChooser fileChooser = new JFileChooser();
 		if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
@@ -813,6 +814,16 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		}
 	}
 	
+	public void enregistrer()
+	{
+		 if(m_simulateur.existeFile()){
+			  m_simulateur.enregistrer();
+		  }
+		  else
+		  {
+			  enregistrerSous();
+		  }
+	}
 
 	public void buttonToPause() {
 		this.playBouton.setIcon(iconPLAYS);
@@ -830,42 +841,19 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		m_simulateur.ajusteVitesseSimulation((int) source.getValue());
 
 	}
-	
-	public void annuler()
-	{
 
-		if (!listeInstanceCarte.isEmpty())
-		{
+	public void annuler() {
+
+		if (!listeInstanceCarte.isEmpty()) {
 			try {
-			
-			undoManager.undo();
 
-			if(listeInstanceCarteanterieur.size()<=5)
-			listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
- 
-			m_simulateur.asgCarte(listeInstanceCarte.pop());
-			m_simulateur.cancelState();
+				undoManager.undo();
 
+				if (listeInstanceCarteanterieur.size() <= 5)
+					listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
 
-		} catch (CannotRedoException cre) {
-			cre.printStackTrace();
-		}
-		m_carteGraphique.repaint();
-		btnUndo.setEnabled(undoManager.canUndo());
-		btnRedo.setEnabled(undoManager.canRedo());
-		}
-	}
-	public void restaurer()
-	{
-		if (!listeInstanceCarteanterieur.isEmpty()) {
-			
-			try {
-				undoManager.redo();
-
-				m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
-				listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
+				m_simulateur.asgCarte(listeInstanceCarte.pop());
 				m_simulateur.cancelState();
-
 
 			} catch (CannotRedoException cre) {
 				cre.printStackTrace();
@@ -874,6 +862,88 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			btnUndo.setEnabled(undoManager.canUndo());
 			btnRedo.setEnabled(undoManager.canRedo());
 		}
+	}
+	
+	public void quitter() {
+		if(m_simulateur.hasChangeHappened())
+		{
+			int option = JOptionPane.showConfirmDialog(this, "Voulez-vous enregistrere les modifications?");
+			if(option == JOptionPane.YES_OPTION)
+			{
+				enregistrer();
+			}
+			else if(option == JOptionPane.NO_OPTION)
+			{
+				this.dispose();
+			}
+			
+				
+		}
+		else
+		{
+			this.dispose();
+		}
+		
+	
+	}
+	public void restaurer() {
+		if (!listeInstanceCarteanterieur.isEmpty()) {
+
+			try {
+				undoManager.redo();
+
+				m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
+				listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
+				m_simulateur.cancelState();
+
+			} catch (CannotRedoException cre) {
+				cre.printStackTrace();
+			}
+			m_carteGraphique.repaint();
+			btnUndo.setEnabled(undoManager.canUndo());
+			btnRedo.setEnabled(undoManager.canRedo());
+		}
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		quitter();
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
