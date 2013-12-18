@@ -29,11 +29,7 @@ public class GestionnaireResultat  implements Serializable{
 		latestResultats.add(currentResultat);
 	}
 	
-	public void EnregistrerDernierResulats()
-	{
-		latestResultats.add(currentResultat);
-		
-	}
+	
 	
 	public void reset(){
 		latestResultats.clear();

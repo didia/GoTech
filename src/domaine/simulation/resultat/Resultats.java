@@ -109,4 +109,24 @@ public class Resultats  implements Serializable
 		this.strategie = strategie;
 	}
 
+	public String reqNombreUrgenceTraitee() {
+		return Integer.toString(this.nombreUrgenceTraitee);
+	}
+
+	public String reqStrategie() {
+		
+		return this.strategie;
+	}
+
+	public String retournePointAttache() {
+		if(this.retournePointAttache)
+		{
+			return "Oui";
+		}
+		else
+		{
+			return "Non";
+		}
+	}
+
 }

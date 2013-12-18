@@ -662,7 +662,23 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.iconResetSim.setEnabled(false);
 			this.btnRedo.setEnabled(false);
 			this.btnUndo.setEnabled(false);
-			JOptionPane.showMessageDialog(this, m_resultPanel.updateParametres());
+			if(m_simulateur.canCompareResultat())
+			{
+				int option = JOptionPane.showConfirmDialog(this, "Voulez-vous comparer les résultats obtenus avec ceux des simulations précedentes?");
+				if(option == JOptionPane.OK_OPTION)
+				{
+					JOptionPane.showMessageDialog(this, m_resultPanel.getComparedResults());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(this, m_resultPanel.updateParametres());
+				}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, m_resultPanel.updateParametres());
+			}
+			
 			m_simulateur.terminerSimulation();
 			
 			
