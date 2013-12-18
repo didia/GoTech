@@ -114,6 +114,7 @@ public class GestionnaireUrgence implements Serializable
     */
 	public void supprimerUrgence(Urgence urgence)
 	{
+		urgence.reqNoeudCible().reset();
 		m_urgencesNonTraitee.remove(urgence);
 	}
 	
@@ -294,11 +295,19 @@ public class GestionnaireUrgence implements Serializable
 
 	public void enleverUrgenceAuNoeud(Noeud noeud){
 		
+		if(noeud == null)
+		{
+			return;
+		}
+		
 		for(Urgence urgence: this.m_urgencesNonTraitee)
 		{
 			if(urgence.reqNoeudCible().equals(noeud)){
-				this.supprimerUrgence(urgence);
-				break;
+				if(urgence != reqProchaineUrgence())
+				{
+					this.supprimerUrgence(urgence);
+					break;
+				}
 			}
 		}
 	}

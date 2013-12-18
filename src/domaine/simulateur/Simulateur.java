@@ -17,9 +17,9 @@ import domaine.reseau.Carte;
 
 import domaine.reseau.Noeud;
 import domaine.simulateur.etat.*;
-import domaine.simulateur.serialization.Deserializer;
+
 import domaine.simulateur.serialization.Enregistreur;
-import domaine.simulateur.serialization.Serializer;
+
 import domaine.reseau.*;
 import domaine.simulation.resultat.*;
 import domaine.simulation.urgence.*;
@@ -430,6 +430,11 @@ public class Simulateur implements MouseInputListener, Serializable
 
 		m_gestionnaireUrgence.supprimerUrgence(uneUrgence);
 	}
+	public void supprimerUrgence() {
+		
+		this.m_gestionnaireUrgence.enleverUrgenceAuNoeud(m_etat.reqNoeudSelectione());
+	}
+
 
 	public void deplacerVehiculeUrgence(int duree) {
 		m_vehicule.avance(duree);
@@ -527,23 +532,26 @@ public class Simulateur implements MouseInputListener, Serializable
 
 
 	public Parametres reqParametres() {
-		// TODO Auto-generated method stub
+		
 		return m_parametres;
 	}
 
 
 
 	public Etat reqEtat() {
-		// TODO Auto-generated method stub
+		
 		return m_etat;
 	}
 
 
 
 	public Vehicule reqVehicule() {
-		// TODO Auto-generated method stub
+		
 		return m_vehicule;
 	}
+
+
+
 
 
 

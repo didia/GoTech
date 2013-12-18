@@ -42,8 +42,7 @@ import domaine.reseau.Carte;
 import domaine.reseau.Noeud;
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
-import domaine.simulateur.serialization.Deserializer;
-import domaine.simulateur.serialization.Serializer;
+
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
