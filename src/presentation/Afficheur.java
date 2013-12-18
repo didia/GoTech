@@ -150,7 +150,7 @@ public class Afficheur
 		
 		if (maxHeight > Default.CARTE_HEIGHT) 
 		{
-			System.out.println("MaxHeight plus grand"); 
+			
 
 			newHeight = maxHeight;
 		} 

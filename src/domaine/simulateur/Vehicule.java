@@ -337,6 +337,7 @@ public class Vehicule  implements Serializable{
 	}
 
 	public float reqDistanceparcouru() {
+		
 		return this.distanceparcourue;
 	}
 

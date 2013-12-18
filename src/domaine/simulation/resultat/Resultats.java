@@ -97,13 +97,7 @@ public class Resultats  implements Serializable
 		return distance;
 	}
 	
-	public void afficherResultat( float vitessVehicule)
-	{
-		System.out.println("Vistess du vehicule"+vitessVehicule);
-		System.out.println("temps d'Attente"+tempsDattente);
-		
-		System.out.println("distance Parcourue"+distanceParcourue);
-	}
+
 	
 	public void setStrategie(String strategie)
 	{

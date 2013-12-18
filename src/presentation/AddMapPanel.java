@@ -20,7 +20,7 @@ public class AddMapPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
     private JFormattedTextField largeurMap;
 	private JFormattedTextField longueurMap;
-	private Simulateur m_simulateur;
+
 	
 	public AddMapPanel(Simulateur simulateur, boolean isMap){
 		setLayout(null);

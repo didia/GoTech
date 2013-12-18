@@ -24,4 +24,27 @@ public class Clock implements Serializable {
 		return m_milliseconds;
 	}
 	
+	public static String stringVersion()
+	{
+	
+		int secondes = (int) ((m_milliseconds/1000)%60);
+		int minutes = (int) ((m_milliseconds/1000 / (60)) % 60);
+		int hours   = (int) ((m_milliseconds/1000 / (60*60)));
+		String seconds = Integer.toString(secondes);
+		String minuts = Integer.toString(minutes);
+		String hour = Integer.toString(hours);
+		if(secondes < 10)
+		{
+			seconds = "0"+secondes;
+		}
+		if(minutes < 10)
+		{
+			minuts ="0"+minutes;
+		}
+		if(hours <10)
+		{
+			hour = "0"+hours;
+		}
+		return String.format("%s:%s:%s", hour, minuts,seconds);
+	}
 }

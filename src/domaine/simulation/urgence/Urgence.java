@@ -21,7 +21,7 @@ import java.io.Serializable;
 
 import domaine.reseau.Noeud;
 import domaine.simulateur.Clock;
-import domaine.simulation.resultat.Resultats;
+
 
 public class Urgence implements Serializable
 {
@@ -35,8 +35,6 @@ public class Urgence implements Serializable
 	private final Noeud m_noeudCible;
 	private int m_priorite = 0; // de 0 a 5
 	
-	private Resultats m_resultat = new Resultats();
-
 	
 	public Urgence(Noeud p_NoeudCible)
 	{
@@ -73,10 +71,7 @@ public class Urgence implements Serializable
 		return this.m_noeudCible;
 	}
 	
-	public Resultats reqresultats()
-	{
-		return this.m_resultat;
-	}
+	
 
 	public long reqTempsDeclenchement() {
 		

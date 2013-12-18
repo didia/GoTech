@@ -6,11 +6,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
 import javax.imageio.ImageIO;
-import javax.swing.event.MouseInputListener;
+
 
 
 import java.io.*;
-import java.util.ArrayList;
+
 
 import domaine.reseau.Carte;
 
@@ -121,6 +121,7 @@ public class Simulateur implements MouseInputListener, Serializable
 		this.m_gestionnaireUrgence.restart();
 		m_vehicule.reset();
 		Clock.reset();
+		this.m_gestionnaireResultat.clearLatest();
 		this.lancerSimulation();
 	}
 	public void terminerSimulation() 

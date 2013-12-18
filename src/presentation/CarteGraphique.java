@@ -14,18 +14,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-import domaine.reseau.Carte;
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
 import presentation.Afficheur;
 
 import javax.swing.JPopupMenu;
 
-import java.awt.Component;
+
 import java.awt.event.MouseAdapter;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Vector;
+
 
 
 
@@ -62,10 +61,7 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		this.m_afficheur = afficheurGraphique;
 
 		setPreferredSize(new Dimension(Default.CARTE_WIDTH, Default.CARTE_HEIGHT));
-		//setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE, Default.BORDER_SIZE) );
-
-		// setBorder(new EmptyBorder(Default.BORDER_SIZE, Default.BORDER_SIZE,
-		// Default.BORDER_SIZE, Default.BORDER_SIZE) );
+		
 
 		setBackground(Color.WHITE);
 		setVisible(true);
