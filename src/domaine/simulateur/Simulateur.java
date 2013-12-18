@@ -33,12 +33,14 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	private Etat m_etat = new EtatDEdition(this);
 
+	private File m_currentFile = null;
 	private Parametres m_parametres = new Parametres();
 	private GestionnaireResultat m_gestionnaireResultat;
 	private GestionnaireReseau m_gestionnaireReseau= new GestionnaireReseau();
 	
 	private boolean m_changeHappened = false;
 	private boolean enSimulation = false;
+	
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence(m_gestionnaireReseau.reqCarte());
 
 	
@@ -114,7 +116,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	
 	}
 	
-	public void resetSimulation ()
+	public void restartSimulation ()
 	{
 		this.m_gestionnaireUrgence.restart();
 		m_vehicule.reset();
@@ -514,6 +516,11 @@ public class Simulateur implements MouseInputListener, Serializable
 	public void enregistrer(File file) {
 	
 		Enregistreur.enregistrer(file, this);
+		m_currentFile = file;
+	}
+	public void enregistrer()
+	{
+		Enregistreur.enregistrer(m_currentFile, this);
 	}
 	public void loader (File file)
 	{
@@ -526,10 +533,21 @@ public class Simulateur implements MouseInputListener, Serializable
 		this.m_gestionnaireResultat = enregistrable.gestionnaireResultat;
 		this.m_gestionnaireUrgence = enregistrable.gestionnaireUrgence;
 		this.m_vehicule = enregistrable.vehicule;
+		this.m_currentFile = file;
 		
 	}
 
+	
 
+	
+	public void resetAll()
+	{
+		effacerToutesLesUrgences();
+		effacerToutReseau();
+		m_vehicule.reset();
+		Clock.reset();
+		
+	}
 
 	public Parametres reqParametres() {
 		
@@ -551,6 +569,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 
 
+	public boolean existeFile() {
+		
+		return m_currentFile != null;
+	}
 
 
 
