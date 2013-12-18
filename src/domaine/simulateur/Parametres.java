@@ -14,8 +14,14 @@
 
 package domaine.simulateur;
 
-public class Parametres 
+import java.io.Serializable;
+
+public class Parametres  implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private  float m_vitesseVehicule;
 	private  String m_strategie;
 	private  boolean m_retourPointAttache ;

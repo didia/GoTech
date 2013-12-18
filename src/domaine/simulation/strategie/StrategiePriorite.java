@@ -9,6 +9,11 @@ import domaine.simulation.urgence.Urgence;
 public class StrategiePriorite extends AbstractStrategie
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public StrategiePriorite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee,ArrayList<Urgence> listeUrgenceNonAccessible)
 	{
 		super(listeUrgence, listeUrgenceTraitee,listeUrgenceNonAccessible);

@@ -14,8 +14,14 @@
 
 package domaine.reseau;
 
-public class Arc
+import java.io.Serializable;
+
+public class Arc implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private float m_longueur;
 	private Noeud m_source;
 	private Noeud m_destination;

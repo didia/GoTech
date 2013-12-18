@@ -15,11 +15,16 @@
 
 package domaine.reseau;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Itineraire 
+public class Itineraire implements Serializable 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Arc> m_listeArcs;
 	private float m_longueur;
 

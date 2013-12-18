@@ -17,12 +17,18 @@
 
 package domaine.simulation.urgence;
 
+import java.io.Serializable;
+
 import domaine.reseau.Noeud;
 import domaine.simulateur.Clock;
 import domaine.simulation.resultat.Resultats;
 
-public class Urgence
+public class Urgence implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long m_tempsDebut; 
 	private int m_tempsAttente = 0;
 	private long m_tempsDeclenchement=0;

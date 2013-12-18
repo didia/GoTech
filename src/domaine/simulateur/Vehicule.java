@@ -1,5 +1,6 @@
 package domaine.simulateur;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import domaine.reseau.Carte;
@@ -7,8 +8,12 @@ import domaine.reseau.Noeud;
 import domaine.reseau.Position;
 import domaine.simulation.urgence.*;
 
-public class Vehicule {
+public class Vehicule  implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static Vehicule m_vehicule = null;
 	private Noeud m_portAttache = null;
 	private float m_vitesse = 0;

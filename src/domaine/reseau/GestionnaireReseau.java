@@ -1,7 +1,9 @@
 package domaine.reseau;
 
-public class GestionnaireReseau {
-	private static Carte m_carte = new Carte();
+import java.io.Serializable;
+
+public class GestionnaireReseau  implements Serializable{
+	private Carte m_carte = new Carte();
 	private ZoomModel m_zoom = new ZoomModel();
 	private Echelle m_echelle = new Echelle(m_zoom);
 	private Grille m_grille = new Grille(m_echelle);

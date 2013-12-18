@@ -12,10 +12,16 @@
 
 package domaine.reseau;
 
+import java.io.Serializable;
+
 import domaine.simulateur.Default;
 
-public class Echelle 
+public class Echelle implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int prevMetreParStep;
 	private int m_metreParStep = Default.METRE_PAR_STEP;
 	public static ZoomModel m_zoom;

@@ -150,7 +150,11 @@ public class CarteGraphique extends JPanel implements MouseInputListener, Action
 		m_simulateur.mouseMoved(e);
 		this.repaint();
 	}
-
+	
+	public void asgSimulateur(Simulateur simulateur)
+	{
+		m_simulateur = simulateur;
+	}
 	private void enableNodeMenus(boolean flag)
 	{
 		for(JMenuItem item: nodeMenus){

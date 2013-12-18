@@ -12,6 +12,7 @@
 
 package domaine.simulation.urgence;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -23,8 +24,12 @@ import domaine.simulation.strategie.anciennete.StrategieAnciennete;
 import domaine.simulation.strategie.minchemin.StrategieMinChemin;
 import domaine.simulation.strategie.proximite.StrategieProximite;
 
-public class GestionnaireUrgence
+public class GestionnaireUrgence implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Urgence> m_urgencesNonTraitee;
 	private ArrayList<Urgence> m_urgencesTraitee;
 	private ArrayList<Urgence> m_urgencesNonAccessible;

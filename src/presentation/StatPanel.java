@@ -20,6 +20,8 @@ public class StatPanel extends JPanel {
 	private static final long serialVersionUID = 4389804890212885041L;
 		private JEditorPane textField;
 		private Simulateur m_simulateur;
+		private ArrayList<Resultats> listeResultats;
+		
 //		private  Queue<Simulateur> listeEtatSimu = m_simulateur.reqEtatSimu().reqListeEtatSimu();
 		
 		public StatPanel(Simulateur simulateur){
@@ -35,7 +37,9 @@ public class StatPanel extends JPanel {
 		}
 		
 		public void afficherResultat(){
-			Resultats resultats = this.m_simulateur.reqResultats();
+			listeResultats = m_simulateur.reqGestionnaireResultats().reqLatestResultats();
+			for (Resultats resultats : listeResultats)
+			{
 			if(resultats != null){
 		
 			String statistiques = "<html><body style=\"padding:10px;\">" +
@@ -57,7 +61,7 @@ public class StatPanel extends JPanel {
 					"<body></html>";
 			this.updateTextField(statistiques);
 			}
-			
+			}
 			
 		}
 		public void updateTextField(String text){

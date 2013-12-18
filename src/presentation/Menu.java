@@ -43,10 +43,16 @@ public class Menu extends JMenuBar
 		itemEnregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		itemAnnuler.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
 		itemRestaurer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
+		
 		itemOuvrirProjet.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+		itemOuvrirProjet.setActionCommand(Default.OUVRIR);
+		itemOuvrirProjet.addActionListener(this.interfacePrincipale);
+		
 		itemNouveauProjet.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		
 		itemQuitter.setActionCommand(Default.QUIT);
 		itemQuitter.addActionListener(this.interfacePrincipale);
+		
 		itemImporterImage.setActionCommand(Default.IMPORTER_IMAGE);
 		itemImporterImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 		itemImporterImage.addActionListener(this.interfacePrincipale);

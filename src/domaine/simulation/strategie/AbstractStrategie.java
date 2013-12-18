@@ -14,6 +14,7 @@
 package domaine.simulation.strategie;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import domaine.reseau.Itineraire;
@@ -21,8 +22,12 @@ import domaine.reseau.Noeud;
 import domaine.simulation.urgence.Urgence;
 
 
-public class AbstractStrategie 
+public class AbstractStrategie implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Urgence> m_listeUrgence;
 	private ArrayList<Urgence> m_listeUrgenceTraitee;
 	private ArrayList<Urgence> m_listeUrgenceNonAccessible;

@@ -13,10 +13,15 @@
 
 package domaine.reseau;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Carte {
+public class Carte implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	final private int INFINI = 999999999;
 	private ArrayList<Noeud> m_listeDeNoeuds = new ArrayList<Noeud>();;
 	private ArrayList<Arc> m_listeArcs = new ArrayList<Arc>();
@@ -31,12 +36,17 @@ public class Carte {
 		m_listeDeNoeuds = new ArrayList<Noeud>();
 		m_listeArcs = new ArrayList<Arc>();
 	}
+	
+	public Carte( ArrayList<Noeud> listNoeud,  ArrayList<Arc> listArcs) {
+		this.m_listeDeNoeuds =listNoeud;
+		this.m_listeArcs = listArcs;
+	}
 
 	public Carte(Carte carte) {
 		for (Noeud noeud : carte.reqListeNoeuds())
 			this.m_listeDeNoeuds.add(noeud);
-		for (Arc noeud : carte.reqListeArcs())
-			this.m_listeArcs.add(noeud);
+		for (Arc arc : carte.reqListeArcs())
+			this.m_listeArcs.add(arc);
 
 	}
 	

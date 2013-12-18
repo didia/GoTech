@@ -2,9 +2,12 @@ package domaine.simulateur;
 
 import java.awt.event.MouseEvent;
 
-
-
 import javax.swing.event.MouseInputListener;
+
+
+
+
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,6 +17,9 @@ import domaine.reseau.Carte;
 
 import domaine.reseau.Noeud;
 import domaine.simulateur.etat.*;
+import domaine.simulateur.serialization.Deserializer;
+import domaine.simulateur.serialization.Enregistreur;
+import domaine.simulateur.serialization.Serializer;
 import domaine.reseau.*;
 import domaine.simulation.resultat.*;
 import domaine.simulation.urgence.*;
@@ -23,8 +29,6 @@ import domaine.simulation.urgence.*;
 public class Simulateur implements MouseInputListener, Serializable 
 {
 	private static final long serialVersionUID = 42L;
-
-
 	private Vehicule m_vehicule = Vehicule.getInstance();
 
 	private Etat m_etat = new EtatDEdition(this);
@@ -37,7 +41,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	private boolean enSimulation = false;
 	private GestionnaireUrgence m_gestionnaireUrgence = new GestionnaireUrgence(m_gestionnaireReseau.reqCarte());
 
-	transient private EtatSimulateur m_etatsimu = new EtatSimulateur();
+	
 
 	public Simulateur() 
 	{
@@ -109,8 +113,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 	public void terminerSimulation() 
 	{
+		
 		this.m_gestionnaireReseau.resetReseau();
 		this.m_gestionnaireUrgence.restart();
+		this.m_gestionnaireResultat.EnregistrerDernierResulats();
 		m_vehicule.reset();
 		this.setEtatSelectioneur();
 		this.enSimulation = false;
@@ -118,6 +124,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	public boolean isEnSimulation()
 	{
 		return this.enSimulation;
+	}
+	public boolean hasChangeHappened()
+	{
+		return this.m_changeHappened;
 	}
 	public boolean isStrategieCourante(String strategie) 
 	{
@@ -365,6 +375,10 @@ public class Simulateur implements MouseInputListener, Serializable
 	{
 		return this.m_gestionnaireUrgence;
 	}
+	public GestionnaireResultat reqGestionnaireResultats()
+	{
+		return this.m_gestionnaireResultat;
+	}
 	public GestionnaireReseau reqGestionnaireReseau() {
 		return this.m_gestionnaireReseau;
 	}
@@ -415,6 +429,8 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	}
 	
+	
+	
 	public void declencherUrgence(float tempsDeclenchement)
 	{
 		Noeud noeud = m_etat.reqNoeudSelectione();
@@ -436,16 +452,7 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	}
 
-	public void SauvegarderEtatActuel() {
-		if (m_etatsimu.reqListeEtatSimu().contains(this))
-			System.out.println("cette simulation a etÃ© dejas enregistrÃ©");
-		else
-			m_etatsimu.ajouterEtatSimu(this);
-	}
-	public  EtatSimulateur reqEtatSimu()
-	{
-		return this.m_etatsimu;
-	}
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -480,6 +487,47 @@ public class Simulateur implements MouseInputListener, Serializable
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		m_etat.mouseMoved(e);
+	}
+
+
+
+	public void enregistrer(File file) {
+	
+		Enregistreur.enregistrer(file, this);
+	}
+	public void loader (File file)
+	{
+		Enregistreur.Enregistrable enregistrable = Enregistreur.load(file);
+		this.m_parametres = enregistrable.parametres;
+		this.enSimulation = enregistrable.enSimulation;
+		this.m_changeHappened = enregistrable.m_changeHappened;
+		this.m_etat = enregistrable.etat;
+		this.m_gestionnaireReseau = enregistrable.gestionnaireReseau;
+		this.m_gestionnaireResultat = enregistrable.gestionnaireResultat;
+		this.m_gestionnaireUrgence = enregistrable.gestionnaireUrgence;
+		this.m_vehicule = enregistrable.vehicule;
+		
+	}
+
+
+
+	public Parametres reqParametres() {
+		// TODO Auto-generated method stub
+		return m_parametres;
+	}
+
+
+
+	public Etat reqEtat() {
+		// TODO Auto-generated method stub
+		return m_etat;
+	}
+
+
+
+	public Vehicule reqVehicule() {
+		// TODO Auto-generated method stub
+		return m_vehicule;
 	}
 
 

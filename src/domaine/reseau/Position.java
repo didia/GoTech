@@ -13,7 +13,9 @@
 
 package domaine.reseau;
 
-public class Position 
+import java.io.Serializable;
+
+public class Position implements Serializable
 {
 	private float positionX;
 	private float positionY;

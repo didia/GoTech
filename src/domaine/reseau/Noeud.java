@@ -13,6 +13,7 @@
 
 package domaine.reseau;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 
 import domaine.simulateur.Default;
@@ -24,8 +25,12 @@ import domaine.simulateur.Default;
 
 
 
-public class Noeud
+public class Noeud implements Serializable
 {
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private Position m_position;
 		private float m_cout; // pour Dijkstra 
 		private Noeud m_predecesseur;
@@ -243,7 +248,11 @@ public class Noeud
 			}
 		}
 		
-		private class ProchainNoeudCout{
+		private class ProchainNoeudCout implements Serializable{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			public final Noeud next;
 			public final float cost;
 			

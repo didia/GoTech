@@ -12,6 +12,9 @@ import javax.swing.undo.UndoManager;
 //import changeable.UndoManagerDemo.UndoablePaintSquare;
 
 
+
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -25,20 +28,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 import domaine.reseau.Carte;
 import domaine.reseau.Carte;
 import domaine.reseau.Noeud;
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
+import domaine.simulateur.serialization.Deserializer;
+import domaine.simulateur.serialization.Serializer;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
 ;
 
-public class InterfaceGraphique extends JFrame implements ActionListener,
+public class InterfaceGraphique extends JFrame implements ActionListener, 
 		ChangeListener {
 
 	/**
@@ -698,14 +712,50 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.btnRedo.setEnabled(false);
 			this.btnUndo.setEnabled(false);
 			
-
+			m_simulateur.terminerSimulation();
 			JOptionPane.showOptionDialog(this, m_resultPanel,
 					"Resultats de la Simulation", JOptionPane.OK_OPTION,
 					JOptionPane.PLAIN_MESSAGE, null, null, null);
-			m_simulateur.terminerSimulation();
+			
 			m_carteGraphique.repaint();
 
-		} else if (command.equals(Default.IMPORTER_IMAGE)) {
+		}
+		//TODO
+		else if (command.equals(SAVE))
+		{
+			JFileChooser fileChooser = new JFileChooser();
+			if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+				File file = fileChooser.getSelectedFile();
+				m_simulateur.enregistrer(file);
+			}
+		}
+		 
+		
+		else if(command.equals(Default.OUVRIR))
+				{
+			  JFileChooser fileChooser = new JFileChooser();
+			  int returnVal = fileChooser.showOpenDialog(this);
+
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+				  File file = fileChooser.getSelectedFile();
+				  m_simulateur.loader(file);
+				  if(m_simulateur.isEnSimulation())
+				  {
+					  m_resultPanel.setVisible(true);
+						for (JButton button : this.m_listeEditButtons) {
+							button.setEnabled(false);
+						}
+						m_menu.deActivateEditsMenus();
+						
+						this.iconStopSim.setEnabled(true);
+						this.iconResetSim.setEnabled(true);
+						this.buttonToPause();
+				  }
+				  m_carteGraphique.repaint();
+		  }
+				}
+		
+		else if (command.equals(Default.IMPORTER_IMAGE)) {
 			int returnVal = fc.showOpenDialog(this);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -714,7 +764,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				m_carteGraphique.repaint();
 
 			}
-		} 
+		}
 		else if(command.equals(Default.ANNULER))
 		{
 
@@ -763,7 +813,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.dispose();
 		}
 		
-	}
+		}
 
 	public void buttonToPlay() {
 		this.playBouton.setIcon(iconPAUSE);

@@ -1,12 +1,17 @@
 package domaine.simulation.resultat;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import domaine.simulateur.Vehicule;
 import domaine.simulation.urgence.GestionnaireUrgence;
 
-public class GestionnaireResultat {
+public class GestionnaireResultat  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final Vehicule m_vehicule;
 	private final GestionnaireUrgence m_gestionnaireUrgence;
 	private  ArrayList<Resultats> latestResultats = new ArrayList<Resultats>();
@@ -21,6 +26,11 @@ public class GestionnaireResultat {
 	public void generateResultats(String strategie, boolean retournePointAttache)
 	{
 		currentResultat = new Resultats(strategie, retournePointAttache);
+		
+	}
+	
+	public void EnregistrerDernierResulats()
+	{
 		latestResultats.add(currentResultat);
 		
 	}
@@ -38,5 +48,10 @@ public class GestionnaireResultat {
 		if(currentResultat != null)
 		currentResultat.update(tempsDattenteMoyen, distanceParcourue,nombreUrgenceTraitee, nombreUrgenceNonTraitee, nombreUrgenceNonAccessible);
 		return currentResultat;
+	}
+	
+	public ArrayList<Resultats> reqLatestResultats()
+	{
+		return this.latestResultats;
 	}
 }

@@ -1,8 +1,14 @@
 package domaine.reseau;
 
+import java.io.Serializable;
+
 import domaine.simulateur.Default;
 
-public class ZoomModel {
+public class ZoomModel   implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private float m_zoom = Default.ZOOM;
     
     

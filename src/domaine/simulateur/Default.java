@@ -1,8 +1,14 @@
 package domaine.simulateur;
 
+import java.io.Serializable;
 
-public class Default {
+
+public class Default implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.png";
 	public static final String ERAPIDE_IMAGE_PATH = "/images/e_rapide.png";
 	public static final String ARC_IMAGE_PATH = "/images/arc.png";
@@ -35,8 +41,11 @@ public class Default {
 	public static final String ANNULER = "Annuler";
 	public static final String RESTAURER = "Restaurer";
 	public static final String IMPORTER_IMAGE = "Importer image de fond";
-	public static final String OUVRIR = "Ouvrir Simulation";
+	public static final String OUVRIR = "Ouvrir Un Projet Existant";
+	public static final String NOUVEAU = "Ouvrir un nouveau Projet";
 	public static final String ENREGISTRER_SOUS = "Enregistrer Sous";
+	public static final String ENREGISTRER = "Enregistrer";
+	
 	
 	public static final int WIDTH_NOEUD = 20;
     public static final int HEIGHT_NOEUD = 20;

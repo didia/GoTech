@@ -16,10 +16,16 @@
 
 package domaine.reseau;
 
+import java.io.Serializable;
 
-public class Grille 
+
+public class Grille implements Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static Echelle m_echelle;
 	private boolean isActive = true;
 	
