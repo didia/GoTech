@@ -79,7 +79,7 @@ public class Vehicule  implements Serializable{
 	}
 
 	public void ajusteVitesseVehicule(int coefficient) {
-		this.coefficientVitesse = coefficient;
+		this.coefficientVitesse = coefficient*2;
 	}
 
 	public Position reqPosition() {

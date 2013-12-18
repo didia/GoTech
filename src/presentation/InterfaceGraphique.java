@@ -294,7 +294,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		iconAjoutUrgence.setActionCommand(ADD_URGENCE);
 		iconAjoutUrgence.addActionListener(this);
 
-		vitesseSim = new JSlider(JSlider.HORIZONTAL, 1, 4, 1);
+		vitesseSim = new JSlider(JSlider.HORIZONTAL, 1, 16, 1);
 		vitesseSim.addChangeListener(this);
 
 		toolbar.add(new JSeparator(SwingConstants.VERTICAL));

@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 
 import java.util.ArrayList;
 
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -24,7 +25,7 @@ public class StatPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 4389804890212885041L;
 		private JLabel textField;
-		private JLabel paramField;
+		private JEditorPane paramField;
 
 		private Simulateur m_simulateur;
 		private ArrayList<Resultats> listeResultats;
@@ -40,9 +41,11 @@ public class StatPanel extends JPanel {
 			textField.setForeground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 			textField.setFont(new Font("Lucida Grande", Font.PLAIN, 60));
 			
-			paramField = new JLabel();
-			//paramField.setVerticalAlignment(SwingConstants.TOP);
-			//paramField.setHorizontalAlignment(SwingConstants.CENTER);
+			paramField = new JEditorPane();
+			paramField.setBackground(null);
+			paramField.setContentType("text/html");
+			paramField.setOpaque(true);
+			
 			
 			
 			JPanel fields = new JPanel(new GridLayout(2,1,0,0));
@@ -67,17 +70,17 @@ public class StatPanel extends JPanel {
 			if(resultats != null){
 		
 				statistiques +=
-					"<center><u><h3> Statistiques </h3></u></center>"+
+					"<center><u><h1> Statistiques </h3></u></center>"+
 					"<table>" +
-					"<tr>" +
-					"<td><b>Distance parcourue:</b><td>: <td>"+resultats.getDistanceParcourue() +"</td>" +
+					"<tr style=\"color:blue;font-size:14px\">" +
+					"<td><b>Distance parcourue:</b><td >: <td>"+resultats.getDistanceParcourue() +"</td>" +
 					"</tr>" +
-					"<tr><td><b>Temps moyen d'attente</b></td>: <td>" + resultats.gettempsDattente() +"</td>" +
+					"<tr style=\"color:blue;font-size:14px\"><td><b>Temps moyen d'attente</b></td>: <td >" + resultats.gettempsDattente() +"</td>" +
 					"</tr> " +
-					"<tr>" +
-					"<td><b>Urgences traitées:</b><td>: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceTraitee() +"</td>" +
+					"<tr style=\"color:green\">" +
+					"<td ><b>Urgences traitées:</b><td >: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceTraitee() +"</td>" +
 					"</tr>" +
-					"<tr>" +
+					"<tr style=\"color:red\">" +
 					"<td><b>Urgences restantes:</b><td>: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceNonTraitee() +"</td>" +
 					"</tr>" +
 					"<br/>" +
@@ -104,7 +107,7 @@ public class StatPanel extends JPanel {
 				retourPointAttache = "Non";
 			}
 			parametres +=
-						"<center><u><h3> Paramètres </h3></center></u>"+
+						"<center><u><h1> Paramètres </h3></center></u>"+
 						"<table>" +
 						"<tr>" +
 						"<td><b>Stratégie actuelle:</b><td>: <td>"+m_simulateur.reqStrategieCourante() +"</td>" +
