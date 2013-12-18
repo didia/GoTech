@@ -1,13 +1,12 @@
 package presentation;
 
-
 import java.util.Stack;
+
 
 
 import javax.swing.undo.AbstractUndoableEdit;
 
 import domaine.reseau.Carte;
-
 
 class UndoableAffiche extends AbstractUndoableEdit {
 
@@ -16,6 +15,7 @@ class UndoableAffiche extends AbstractUndoableEdit {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unused")
 	private  Carte m_carteTemp;
 	
 	

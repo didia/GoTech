@@ -29,14 +29,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-
-
 import domaine.reseau.Carte;
 
 import domaine.simulateur.Default;
 import domaine.simulateur.Simulateur;
-
-
 
 import java.util.ArrayList;
 
@@ -94,7 +90,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private static Stack<Carte> listeInstanceCarteanterieur = new Stack<Carte>();
 
 	protected UndoManager undoManager = new UndoManager();
-
 
 	private static String ADD_URGENCE = "Ajouter Urgence";
 	private static String PLAY = "Lancer simulation";
