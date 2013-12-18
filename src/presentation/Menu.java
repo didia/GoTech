@@ -40,15 +40,28 @@ public class Menu extends JMenuBar
 	{
 		this.interfacePrincipale = interfaceGraphique;
 		//Set Accelerators
-		itemEnregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		itemAnnuler.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+		itemAnnuler.addActionListener(this.interfacePrincipale);
+		itemAnnuler.setActionCommand(Default.ANNULER);
+		
 		itemRestaurer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
+		itemRestaurer.setActionCommand(Default.RESTAURER);
+		itemRestaurer.addActionListener(this.interfacePrincipale);
+		
+		itemEnregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		itemEnregistrer.setActionCommand(Default.ENREGISTRER);
+		itemEnregistrer.addActionListener(this.interfacePrincipale);
+		
+		itemEnregistrerSous.setActionCommand(Default.ENREGISTRER_SOUS);
+		itemEnregistrerSous.addActionListener(this.interfacePrincipale);
 		
 		itemOuvrirProjet.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		itemOuvrirProjet.setActionCommand(Default.OUVRIR);
 		itemOuvrirProjet.addActionListener(this.interfacePrincipale);
 		
 		itemNouveauProjet.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		itemNouveauProjet.setActionCommand(Default.NOUVEAU);
+		itemNouveauProjet.addActionListener(this.interfacePrincipale);
 		
 		itemQuitter.setActionCommand(Default.QUIT);
 		itemQuitter.addActionListener(this.interfacePrincipale);

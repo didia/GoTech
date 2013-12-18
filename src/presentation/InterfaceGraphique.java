@@ -96,8 +96,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private static String SHOW_OUTILS = "Outils";
 	private static String SHOW_GRILLE = "Grille";
 
-	private static String SAVE = "SAVE";
-
 	ImageIcon iconUndo = reqResizedIcon(reqIcon(Default.UNDO_ICON_PATH), 20, 20);
 	ImageIcon iconRedo = reqResizedIcon(reqIcon(Default.REDO_ICON_PATH), 20, 20);
 	protected static Stack<Carte> listeInstanceCarte = new Stack<Carte>();
@@ -204,19 +202,19 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 		JButton btnSave = new JButton(iconSave);
 		btnSave.setToolTipText("Enregistrer travail en cours");
-		btnSave.setActionCommand(SAVE);
+		btnSave.setActionCommand(Default.ENREGISTRER);
 		btnSave.addActionListener(this);
 
 		btnUndo = new JButton(iconUndo);// TODO
 		btnUndo.setToolTipText("Annuler");
-		btnUndo.setActionCommand(UNDO);
+		btnUndo.setActionCommand(Default.ANNULER);
 		btnUndo.addActionListener(this);
 		m_listeEditButtons.add(btnUndo);
 		btnUndo.setEnabled(false);
 
 		btnRedo = new JButton(iconRedo);
 		btnRedo.setToolTipText("Recommencer");
-		btnRedo.setActionCommand(REDO);
+		btnRedo.setActionCommand(Default.RESTAURER);
 		btnRedo.addActionListener(this);
 		m_listeEditButtons.add(btnRedo);
 		btnRedo.setEnabled(false);
@@ -507,53 +505,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 				});
 
-		btnUndo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if (!listeInstanceCarte.isEmpty())
-				{
-					try {
-					
-					undoManager.undo();
-
-					if(listeInstanceCarteanterieur.size()<=5)
-					listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
-         
-					m_simulateur.asgCarte(listeInstanceCarte.pop());
-					m_simulateur.cancelState();
-
-
-				} catch (CannotRedoException cre) {
-					cre.printStackTrace();
-				}
-				m_carteGraphique.repaint();
-				btnUndo.setEnabled(undoManager.canUndo());
-				btnRedo.setEnabled(undoManager.canRedo());
-				}
-			}
-		});
-
-		// action du bouton anuler
-		btnRedo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (!listeInstanceCarteanterieur.isEmpty()) {
-					
-				try {
-					undoManager.redo();
-
-					m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
-					listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
-					m_simulateur.cancelState();
-
-
-				} catch (CannotRedoException cre) {
-					cre.printStackTrace();
-				}
-				m_carteGraphique.repaint();
-				btnUndo.setEnabled(undoManager.canUndo());
-				btnRedo.setEnabled(undoManager.canRedo());
-			}}
-		});
+		
 		// Ajout du menu et de la barre des buttons
 		m_menu = new Menu(this);
 		this.setJMenuBar(m_menu);
@@ -708,7 +660,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			m_timer.stop();
 			this.buttonToPause();
 		}else if(command.equals(RECOMMENCER)){
-			m_simulateur.resetSimulation();
+			m_simulateur.restartSimulation();
 		}else if (command.equals(TERMINER)) {
 		
 			m_timer.stop();
@@ -737,17 +689,56 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			m_carteGraphique.repaint();
 
 		}
-		//TODO
-		else if (command.equals(SAVE))
+
+		 else if(command.equals(Default.ENREGISTRER))
+		  {
+			  if(m_simulateur.existeFile()){
+				  m_simulateur.enregistrer();
+			  }
+			  else
+			  {
+				  ToSave();
+			  }
+		  }
+		else if(command.equals(Default.NOUVEAU))
 		{
-			JFileChooser fileChooser = new JFileChooser();
-			if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-				File file = fileChooser.getSelectedFile();
-				m_simulateur.enregistrer(file);
-			}
-		}
+				
+				  if(m_simulateur.hasChangeHappened())
+				  {
+					  int option = JOptionPane.showConfirmDialog(this, "Voulez-vous enregistrere les modifications?");
+						if(option == JOptionPane.YES_OPTION)
+						{
+							
+							if(m_simulateur.existeFile()){
+								  m_simulateur.enregistrer();
+							  }
+							  else
+							  {
+								  ToSave();
+							  }
+						}
+				  }
+					  
+				  m_simulateur.resetAll();;
+				  
+				  if(m_simulateur.isEnSimulation())
+				  {
+					  m_resultPanel.setVisible(true);
+						for (JButton button : this.m_listeEditButtons) {
+							button.setEnabled(false);
+						}
+						m_menu.deActivateEditsMenus();
+						
+						this.iconStopSim.setEnabled(true);
+						this.iconResetSim.setEnabled(true);
+						this.buttonToPause();
+				  }
+				  m_carteGraphique.repaint();
+		  }else if(command.equals(Default.ENREGISTRER_SOUS))
+		  {
+			  ToSave();
+		  }
 		 
-		
 		else if(command.equals(Default.OUVRIR))
 				{
 			  JFileChooser fileChooser = new JFileChooser();
@@ -791,47 +782,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		}
 		else if(command.equals(Default.ANNULER))
 		{
-
-			if (!listeInstanceCarte.isEmpty())
-			{
-				try {
-				
-				undoManager.undo();
-
-				if(listeInstanceCarteanterieur.size()<=5)
-				listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
-     
-				m_simulateur.asgCarte(listeInstanceCarte.pop());
-				m_simulateur.cancelState();
-
-
-			} catch (CannotRedoException cre) {
-				cre.printStackTrace();
-			}
-			m_carteGraphique.repaint();
-			btnUndo.setEnabled(undoManager.canUndo());
-			btnRedo.setEnabled(undoManager.canRedo());
-			}
+			annuler();
 		}
 		else if(command.equals(Default.RESTAURER))
 		{
-			if (!listeInstanceCarteanterieur.isEmpty()) {
-				
-				try {
-					undoManager.redo();
-
-					m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
-					listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
-					m_simulateur.cancelState();
-
-
-				} catch (CannotRedoException cre) {
-					cre.printStackTrace();
-				}
-				m_carteGraphique.repaint();
-				btnUndo.setEnabled(undoManager.canUndo());
-				btnRedo.setEnabled(undoManager.canRedo());
-			}
+			restaurer();
 		}
 		else if (command.equals(Default.QUIT)) {
 			this.dispose();
@@ -848,6 +803,16 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		this.iconPlaySim.setActionCommand(PAUSE);
 		
 	}
+	
+	public void ToSave()
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+			File file = fileChooser.getSelectedFile();
+			m_simulateur.enregistrer(file);
+		}
+	}
+	
 
 	public void buttonToPause() {
 		this.playBouton.setIcon(iconPLAYS);
@@ -864,6 +829,51 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		JSlider source = (JSlider) e.getSource();
 		m_simulateur.ajusteVitesseSimulation((int) source.getValue());
 
+	}
+	
+	public void annuler()
+	{
+
+		if (!listeInstanceCarte.isEmpty())
+		{
+			try {
+			
+			undoManager.undo();
+
+			if(listeInstanceCarteanterieur.size()<=5)
+			listeInstanceCarteanterieur.add(listeInstanceCarte.peek());
+ 
+			m_simulateur.asgCarte(listeInstanceCarte.pop());
+			m_simulateur.cancelState();
+
+
+		} catch (CannotRedoException cre) {
+			cre.printStackTrace();
+		}
+		m_carteGraphique.repaint();
+		btnUndo.setEnabled(undoManager.canUndo());
+		btnRedo.setEnabled(undoManager.canRedo());
+		}
+	}
+	public void restaurer()
+	{
+		if (!listeInstanceCarteanterieur.isEmpty()) {
+			
+			try {
+				undoManager.redo();
+
+				m_simulateur.asgCarte(listeInstanceCarteanterieur.peek());
+				listeInstanceCarte.add(listeInstanceCarteanterieur.pop());
+				m_simulateur.cancelState();
+
+
+			} catch (CannotRedoException cre) {
+				cre.printStackTrace();
+			}
+			m_carteGraphique.repaint();
+			btnUndo.setEnabled(undoManager.canUndo());
+			btnRedo.setEnabled(undoManager.canRedo());
+		}
 	}
 
 }
