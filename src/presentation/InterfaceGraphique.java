@@ -472,8 +472,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		m_carteGraphique.addMouseListener(new MouseAdapter() {// TODO
 					public void mousePressed(MouseEvent e) {
 						if (!carteTemp.equals(m_simulateur.reqCarte())) {
-							System.out
-									.println("la carte est identique a la precendante");
+							
 
 							listeInstanceCarte.add(carteTemp);
 
@@ -883,6 +882,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	
 	}
 	public void restaurer() {
+		
 		if (!listeInstanceCarteanterieur.isEmpty()) {
 
 			try {
