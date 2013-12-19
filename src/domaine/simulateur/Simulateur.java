@@ -331,6 +331,7 @@ public class Simulateur implements MouseInputListener, Serializable
 			
 			this.m_gestionnaireReseau.enleverArc(arc);
 			this.m_changeHappened = true;
+			
 		}
 	}
 	public String reqPositionDescription(int posX, int posY)

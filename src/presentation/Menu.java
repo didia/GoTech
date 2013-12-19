@@ -25,7 +25,7 @@ public class Menu extends JMenuBar
 	
 	//Menu Items
 	private JMenuItem itemEnregistrer = new JMenuItem("Enregistrer");
-	private JMenuItem Montrer = new JMenuItem("Montrer");
+	private JMenuItem montrer = new JMenuItem("Montrer");
 	private JMenuItem itemEnregistrerSous = new JMenuItem("Enregistrer sous");
 	private JMenuItem itemQuitter = new JMenuItem("Quitter");
 	private JMenuItem itemAnnuler = new JMenuItem("Annuler");
@@ -67,6 +67,8 @@ public class Menu extends JMenuBar
 		
 		itemQuitter.setActionCommand(Default.QUIT);
 		itemQuitter.addActionListener(this.interfacePrincipale);
+		montrer.setActionCommand(Default.SHOW);
+		montrer.addActionListener(this.interfacePrincipale);
 		
 		itemImporterImage.setActionCommand(Default.IMPORTER_IMAGE);
 		itemImporterImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
@@ -91,7 +93,7 @@ public class Menu extends JMenuBar
 		this.menuEdition.add(itemImporterImage);
 	
 		//Menu Statistique
-		this.menuStatistique.add(Montrer);
+		this.menuStatistique.add(montrer);
 		
 		//Menu Aide
 		this.menuAide.add(itemGlossaire);
@@ -121,5 +123,13 @@ public class Menu extends JMenuBar
 		{
 			item.setEnabled(false);
 		}
+	}
+	public void activateUndo(boolean aFlag)
+	{
+		itemAnnuler.setEnabled(aFlag);
+	}
+	public void activateRedo(boolean aFlag)
+	{
+		itemRestaurer.setEnabled(aFlag);
 	}
 }

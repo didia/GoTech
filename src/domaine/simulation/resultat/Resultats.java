@@ -72,17 +72,17 @@ public class Resultats  implements Serializable
 	* 
 	*/
 	public String gettempsDattente()
-	{
-		String toReturn="";
-		int minutes = (int) ((tempsDattente / (60)) % 60);
-		int hours   = (int) ((tempsDattente / (60*60)) % 24);
+	{	String toReturn = "";
+		int secondes = (int) ((tempsDattente)%60);
+		int minutes = (int) ((tempsDattente/ (60)) % 60);
+		int hours   = (int) ((tempsDattente/ (60*60)));
 		if(hours != 0){
 			toReturn = toReturn +hours+"h";
 		}
 		if(minutes != 0){
 			toReturn = toReturn + minutes +"min";
 		}
-		return toReturn + this.tempsDattente + "sec";
+		return toReturn + secondes + "sec";
 	}
 	
 	public int getNombreUrgence()
