@@ -107,10 +107,10 @@ public class StatPanel extends JPanel {
 				retourPointAttache = "Non";
 			}
 			parametres +=
-						"<center><u><h1> Paramètres </h1></center></u>"+
+						"<center><u><h1> ParamËtres </h1></center></u>"+
 						"<table>" +
 						"<tr>" +
-						"<td><b>Stratégie actuelle:</b></td>: <td>"+m_simulateur.reqStrategieCourante() +"</td>" +
+						"<td><b>StratÈgie actuelle:</b></td>: <td>"+m_simulateur.reqStrategieCourante() +"</td>" +
 						"</tr>" +
 						"<tr>" +
 						"<td><b>Retour point d'attache:</b></td>: <td>"+retourPointAttache+"</td>" +
@@ -144,7 +144,7 @@ public class StatPanel extends JPanel {
 						comparedResults += "<td><h2>Simulation "+Integer.toString(i+1)+"</h2></td>";
 					}
 			 
-			comparedResults += "</th><tr><td><b>Stratégie employée</b></td>";
+			comparedResults += "</th><tr><td><b>StratÈgie employÈe</b></td>";
 			for(Resultats resultat : listeResultats)
 			 {
 				comparedResults += "<td>"+resultat.reqStrategie() +"</td>";

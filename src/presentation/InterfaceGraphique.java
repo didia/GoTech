@@ -73,7 +73,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private JSlider vitesseSim;
 	final JFileChooser fc = new JFileChooser();
 
-	private static String ADD_PARAMETRES = "Param�tres de Simulation";
+	private static String ADD_PARAMETRES = "Paramétres de Simulation";
 	private static String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	private static String ADD_ARC_STRING = "Ajouter Arc";
 	private static String RAPID_EDIT_STRING = "Editer rapidement";
@@ -244,7 +244,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule,
 				20, 20));
 		iconAjoutVehicule
-				.setToolTipText("Placer V�hicule d'urgence sur un port d'attache");
+				.setToolTipText("Placer Véhicule d'urgence sur un port d'attache");
 		iconAjoutVehicule.setActionCommand(PUT_VEHICULE);
 		iconAjoutVehicule.addActionListener(this);
 		m_listeEditButtons.add(iconAjoutVehicule);
@@ -743,6 +743,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 						this.iconResetSim.setEnabled(true);
 						this.buttonToPause();
 				  }
+				  
+				  changerLeNomDupanel(file);
 				  m_carteGraphique.repaint();
 		  }
 				}
@@ -815,6 +817,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
 			m_simulateur.enregistrer(file);
+			
+			changerLeNomDupanel(file);
 		}
 	}
 	
@@ -827,6 +831,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		  {
 			  enregistrerSous();
 		  }
+		 
+		 
 	}
 
 	public void buttonToPause() {
@@ -949,6 +955,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	public void windowOpened(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void changerLeNomDupanel(File file)
+	{
+		super.setTitle(file.getName());
 	}
 
 }
