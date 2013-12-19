@@ -28,11 +28,15 @@ public class Afficheur {
 
 	private static final String VEHICULE_IMAGE_PATH = "src/"
 			+ Default.VEHICULE_IMAGE_PATH;
+	private static final String VEHICULE_IMAGE_PATH2 = "src/"
+			+ Default.VEHICULE_IMAGE_PATH2;
+	private static final String VEHICULE_IMAGE_PATH3 = "src/"
+			+ Default.VEHICULE_IMAGE_PATH3;
 	private static final String URGENCE_IMAGE_PATH = "src/"
 			+ Default.URGENCE_IMAGE_PATH;
 	private static final String HOME_ICON_PATH = "src/" + Default.HOME_ICON_PATH;
 	private Image m_imageDeFond = null;
-	private Image m_ImageDeVehicule;
+	private ArrayList<Image> m_ImageDeVehicule= new ArrayList<Image>();
 	private Image m_ImageUrgence;
 	private Image m_ImageHome;
 	private int WIDTH_NOEUD = Default.WIDTH_NOEUD;
@@ -42,11 +46,14 @@ public class Afficheur {
 	private int maxWidth = 0;
 	private int maxHeight = 0;
 	private boolean toggleUrgence = true;
+	private int stateVehicule = 0;
 
 	public Afficheur() {
 		try {
 			m_ImageUrgence = ImageIO.read(new File(URGENCE_IMAGE_PATH));
-			m_ImageDeVehicule = ImageIO.read(new File(VEHICULE_IMAGE_PATH));
+			m_ImageDeVehicule.add(ImageIO.read(new File(VEHICULE_IMAGE_PATH)));
+			m_ImageDeVehicule.add(ImageIO.read(new File(VEHICULE_IMAGE_PATH2)));
+			m_ImageDeVehicule.add(ImageIO.read(new File(VEHICULE_IMAGE_PATH3)));
 			m_ImageHome = ImageIO.read(new File(HOME_ICON_PATH));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -74,7 +81,7 @@ public class Afficheur {
 		if (simulateur.reqPositionVehicule() != null) {
 			this.afficherVehicule(g, m_gestionnaireReseau
 					.reqPositionEnPixel(simulateur.reqPositionVehicule()),
-					simulateur.reqDirectionVehicule());
+					simulateur.reqDirectionVehicule(), simulateur.reqVehicule().isIdle());
 			this.afficherPortAttache(g, m_gestionnaireReseau
 					.reqPositionEnPixel(simulateur.reqVehicule().reqPortAttache().reqPosition()));
 		}
@@ -245,14 +252,21 @@ public class Afficheur {
 	}
 
 	private void afficherVehicule(Graphics g, Position position,
-			double direction) {
+			double direction, boolean state) {
 		if (position != null) {
 			// position = m_gestionnaireReseau.reqPositionEnPixel(position);
 			Graphics2D g2d = (Graphics2D) g;
 
-			// Image img = m_ImageDeVehicule.;
-			BufferedImage img = (BufferedImage) m_ImageDeVehicule;
-
+			BufferedImage img;
+			if(state)
+			{
+			img = (BufferedImage) m_ImageDeVehicule.get(0);
+			}
+			else
+			{
+				img = (BufferedImage) m_ImageDeVehicule.get(stateVehicule);
+				stateVehicule = (stateVehicule+1)%3;
+			}
 			double a = position.reqPositionX() - WIDTH_NOEUD / 2;
 			double b = position.reqPositionY() - WIDTH_NOEUD * 2;
 

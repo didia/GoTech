@@ -12,9 +12,12 @@ public class Default implements Serializable {
 	public static final String NOEUD_IMAGE_PATH = "/images/NoeudBleu.png";
 	public static final String ERAPIDE_IMAGE_PATH = "/images/e_rapide.png";
 	public static final String ARC_IMAGE_PATH = "/images/arc.png";
-	public static final String VEHICULE_IMAGE_PATH = "/images/Vehicule1.png";
+	public static final String VEHICULE_IMAGE_PATH = "/images/vehicule1.png";
+	public static final String VEHICULE_IMAGE_PATH2 = "/images/vehicule2.png";
+	public static final String VEHICULE_IMAGE_PATH3 = "/images/vehicule3.png";
 	public static final String SETTINGS_ICON_PATH = "/images/settings.png";
 	public static final String SOURIS_ICON_PATH = "/images/souris.png";
+	public static final String HOME_ICON_PATH = "/images/home.png";
 
 	public static final String SAVE_ICON_PATH = "/images/save.png";
 	public static final String UNDO_ICON_PATH = "/images/Undo-icon.png";
