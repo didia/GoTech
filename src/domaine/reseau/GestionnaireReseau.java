@@ -2,7 +2,12 @@ package domaine.reseau;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import javax.imageio.ImageIO;
 
 public class GestionnaireReseau  implements Serializable{
 	/**
@@ -17,7 +22,7 @@ public class GestionnaireReseau  implements Serializable{
 	private ZoomModel m_zoom = new ZoomModel();
 	private Echelle m_echelle = new Echelle(m_zoom);
 	private Grille m_grille = new Grille(m_echelle);
-	private Image m_imageDeFond = null;
+	transient private Image m_imageDeFond = null;
 
 	
 	public void initialiseMap(Image imageDeFond, float dimReel)
@@ -250,4 +255,23 @@ public class GestionnaireReseau  implements Serializable{
 	public Image reqImageDeFond() {
 		return this.m_imageDeFond;
 	}
+	private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        if(m_imageDeFond != null)
+        {
+        	out.writeInt(1); 
+        	ImageIO.write((BufferedImage)m_imageDeFond, "png", out);
+        }
+     
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        
+        if(in.readInt() == 1)
+        {	
+          m_imageDeFond =(Image)ImageIO.read(in);
+        }
+        }
+   
 }

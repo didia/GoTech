@@ -483,8 +483,7 @@ public class Carte implements Serializable {
 			Noeud prochainNoeud;
 			
 			while(!fin.equals(debut)) {
-				System.out.println(fin.reqPosition().reqPositionX());
-				System.out.println(debut.reqPosition().reqPositionX());
+			
 				chemin.add(0, fin);
 				fin = fin.reqPredecesseur();
 			}

@@ -5,10 +5,11 @@ import java.io.Serializable;
 import domaine.simulateur.Default;
 
 public class ZoomModel   implements Serializable{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5192552081546615947L;
 	private float m_zoom = Default.ZOOM;
     
     
