@@ -12,7 +12,11 @@ public class StrategiePriorite extends AbstractStrategie
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4926705500099445885L;
+
+	/**
+	 * 
+	 */
 
 	public StrategiePriorite(ArrayList<Urgence> listeUrgence, ArrayList<Urgence> listeUrgenceTraitee,ArrayList<Urgence> listeUrgenceNonAccessible)
 	{

@@ -42,8 +42,17 @@ public class GestionnaireResultat  implements Serializable{
 		int nombreUrgenceNonAccessible = m_gestionnaireUrgence.reqNombreUrgenceNonAccessible();
 		float distanceParcourue = m_vehicule.reqDistanceparcouru();
 		if(currentResultat != null)
-		currentResultat.update(tempsDattenteMoyen, distanceParcourue,nombreUrgenceTraitee, nombreUrgenceNonTraitee, nombreUrgenceNonAccessible);
-		return currentResultat;
+			{
+				currentResultat.update(tempsDattenteMoyen, distanceParcourue,nombreUrgenceTraitee, nombreUrgenceNonTraitee, nombreUrgenceNonAccessible);
+				return currentResultat;
+			}
+			
+		else
+		{
+			if (latestResultats.isEmpty()) 
+				return null;
+			return latestResultats.get(latestResultats.size()-1);
+		}
 	}
 	
 	public ArrayList<Resultats> reqLatestResultats()
@@ -55,5 +64,10 @@ public class GestionnaireResultat  implements Serializable{
 		latestResultats.remove(currentResultat);
 		currentResultat = null;
 		
+	}
+
+	public void enregistreDernierResultats() {
+		this.reqResultats();
+		this.currentResultat = null;
 	}
 }

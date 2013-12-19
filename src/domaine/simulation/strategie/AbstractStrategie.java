@@ -27,7 +27,11 @@ public class AbstractStrategie implements Serializable
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6850967413626899040L;
+	/**
+	 * 
+	 */
+	
 	private ArrayList<Urgence> m_listeUrgence;
 	private ArrayList<Urgence> m_listeUrgenceTraitee;
 	private ArrayList<Urgence> m_listeUrgenceNonAccessible;

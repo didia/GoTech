@@ -10,10 +10,11 @@ import domaine.reseau.Arc;
 
 public class EtatEnSimulation implements Etat{
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4388786241312959094L;
 	private Simulateur m_simulateur;
 	private Noeud noeud_selectionne;
 	public EtatEnSimulation(Simulateur simulateur){

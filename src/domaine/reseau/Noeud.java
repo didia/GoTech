@@ -27,10 +27,11 @@ import domaine.simulateur.Default;
 
 public class Noeud implements Serializable
 {
+		
 		/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7633363564461370932L;
 		private Position m_position;
 		private float m_cout; // pour Dijkstra 
 		private Noeud m_predecesseur;

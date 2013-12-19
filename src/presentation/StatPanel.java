@@ -78,10 +78,10 @@ public class StatPanel extends JPanel {
 					"<tr style=\"color:blue;font-size:14px\"><td><b>Temps moyen d'attente</b></td>: <td >" + resultats.gettempsDattente() +"</td>" +
 					"</tr> " +
 					"<tr style=\"color:green\">" +
-					"<td ><b>Urgences traitées:</b></td>: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceTraitee() +"</td>" +
+					"<td ><b>Urgences traitées:</b></td>: <td>"+resultats.reqNombreUrgenceTraitee() +"</td>" +
 					"</tr>" +
 					"<tr style=\"color:red\">" +
-					"<td><b>Urgences restantes:</b></td>: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceNonTraitee() +"</td>" +
+					"<td><b>Urgences restantes:</b></td>: <td>"+resultats.reqNombreUrgenceNonTraitee() +"</td>" +
 					"</tr>" +
 					"<br/>" +
 					"</table>"
@@ -137,7 +137,7 @@ public class StatPanel extends JPanel {
 			String comparedResults = "<html><body style=\" background-color:transparent;\">";
 			
 			comparedResults += "<center><u><h1> Comparaison des statistiques </h1></u></center>"+
-					"<table>" +
+					"<table border=\"1\" cellpadding=\"10\">" +
 					"<th>";
 					for(int i =0; i<listeResultats.size(); i++)
 					{

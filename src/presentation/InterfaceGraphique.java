@@ -472,8 +472,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		m_carteGraphique.addMouseListener(new MouseAdapter() {// TODO
 					public void mousePressed(MouseEvent e) {
 						if (!carteTemp.equals(m_simulateur.reqCarte())) {
-							System.out
-									.println("la carte est identique a la precendante");
+							
 
 							listeInstanceCarte.add(carteTemp);
 
@@ -662,6 +661,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.iconResetSim.setEnabled(false);
 			this.btnRedo.setEnabled(false);
 			this.btnUndo.setEnabled(false);
+			m_simulateur.terminerSimulation();
 			if(m_simulateur.canCompareResultat())
 			{
 				int option = JOptionPane.showConfirmDialog(this, "Voulez-vous comparer les résultats obtenus avec ceux des simulations précedentes?");
@@ -679,7 +679,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				JOptionPane.showMessageDialog(this, m_resultPanel.updateParametres());
 			}
 			
-			m_simulateur.terminerSimulation();
+			
 			
 			
 			m_carteGraphique.repaint();
@@ -891,6 +891,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	
 	}
 	public void restaurer() {
+		
 		if (!listeInstanceCarteanterieur.isEmpty()) {
 
 			try {

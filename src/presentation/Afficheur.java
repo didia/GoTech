@@ -30,10 +30,11 @@ public class Afficheur {
 			+ Default.VEHICULE_IMAGE_PATH;
 	private static final String URGENCE_IMAGE_PATH = "src/"
 			+ Default.URGENCE_IMAGE_PATH;
-
+	private static final String HOME_ICON_PATH = "src/" + Default.HOME_ICON_PATH;
 	private Image m_imageDeFond = null;
 	private Image m_ImageDeVehicule;
 	private Image m_ImageUrgence;
+	private Image m_ImageHome;
 	private int WIDTH_NOEUD = Default.WIDTH_NOEUD;
 
 	private static GestionnaireReseau m_gestionnaireReseau;
@@ -46,7 +47,7 @@ public class Afficheur {
 		try {
 			m_ImageUrgence = ImageIO.read(new File(URGENCE_IMAGE_PATH));
 			m_ImageDeVehicule = ImageIO.read(new File(VEHICULE_IMAGE_PATH));
-
+			m_ImageHome = ImageIO.read(new File(HOME_ICON_PATH));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,6 +75,8 @@ public class Afficheur {
 			this.afficherVehicule(g, m_gestionnaireReseau
 					.reqPositionEnPixel(simulateur.reqPositionVehicule()),
 					simulateur.reqDirectionVehicule());
+			this.afficherPortAttache(g, m_gestionnaireReseau
+					.reqPositionEnPixel(simulateur.reqVehicule().reqPortAttache().reqPosition()));
 		}
 
 		if (simulateur.reqPositionProchaineUrgence() != null) {
@@ -82,6 +85,18 @@ public class Afficheur {
 					simulateur.reqPositionProchaineUrgence());
 		}
 
+	}
+
+	private void afficherPortAttache(Graphics g, Position position) {
+		
+			Graphics2D g2d = (Graphics2D) g;
+			Image img = m_ImageHome.getScaledInstance(WIDTH_NOEUD*3/2,
+					WIDTH_NOEUD*3/2, Image.SCALE_SMOOTH);
+			double a = position.reqPositionX() - WIDTH_NOEUD/2;
+			double b = position.reqPositionY() - WIDTH_NOEUD;
+			g2d.drawImage(img, (int) a, (int) b, WIDTH_NOEUD*3/2, WIDTH_NOEUD*3/2, null);
+	
+		
 	}
 
 	private void afficherCarte(Graphics g, CarteGraphique carteGraphique) {
@@ -208,7 +223,7 @@ public class Afficheur {
 					WIDTH_NOEUD, Image.SCALE_SMOOTH);
 			double a = position.reqPositionX() - WIDTH_NOEUD / 2;
 			double b = position.reqPositionY() - WIDTH_NOEUD;
-			g2d.drawImage(img, (int) a, (int) b, 20, 20, null);
+			g2d.drawImage(img, (int) a, (int) b, WIDTH_NOEUD, WIDTH_NOEUD, null);
 		}
 		toggleUrgence = !toggleUrgence;
 	}

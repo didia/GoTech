@@ -123,7 +123,8 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 	public void terminerSimulation() 
 	{
-		
+		m_vehicule.skip();
+		this.m_gestionnaireResultat.enregistreDernierResultats();
 		this.m_gestionnaireReseau.resetReseau();
 		this.m_gestionnaireUrgence.restart();
 		
@@ -185,11 +186,11 @@ public class Simulateur implements MouseInputListener, Serializable
 
 	public void asgMetreParStep(int value) 
 	{
-		if (value > 0) 
+		if (value > 0 && value != Math.round(this.reqMetreParStep())) 
 		{		this.m_gestionnaireReseau.asgMetreParStep(value);
-			updaterCarte();
+				updaterCarte();
 		}
-		this.m_changeHappened = true;
+		
 	}
 
 	public float reqTempsTraitement() 
@@ -512,7 +513,7 @@ public class Simulateur implements MouseInputListener, Serializable
 
 
 	public void enregistrer(File file) {
-	
+		
 		Enregistreur.enregistrer(file, this);
 		m_currentFile = file;
 	}
@@ -532,6 +533,10 @@ public class Simulateur implements MouseInputListener, Serializable
 		this.m_gestionnaireUrgence = enregistrable.gestionnaireUrgence;
 		this.m_vehicule = enregistrable.vehicule;
 		this.m_currentFile = file;
+		
+		this.m_gestionnaireUrgence.updateReseauReference(m_gestionnaireReseau.reqCarte());
+		this.m_vehicule.updateReseauReference(m_gestionnaireReseau.reqCarte());
+		
 		
 	}
 
