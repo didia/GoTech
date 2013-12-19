@@ -78,10 +78,10 @@ public class StatPanel extends JPanel {
 					"<tr style=\"color:blue;font-size:14px\"><td><b>Temps moyen d'attente</b></td>: <td >" + resultats.gettempsDattente() +"</td>" +
 					"</tr> " +
 					"<tr style=\"color:green\">" +
-					"<td ><b>Urgences traitées:</b></td>: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceTraitee() +"</td>" +
+					"<td ><b>Urgences traitées:</b></td>: <td>"+resultats.reqNombreUrgenceTraitee() +"</td>" +
 					"</tr>" +
 					"<tr style=\"color:red\">" +
-					"<td><b>Urgences restantes:</b></td>: <td>"+m_simulateur.reqGestionnaireUrgence().reqNombreUrgenceNonTraitee() +"</td>" +
+					"<td><b>Urgences restantes:</b></td>: <td>"+resultats.reqNombreUrgenceNonTraitee() +"</td>" +
 					"</tr>" +
 					"<br/>" +
 					"</table>"

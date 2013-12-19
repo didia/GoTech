@@ -340,4 +340,8 @@ public class GestionnaireUrgence implements Serializable
 		m_gps = carte;
 	
 	}
+
+	public boolean hasUrgence() {
+		return !(this.m_urgencesNonTraitee.isEmpty() && this.m_urgencesEnAttente.isEmpty());
+	}
 }

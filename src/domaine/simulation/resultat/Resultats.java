@@ -21,15 +21,17 @@ import java.text.DecimalFormat;
 
 public class Resultats  implements Serializable
 {
+	
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
-	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 4180048394640734584L;
+
+
 	private String strategie;
 	
-	@SuppressWarnings("unused")
 	private boolean retournePointAttache;
 	
 	
@@ -127,6 +129,11 @@ public class Resultats  implements Serializable
 		{
 			return "Non";
 		}
+	}
+
+	public String reqNombreUrgenceNonTraitee() {
+		
+		return Integer.toString(this.nombreUrgenceNonTraitee);
 	}
 
 }

@@ -123,7 +123,8 @@ public class Simulateur implements MouseInputListener, Serializable
 	}
 	public void terminerSimulation() 
 	{
-		
+		m_vehicule.skip();
+		this.m_gestionnaireResultat.enregistreDernierResultats();
 		this.m_gestionnaireReseau.resetReseau();
 		this.m_gestionnaireUrgence.restart();
 		
@@ -512,7 +513,7 @@ public class Simulateur implements MouseInputListener, Serializable
 
 
 	public void enregistrer(File file) {
-		m_etat.cancel();
+		
 		Enregistreur.enregistrer(file, this);
 		m_currentFile = file;
 	}

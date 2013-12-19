@@ -356,5 +356,13 @@ public class Vehicule  implements Serializable{
 	public void updateReseauReference(Carte carte) {
 		this.m_gps = carte;
 	}
+	
+	public void skip()
+	{
+		while(this.m_gestionnaireUrgence.hasUrgence())
+		{
+			this.avance(1000);
+		}
+	}
 
 }

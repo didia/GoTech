@@ -662,6 +662,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.iconResetSim.setEnabled(false);
 			this.btnRedo.setEnabled(false);
 			this.btnUndo.setEnabled(false);
+			m_simulateur.terminerSimulation();
 			if(m_simulateur.canCompareResultat())
 			{
 				int option = JOptionPane.showConfirmDialog(this, "Voulez-vous comparer les résultats obtenus avec ceux des simulations précedentes?");
@@ -679,7 +680,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				JOptionPane.showMessageDialog(this, m_resultPanel.updateParametres());
 			}
 			
-			m_simulateur.terminerSimulation();
+			
 			
 			
 			m_carteGraphique.repaint();
