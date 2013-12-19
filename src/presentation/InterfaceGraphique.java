@@ -73,7 +73,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 	private JSlider vitesseSim;
 	final JFileChooser fc = new JFileChooser();
 
-	private static String ADD_PARAMETRES = "Param�tres de Simulation";
+	private static String ADD_PARAMETRES = "Paramétres de Simulation";
 	private static String ADD_NOEUD_STRING = "Ajouter Noeuds";
 	private static String ADD_ARC_STRING = "Ajouter Arc";
 	private static String RAPID_EDIT_STRING = "Editer rapidement";
@@ -244,7 +244,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		JButton iconAjoutVehicule = new JButton(reqResizedIcon(iconVehicule,
 				20, 20));
 		iconAjoutVehicule
-				.setToolTipText("Placer V�hicule d'urgence sur un port d'attache");
+				.setToolTipText("Placer Véhicule d'urgence sur un port d'attache");
 		iconAjoutVehicule.setActionCommand(PUT_VEHICULE);
 		iconAjoutVehicule.addActionListener(this);
 		m_listeEditButtons.add(iconAjoutVehicule);
@@ -483,7 +483,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 													.reqCarte(),
 													listeInstanceCarte)));
 
-							updateUndoRedo();
+							btnUndo.setEnabled(undoManager.canUndo());
+							btnRedo.setEnabled(undoManager.canRedo());
 							carteTemp = new Carte(m_simulateur.reqCarte());
 						}
 					}
@@ -613,8 +614,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		} else if (command.equals(SHOW_GRILLE)) {
 			m_simulateur.toggleGrille();
 			m_carteGraphique.repaint();
-		} else if (command.equals(Default.SHOW)) {
-			JOptionPane.showMessageDialog(this,m_resultPanel.getComparedResults());
+		} else if (command.equals("SHOW")) {
+			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
 		} else if (command.equals(PLAY)) {
 			m_timer.start();
 			
@@ -626,8 +627,6 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.buttonToPlay();
 			this.iconStopSim.setEnabled(true);
 			this.iconResetSim.setEnabled(true);
-			m_menu.activateUndo(false);
-			m_menu.activateRedo(false);
 
 			m_simulateur.lancerSimulation();
 		} else if (command.equals(RESUME)) {
@@ -864,7 +863,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				cre.printStackTrace();
 			}
 			m_carteGraphique.repaint();
-			updateUndoRedo();
+			btnUndo.setEnabled(undoManager.canUndo());
+			btnRedo.setEnabled(undoManager.canRedo());
 		}
 	}
 	
@@ -905,17 +905,11 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				cre.printStackTrace();
 			}
 			m_carteGraphique.repaint();
-			updateUndoRedo();
-			
+			btnUndo.setEnabled(undoManager.canUndo());
+			btnRedo.setEnabled(undoManager.canRedo());
 		}
 	}
-	public void updateUndoRedo()
-	{
-		btnUndo.setEnabled(undoManager.canUndo());
-		m_menu.activateUndo(undoManager.canUndo());
-		btnRedo.setEnabled(undoManager.canRedo());
-		m_menu.activateRedo(undoManager.canRedo());
-	}
+
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
