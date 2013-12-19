@@ -53,10 +53,11 @@ public class Enregistreur {
 	}
 	public static class Enregistrable implements Serializable
 	{
+		
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = -4980213558491452340L;
 		public final GestionnaireReseau gestionnaireReseau;
 		public final Vehicule vehicule;
 		public final GestionnaireResultat gestionnaireResultat;

@@ -10,10 +10,13 @@ import java.io.Serializable;
 import javax.imageio.ImageIO;
 
 public class GestionnaireReseau  implements Serializable{
+
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1809017684776724805L;
 
 
 	private Carte m_carte = new Carte();
@@ -282,21 +285,24 @@ public class GestionnaireReseau  implements Serializable{
 	}
 	private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
+        
         if(m_imageDeFond != null)
         {
-        	out.writeInt(1); 
+        	out.writeInt(2); 
         	ImageIO.write((BufferedImage)m_imageDeFond, "png", out);
+        }
+        else
+        {
+        	out.writeInt(1);
         }
      
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        
-        if(in.readInt() == 1)
-        {	
+        if(in.readInt() == 2)
           m_imageDeFond =(Image)ImageIO.read(in);
-        }
+    
         }
    
 }
