@@ -483,8 +483,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 													.reqCarte(),
 													listeInstanceCarte)));
 
-							btnUndo.setEnabled(undoManager.canUndo());
-							btnRedo.setEnabled(undoManager.canRedo());
+							updateUndoRedo();
 							carteTemp = new Carte(m_simulateur.reqCarte());
 						}
 					}
@@ -614,8 +613,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 		} else if (command.equals(SHOW_GRILLE)) {
 			m_simulateur.toggleGrille();
 			m_carteGraphique.repaint();
-		} else if (command.equals("SHOW")) {
-			JOptionPane.showMessageDialog(this, m_simulateur.reqResults());
+		} else if (command.equals(Default.SHOW)) {
+			JOptionPane.showMessageDialog(this,m_resultPanel.getComparedResults());
 		} else if (command.equals(PLAY)) {
 			m_timer.start();
 			
@@ -627,6 +626,8 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 			this.buttonToPlay();
 			this.iconStopSim.setEnabled(true);
 			this.iconResetSim.setEnabled(true);
+			m_menu.activateUndo(false);
+			m_menu.activateRedo(false);
 
 			m_simulateur.lancerSimulation();
 		} else if (command.equals(RESUME)) {
@@ -869,8 +870,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				cre.printStackTrace();
 			}
 			m_carteGraphique.repaint();
-			btnUndo.setEnabled(undoManager.canUndo());
-			btnRedo.setEnabled(undoManager.canRedo());
+			updateUndoRedo();
 		}
 	}
 	
@@ -911,11 +911,17 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 				cre.printStackTrace();
 			}
 			m_carteGraphique.repaint();
-			btnUndo.setEnabled(undoManager.canUndo());
-			btnRedo.setEnabled(undoManager.canRedo());
+			updateUndoRedo();
+			
 		}
 	}
-
+	public void updateUndoRedo()
+	{
+		btnUndo.setEnabled(undoManager.canUndo());
+		m_menu.activateUndo(undoManager.canUndo());
+		btnRedo.setEnabled(undoManager.canRedo());
+		m_menu.activateRedo(undoManager.canRedo());
+	}
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub

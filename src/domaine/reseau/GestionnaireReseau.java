@@ -40,6 +40,10 @@ public class GestionnaireReseau  implements Serializable{
 	{
 		m_carte.effacerTout();
 	}
+	public void effacerImageDeFond()
+	{
+		m_imageDeFond = null;
+	}
 	public void resetReseau()
 	{
 		m_carte.resetEtatNoeud();
@@ -95,10 +99,7 @@ public class GestionnaireReseau  implements Serializable{
 		return m_carte.ajouterArc(noeudSource, noeudDest);
 	}
 	
-	public Noeud reqNoeud(int positionX, int positionY) {
-		return m_carte.reqNoeud(m_grille.reqPositionEnMetre(new Position(
-				(float) positionX, (float) positionY)));
-	}
+	
 	
 	public void deplacerNoeud(Noeud noeud, int positionX, int positionY) 
 	{
@@ -134,7 +135,31 @@ public class GestionnaireReseau  implements Serializable{
 					m_grille.reqUpdatedPosition(noeud.reqPosition()));
 		}
 	}
-	
+	public Noeud reqNoeud(int positionX, int positionY)
+	{
+		for (Noeud noeud : m_carte.reqListeNoeuds()) {
+			Position noeud_position = this.reqPositionEnPixel(noeud.reqPosition());
+
+			if (Math.round(noeud_position.reqPositionX()) == positionX
+					&& Math.round(noeud_position.reqPositionY()) == positionY) {
+
+				return noeud;
+			} else {
+				int x = positionX;
+				int y = positionY;
+				int c1 = Math.round(noeud_position.reqPositionX());
+				int c2 = Math.round(noeud_position.reqPositionY());
+				float circle = (x - c1) * (x - c1) + (y - c2) * (y - c2);
+
+				if (circle <= 10 * 10) {
+					return noeud;
+				}
+
+			}
+		}
+
+		return null;
+	}
 	public Arc reqArc(int positionX, int positionY) 
 	{
 		for(Arc arc: m_carte.reqListeArcs()){

@@ -156,6 +156,7 @@ public class Carte implements Serializable {
 	 * 
 	 */
 	public Noeud reqNoeud(Position position) {
+		System.out.println(position.reqPositionX() + " " + position.reqPositionY());
 		for (Noeud noeud : m_listeDeNoeuds) {
 			Position noeud_position = noeud.reqPosition();
 

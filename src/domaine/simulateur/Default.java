@@ -50,7 +50,7 @@ public class Default implements Serializable {
 	public static final String NOUVEAU = "Ouvrir un nouveau Projet";
 	public static final String ENREGISTRER_SOUS = "Enregistrer Sous";
 	public static final String ENREGISTRER = "Enregistrer";
-	
+	public static final String SHOW = "show";
 	
 	public static final int WIDTH_NOEUD = 20;
     public static final int HEIGHT_NOEUD = 20;
