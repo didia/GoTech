@@ -365,4 +365,9 @@ public class Vehicule  implements Serializable{
 		}
 	}
 
+	public boolean isIdle() {
+		
+		return m_itineraireActuel == null;
+	}
+
 }
