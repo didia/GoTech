@@ -548,6 +548,7 @@ public class Simulateur implements MouseInputListener, Serializable
 	{
 		effacerToutesLesUrgences();
 		effacerToutReseau();
+		m_gestionnaireReseau.effacerImageDeFond();
 		m_vehicule.reset();
 		Clock.reset();
 		

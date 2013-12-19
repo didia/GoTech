@@ -40,6 +40,10 @@ public class GestionnaireReseau  implements Serializable{
 	{
 		m_carte.effacerTout();
 	}
+	public void effacerImageDeFond()
+	{
+		m_imageDeFond = null;
+	}
 	public void resetReseau()
 	{
 		m_carte.resetEtatNoeud();
