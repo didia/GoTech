@@ -530,8 +530,7 @@ public class InterfaceGraphique extends JFrame implements ActionListener,
 
 	public ImageIcon reqIcon(String path) {
 
-		ImageIcon icon = new ImageIcon(
-				InterfaceGraphique.class.getResource(path));
+		ImageIcon icon = new ImageIcon("src/"+path);
 		Image img = icon.getImage();
 		Image newimg = img.getScaledInstance(WIDTH_ICON, HEIGHT_ICON,
 				Image.SCALE_SMOOTH);
