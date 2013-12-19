@@ -20,10 +20,12 @@ public class Menu extends JMenuBar
 	//Menus
 	private JMenu menuFichier = new JMenu("Fichier");
 	private JMenu menuEdition = new JMenu("Edition");
+	private JMenu menuStatistique = new JMenu("Statistiques");
 	private JMenu menuAide = new JMenu("Aide");
 	
 	//Menu Items
 	private JMenuItem itemEnregistrer = new JMenuItem("Enregistrer");
+	private JMenuItem Montrer = new JMenuItem("Montrer");
 	private JMenuItem itemEnregistrerSous = new JMenuItem("Enregistrer sous");
 	private JMenuItem itemQuitter = new JMenuItem("Quitter");
 	private JMenuItem itemAnnuler = new JMenuItem("Annuler");
@@ -87,15 +89,21 @@ public class Menu extends JMenuBar
 		this.menuEdition.add(itemRestaurer);
 		this.menuEdition.addSeparator();
 		this.menuEdition.add(itemImporterImage);
+	
+		//Menu Statistique
+		this.menuStatistique.add(Montrer);
 		
 		//Menu Aide
 		this.menuAide.add(itemGlossaire);
 		
 		
+		
 		//Ajout au menu
 		this.add(menuFichier);
 		this.add(menuEdition);
+		this.add(menuStatistique);
 		this.add(menuAide);
+		
 		
 		//Ajouter les sous menus d'Ždition
 		editMenus.add(itemImporterImage);
